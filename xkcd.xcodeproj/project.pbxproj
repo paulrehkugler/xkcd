@@ -401,6 +401,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
+				HEADER_SEARCH_PATHS = "../TLCommon/**";
 				INFOPLIST_FILE = "xkcd-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -421,6 +422,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
+				HEADER_SEARCH_PATHS = "../TLCommon/**";
 				INFOPLIST_FILE = "xkcd-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

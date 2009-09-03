@@ -31,7 +31,9 @@ static UIImage *downloadImage = nil;
 
 @interface ComicListViewController ()
 
-- (void)setFetchedResultsControllerWithSearchString:(NSString *)searchString;
+- (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString cacheName:(NSString *)cacheName;
+- (void)setFetchedResultsController;
+- (void)setSearchFetchedResultsControllerWithSearchString:(NSString *)searchString;
 - (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView;
 - (void)viewComic:(Comic *)comic;
 - (void)reloadAllData;
@@ -45,6 +47,7 @@ static UIImage *downloadImage = nil;
 @property(nonatomic, retain, readwrite) NewComicFetcher *fetcher;
 @property(nonatomic, retain, readwrite) SingleComicImageFetcher *imageFetcher;
 @property(nonatomic, retain, readwrite) NSFetchedResultsController *fetchedResultsController;
+@property(nonatomic, retain, readwrite) NSFetchedResultsController *searchFetchedResultsController;
 @property(nonatomic, retain, readwrite) StatusBarController *statusBarController;
 @property(nonatomic, retain, readwrite) NSTimer *statusBarAnimationTimer;
 @property(nonatomic, retain, readwrite) UISearchDisplayController *searchController;
@@ -61,6 +64,7 @@ static UIImage *downloadImage = nil;
 @synthesize fetcher;
 @synthesize imageFetcher;
 @synthesize fetchedResultsController;
+@synthesize searchFetchedResultsController;
 @synthesize statusBarController;
 @synthesize statusBarAnimationTimer;
 @synthesize searchController;
@@ -115,10 +119,11 @@ static UIImage *downloadImage = nil;
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self setFetchedResultsControllerWithSearchString:self.savedSearchTerm]; // normally nil
+  [self setFetchedResultsController];
   
   if(self.savedSearchTerm)
 	{
+    [self setSearchFetchedResultsControllerWithSearchString:self.savedSearchTerm];
     [self.searchDisplayController setActive:self.searchWasActive];
     [self.searchDisplayController.searchBar setText:self.savedSearchTerm];    
     self.savedSearchTerm = nil;
@@ -133,14 +138,18 @@ static UIImage *downloadImage = nil;
   }
   
   // Set up new comic fetcher
-  self.fetcher = [[[NewComicFetcher alloc] init] autorelease];
-  self.fetcher.delegate = self;  
+  if(!self.fetcher) {
+    self.fetcher = [[[NewComicFetcher alloc] init] autorelease];
+    self.fetcher.delegate = self;      
+  }
   
   [self checkForNewComics];
 
   // Set up image fetcher, for the future
-  self.imageFetcher = [[[SingleComicImageFetcher alloc] init] autorelease];
-  self.imageFetcher.delegate = self;
+  if(!self.imageFetcher) {
+    self.imageFetcher = [[[SingleComicImageFetcher alloc] init] autorelease];
+    self.imageFetcher.delegate = self;    
+  }
   
   if(self.requestedLaunchComic) {
     NSInteger lastKnownComicNumber = [[Comic lastKnownComic].number integerValue];
@@ -197,8 +206,6 @@ static UIImage *downloadImage = nil;
   self.savedSearchTerm = [self.searchDisplayController.searchBar text];
   self.tableView = nil;
   self.statusBarController = nil;
-  self.fetchedResultsController = nil;
-  self.fetcher = nil;
   [self.statusBarAnimationTimer invalidate];
   self.statusBarAnimationTimer = nil;
 }
@@ -227,6 +234,9 @@ static UIImage *downloadImage = nil;
   [fetchedResultsController release];
   fetchedResultsController = nil;
   
+  [searchFetchedResultsController release];
+  searchFetchedResultsController = nil;
+  
   [savedSearchTerm release];
   savedSearchTerm = nil;
   
@@ -240,7 +250,7 @@ static UIImage *downloadImage = nil;
   [super dealloc];
 }
 
-- (void)setFetchedResultsControllerWithSearchString:(NSString *)searchString {
+- (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString cacheName:(NSString *)cacheName {
   // Set up table data fetcher
   NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
   [fetchRequest setEntity:[Comic entityDescription]];
@@ -255,22 +265,42 @@ static UIImage *downloadImage = nil;
   NSFetchedResultsController *aFetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:AppDelegate.managedObjectContext
                                                                                                  sectionNameKeyPath:nil
-                                                                                                          cacheName:@"ComicsCache"]
+                                                                                                          cacheName:cacheName]
                                                            autorelease];
   aFetchedResultsController.delegate = self;
-  self.fetchedResultsController = aFetchedResultsController;
+  return aFetchedResultsController;
+}
+
+- (void)setFetchedResultsController {
+  
+  self.fetchedResultsController = [self fetchedResultsControllerWithSearchString:nil cacheName:@"comicsCache"];
   
   NSError *fetchError = nil;
   BOOL success = [self.fetchedResultsController performFetch:&fetchError];
   if(!success) {
-    [FlurryAPI logError:@"List fetch failed" message:[NSString stringWithFormat:@"Error: %@", fetchError] exception:nil];
+    [FlurryAPI logError:@"List fetch failed"
+                message:[NSString stringWithFormat:@"Error %@: %@", fetchError, fetchError.userInfo]
+              exception:nil];
+  }  
+}
+
+- (void)setSearchFetchedResultsControllerWithSearchString:(NSString *)searchString {
+  self.searchFetchedResultsController = [self fetchedResultsControllerWithSearchString:searchString cacheName:@"searchComicsCache"];
+  
+  NSError *fetchError = nil;
+  BOOL success = [self.searchFetchedResultsController performFetch:&fetchError];
+  if(!success) {
+    [FlurryAPI logError:@"Search list fetch failed"
+                message:[NSString stringWithFormat:@"Error %@: %@", fetchError, fetchError.userInfo]
+              exception:nil];
   }  
 }
 
 - (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView {
-  NSInteger adjustedRow = aTableView == self.tableView ? indexPath.row - 1 : indexPath.row; // adjust for search bar if not searching
+  NSFetchedResultsController *fetchedResults = (self.tableView == aTableView) ? self.fetchedResultsController : self.searchFetchedResultsController;
+  NSInteger adjustedRow = (aTableView == self.tableView) ? indexPath.row - 1 : indexPath.row; // adjust for search bar if not searching
   NSIndexPath *adjustedIndexPath = [NSIndexPath indexPathForRow:adjustedRow inSection:indexPath.section];
-  return [self.fetchedResultsController objectAtIndexPath:adjustedIndexPath];
+  return [fetchedResults objectAtIndexPath:adjustedIndexPath];
 }
 
 - (void)viewComic:(Comic *)comic {
@@ -310,7 +340,7 @@ static UIImage *downloadImage = nil;
   if([MFMailComposeViewController canSendMail]) {
     [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Email the developer", @"Action sheet item to email developer")];    
   }
-  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Leave App Store review", @"Action sheet item to leave review")];
+  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet item to leave review")];
   [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Action sheet title to cancel action")];
   systemActionSheet.cancelButtonIndex = systemActionSheet.numberOfButtons - 1;
   [systemActionSheet showInView:self.view];
@@ -468,7 +498,8 @@ static UIImage *downloadImage = nil;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
-  NSArray *sections = [self.fetchedResultsController sections];
+  NSFetchedResultsController *fetchedResults = (self.tableView == aTableView) ? self.fetchedResultsController : self.searchFetchedResultsController;
+  NSArray *sections = [fetchedResults sections];
   NSUInteger numberOfRows = 0;
   if([sections count] > 0) {
     id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
@@ -480,8 +511,9 @@ static UIImage *downloadImage = nil;
   return numberOfRows;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  NSUInteger numberOfSections = [[self.fetchedResultsController sections] count];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
+  NSFetchedResultsController *fetchedResults = (self.tableView == aTableView) ? self.fetchedResultsController : self.searchFetchedResultsController;
+  NSUInteger numberOfSections = [[fetchedResults sections] count];
   if(numberOfSections == 0) {
     numberOfSections = 1;
   }
@@ -505,13 +537,12 @@ static UIImage *downloadImage = nil;
 #pragma mark UISearchDisplayDelegate methods
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-  [self setFetchedResultsControllerWithSearchString:searchString];
+  [self setSearchFetchedResultsControllerWithSearchString:searchString];
   [self.searchDisplayController.searchResultsTableView reloadData];
   return YES;
 }
 
 - (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
-  [self setFetchedResultsControllerWithSearchString:nil];
   [self.searchDisplayController.searchResultsTableView reloadData];
   [self.searchDisplayController.searchBar resignFirstResponder];
   self.searchWasActive = NO;

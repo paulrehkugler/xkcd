@@ -18,7 +18,6 @@
 #define kTileWidth 1024
 #define kTileHeight 1024
 #define kMaxTweetLength 140
-#define kZoomFudgeFactorDueToRotation 0.8f
 
 #pragma mark -
 
@@ -103,7 +102,7 @@
   self.imageScroller.maximumZoomScale = 2;
   CGFloat xMinZoom = imageScroller.frame.size.width / contentSize.width;
   CGFloat yMinZoom = imageScroller.frame.size.height / contentSize.height;
-  self.imageScroller.minimumZoomScale = kZoomFudgeFactorDueToRotation * ((xMinZoom < yMinZoom) ? xMinZoom : yMinZoom);
+  self.imageScroller.minimumZoomScale = (xMinZoom < yMinZoom) ? xMinZoom : yMinZoom;
   for(UIView *tileView in self.comicImageViews) {
     [self.contentView addSubview:tileView];
   }
