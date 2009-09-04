@@ -220,13 +220,13 @@ didStartElement:(NSString *)elementName
     searchRange = NSMakeRange(i, [escaped length] - i);
   }
   
-  NSDictionary *stringSubstitutions = [[NSDictionary alloc] initWithObjectsAndKeys:
+  NSDictionary *stringSubstitutions = [[[NSDictionary alloc] initWithObjectsAndKeys:
                                        @"&", @"&amp;",
                                        @"<", @"&lt;",
                                        @">", @"&gt;",
                                        @"'", @"&quot;",                           
                                        nil
-                                       ];
+                                       ] autorelease];
   
   for(NSString *stringToSubstitute in stringSubstitutions) {
     [escaped replaceOccurrencesOfString:stringToSubstitute

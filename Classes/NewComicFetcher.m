@@ -64,7 +64,7 @@
     [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
   } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL) {
     // Got a comic -- store it and keep going
-    Comic *newComic = [Comic newComic];
+    Comic *newComic = [Comic comic];
     newComic.number = [NSNumber numberWithInteger:fetchOperation.comicNumber];
     newComic.name = fetchOperation.comicName;
     newComic.titleText = fetchOperation.comicTitleText;

@@ -53,10 +53,10 @@ static NSEntityDescription *comicEntityDescription;
   }
 }
 
-+ (Comic *)newComic {
-  Comic *newComic = [[[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:AppDelegate.managedObjectContext] autorelease];
-  newComic.downloaded = [NSNumber numberWithBool:NO];
-  return newComic;
++ (Comic *)comic {
+  Comic *comic = [[[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:AppDelegate.managedObjectContext] autorelease];
+  comic.downloaded = [NSNumber numberWithBool:NO];
+  return comic;
 }
 
 + (Comic *)lastKnownComic {

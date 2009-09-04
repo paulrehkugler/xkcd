@@ -11,7 +11,7 @@
 @interface Comic : NSManagedObject {
 }
 
-+ (Comic *)newComic; // use this, not init/etc.
++ (Comic *)comic; // use this, not init/etc.
 
 + (Comic *)lastKnownComic; // highest numbered comic that has been fetched
 
