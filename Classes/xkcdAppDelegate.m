@@ -136,8 +136,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     } else {
       client = kTwitterClientTwitterCom;
     }
-    [self.userDefaults setInteger:client forKey:kUserDefaultsTwitterClientKey];
-    [self.userDefaults synchronize];
   }
   return client;
 }
