@@ -22,7 +22,7 @@
 	<key>CFBundleIconFile</key>
 	<string>xkcd57.png</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.joshapp.xkcd</string>
+	<string>com.treelinelabs.xkcd</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

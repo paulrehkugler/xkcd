@@ -12,6 +12,7 @@
 		0384E8C4105036D40096D4E7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0384E8C3105036D40096D4E7 /* MessageUI.framework */; };
 		0384E90410503DAB0096D4E7 /* TwitterDotComViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0384E90310503DAB0096D4E7 /* TwitterDotComViewController.m */; };
 		0384E978105046BA0096D4E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0384E977105046BA0096D4E7 /* MobileCoreServices.framework */; };
+		039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */; };
 		03E1BB7E10505E440072C557 /* xkcd57.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E1BB7D10505E440072C557 /* xkcd57.png */; };
 		03E1BBA610505FC70072C557 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E1BBA510505FC70072C557 /* Default.png */; };
 		03F10D37104D6DDE0045AEFC /* Comic.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10D36104D6DDE0045AEFC /* Comic.m */; };
@@ -65,6 +66,8 @@
 		0384E90210503DAB0096D4E7 /* TwitterDotComViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterDotComViewController.h; sourceTree = "<group>"; };
 		0384E90310503DAB0096D4E7 /* TwitterDotComViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterDotComViewController.m; sourceTree = "<group>"; };
 		0384E977105046BA0096D4E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		039387E910508D86001EFE4E /* xkcd-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-dev-Info.plist"; sourceTree = "<group>"; };
+		039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ad-hoc-entitlements.plist"; sourceTree = "<group>"; };
 		03E1BB7D10505E440072C557 /* xkcd57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xkcd57.png; sourceTree = "<group>"; };
 		03E1BBA510505FC70072C557 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		03F10D35104D6DDE0045AEFC /* Comic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comic.h; sourceTree = "<group>"; };
@@ -265,7 +268,9 @@
 				28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* xkcd-Info.plist */,
+				039387E910508D86001EFE4E /* xkcd-dev-Info.plist */,
 				0384E76210500E0F0096D4E7 /* Settings.bundle */,
+				039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 				0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */,
 				03E1BB7E10505E440072C557 /* xkcd57.png in Resources */,
 				03E1BBA610505FC70072C557 /* Default.png in Resources */,
+				039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +394,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		039387E410508CBC001EFE4E /* Ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joshua Snyder";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "17660EA6-5847-4A27-92A1-56C14502DCA8";
+				SDKROOT = iphoneos3.0;
+			};
+			name = "Ad hoc distribution";
+		};
+		039387E510508CBC001EFE4E /* Ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = "ad-hoc-entitlements.plist";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/Volumes/Skiiing2/CD/ViewBased/Unknown Path/System/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
+				HEADER_SEARCH_PATHS = "../TLCommon/**";
+				INFOPLIST_FILE = "xkcd-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FlurryLib\"",
+				);
+				PRODUCT_NAME = xkcd;
+			};
+			name = "Ad hoc distribution";
+		};
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -402,7 +444,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "../TLCommon/**";
-				INFOPLIST_FILE = "xkcd-Info.plist";
+				INFOPLIST_FILE = "xkcd-dev-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FlurryLib\"",
@@ -423,7 +465,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "../TLCommon/**";
-				INFOPLIST_FILE = "xkcd-Info.plist";
+				INFOPLIST_FILE = "xkcd-dev-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FlurryLib\"",
@@ -471,6 +513,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				039387E510508CBC001EFE4E /* Ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -480,6 +523,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				039387E410508CBC001EFE4E /* Ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -78,7 +78,7 @@
   
   NSString *firstUsePath = [AppDelegate.applicationDocumentsDirectory stringByAppendingPathComponent:@"first_twitter_use"];
   NSFileManager *fileManager = [NSFileManager defaultManager];
-  BOOL firstUse = [fileManager fileExistsAtPath:firstUsePath];
+  BOOL firstUse = ![fileManager fileExistsAtPath:firstUsePath];
   if(firstUse) {
     UIAlertView *firstUseAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"How to", @"Title of twitter.com how to alert")
                                                              message:NSLocalizedString(@"A tweet has been copied to the clipboard; touch and hold in a text area to paste. You can re-copy the tweet to the clipboard by pressing the \"Copy tweet\" button.", @"Body of twitter.com how to alert")
