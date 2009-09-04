@@ -9,6 +9,7 @@
 #import "TwitterDotComViewController.h"
 #import "xkcdAppDelegate.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import "CGGeometry_TLCommon.h"
 
 #define kCopyTweetButtonText NSLocalizedString(@"Copy tweet", @"Button text to copy tweet to clipboard")
 
@@ -55,16 +56,9 @@
                                                                                           action:@selector(dismiss)]
                                             autorelease];
   
-  self.view.frame = CGRectMake(self.view.frame.origin.x,
-                               self.view.frame.origin.y,
-                               self.view.bounds.size.width,
-                               self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height); // SO ANNOYING!
-  
-  CGRect webViewFrame = CGRectMake(0,
-                                   self.navigationController.navigationBar.bounds.size.height,
-                                   self.view.bounds.size.width,
-                                   self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height);
+  CGRect webViewFrame = self.view.bounds;
   self.webView = [[[UIWebView alloc] initWithFrame:webViewFrame] autorelease];
+  self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   
   self.webView.delegate = self;
   
@@ -93,8 +87,8 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  // TODO
-  return (interfaceOrientation == UIInterfaceOrientationPortrait);
+  [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
+  return [AppDelegate rotate] ? YES : (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)viewDidUnload {

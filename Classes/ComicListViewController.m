@@ -184,10 +184,12 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+  [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
   self.statusBarController.statusBar.hidden = YES;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+  [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
   self.statusBarController.statusBar.hidden = NO;
   CGRect statusBarFrame = CGRectMake(0.0f,
                                      self.view.bounds.size.height - kStatusBarHeight,
