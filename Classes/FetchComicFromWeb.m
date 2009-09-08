@@ -54,7 +54,7 @@ static NSArray *characterEntityArray = nil;
 }
 
 - (void)main {
-  NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i", self.comicNumber]];
+  NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i/", self.comicNumber]];
   if(self.comicNumber == 404) {
     // Smart ass :)
     self.comicName = @"Not found";
@@ -75,6 +75,16 @@ static NSArray *characterEntityArray = nil;
     self.comicName = @"Fermirotica";
     self.comicTitleText = @"I love how Google handles dimensional analysis.  Stats are ballpark and vary wildly by time of day and whether your mom is in town.";
     self.comicImageURL = @"http://imgs.xkcd.com/comics/fermirotica.png";
+  } else if(self.comicNumber == 472) {
+    // Work around tags in alt text
+    self.comicName = @"House of Pancakes";
+    self.comicTitleText = @"Fuck it.  I'm just going to Waffle House.";
+    self.comicImageURL = @"http://imgs.xkcd.com/comics/house_of_pancakes.png";
+  } else if(self.comicNumber == 259) {
+    // Work around tags in alt text
+    self.comicName = @"Clichéd Exchanges";
+    self.comicTitleText = @"It's like they say, you gotta fight fire with clichés.";
+    self.comicImageURL = @"http://imgs.xkcd.com/comics/cliched_exchanges.png";
   } else {
     // Parse "normally" -- god I want an API!
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:comicURL] autorelease];

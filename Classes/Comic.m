@@ -125,7 +125,7 @@ static NSEntityDescription *comicEntityDescription;
 }
 
 - (NSString *)websiteURL {
-  return [NSString stringWithFormat:@"http://xkcd.com/%i/", [self.number integerValue]];
+  return [NSString stringWithFormat:@"http://xkcd.com/%i", [self.number integerValue]];
 }
 
 #pragma mark -

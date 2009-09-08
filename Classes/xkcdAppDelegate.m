@@ -102,7 +102,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (BOOL)downloadNewComics {
   if(![[self.userDefaults dictionaryRepresentation] objectForKey:kUserDefaultsAutodownloadKey]) {
-    [self.userDefaults setBool:YES forKey:kUserDefaultsAutodownloadKey];
+    [self.userDefaults setBool:NO forKey:kUserDefaultsAutodownloadKey];
     [self.userDefaults synchronize];
   }
   return [self.userDefaults boolForKey:kUserDefaultsAutodownloadKey];

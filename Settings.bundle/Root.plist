@@ -40,7 +40,7 @@
 			<key>Key</key>
 			<string>autodownload</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>

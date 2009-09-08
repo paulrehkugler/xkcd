@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034042B61056B1D7004B4909 /* xkcd.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 034042B51056B1D7004B4909 /* xkcd.sqlite */; };
 		0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0372FF7C10447552004CD031 /* ComicListViewController.m */; };
 		0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0384E76210500E0F0096D4E7 /* Settings.bundle */; };
 		0384E8C4105036D40096D4E7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0384E8C3105036D40096D4E7 /* MessageUI.framework */; };
@@ -23,7 +24,6 @@
 		03F110AE104E08D90045AEFC /* StatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F110AD104E08D90045AEFC /* StatusBarController.m */; };
 		03F11137104E13670045AEFC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F11136104E13670045AEFC /* QuartzCore.framework */; };
 		03F112ED104EB5240045AEFC /* SearchBarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F112EC104EB5240045AEFC /* SearchBarTableViewCell.m */; };
-		03F11484104F28000045AEFC /* xkcd.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 03F11483104F28000045AEFC /* xkcd.sqlite */; };
 		03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */; };
 		03F114A0104F2AC70045AEFC /* ComicImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1149F104F2AC70045AEFC /* ComicImageView.m */; };
 		03F114A9104F2B2B0045AEFC /* TiledImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114A8104F2B2B0045AEFC /* TiledImage.m */; };
@@ -58,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		034042B51056B1D7004B4909 /* xkcd.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = xkcd.sqlite; sourceTree = "<group>"; };
 		0372FF7B10447552004CD031 /* ComicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicListViewController.h; sourceTree = "<group>"; };
 		0372FF7C10447552004CD031 /* ComicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComicListViewController.m; sourceTree = "<group>"; };
 		0384E76210500E0F0096D4E7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -86,7 +87,6 @@
 		03F112EB104EB5240045AEFC /* SearchBarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarTableViewCell.h; sourceTree = "<group>"; };
 		03F112EC104EB5240045AEFC /* SearchBarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarTableViewCell.m; sourceTree = "<group>"; };
 		03F11404104F21110045AEFC /* XkcdErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XkcdErrorCodes.h; sourceTree = "<group>"; };
-		03F11483104F28000045AEFC /* xkcd.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = xkcd.sqlite; sourceTree = SOURCE_ROOT; };
 		03F1149B104F2A7C0045AEFC /* SingleComicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleComicViewController.h; sourceTree = "<group>"; };
 		03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleComicViewController.m; sourceTree = "<group>"; };
 		03F1149E104F2AC70045AEFC /* ComicImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComicImageView.h; path = Classes/ComicImageView.h; sourceTree = SOURCE_ROOT; };
@@ -264,7 +264,7 @@
 				03E1BB7D10505E440072C557 /* xkcd57.png */,
 				03E1BBA510505FC70072C557 /* Default.png */,
 				03F114E4104F2E9B0045AEFC /* glyphish_download.png */,
-				03F11483104F28000045AEFC /* xkcd.sqlite */,
+				034042B51056B1D7004B4909 /* xkcd.sqlite */,
 				28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* xkcd-Info.plist */,
@@ -349,12 +349,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				03F11484104F28000045AEFC /* xkcd.sqlite in Resources */,
 				03F114E5104F2E9B0045AEFC /* glyphish_download.png in Resources */,
 				0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */,
 				03E1BB7E10505E440072C557 /* xkcd57.png in Resources */,
 				03E1BBA610505FC70072C557 /* Default.png in Resources */,
 				039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */,
+				034042B61056B1D7004B4909 /* xkcd.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
