@@ -59,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		034042B51056B1D7004B4909 /* xkcd.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = xkcd.sqlite; sourceTree = "<group>"; };
+		034042DB1056B4F6004B4909 /* xkcd-distro-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-distro-info.plist"; sourceTree = "<group>"; };
 		0372FF7B10447552004CD031 /* ComicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicListViewController.h; sourceTree = "<group>"; };
 		0372FF7C10447552004CD031 /* ComicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComicListViewController.m; sourceTree = "<group>"; };
 		0384E76210500E0F0096D4E7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -261,6 +262,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				034042DB1056B4F6004B4909 /* xkcd-distro-info.plist */,
 				03E1BB7D10505E440072C557 /* xkcd57.png */,
 				03E1BBA510505FC70072C557 /* Default.png */,
 				03F114E4104F2E9B0045AEFC /* glyphish_download.png */,
@@ -394,6 +396,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		034042D21056B450004B4909 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joshua Snyder";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BBEE8B84-BCB8-42C3-815F-414F892F7CCB";
+				SDKROOT = iphoneos3.0;
+			};
+			name = Distribution;
+		};
+		034042D31056B450004B4909 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = "ad-hoc-entitlements.plist";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/Volumes/Skiiing2/CD/ViewBased/Unknown Path/System/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
+				HEADER_SEARCH_PATHS = "../TLCommon/**";
+				INFOPLIST_FILE = "xkcd-distro-info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FlurryLib\"",
+				);
+				PRODUCT_NAME = xkcd;
+			};
+			name = Distribution;
+		};
 		039387E410508CBC001EFE4E /* Ad hoc distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -514,6 +552,7 @@
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
 				039387E510508CBC001EFE4E /* Ad hoc distribution */,
+				034042D31056B450004B4909 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -524,6 +563,7 @@
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
 				039387E410508CBC001EFE4E /* Ad hoc distribution */,
+				034042D21056B450004B4909 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
