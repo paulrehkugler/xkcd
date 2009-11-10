@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ComicImageViewDelegate.h"
-#import <MessageUI/MessageUI.h>
 
 @class Comic;
 

@@ -1,0 +1,16 @@
+I have open-sourced this xkcd app so that:
+
+(1) There is more open source iPhone code out there in the world.
+(2) Users may make improvements to it and contribute them back.
+
+The license is GPL; you may of course do anything you want within the terms of that license. (The choice of
+GPL should not actually be very restrictive compared to the restrictions already implicitly in place, as
+respecting the terms of xkcd's Creative Commons license effectively rules out commercial use. If you
+want to use some generic code component from this app, such as TiledImage, please contact me and I'm sure
+we can work out some special permissions.)
+
+However, out of respect for the users of the App Store (who already must choose from lots of xkcd apps),
+I would ask that you not submit new xkcd apps based on this one.
+
+I plan to actively maintain this code, and so long as I am doing so, I am happy to incorporate improvements
+and submit updates to the App Store, so that users may get the benefits of the community's work.

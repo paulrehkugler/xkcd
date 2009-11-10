@@ -6,6 +6,8 @@
 //  Copyright Treeline Labs 2009. All rights reserved.
 //
 
+#define GENERATE_DEFAULT_PNG 0
+
 #define AppDelegate ((xkcdAppDelegate *)[UIApplication sharedApplication].delegate)
 #define kUseragent @"xkcd iPhone app (josh@treelinelabs.com; http://bit.ly/rZtDq). I can haz API?"
 

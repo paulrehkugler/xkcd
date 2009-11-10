@@ -7,9 +7,13 @@
 #warning "This project uses features only available in iPhone SDK 3.0 and later."
 #endif
 
-
 #ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-    #import <UIKit/UIKit.h>
-    #import <CoreData/CoreData.h>
+  #import <Foundation/Foundation.h>
+  #import <UIKit/UIKit.h>
+  #import <CoreData/CoreData.h>
+  #import <CoreLocation/CoreLocation.h>
+  #import <QuartzCore/QuartzCore.h>
+  #import <MessageUI/MessageUI.h>
+  #import "TLCommon.h"
+  #import "FlurryAPI.h"
 #endif

@@ -13,9 +13,12 @@
 @private
   id<SingleComicImageFetcherDelegate> delegate;
   NSOperationQueue *fetchQueue;
+  NSMutableArray *comicsRemainingDuringDownloadAll;
 }
 
-- (void)fetchImageForComic:(Comic *)comic;
+- (void)fetchImageForComic:(Comic *)comic openAfterDownload:(BOOL)openAfterDownload;
+- (void)fetchImagesForAllComics;
+- (BOOL)downloadingAll;
 
 @property(nonatomic, assign, readwrite) id<SingleComicImageFetcherDelegate> delegate;
 

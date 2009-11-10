@@ -19,6 +19,7 @@
 @property(nonatomic, assign, readwrite) id target;
 @property(nonatomic, assign, readwrite) SEL action;
 @property(nonatomic, retain, readwrite) NSError *error;
+@property(nonatomic, assign, readwrite) BOOL openAfterDownload;
 
 @end
 
@@ -32,13 +33,19 @@
 @synthesize target;
 @synthesize action;
 @synthesize error;
+@synthesize openAfterDownload;
 
-- (id)initWithComicNumber:(NSInteger)number imageURL:(NSURL *)imageURL completionTarget:(id)completionTarget action:(SEL)completionAction {
+- (id)initWithComicNumber:(NSInteger)number
+                 imageURL:(NSURL *)imageURL
+         completionTarget:(id)completionTarget
+                   action:(SEL)completionAction
+        openAfterDownload:(BOOL)shouldOpenAfterDownload {
   if(self = [super init]) {
     self.comicNumber = number;
     self.comicImageURL = imageURL;
     self.target = completionTarget;
     self.action = completionAction;
+    self.openAfterDownload = shouldOpenAfterDownload;
   }
   return self;
 }

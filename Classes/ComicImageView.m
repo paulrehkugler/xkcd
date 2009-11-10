@@ -6,7 +6,7 @@
 
 #import "ComicImageView.h"
 
-#define kTouchAndHoldThreshold 1
+#define kTouchAndHoldThreshold 0.5f
 
 @implementation ComicImageView
 
@@ -25,8 +25,10 @@
                                                             message:self.titleText
                                                            delegate:nil
                                                   cancelButtonTitle:nil
-                                                  otherButtonTitles:NSLocalizedString(@"Ok", @"Button text to dismiss modal window displaying comic alt text"), nil
-                                  ] autorelease];
+                                                  otherButtonTitles:
+                                  NSLocalizedString(@"Ok", @"Button text to dismiss modal window displaying comic alt text"),
+                                  nil]
+                                 autorelease];
   [titleTextAlert show];
   
   [touchAndHoldTimer release];

@@ -38,10 +38,15 @@ static UIImage *downloadImage = nil;
 - (void)viewComic:(Comic *)comic;
 - (void)reloadAllData;
 - (void)fetchImageForComic:(Comic *)comic;
-- (void)systemAction:(UIBarButtonItem *)sender;
 - (void)checkForNewComics;
-- (void)emailDeveloper;
-- (void)goToAppStore;  
+- (void)downloadAll:(UIBarButtonItem *)sender;
+- (void)deleteAll:(UIBarButtonItem *)sender;
+- (void)edit:(UIBarButtonItem *)sender;
+- (void)doneEditing:(UIBarButtonItem *)sender;
+- (void)setSearchBarTableHeader;
+- (void)deleteAllComicImages;
+- (void)downloadAllComicImages;
+- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
 
 @property(nonatomic, retain, readwrite) UITableView *tableView;
 @property(nonatomic, retain, readwrite) NewComicFetcher *fetcher;
@@ -53,6 +58,7 @@ static UIImage *downloadImage = nil;
 @property(nonatomic, retain, readwrite) UISearchDisplayController *searchController;
 @property(nonatomic, retain, readwrite) NSString *savedSearchTerm;
 @property(nonatomic, assign, readwrite) BOOL searchWasActive;
+@property(nonatomic, retain, readwrite) TLModalActivityIndicatorView *modalSpinner;
 
 @end
 
@@ -71,6 +77,7 @@ static UIImage *downloadImage = nil;
 @synthesize savedSearchTerm;
 @synthesize searchWasActive;
 @synthesize requestedLaunchComic;
+@synthesize modalSpinner;
 
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
@@ -91,12 +98,24 @@ static UIImage *downloadImage = nil;
 - (void)loadView {
   [super loadView];
   
+  self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  
   UIBarButtonItem *systemItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                target:self
                                                                                action:@selector(systemAction:)
                                   ] autorelease];
   self.navigationItem.leftBarButtonItem = systemItem;
-//  self.navigationItem.leftBarButtonItem.enabled = NO; // for making Default.png
+
+  UIBarButtonItem *editItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                             target:self
+                                                                             action:@selector(edit:)
+                                ] autorelease];
+  self.navigationItem.rightBarButtonItem = editItem;
+
+#if GENERATE_DEFAULT_PNG
+  self.navigationItem.leftBarButtonItem.enabled = NO;
+  self.navigationItem.rightBarButtonItem.enabled = NO;
+#endif
   
   self.tableView = [[[UITableView alloc] initWithFrame:CGRectZeroWithSize(self.view.bounds.size)] autorelease];
   self.tableView.dataSource = self;
@@ -113,6 +132,17 @@ static UIImage *downloadImage = nil;
   self.statusBarController = [[[StatusBarController alloc] initWithStatusBarFrame:statusBarFrame] autorelease];
   [self.statusBarController hide];
   [self.view addSubview:self.statusBarController.statusBar];
+
+  [self setSearchBarTableHeader];
+}
+
+- (void)setSearchBarTableHeader {
+  UISearchBar *searchBar = [[[UISearchBar alloc] initWithFrame:CGRectZero] autorelease];
+  [searchBar sizeToFit];
+  searchBar.placeholder = NSLocalizedString(@"Search xkcd", @"Search bar placeholder text");
+  searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+  searchBar.delegate = self;
+  self.tableView.tableHeaderView = searchBar;  
 }
 
 
@@ -121,8 +151,7 @@ static UIImage *downloadImage = nil;
   
   [self setFetchedResultsController];
   
-  if(self.savedSearchTerm)
-	{
+  if(self.savedSearchTerm) {
     [self setSearchFetchedResultsControllerWithSearchString:self.savedSearchTerm];
     [self.searchDisplayController setActive:self.searchWasActive];
     [self.searchDisplayController.searchBar setText:self.savedSearchTerm];    
@@ -131,7 +160,7 @@ static UIImage *downloadImage = nil;
   
   [self reloadAllData];
   @try {
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
   }
   @catch (NSException *e) {
     [FlurryAPI logError:@"Scroll error" message:nil exception:e];
@@ -155,7 +184,7 @@ static UIImage *downloadImage = nil;
     NSInteger lastKnownComicNumber = [[Comic lastKnownComic].number integerValue];
     if(lastKnownComicNumber >= self.requestedLaunchComic) {
       @try {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(lastKnownComicNumber - self.requestedLaunchComic + 1) // 1 for search bar
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(lastKnownComicNumber - self.requestedLaunchComic)
                                                                   inSection:0]
          atScrollPosition:UITableViewScrollPositionTop
          animated:NO];
@@ -205,7 +234,7 @@ static UIImage *downloadImage = nil;
 
 - (void)viewDidUnload {
   self.searchWasActive = [self.searchDisplayController isActive];
-  self.savedSearchTerm = [self.searchDisplayController.searchBar text];
+  self.savedSearchTerm = self.searchDisplayController.searchBar.text;
   self.tableView = nil;
   self.statusBarController = nil;
   [self.statusBarAnimationTimer invalidate];
@@ -298,28 +327,30 @@ static UIImage *downloadImage = nil;
   }  
 }
 
-- (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView {
-  NSFetchedResultsController *fetchedResults = (self.tableView == aTableView) ? self.fetchedResultsController : self.searchFetchedResultsController;
-  NSInteger adjustedRow = (aTableView == self.tableView) ? indexPath.row - 1 : indexPath.row; // adjust for search bar if not searching
-  NSIndexPath *adjustedIndexPath = [NSIndexPath indexPathForRow:adjustedRow inSection:indexPath.section];
-  return [fetchedResults objectAtIndexPath:adjustedIndexPath];
-}
-
 - (void)viewComic:(Comic *)comic {
   SingleComicViewController *singleComicViewController = [[[SingleComicViewController alloc] initWithComic:comic] autorelease];
   [self.navigationController pushViewController:singleComicViewController animated:YES];
 }
 
 - (void)checkForNewComics {
+  if(self.tableView.editing) {
+    [self doneEditing:nil];
+  }
   self.statusBarController.messageLabel.text = NSLocalizedString(@"Updating...", @"Status bar message when fetching new comics");
   [self.statusBarController startSpinner];
   [self.statusBarController showAnimated];
-  [self.fetcher fetch];  
+  [self.fetcher fetch];
 }
 
 - (void)fetchImageForComic:(Comic *)comic {
-  [self.imageFetcher fetchImageForComic:comic];
-  [self reloadAllData];
+  BOOL openAfterDownloadPreferenceSet = [AppDelegate openAfterDownload];
+  BOOL isLaunchComic = (self.requestedLaunchComic && ([comic.number integerValue] == self.requestedLaunchComic));
+
+  if(isLaunchComic) {
+    self.requestedLaunchComic = 0;      
+  }  
+
+  [self.imageFetcher fetchImageForComic:comic openAfterDownload:(openAfterDownloadPreferenceSet || isLaunchComic)];
 }
 
 - (void)reloadAllData {
@@ -331,28 +362,91 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  UIActionSheet *systemActionSheet = [[[UIActionSheet alloc] initWithTitle:nil
-                                                                  delegate:self
-                                                         cancelButtonTitle:nil
-                                                    destructiveButtonTitle:nil
-                                                         otherButtonTitles:nil]
-                                      autorelease];
-  
-  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Check for new comics", @"Action sheet item to check for new comics")];
+  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
   if([MFMailComposeViewController canSendMail]) {
-    [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Email the developer", @"Action sheet item to email developer")];    
+    [sheet addButtonWithTitle:NSLocalizedString(@"Email the developer", @"Action sheet title")
+                       target:self
+                       action:@selector(emailDeveloper)];
   }
-  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet item to leave review")];
-  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Action sheet title to cancel action")];
-  systemActionSheet.cancelButtonIndex = systemActionSheet.numberOfButtons - 1;
-  [systemActionSheet showInView:self.view];
+  [sheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
+                     target:self
+                     action:@selector(goToAppStore)];
+  [sheet addCancelButton];
+  [sheet showInView:self.view];
+}  
+
+- (void)edit:(UIBarButtonItem *)sender {
+  [self.tableView setEditing:YES animated:YES];
+  [self.tableView setContentOffset:
+   CGPointByAddingYOffset(self.tableView.contentOffset, -self.tableView.tableHeaderView.bounds.size.height)];
+  self.tableView.tableHeaderView = nil;
+  UIBarButtonItem *doneItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                             target:self
+                                                                             action:@selector(doneEditing:)
+                                ] autorelease];
+  [self.navigationController setToolbarHidden:NO animated:YES];
+  UIBarButtonItem *downloadAll = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Download all", @"Button")
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(downloadAll:)]
+                                  autorelease];
+  UIBarButtonItem *deleteAll = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Delete all", @"Button")
+                                                                 style:UIBarButtonItemStyleBordered
+                                                                target:self
+                                                                action:@selector(deleteAll:)]
+                                  autorelease];
+  UIBarButtonItem *refresh = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                           target:self
+                                                           action:@selector(checkForNewComics)];
+  NSArray *toolbarItems = [NSArray arrayWithObjects:
+                           downloadAll,
+                           deleteAll,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           refresh,
+                           nil];
+  [self setToolbarItems:toolbarItems animated:YES];
+  self.navigationItem.leftBarButtonItem.enabled = NO;
+  self.navigationItem.rightBarButtonItem = doneItem;
+}
+
+- (void)doneEditing:(UIBarButtonItem *)sender {
+  [self.tableView setEditing:NO animated:YES];
+  [self setSearchBarTableHeader];
+  [self.tableView setContentOffset:
+   CGPointByAddingYOffset(self.tableView.contentOffset, self.tableView.tableHeaderView.bounds.size.height)];
+  UIBarButtonItem *editItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                             target:self
+                                                                             action:@selector(edit:)
+                                ] autorelease];
+  [self.navigationController setToolbarHidden:YES animated:YES];
+  
+  self.navigationItem.leftBarButtonItem.enabled = YES;
+  self.navigationItem.rightBarButtonItem = editItem;  
+}
+
+- (void)downloadAll:(UIBarButtonItem *)sender {
+  NSString *sheetTitle = NSLocalizedString(@"Downloading all images will take up considerable space on your device.", @"Download all warning");
+  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:sheetTitle] autorelease];
+  [sheet addButtonWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
+                     target:self
+                     action:@selector(downloadAllComicImages)];
+  [sheet addCancelButton];
+  [sheet showFromToolbar:self.navigationController.toolbar];
+}
+   
+- (void)deleteAll:(UIBarButtonItem *)sender {
+  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
+  [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
+                     target:self
+                     action:@selector(deleteAllComicImages)];
+  [sheet addCancelButton];
+  [sheet showFromToolbar:self.navigationController.toolbar];
 }
 
 #pragma mark -
 #pragma mark NewComicFetcherDelegate methods
 
 - (void)newComicFetcher:(NewComicFetcher *)fetcher didFetchComic:(Comic *)comic {
-  [self reloadAllData];
   [AppDelegate save]; // write new comic to disk so that CoreData can clear its memory as needed
   if([AppDelegate downloadNewComics]) {
     [self fetchImageForComic:comic];
@@ -363,7 +457,7 @@ static UIImage *downloadImage = nil;
   [self.statusBarController stopSpinner];
   self.statusBarController.messageLabel.text = NSLocalizedString(@"Updated", @"Status bar message indicated all new comics have been downloaded");
   [self.statusBarAnimationTimer invalidate];
-  self.statusBarAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:2.5f
+  self.statusBarAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                                   target:self.statusBarController
                                                                 selector:@selector(hideAnimated)
                                                                 userInfo:nil repeats:NO];
@@ -390,23 +484,17 @@ static UIImage *downloadImage = nil;
 #pragma mark -
 #pragma mark SingleComicImageFetcherDelegate methods
 
-- (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFetchImageForComic:(Comic *)comic {
-  [self reloadAllData];
-  BOOL isLaunchComic = (self.requestedLaunchComic && ([comic.number integerValue] == self.requestedLaunchComic));
-  BOOL openAfterDownload = [AppDelegate openAfterDownload];
-  BOOL isTopViewController = self.navigationController.topViewController == self;
-  
-  if(isTopViewController && isLaunchComic) {
-    [self viewComic:comic];
-    self.requestedLaunchComic = 0;
-  } else if(isTopViewController && openAfterDownload) {
+- (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
+          didFetchImageForComic:(Comic *)comic
+              openAfterDownload:(BOOL)openAfterDownload {
+  if(openAfterDownload && (self.navigationController.topViewController == self)) {
     [self viewComic:comic];
   }
 }
 
-- (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFailWithError:(NSError *)error onComic:(Comic *)comic {
-  [self reloadAllData];
-  
+- (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
+               didFailWithError:(NSError *)error
+                        onComic:(Comic *)comic {
   if([[error domain] isEqualToString:kXkcdErrorDomain]) {
     // internal error
     [FlurryAPI logError:@"Internal error" message:[NSString stringWithFormat:@"Error: %@", error] exception:nil];
@@ -430,57 +518,57 @@ static UIImage *downloadImage = nil;
 
 
 #pragma mark -
-#pragma mark UITableViewDelegate and UITableViewDataSource methods
+#pragma mark UITableViewDelegate and UITableViewDataSource and supporting methods
+
+- (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView {
+  Comic *comic = [[self fetchedResultsControllerForTableView:aTableView] objectAtIndexPath:indexPath];
+  return comic;
+}
+
+- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView {
+  NSFetchedResultsController *fetchedResults = (self.tableView == aTableView) ? self.fetchedResultsController : self.searchFetchedResultsController;
+  return fetchedResults;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//  return [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"blank"] autorelease]; // for making Default.png
   UITableViewCell *cell = nil;
-  BOOL isSearchBar = (aTableView == self.tableView) && (indexPath.row == 0);
-  if(isSearchBar) {
-    // Search bar cell
-    static NSString *searchCellIdentifier = @"searchBarCell";
-    SearchBarTableViewCell *searchCell = (SearchBarTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:searchCellIdentifier];
-    if(!searchCell) {
-      searchCell = [[[SearchBarTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:searchCellIdentifier] autorelease];
-    }
-    searchCell.searchBar.placeholder = NSLocalizedString(@"Search xkcd", @"Search bar placeholder text");
-    searchCell.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    searchCell.searchBar.delegate = self;
-    cell = searchCell;
-  } else {
-    // Comic cell
-    static NSString *comicCellIdentifier = @"comicCell";
-    UITableViewCell *comicCell = [self.tableView dequeueReusableCellWithIdentifier:comicCellIdentifier];
-    if(!comicCell) {
-      comicCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:comicCellIdentifier] autorelease];
-    }
-    Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
-    comicCell.textLabel.text = [NSString stringWithFormat:@"%i. %@", [comic.number integerValue], comic.name];
-    comicCell.textLabel.font = [UIFont systemFontOfSize:16];
-    
-    if([comic.number integerValue] == 404) {
-      // Handle comic 404 specially...sigh
-      comicCell.accessoryView = nil;
-      comicCell.accessoryType = UITableViewCellAccessoryNone;
-    } else {
-      if([comic hasBeenDownloaded]) {
-        comicCell.accessoryView = nil;
-        comicCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-      } else if([comic.loading boolValue]) {
-        UIActivityIndicatorView *spinner = [[[UIActivityIndicatorView alloc] initWithFrame:CGRectZero] autorelease];
-        [spinner sizeToFit];
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        [spinner startAnimating];
-        comicCell.accessoryView = spinner;
-      } else {
-        UIImageView *downloadImageView = [[[UIImageView alloc] initWithImage:downloadImage] autorelease];
-        downloadImageView.opaque = YES;
-        comicCell.accessoryView = downloadImageView;
-      }
-    }
-    
-    cell = comicCell;
+
+  // Comic cell
+  static NSString *comicCellIdentifier = @"comicCell";
+  UITableViewCell *comicCell = [self.tableView dequeueReusableCellWithIdentifier:comicCellIdentifier];
+  if(!comicCell) {
+    comicCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:comicCellIdentifier] autorelease];
   }
+  
+#if GENERATE_DEFAULT_PNG
+  return comicCell;
+#endif
+  
+  Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
+  comicCell.textLabel.text = [NSString stringWithFormat:@"%i. %@", [comic.number integerValue], comic.name];
+  comicCell.textLabel.font = [UIFont systemFontOfSize:16];
+  comicCell.textLabel.adjustsFontSizeToFitWidth = YES;
+  
+  if([comic.number integerValue] == 404) {
+    // Handle comic 404 specially...sigh
+    comicCell.accessoryView = nil;
+    comicCell.accessoryType = UITableViewCellAccessoryNone;
+  } else {
+    if([comic hasBeenDownloaded]) {
+      comicCell.accessoryView = nil;
+      comicCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else if([comic.loading boolValue] || [self.imageFetcher downloadingAll]) {
+      comicCell.accessoryView = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleGray];
+    } else {
+      UIImageView *downloadImageView = [UIImageView imageViewWithImage:downloadImage];
+      downloadImageView.opaque = YES;
+      comicCell.accessoryView = downloadImageView;
+    }
+  }
+
+  comicCell.editingAccessoryView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+
+  cell = comicCell;
   return cell;
 }
 
@@ -499,22 +587,54 @@ static UIImage *downloadImage = nil;
   
 }
 
+- (NSString *)tableView:(UITableView *)aTableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return NSLocalizedString(@"Delete image", @"Delete button title");
+}
+
+- (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+  if(![aTableView isEqual:self.tableView]) {
+    return NO;
+  }
+  return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+  if(![aTableView isEqual:self.tableView]) {
+    return UITableViewCellEditingStyleNone;
+  }
+  Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
+  return [comic hasBeenDownloaded] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;  
+}
+
+- (BOOL)tableView:(UITableView *)aTableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+  if(![aTableView isEqual:self.tableView]) {
+    return NO;
+  }
+  Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
+  return [comic hasBeenDownloaded];  
+}
+
+- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if(editingStyle == UITableViewCellEditingStyleDelete) {
+    Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
+    [comic deleteImage];
+    [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
+  }
+}
+
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
-  NSFetchedResultsController *fetchedResults = (self.tableView == aTableView) ? self.fetchedResultsController : self.searchFetchedResultsController;
+  NSFetchedResultsController *fetchedResults = [self fetchedResultsControllerForTableView:aTableView];
   NSArray *sections = [fetchedResults sections];
   NSUInteger numberOfRows = 0;
   if([sections count] > 0) {
     id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
     numberOfRows = [sectionInfo numberOfObjects];
   }
-  if(aTableView == self.tableView) {
-    numberOfRows++; // top row is search bar! if tableView != self.tableView, we're actively searching...
-  }
   return numberOfRows;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
-  NSFetchedResultsController *fetchedResults = (self.tableView == aTableView) ? self.fetchedResultsController : self.searchFetchedResultsController;
+  NSFetchedResultsController *fetchedResults = [self fetchedResultsControllerForTableView:aTableView];
   NSUInteger numberOfSections = [[fetchedResults sections] count];
   if(numberOfSections == 0) {
     numberOfSections = 1;
@@ -553,9 +673,11 @@ static UIImage *downloadImage = nil;
 }
 
 #pragma mark -
-#pragma mark UIActionSheetDelegate methods and supporting actions
+#pragma mark TLActionSheetController supporting methods
 
 - (void)emailDeveloper {
+  [FlurryAPI logEvent:@"emailDeveloper"];
+
   MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
   emailViewController.mailComposeDelegate = self;
   [emailViewController setSubject:NSLocalizedString(@"Feedback on xkcd app", @"Subject of feedback email")];
@@ -565,33 +687,42 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)goToAppStore {
+  [FlurryAPI logEvent:@"goToAppStore"];
+
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=303688284&mt=8"]];  
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-  if(![MFMailComposeViewController canSendMail]) {
-    if(buttonIndex > 0) {
-      buttonIndex++;
-    }
-  }
-  switch(buttonIndex) {
-    case 0:;
-      [FlurryAPI logEvent:@"checkForNewComics"];
-      [self checkForNewComics];
-      break;
-    case 1:
-      [FlurryAPI logEvent:@"emailDeveloper"];
-      [self emailDeveloper];
-      break;
-    case 2:
-      [FlurryAPI logEvent:@"goToAppStore"];
-      [self goToAppStore];
-      break;
-    default:
-      break;
-  }
+- (void)downloadAllComicImages {
+  [self.imageFetcher fetchImagesForAllComics];
+  [self doneEditing:nil];
+  [self reloadAllData]; // so that all the spinners start up
 }
 
+- (void)deleteAllComicImages {
+  NSArray *comicsWithImages = [Comic comicsWithImages];
+  self.modalSpinner = [[[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Deleting...", @"Modal spinner text")] autorelease];
+  [self.modalSpinner show];
+  [self performSelectorInBackground:@selector(deleteAllComicImagesBlocking:) withObject:comicsWithImages];
+}
+
+- (void)deleteAllComicImagesBlocking:(NSArray *)comicsWithImages {
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  for(Comic *comic in comicsWithImages) {
+    [comic performSelectorOnMainThread:@selector(deleteImage)
+                            withObject:nil
+                         waitUntilDone:YES]; // wait until done to avoid flooding
+  }
+  [self performSelectorOnMainThread:@selector(didFinishDeletingImages)
+                         withObject:nil
+                      waitUntilDone:NO];
+  [pool drain];
+}
+
+- (void)didFinishDeletingImages {
+  [self.modalSpinner dismiss];
+  self.modalSpinner = nil;
+}
+   
 #pragma mark -
 #pragma mark MFMailComposeViewControllerDelegate methods
 
@@ -616,5 +747,63 @@ static UIImage *downloadImage = nil;
   [controller dismissModalViewControllerAnimated:YES];
 }
 
+#pragma mark -
+#pragma mark NSFetchedResultsControllerDelegate methods
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+  [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type {
+  
+  switch(type) {
+    case NSFetchedResultsChangeInsert:;
+      [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+    case NSFetchedResultsChangeDelete:;
+      [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+  
+  switch(type) {
+    case NSFetchedResultsChangeInsert:;
+      [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                            withRowAnimation:UITableViewRowAnimationFade];
+      break;
+      
+    case NSFetchedResultsChangeDelete:;
+      [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                            withRowAnimation:UITableViewRowAnimationFade];
+      break;
+      
+    case NSFetchedResultsChangeUpdate:;
+      [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
+      break;
+      
+    case NSFetchedResultsChangeMove:;
+      [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                            withRowAnimation:UITableViewRowAnimationFade];
+      [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+  
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+  [self.tableView endUpdates];
+}
 
 @end

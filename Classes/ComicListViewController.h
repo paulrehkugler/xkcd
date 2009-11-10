@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "NewComicFetcherDelegate.h"
 #import "SingleComicImageFetcherDelegate.h"
-#import <MessageUI/MessageUI.h>
 
 @class StatusBarController;
 @class NewComicFetcher;
@@ -34,10 +33,14 @@ MFMailComposeViewControllerDelegate> {
   StatusBarController *statusBarController;
   NSTimer *statusBarAnimationTimer;
   UISearchDisplayController *searchController;
+  
   // The saved state of the search UI if a memory warning removed the view.
   NSString *savedSearchTerm;
   BOOL searchWasActive;
+
   NSInteger requestedLaunchComic;
+
+  TLModalActivityIndicatorView *modalSpinner;
 }
 
 @property(nonatomic, retain, readonly) UITableView *tableView;

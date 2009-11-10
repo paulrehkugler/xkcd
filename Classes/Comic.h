@@ -13,6 +13,10 @@
 
 + (Comic *)comic; // use this, not init/etc.
 
++ (NSArray *)allComics; // use sparingly!!
++ (NSArray *)comicsWithImages;
++ (NSArray *)comicsWithoutImages;
+
 + (Comic *)lastKnownComic; // highest numbered comic that has been fetched
 
 + (Comic *)comicNumbered:(NSInteger)comicNumber;

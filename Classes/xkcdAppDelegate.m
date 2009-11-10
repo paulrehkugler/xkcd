@@ -63,6 +63,7 @@ void uncaughtExceptionHandler(NSException *exception) {
   self.navigationController = [[[UINavigationController alloc] initWithRootViewController:self.listViewController] autorelease];
   [window addSubview:self.navigationController.view];
   [window makeKeyAndVisible];
+  
   return canLaunchApplication;
 }
 
@@ -145,7 +146,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults retain];
     [userDefaults synchronize];
-    [FlurryAPI logEvent:@"userDefaults" withParameters:[userDefaults dictionaryRepresentation]];
   }
   return userDefaults;
 }
@@ -183,10 +183,13 @@ void uncaughtExceptionHandler(NSException *exception) {
   }
 	
   NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-  if (coordinator != nil) {
+  if(coordinator != nil) {
     managedObjectContext = [[NSManagedObjectContext alloc] init];
     [managedObjectContext setPersistentStoreCoordinator: coordinator];
   }
+  
+  [managedObjectContext setUndoManager:nil];
+  
   return managedObjectContext;
 }
 
@@ -223,10 +226,9 @@ void uncaughtExceptionHandler(NSException *exception) {
   }
   
   NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
-  NSLog(@"store %@", storeUrl);
 	NSError *error = nil;
   persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
-  if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
+  if(![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
     NSLog(@"Error opening store: %@", error);
   }    
 	

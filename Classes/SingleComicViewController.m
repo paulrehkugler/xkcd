@@ -15,8 +15,8 @@
 #import "FlurryAPI.h"
 #import "TwitterDotComViewController.h"
 
-#define kTileWidth 1024
-#define kTileHeight 1024
+#define kTileWidth 1024.0f
+#define kTileHeight 1024.0f
 #define kMaxTweetLength 140
 
 #pragma mark -
@@ -27,7 +27,6 @@
 - (void)openInSafari;
 - (void)email;
 - (void)tweet;
-- (void)deleteImage;
 - (void)openTwitterDotCom:(NSString *)tweet;
 
 @property(nonatomic, retain, readwrite) Comic *comic;
@@ -143,22 +142,20 @@
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  UIActionSheet *systemActionSheet = [[[UIActionSheet alloc] initWithTitle:nil
-                                                                  delegate:self
-                                                         cancelButtonTitle:nil
-                                                    destructiveButtonTitle:nil
-                                                         otherButtonTitles:nil]
-                                      autorelease];
-
-  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"View on xkcd.com", @"Action sheet title to go to xkcd.com")];
+  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
+  [sheet addButtonWithTitle:NSLocalizedString(@"View on xkcd.com", @"Action sheet title")
+                     target:self
+                     action:@selector(openInSafari)];
   if([MFMailComposeViewController canSendMail]) {
-    [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Email link to this comic", @"Action sheet title to email a link to this comic")];    
+    [sheet addButtonWithTitle:NSLocalizedString(@"Email link to this comic", @"Action sheet title")
+                       target:self
+                       action:@selector(email)];
   }
-  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Tweet link to this comic", @"Action sheet title to tweet a link to this comic")];
-  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Delete image", @"Action sheet title to go to delete this comic")];
-  [systemActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Action sheet title to cancel action")];
-  systemActionSheet.cancelButtonIndex = systemActionSheet.numberOfButtons - 1;
-  [systemActionSheet showInView:self.view];
+  [sheet addButtonWithTitle:NSLocalizedString(@"Tweet link to this comic", @"Action sheet title")
+                     target:self
+                     action:@selector(tweet)];   
+  [sheet addCancelButton];
+  [sheet showInView:self.view];
 }
 
 #pragma mark -
@@ -180,13 +177,17 @@
 }
 
 #pragma mark -
-#pragma mark UIActionSheetDelegate methods and supporting actions
+#pragma mark Action sheet supporting actions
 
 - (void)openInSafari {
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[comic websiteURL]]];  
+  [FlurryAPI logEvent:@"openInSafari"];
+  TLWebViewController *webViewController = (TLWebViewController *)[TLWebViewController viewController];
+  [self.navigationController pushViewController:webViewController animated:YES];
+  [webViewController loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[comic websiteURL]]]];
 }
 
 - (void)email {
+  [FlurryAPI logEvent:@"email"];
   MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
   emailViewController.mailComposeDelegate = self;
   [emailViewController setSubject:comic.name];
@@ -204,6 +205,7 @@
 }
 
 - (void)tweet {
+  [FlurryAPI logEvent:@"tweet"];
   NSString *tweet = [NSString stringWithFormat:@"%@ (via @xkcdapp)", comic.websiteURL];
   if([tweet length] + [comic.name length] + 2 < kMaxTweetLength) { // 2 == [@": " length]
     tweet = [NSString stringWithFormat:@"%@: %@", comic.name, tweet];
@@ -257,38 +259,6 @@
       break;
   }
 }
-
-- (void)deleteImage {  
-  [self.comic deleteImage];
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-  if(![MFMailComposeViewController canSendMail]) {
-    if(buttonIndex > 0) {
-      buttonIndex++;
-    }
-  }
-  switch(buttonIndex) {
-    case 0:;
-      [FlurryAPI logEvent:@"openInSafari"];
-      [self openInSafari];
-      break;
-    case 1:
-      [FlurryAPI logEvent:@"email"];
-      [self email];
-      break;
-    case 2:
-      [FlurryAPI logEvent:@"tweet"];
-      [self tweet];
-      break;
-    case 3:
-      [FlurryAPI logEvent:@"deleteImage"];
-      [self deleteImage];
-      break;
-  }
-}
-
 
 #pragma mark -
 #pragma mark MFMailComposeViewControllerDelegate methods

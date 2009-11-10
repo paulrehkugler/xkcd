@@ -21,7 +21,7 @@
 
 #pragma mark -
 
-static NSEntityDescription *comicEntityDescription;
+static NSEntityDescription *comicEntityDescription = nil;
 
 #pragma mark -
 
@@ -63,7 +63,7 @@ static NSEntityDescription *comicEntityDescription;
   NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
   [request setEntity:comicEntityDescription];
   
-  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO] autorelease];
+  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO] autorelease];
   NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
   [request setSortDescriptors:sortDescriptors];
   
@@ -85,7 +85,7 @@ static NSEntityDescription *comicEntityDescription;
   NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
   [request setEntity:comicEntityDescription];
   
-  NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInteger:comicNumber]];
+  NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeNumber @" = %@", [NSNumber numberWithInteger:comicNumber]];
   request.predicate = searchPredicate;
 
   [request setFetchLimit:1];
@@ -104,10 +104,62 @@ static NSEntityDescription *comicEntityDescription;
   return comic;
 }
 
++ (NSArray *)allComics {
+  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  [request setEntity:comicEntityDescription];
+
+  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO] autorelease];
+  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+  [request setSortDescriptors:sortDescriptors];
+  
+  NSError *error = nil;
+  NSArray *allComics = [AppDelegate.managedObjectContext executeFetchRequest:request
+                                                                   error:&error];
+  
+  return allComics;
+}
+
++ (NSArray *)comicsWithImages {
+  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  [request setEntity:comicEntityDescription];
+  
+  NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", [NSNumber numberWithBool:YES]];
+  request.predicate = searchPredicate;
+
+  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES] autorelease];
+  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+  [request setSortDescriptors:sortDescriptors];
+  
+  NSError *error = nil;
+  NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request
+                                                                    error:&error];
+  
+  return comics;
+}
+
++ (NSArray *)comicsWithoutImages {
+  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  [request setEntity:comicEntityDescription];
+  
+  NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", [NSNumber numberWithBool:NO]];
+  request.predicate = searchPredicate;
+  
+  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES] autorelease];
+  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+  [request setSortDescriptors:sortDescriptors];
+  
+  NSError *error = nil;
+  NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request
+                                                                    error:&error];
+  
+  return comics;  
+}
+
 - (void)deleteImage {
   NSError *deleteError = nil;
-  [[NSFileManager defaultManager] removeItemAtPath:self.imagePath error:&deleteError];
-  if(deleteError) {
+  [[NSFileManager defaultManager] removeItemAtPath:self.imagePath
+                                             error:&deleteError];
+  if(deleteError && ([deleteError code] != NSFileNoSuchFileError)) {
     [FlurryAPI logError:@"Delete fail"
                 message:[NSString stringWithFormat:@"Error %@: %@", deleteError, deleteError.userInfo]
               exception:nil];
