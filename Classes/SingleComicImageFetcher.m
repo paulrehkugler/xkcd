@@ -63,10 +63,6 @@
   // don't start afresh if there's a download-all ongoing!
   if(!self.comicsRemainingDuringDownloadAll) {
     self.comicsRemainingDuringDownloadAll = [[[Comic comicsWithoutImages] mutableCopy] autorelease];
-    [self.fetchQueue addObserver:self
-                      forKeyPath:@"operations"
-                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                         context:NULL];
     [self enqueueMoreDownloadAllComics];
   }
 }
@@ -76,25 +72,12 @@
   if(comicsRemainingCount == 0) {
     // done!
     self.comicsRemainingDuringDownloadAll = nil;
-    [fetchQueue removeObserver:self forKeyPath:@"operations"];    
   } else {
     // not done...start another
     Comic *comic = [self.comicsRemainingDuringDownloadAll lastObject];
     [self fetchImageForComic:comic openAfterDownload:NO];
     [self.comicsRemainingDuringDownloadAll removeLastObject];
-  }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-  if((self.fetchQueue == object) && [keyPath isEqualToString:@"operations"]) {
-    NSUInteger oldOperationCount = [[change objectForKey:NSKeyValueChangeOldKey] count];
-    NSUInteger newOperationCount = [[change objectForKey:NSKeyValueChangeNewKey] count];
-    if(newOperationCount < oldOperationCount) {
-      [self performSelectorOnMainThread:@selector(enqueueMoreDownloadAllComics)
-                             withObject:nil
-                          waitUntilDone:NO];
-    }
-  }
+  }    
 }
 
 - (BOOL)downloadingAll {
@@ -116,13 +99,13 @@
                           didFailWithError:fetchOperation.error
                                    onComic:comic];
   }
+  
+  if(self.comicsRemainingDuringDownloadAll) {
+    [self enqueueMoreDownloadAllComics];    
+  }
 }
 
 - (void)dealloc {
-  if(comicsRemainingDuringDownloadAll) {
-    [fetchQueue removeObserver:self forKeyPath:@"operations"];    
-  }
-
   [fetchQueue release];
   fetchQueue = nil;
   

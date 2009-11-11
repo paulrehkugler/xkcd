@@ -14,3 +14,20 @@ I would ask that you not submit new xkcd apps based on this one.
 
 I plan to actively maintain this code, and so long as I am doing so, I am happy to incorporate improvements
 and submit updates to the App Store, so that users may get the benefits of the community's work.
+
+To build the app, place the folder containing this code and the folder containing the TLCommon library (available under the MIT license from
+http://github.com/treelinelabs/TLCommon) side by side, like so:
+
+parent_dir/
+  xkcd/
+    xkcd.xcodeproj/
+    .
+    .
+    .
+  TLCommon/
+    TLCommon.xcodeproj/
+    .
+    .
+    .
+
+If set up this way, it should all build cleanly.

@@ -425,7 +425,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)downloadAll:(UIBarButtonItem *)sender {
-  NSString *sheetTitle = NSLocalizedString(@"Downloading all images will take up considerable space on your device.", @"Download all warning");
+  NSString *sheetTitle = NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning");
   TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:sheetTitle] autorelease];
   [sheet addButtonWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
                      target:self
@@ -577,7 +577,7 @@ static UIImage *downloadImage = nil;
   if([selectedComic.number integerValue] != 404) {
     if([selectedComic hasBeenDownloaded]) {
       [self viewComic:selectedComic];
-    } else if(![selectedComic.loading boolValue]) {
+    } else if(!([selectedComic.loading boolValue] || [self.imageFetcher downloadingAll])) {
       [self fetchImageForComic:selectedComic];
       [aTableView deselectRowAtIndexPath:indexPath animated:NO];
     }    
@@ -699,6 +699,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)deleteAllComicImages {
+  [self doneEditing:nil];
   NSArray *comicsWithImages = [Comic comicsWithImages];
   self.modalSpinner = [[[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Deleting...", @"Modal spinner text")] autorelease];
   [self.modalSpinner show];

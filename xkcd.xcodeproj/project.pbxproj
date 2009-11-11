@@ -18,7 +18,7 @@
 		039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */; };
 		03DA9CAA1097A4DA005A34B2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */; };
 		03E1BB7E10505E440072C557 /* xkcd57.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E1BB7D10505E440072C557 /* xkcd57.png */; };
-		03E1BBA610505FC70072C557 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E1BBA510505FC70072C557 /* Default.png */; };
+		03E905DA10AA366D00D74902 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E905D910AA366D00D74902 /* Default.png */; };
 		03F10D37104D6DDE0045AEFC /* Comic.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10D36104D6DDE0045AEFC /* Comic.m */; };
 		03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10DB0104D77030045AEFC /* NewComicFetcher.m */; };
 		03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10DBB104D78450045AEFC /* FetchComicFromWeb.m */; };
@@ -87,7 +87,7 @@
 		039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ad-hoc-entitlements.plist"; sourceTree = "<group>"; };
 		03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		03E1BB7D10505E440072C557 /* xkcd57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xkcd57.png; sourceTree = "<group>"; };
-		03E1BBA510505FC70072C557 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		03E905D910AA366D00D74902 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		03F10D35104D6DDE0045AEFC /* Comic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comic.h; sourceTree = "<group>"; };
 		03F10D36104D6DDE0045AEFC /* Comic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comic.m; sourceTree = "<group>"; };
 		03F10D70104D70220045AEFC /* TLCommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TLCommon.xcodeproj; path = ../TLCommon/TLCommon.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -175,12 +175,12 @@
 			children = (
 				034042DB1056B4F6004B4909 /* xkcd-distro-info.plist */,
 				03E1BB7D10505E440072C557 /* xkcd57.png */,
-				03E1BBA510505FC70072C557 /* Default.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* xkcd-Info.plist */,
 				039387E910508D86001EFE4E /* xkcd-dev-Info.plist */,
 				0384E76210500E0F0096D4E7 /* Settings.bundle */,
 				039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */,
+				03E905D910AA366D00D74902 /* Default.png */,
 			);
 			name = System;
 			sourceTree = "<group>";
@@ -425,11 +425,11 @@
 				03F114E5104F2E9B0045AEFC /* glyphish_download.png in Resources */,
 				0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */,
 				03E1BB7E10505E440072C557 /* xkcd57.png in Resources */,
-				03E1BBA610505FC70072C557 /* Default.png in Resources */,
 				039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */,
 				034042B61056B1D7004B4909 /* xkcd.sqlite in Resources */,
 				034E0EB110A9F0E00021D494 /* web_back.png in Resources */,
 				034E0EB210A9F0E00021D494 /* web_forward.png in Resources */,
+				03E905DA10AA366D00D74902 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
