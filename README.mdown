@@ -4,17 +4,17 @@ Building the app
 To build the app, place the folder containing this code and the folder containing the TLCommon library (available under the MIT license from
 http://github.com/treelinelabs/TLCommon) side by side, like so:
 
-parent_dir/
-  xkcd/
-    xkcd.xcodeproj/
-    .
-    .
-    .
-  TLCommon/
-    TLCommon.xcodeproj/
-    .
-    .
-    .
+        parent_dir/
+          xkcd/
+            xkcd.xcodeproj/
+            .
+            .
+            .
+          TLCommon/
+            TLCommon.xcodeproj/
+            .
+            .
+            .
 
 If set up this way, it should all build cleanly.
 
