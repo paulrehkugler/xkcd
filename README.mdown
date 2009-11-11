@@ -1,8 +1,7 @@
 Building the app
 ================
 
-To build the app, place the folder containing this code and the folder containing the TLCommon library (available under the MIT license from
-[http://github.com/treelinelabs/TLCommon]) side by side, like so:
+To build the app, place the folder containing this code and the folder containing the [TLCommon library](http://github.com/treelinelabs/TLCommon "TLCommon library") (available under the MIT license) side by side, like so:
 
         parent_dir/
           xkcd/
@@ -21,17 +20,12 @@ If set up this way, it should all build cleanly.
 Thoughts on the App Store
 =========================
 
-Out of respect for the users of the App Store (who already must choose from lots of xkcd apps), I would ask
-that you not submit new xkcd apps based on this one, but instead contribute back code.
+Out of respect for the users of the App Store (who already must choose from lots of xkcd apps), I would ask that you not submit new xkcd apps based on this one, but instead contribute back code.
 
 Thoughts on the license (GPL)
 =============================
 
-The choice of GPL should not actually be very restrictive compared to the restrictions already implicitly
-in place, as respecting the terms of xkcd's Creative Commons license effectively rules out commercial use.
-If you want to use some generic code component from this app, such as TiledImage, please contact me and I'm
-sure we can work out some special permissions. Note that the TLCommon library, which this app depends on,
-is under the MIT license.
+The choice of GPL should not actually be very restrictive compared to the restrictions already implicitly in place, as respecting the terms of xkcd's Creative Commons license effectively rules out commercial use. If you want to use some generic code component from this app, such as TiledImage, please contact me and I'm sure we can work out some special permissions. Note that the TLCommon library, which this app depends on, is under the MIT license.
 
 Contact
 =======
