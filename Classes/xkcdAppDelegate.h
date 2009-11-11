@@ -11,6 +11,8 @@
 #define AppDelegate ((xkcdAppDelegate *)[UIApplication sharedApplication].delegate)
 #define kUseragent @"xkcd iPhone app (josh@treelinelabs.com; http://bit.ly/rZtDq). I can haz API?"
 
+// TODO: Remove all this twitter stuff and use the Twitter helper in TLCommon
+
 #define kTwitterClientAutodetect 0
 #define kTwitterClientTwitterCom 1
 #define kTwitterClientTweetie 2

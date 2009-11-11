@@ -8,6 +8,8 @@
 
 @protocol ComicImageViewDelegate<NSObject>
 
+@required
+
 - (void)zoomOutWithTouch:(UITouch *)touch;
 
 @end

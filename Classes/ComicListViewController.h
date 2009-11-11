@@ -15,7 +15,8 @@
 @class SingleComicImageFetcher;
 
 @interface ComicListViewController : UIViewController
-<UITableViewDataSource,
+<
+UITableViewDataSource,
 UITableViewDelegate,
 NewComicFetcherDelegate,
 NSFetchedResultsControllerDelegate,
@@ -23,7 +24,8 @@ UISearchBarDelegate,
 UISearchDisplayDelegate,
 SingleComicImageFetcherDelegate,
 UIActionSheetDelegate,
-MFMailComposeViewControllerDelegate> {
+MFMailComposeViewControllerDelegate
+> {
 @private
   UITableView *tableView;
   NSFetchedResultsController *fetchedResultsController;

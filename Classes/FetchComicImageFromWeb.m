@@ -55,11 +55,15 @@
   [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
   NSURLResponse *response = nil;
   NSError *requestError = nil;
-  self.comicImageData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&requestError];
+  self.comicImageData = [NSURLConnection sendSynchronousRequest:request
+                                              returningResponse:&response
+                                                          error:&requestError];
   self.error = requestError;
   
   if(![self isCancelled]) {
-    [self.target performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
+    [self.target performSelectorOnMainThread:self.action
+                                  withObject:self
+                               waitUntilDone:NO];
   }
 }
 

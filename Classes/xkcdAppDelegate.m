@@ -18,6 +18,10 @@
 
 #pragma mark -
 
+static NSString *applicationDocumentsDirectory = nil;
+
+#pragma mark -
+
 @interface xkcdAppDelegate ()
 
 @property(nonatomic, retain, readwrite) UINavigationController *navigationController;
@@ -177,7 +181,6 @@ void uncaughtExceptionHandler(NSException *exception) {
  If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
  */
 - (NSManagedObjectContext *) managedObjectContext {
-	
   if (managedObjectContext != nil) {
     return managedObjectContext;
   }
@@ -235,20 +238,24 @@ void uncaughtExceptionHandler(NSException *exception) {
   return persistentStoreCoordinator;
 }
 
-
 #pragma mark -
 #pragma mark Application's documents directory
 
 /**
  Returns the path to the application's documents directory.
+ Memo-ized to provide faster delete-all + download-all functionality.
  */
 - (NSString *)applicationDocumentsDirectory {
-	
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-  return basePath;
+  if(!applicationDocumentsDirectory) {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    if(basePath) {
+      applicationDocumentsDirectory = basePath;
+      [applicationDocumentsDirectory retain];
+    }
+  }
+  return applicationDocumentsDirectory;
 }
-
 
 #pragma mark -
 #pragma mark Memory management

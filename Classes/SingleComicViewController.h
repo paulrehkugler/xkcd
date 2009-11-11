@@ -12,10 +12,12 @@
 @class Comic;
 
 @interface SingleComicViewController : UIViewController
-<UIScrollViewDelegate,
+<
+UIScrollViewDelegate,
 UIActionSheetDelegate,
 ComicImageViewDelegate,
-MFMailComposeViewControllerDelegate> {
+MFMailComposeViewControllerDelegate
+> {
 @private
   Comic *comic;
   NSMutableArray *comicImageViews;

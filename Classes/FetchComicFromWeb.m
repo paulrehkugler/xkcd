@@ -132,6 +132,7 @@ didStartElement:(NSString *)elementName
  qualifiedName:(NSString *)qualifiedName
     attributes:(NSDictionary *)attributeDict {
   
+  // Ghetto? Yes, but it works! God I want an API.
   if([attributeDict objectForKey:@"alt"] &&
      [attributeDict objectForKey:@"src"] &&
      [attributeDict objectForKey:@"title"]) {
@@ -144,7 +145,6 @@ didStartElement:(NSString *)elementName
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-  NSLog(@"Parse error on comic %i, %@", self.comicNumber, parseError);
   [FlurryAPI logError:@"Parse error" message:[NSString stringWithFormat:@"Parse error on comic %i: %@", self.comicNumber, parseError] exception:nil];
 }
 

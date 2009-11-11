@@ -11,6 +11,8 @@
 
 @protocol NewComicFetcherDelegate<NSObject>
 
+@required
+
 - (void)newComicFetcher:(NewComicFetcher *)fetcher didFetchComic:(Comic *)comic;
 - (void)newComicFetcherDidFinishFetchingAllComics:(NewComicFetcher *)fetcher;
 - (void)newComicFetcher:(NewComicFetcher *)fetcher didFailWithError:(NSError *)error;

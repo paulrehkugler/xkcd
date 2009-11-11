@@ -11,6 +11,8 @@
 
 @protocol SingleComicImageFetcherDelegate<NSObject>
 
+@required
+
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFetchImageForComic:(Comic *)comic openAfterDownload:(BOOL)openAfterDownload;
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFailWithError:(NSError *)error onComic:(Comic *)comic;
 
