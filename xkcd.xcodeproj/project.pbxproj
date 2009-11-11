@@ -26,7 +26,6 @@
 		03F10F95104DD3380045AEFC /* libTLCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F10D78104D70220045AEFC /* libTLCommon.a */; };
 		03F110AE104E08D90045AEFC /* StatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F110AD104E08D90045AEFC /* StatusBarController.m */; };
 		03F11137104E13670045AEFC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F11136104E13670045AEFC /* QuartzCore.framework */; };
-		03F112ED104EB5240045AEFC /* SearchBarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F112EC104EB5240045AEFC /* SearchBarTableViewCell.m */; };
 		03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */; };
 		03F114A0104F2AC70045AEFC /* ComicImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1149F104F2AC70045AEFC /* ComicImageView.m */; };
 		03F114A9104F2B2B0045AEFC /* TiledImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114A8104F2B2B0045AEFC /* TiledImage.m */; };
@@ -101,8 +100,6 @@
 		03F110AC104E08D90045AEFC /* StatusBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusBarController.h; sourceTree = "<group>"; };
 		03F110AD104E08D90045AEFC /* StatusBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusBarController.m; sourceTree = "<group>"; };
 		03F11136104E13670045AEFC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = SOURCE_ROOT; };
-		03F112EB104EB5240045AEFC /* SearchBarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarTableViewCell.h; sourceTree = "<group>"; };
-		03F112EC104EB5240045AEFC /* SearchBarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarTableViewCell.m; sourceTree = "<group>"; };
 		03F11404104F21110045AEFC /* XkcdErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XkcdErrorCodes.h; sourceTree = "<group>"; };
 		03F1149B104F2A7C0045AEFC /* SingleComicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleComicViewController.h; sourceTree = "<group>"; };
 		03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleComicViewController.m; sourceTree = "<group>"; };
@@ -207,10 +204,10 @@
 			children = (
 				03F10D35104D6DDE0045AEFC /* Comic.h */,
 				03F10D36104D6DDE0045AEFC /* Comic.m */,
-				03F10DAF104D77030045AEFC /* NewComicFetcher.h */,
-				03F10DB0104D77030045AEFC /* NewComicFetcher.m */,
 				03F114A7104F2B2B0045AEFC /* TiledImage.h */,
 				03F114A8104F2B2B0045AEFC /* TiledImage.m */,
+				03F10DAF104D77030045AEFC /* NewComicFetcher.h */,
+				03F10DB0104D77030045AEFC /* NewComicFetcher.m */,
 				03F114ED104F2EF30045AEFC /* SingleComicImageFetcher.h */,
 				03F114EE104F2EF30045AEFC /* SingleComicImageFetcher.m */,
 			);
@@ -274,8 +271,6 @@
 		03F112EA104EB50F0045AEFC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				03F112EB104EB5240045AEFC /* SearchBarTableViewCell.h */,
-				03F112EC104EB5240045AEFC /* SearchBarTableViewCell.m */,
 				03F1149E104F2AC70045AEFC /* ComicImageView.h */,
 				03F1149F104F2AC70045AEFC /* ComicImageView.m */,
 			);
@@ -448,7 +443,6 @@
 				03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */,
 				03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */,
 				03F110AE104E08D90045AEFC /* StatusBarController.m in Sources */,
-				03F112ED104EB5240045AEFC /* SearchBarTableViewCell.m in Sources */,
 				03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */,
 				03F114A0104F2AC70045AEFC /* ComicImageView.m in Sources */,
 				03F114A9104F2B2B0045AEFC /* TiledImage.m in Sources */,

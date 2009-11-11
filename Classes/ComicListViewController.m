@@ -14,7 +14,6 @@
 #import "FlurryAPI.h"
 #import "XkcdErrorCodes.h"
 #import "StatusBarController.h"
-#import "SearchBarTableViewCell.h"
 #import "SingleComicViewController.h"
 #import "SingleComicImageFetcher.h"
 #import "CGGeometry_TLCommon.h"
