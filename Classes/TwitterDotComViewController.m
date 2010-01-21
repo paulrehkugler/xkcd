@@ -88,7 +88,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
-  return [AppDelegate rotate] ? YES : (interfaceOrientation == UIInterfaceOrientationPortrait);
+  return [AppDelegate rotate] ? (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown)
+                              : (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)viewDidUnload {
