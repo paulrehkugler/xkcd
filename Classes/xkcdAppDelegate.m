@@ -9,6 +9,7 @@
 #import "xkcdAppDelegate.h"
 #import "FlurryAPI.h"
 #import "ComicListViewController.h"
+#import "NSString_HTML.h"
 
 #define kUserDefaultsRotateKey @"rotate"
 #define kUserDefaultsOpenZoomedOutKey @"zoomed_out"
@@ -67,7 +68,7 @@ void uncaughtExceptionHandler(NSException *exception) {
   self.navigationController = [[[UINavigationController alloc] initWithRootViewController:self.listViewController] autorelease];
   [window addSubview:self.navigationController.view];
   [window makeKeyAndVisible];
-  
+
   return canLaunchApplication;
 }
 

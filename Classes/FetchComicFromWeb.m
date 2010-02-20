@@ -10,17 +10,12 @@
 #import "FlurryAPI.h"
 #import "Comic.h"
 #import "xkcdAppDelegate.h"
-
-#pragma mark -
-#pragma mark Statics
-
-static NSArray *characterEntityArray = nil;
+#import "CJSONDeserializer.h"
+#import "NSString_HTML.h"
 
 #pragma mark -
 
 @interface FetchComicFromWeb ()
-
-+ (NSString *)decodeCharacterEntitiesIn:(NSString *)source;
 
 @property(nonatomic, assign, readwrite) NSInteger comicNumber;
 @property(nonatomic, retain, readwrite) NSString *comicName;
@@ -29,6 +24,7 @@ static NSArray *characterEntityArray = nil;
 @property(nonatomic, assign, readwrite) id target;
 @property(nonatomic, assign, readwrite) SEL action;
 @property(nonatomic, retain, readwrite) NSError *error;
+@property(nonatomic, assign, readwrite) BOOL got404;
 
 @end
 
@@ -43,6 +39,7 @@ static NSArray *characterEntityArray = nil;
 @synthesize target;
 @synthesize action;
 @synthesize error;
+@synthesize got404;
 
 - (id)initWithComicNumber:(NSInteger)comicNumberToFetch completionTarget:(id)completionTarget action:(SEL)completionAction {
   if(self = [super init]) {
@@ -54,51 +51,35 @@ static NSArray *characterEntityArray = nil;
 }
 
 - (void)main {
-  NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i/", self.comicNumber]];
+  NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i/info.0.json", self.comicNumber]];
   if(self.comicNumber == 404) {
     // Smart ass :)
     self.comicName = @"Not found";
     self.comicTitleText = @"";
     self.comicImageURL = @"http://imgs.xkcd.com/static/xkcdLogo.png"; // anything...
-  } else if(self.comicNumber == 482) {
-    // Work around malformed HTML
-    self.comicName = @"Height";
-    self.comicTitleText = @"Interestingly, on a true vertical log plot, I think the Eiffel Tower's sides really would be straight lines.";
-    self.comicImageURL = @"http://imgs.xkcd.com/comics/height.png";
-  } else if(self.comicNumber == 488) {
-    // Work around malformed HTML
-    self.comicName = @"Steal This Comic";
-    self.comicTitleText = @"I spent more time trying to get an audible.com audio book playing than it took to listen to the book.  I have lost every other piece of DRM-locked music I have paid for.";
-    self.comicImageURL = @"http://imgs.xkcd.com/comics/steal_this_comic.png";
-  } else if(self.comicNumber == 563) {
-    // Work around malformed HTML
-    self.comicName = @"Fermirotica";
-    self.comicTitleText = @"I love how Google handles dimensional analysis.  Stats are ballpark and vary wildly by time of day and whether your mom is in town.";
-    self.comicImageURL = @"http://imgs.xkcd.com/comics/fermirotica.png";
-  } else if(self.comicNumber == 472) {
-    // Work around tags in alt text
-    self.comicName = @"House of Pancakes";
-    self.comicTitleText = @"Fuck it.  I'm just going to Waffle House.";
-    self.comicImageURL = @"http://imgs.xkcd.com/comics/house_of_pancakes.png";
-  } else if(self.comicNumber == 259) {
-    // Work around tags in alt text
-    self.comicName = @"Clichéd Exchanges";
-    self.comicTitleText = @"It's like they say, you gotta fight fire with clichés.";
-    self.comicImageURL = @"http://imgs.xkcd.com/comics/cliched_exchanges.png";
   } else {
     // Parse "normally" -- god I want an API!
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:comicURL] autorelease];
     [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
-    NSURLResponse *response = nil;
+    NSHTTPURLResponse *response = nil;
     NSError *requestError = nil;
     NSData *comicData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&requestError];
-    self.error = requestError;
-    if(!requestError) {
-      NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:comicData] autorelease];
-      [parser setDelegate:self];
-      [parser parse];
+    self.got404 = [response statusCode] == 404;
+    if(!self.got404) {
+      self.error = requestError;
+      if(!requestError) {
+        NSError *parseError = nil;
+        NSDictionary *comicDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:comicData error:&parseError];
+        self.error = parseError;
+        if(!parseError) {
+          self.comicName = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"title"]];
+          self.comicTitleText = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"alt"]];
+          self.comicImageURL = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"img"]];
+          // TODO: use link/news to detect "large version" image urls
+        }
+      }
     }
-  }  
+  }
   if(![self isCancelled]) {
     [self.target performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
   }
@@ -121,132 +102,6 @@ static NSArray *characterEntityArray = nil;
   action = NULL;
   
   [super dealloc];
-}
-
-#pragma mark -
-#pragma mark NSXMLParser delegate functions
-
-- (void)parser:(NSXMLParser *)parser
-didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI
- qualifiedName:(NSString *)qualifiedName
-    attributes:(NSDictionary *)attributeDict {
-  
-  // Ghetto? Yes, but it works! God I want an API.
-  if([attributeDict objectForKey:@"alt"] &&
-     [attributeDict objectForKey:@"src"] &&
-     [attributeDict objectForKey:@"title"]) {
-    
-    self.comicName = [[self class] decodeCharacterEntitiesIn:[attributeDict objectForKey:@"alt"]];
-    self.comicTitleText = [[self class] decodeCharacterEntitiesIn:[attributeDict objectForKey:@"title"]];
-    NSString *imageURLString = [attributeDict objectForKey:@"src"];
-    self.comicImageURL = imageURLString;
-  }
-}
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-  [FlurryAPI logError:@"Parse error" message:[NSString stringWithFormat:@"Parse error on comic %i: %@", self.comicNumber, parseError] exception:nil];
-}
-
-#pragma mark -
-#pragma mark Helper functions
-
-// borrowed from http://www.thinkmac.co.uk/blog/2005/05/removing-entities-from-html-in-cocoa.html
-// ...and fixed a little
-+ (NSString *)decodeCharacterEntitiesIn:(NSString *)source {
-  if(!source) {
-    return nil;
-  }
-  
-  NSMutableString *escaped = [NSMutableString stringWithString:source];
-  if(!characterEntityArray) {
-    characterEntityArray = [NSArray arrayWithObjects:
-                            @"&nbsp;", @"&iexcl;", @"&cent;", @"&pound;", @"&curren;", @"&yen;", @"&brvbar;",
-                            @"&sect;", @"&uml;", @"&copy;", @"&ordf;", @"&laquo;", @"&not;", @"&shy;", @"&reg;",
-                            @"&macr;", @"&deg;", @"&plusmn;", @"&sup2;", @"&sup3;", @"&acute;", @"&micro;",
-                            @"&para;", @"&middot;", @"&cedil;", @"&sup1;", @"&ordm;", @"&raquo;", @"&frac14;",
-                            @"&frac12;", @"&frac34;", @"&iquest;", @"&Agrave;", @"&Aacute;", @"&Acirc;",
-                            @"&Atilde;", @"&Auml;", @"&Aring;", @"&AElig;", @"&Ccedil;", @"&Egrave;",
-                            @"&Eacute;", @"&Ecirc;", @"&Euml;", @"&Igrave;", @"&Iacute;", @"&Icirc;", @"&Iuml;",
-                            @"&ETH;", @"&Ntilde;", @"&Ograve;", @"&Oacute;", @"&Ocirc;", @"&Otilde;", @"&Ouml;",
-                            @"&times;", @"&Oslash;", @"&Ugrave;", @"&Uacute;", @"&Ucirc;", @"&Uuml;", @"&Yacute;",
-                            @"&THORN;", @"&szlig;", @"&agrave;", @"&aacute;", @"&acirc;", @"&atilde;", @"&auml;",
-                            @"&aring;", @"&aelig;", @"&ccedil;", @"&egrave;", @"&eacute;", @"&ecirc;", @"&euml;",
-                            @"&igrave;", @"&iacute;", @"&icirc;", @"&iuml;", @"&eth;", @"&ntilde;", @"&ograve;",
-                            @"&oacute;", @"&ocirc;", @"&otilde;", @"&ouml;", @"&divide;", @"&oslash;", @"&ugrave;",
-                            @"&uacute;", @"&ucirc;", @"&uuml;", @"&yacute;", @"&thorn;", @"&yuml;", nil];
-    [characterEntityArray retain];
-  }
-  
-  int i;
-  int count = [characterEntityArray count];
-  
-  // Html
-  for(i = 0; i < count; i++) {
-    NSRange range = [source rangeOfString:[characterEntityArray objectAtIndex: i]];
-    if(range.location != NSNotFound) {
-      [escaped replaceOccurrencesOfString:[characterEntityArray objectAtIndex: i] 
-                               withString:[NSString stringWithFormat:@"%C", 160 + i] 
-                                  options:NSLiteralSearch 
-                                    range:NSMakeRange(0, [escaped length])];
-    }
-  }
-  
-  // Decimal & Hex
-  NSRange start, finish, searchRange = NSMakeRange(0, [escaped length]);
-  i = 0;
-  
-  while(i < [escaped length]) {
-    start = [escaped rangeOfString:@"&#" 
-                           options:NSCaseInsensitiveSearch 
-                             range:searchRange];
-    
-    finish = [escaped rangeOfString:@";" 
-                            options:NSCaseInsensitiveSearch 
-                              range:searchRange];
-    
-    if(start.location != NSNotFound &&
-       finish.location != NSNotFound &&
-       finish.location > start.location) {
-      
-      NSRange entityRange = NSMakeRange(start.location, (finish.location - start.location) + 1);
-      NSString *entity = [escaped substringWithRange:entityRange];     
-      NSString *value = [entity substringWithRange:NSMakeRange(2, [entity length] - 2)];
-      
-      [escaped deleteCharactersInRange:entityRange];
-      
-      if([value hasPrefix: @"x"]) {
-        NSUInteger tempInt = 0;
-        NSScanner *scanner = [NSScanner scannerWithString:[value substringFromIndex:1]];
-        [scanner scanHexInt:&tempInt];
-        [escaped insertString: [NSString stringWithFormat:@"%C", tempInt] atIndex: entityRange.location];
-      } else {
-        [escaped insertString: [NSString stringWithFormat:@"%C", [value intValue]] atIndex: entityRange.location];
-      }
-      i = start.location;
-    } else {
-      i++;
-    }
-    searchRange = NSMakeRange(i, [escaped length] - i);
-  }
-  
-  NSDictionary *stringSubstitutions = [[[NSDictionary alloc] initWithObjectsAndKeys:
-                                       @"&", @"&amp;",
-                                       @"<", @"&lt;",
-                                       @">", @"&gt;",
-                                       @"'", @"&quot;",                           
-                                       nil
-                                       ] autorelease];
-  
-  for(NSString *stringToSubstitute in stringSubstitutions) {
-    [escaped replaceOccurrencesOfString:stringToSubstitute
-                             withString:[stringSubstitutions objectForKey:stringToSubstitute]
-                                options:(NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch)
-                                  range:NSMakeRange(0, [escaped length])
-     ];
-  }
-  
-  return escaped;    // Note this is autoreleased
 }
 
 @end

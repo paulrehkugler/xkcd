@@ -17,6 +17,7 @@
   id target;
   SEL action;
   NSError *error;
+  BOOL got404;
 }
 
 - (id)initWithComicNumber:(NSInteger)comicNumberToFetch completionTarget:(id)completionTarget action:(SEL)completionAction;
@@ -26,5 +27,6 @@
 @property(nonatomic, retain, readonly) NSString *comicTitleText;
 @property(nonatomic, retain, readonly) NSString *comicImageURL;
 @property(nonatomic, retain, readonly) NSError *error;
+@property(nonatomic, assign, readonly) BOOL got404;
 
 @end

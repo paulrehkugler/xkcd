@@ -58,8 +58,12 @@
 }
 
 - (void)didCompleteFetchOperation:(FetchComicFromWeb *)fetchOperation {
-  if(fetchOperation.error) {
-    // Network fail?
+  if(fetchOperation.got404) {
+    // all done!
+    [[self retain] autorelease];
+    [delegate newComicFetcherDidFinishFetchingAllComics:self];
+  } else if(fetchOperation.error) {
+    // Network fail? Change in API?
     [[self retain] autorelease];
     [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
   } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL) {
@@ -73,9 +77,7 @@
     [delegate newComicFetcher:self didFetchComic:newComic];
     [self fetchComic:(fetchOperation.comicNumber + 1)];    
   } else {
-    // Parse failure -- we're done!
-    [[self retain] autorelease];
-    [delegate newComicFetcherDidFinishFetchingAllComics:self];
+    // wtf?
   }
 }
 
