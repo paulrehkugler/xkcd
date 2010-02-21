@@ -51,14 +51,13 @@
 }
 
 - (void)main {
-  NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i/info.0.json", self.comicNumber]];
   if(self.comicNumber == 404) {
     // Smart ass :)
     self.comicName = @"Not found";
     self.comicTitleText = @"";
     self.comicImageURL = @"http://imgs.xkcd.com/static/xkcdLogo.png"; // anything...
   } else {
-    // Parse "normally" -- god I want an API!
+    NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i/info.0.json", self.comicNumber]];
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:comicURL] autorelease];
     [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
     NSHTTPURLResponse *response = nil;
