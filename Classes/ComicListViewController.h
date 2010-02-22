@@ -10,9 +10,9 @@
 #import "NewComicFetcherDelegate.h"
 #import "SingleComicImageFetcherDelegate.h"
 
-@class StatusBarController;
 @class NewComicFetcher;
 @class SingleComicImageFetcher;
+@class LorenRefreshView;
 
 @interface ComicListViewController : UIViewController
 <
@@ -32,8 +32,6 @@ MFMailComposeViewControllerDelegate
   NSFetchedResultsController *searchFetchedResultsController;
   NewComicFetcher *fetcher;
   SingleComicImageFetcher *imageFetcher;
-  StatusBarController *statusBarController;
-  NSTimer *statusBarAnimationTimer;
   UISearchDisplayController *searchController;
   
   // The saved state of the search UI if a memory warning removed the view.
@@ -43,6 +41,11 @@ MFMailComposeViewControllerDelegate
   NSInteger requestedLaunchComic;
 
   TLModalActivityIndicatorView *modalSpinner;
+
+  // Pull-to-refresh
+  LorenRefreshView *refreshHeaderView;
+	BOOL shouldCheckForRefreshGesture;
+	BOOL refreshing;
 }
 
 @property(nonatomic, retain, readonly) UITableView *tableView;

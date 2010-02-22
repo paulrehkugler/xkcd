@@ -13,14 +13,16 @@
 #import "xkcdAppDelegate.h"
 #import "FlurryAPI.h"
 #import "XkcdErrorCodes.h"
-#import "StatusBarController.h"
 #import "SingleComicViewController.h"
 #import "SingleComicImageFetcher.h"
 #import "CGGeometry_TLCommon.h"
+#import "LorenRefreshView.h"
 
-#pragma mark -
-
-#define kStatusBarHeight 30.0f
+#define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
+#define kRefreshTriggerOffset 65.0f
+#define kDuringRefreshContentOffset 80.0f
+#define kRefreshContentOffsetAnimationDuration 0.2f
+#define kReturnToNormalContentOffsetAnimationDuration 0.3f
 
 #pragma mark -
 
@@ -46,18 +48,22 @@ static UIImage *downloadImage = nil;
 - (void)deleteAllComicImages;
 - (void)downloadAllComicImages;
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
+- (void)showRefreshAnimation;
+- (void)didStartRefreshing;
+- (void)didFinishRefreshing;
 
 @property(nonatomic, retain, readwrite) UITableView *tableView;
 @property(nonatomic, retain, readwrite) NewComicFetcher *fetcher;
 @property(nonatomic, retain, readwrite) SingleComicImageFetcher *imageFetcher;
 @property(nonatomic, retain, readwrite) NSFetchedResultsController *fetchedResultsController;
 @property(nonatomic, retain, readwrite) NSFetchedResultsController *searchFetchedResultsController;
-@property(nonatomic, retain, readwrite) StatusBarController *statusBarController;
-@property(nonatomic, retain, readwrite) NSTimer *statusBarAnimationTimer;
 @property(nonatomic, retain, readwrite) UISearchDisplayController *searchController;
 @property(nonatomic, retain, readwrite) NSString *savedSearchTerm;
 @property(nonatomic, assign, readwrite) BOOL searchWasActive;
 @property(nonatomic, retain, readwrite) TLModalActivityIndicatorView *modalSpinner;
+@property(nonatomic, retain, readwrite) LorenRefreshView *refreshHeaderView;
+@property(nonatomic, assign, readwrite) BOOL shouldCheckForRefreshGesture;
+@property(nonatomic, assign, readwrite) BOOL refreshing;
 
 @end
 
@@ -70,13 +76,14 @@ static UIImage *downloadImage = nil;
 @synthesize imageFetcher;
 @synthesize fetchedResultsController;
 @synthesize searchFetchedResultsController;
-@synthesize statusBarController;
-@synthesize statusBarAnimationTimer;
 @synthesize searchController;
 @synthesize savedSearchTerm;
 @synthesize searchWasActive;
 @synthesize requestedLaunchComic;
 @synthesize modalSpinner;
+@synthesize refreshHeaderView;
+@synthesize shouldCheckForRefreshGesture;
+@synthesize refreshing;
 
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
@@ -105,11 +112,9 @@ static UIImage *downloadImage = nil;
                                   ] autorelease];
   self.navigationItem.leftBarButtonItem = systemItem;
 
-  UIBarButtonItem *editItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
-                                                                             target:self
-                                                                             action:@selector(edit:)
-                                ] autorelease];
-  self.navigationItem.rightBarButtonItem = editItem;
+  self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  self.navigationItem.rightBarButtonItem.target = self;
+  self.navigationItem.rightBarButtonItem.action = @selector(edit:);
 
 #if GENERATE_DEFAULT_PNG
   self.navigationItem.leftBarButtonItem.enabled = NO;
@@ -120,19 +125,14 @@ static UIImage *downloadImage = nil;
   self.tableView.dataSource = self;
   self.tableView.delegate = self;
   self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  self.tableView.backgroundColor = kTableViewBackgroundColor;
   
   [self.view addSubview:self.tableView];
   
-  CGFloat navigationBarHeight = self.navigationController.navigationBar.bounds.size.height;
-  CGRect statusBarFrame = CGRectMake(0.0f,
-                                     self.view.bounds.size.height - navigationBarHeight - kStatusBarHeight,
-                                     self.view.bounds.size.width,
-                                     kStatusBarHeight);
-  self.statusBarController = [[[StatusBarController alloc] initWithStatusBarFrame:statusBarFrame] autorelease];
-  [self.statusBarController hide];
-  [self.view addSubview:self.statusBarController.statusBar];
-
   [self setSearchBarTableHeader];
+
+	self.refreshHeaderView = [[[LorenRefreshView alloc] initWithFrame:CGRectMake(0.0f, -self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)] autorelease];
+	[self.tableView addSubview:refreshHeaderView];
 }
 
 - (void)setSearchBarTableHeader {
@@ -213,17 +213,10 @@ static UIImage *downloadImage = nil;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
   [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-  self.statusBarController.statusBar.hidden = YES;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
   [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-  self.statusBarController.statusBar.hidden = NO;
-  CGRect statusBarFrame = CGRectMake(0.0f,
-                                     self.view.bounds.size.height - kStatusBarHeight,
-                                     self.view.bounds.size.width,
-                                     kStatusBarHeight);
-  [self.statusBarController setStatusBarFrame:statusBarFrame];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -235,10 +228,8 @@ static UIImage *downloadImage = nil;
 - (void)viewDidUnload {
   self.searchWasActive = [self.searchDisplayController isActive];
   self.savedSearchTerm = self.searchDisplayController.searchBar.text;
+  self.refreshHeaderView = nil;
   self.tableView = nil;
-  self.statusBarController = nil;
-  [self.statusBarAnimationTimer invalidate];
-  self.statusBarAnimationTimer = nil;
 }
 
 - (void)dealloc {
@@ -271,12 +262,7 @@ static UIImage *downloadImage = nil;
   [savedSearchTerm release];
   savedSearchTerm = nil;
   
-  [statusBarAnimationTimer invalidate];
-  [statusBarAnimationTimer release];
-  statusBarAnimationTimer = nil;
-  
-  [statusBarController release];
-  statusBarController = nil;
+  [refreshHeaderView release], refreshHeaderView = nil;
   
   [super dealloc];
 }
@@ -333,12 +319,8 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)checkForNewComics {
-  if(self.tableView.editing) {
-    [self doneEditing:nil];
-  }
-  self.statusBarController.messageLabel.text = NSLocalizedString(@"Updating...", @"Status bar message when fetching new comics");
-  [self.statusBarController startSpinner];
-  [self.statusBarController showAnimated];
+  [self didStartRefreshing];
+  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
   [self.fetcher fetch];
 }
 
@@ -373,17 +355,15 @@ static UIImage *downloadImage = nil;
                      action:@selector(goToAppStore)];
   [sheet addCancelButton];
   [sheet showInView:self.view];
-}  
+}
 
 - (void)edit:(UIBarButtonItem *)sender {
+  [self setEditing:YES animated:YES];
   [self.tableView setEditing:YES animated:YES];
   [self.tableView setContentOffset:
    CGPointByAddingYOffset(self.tableView.contentOffset, -self.tableView.tableHeaderView.bounds.size.height)];
   self.tableView.tableHeaderView = nil;
-  UIBarButtonItem *doneItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                             target:self
-                                                                             action:@selector(doneEditing:)
-                                ] autorelease];
+  self.navigationItem.rightBarButtonItem.action = @selector(doneEditing:);
   [self.navigationController setToolbarHidden:NO animated:YES];
   UIBarButtonItem *downloadAll = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Download all", @"Button")
                                                                    style:UIBarButtonItemStyleBordered
@@ -395,33 +375,25 @@ static UIImage *downloadImage = nil;
                                                                 target:self
                                                                 action:@selector(deleteAll:)]
                                   autorelease];
-  UIBarButtonItem *refresh = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                           target:self
-                                                           action:@selector(checkForNewComics)];
   NSArray *toolbarItems = [NSArray arrayWithObjects:
                            downloadAll,
                            deleteAll,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           refresh,
                            nil];
   [self setToolbarItems:toolbarItems animated:YES];
   self.navigationItem.leftBarButtonItem.enabled = NO;
-  self.navigationItem.rightBarButtonItem = doneItem;
 }
 
 - (void)doneEditing:(UIBarButtonItem *)sender {
+  [self setEditing:NO animated:YES];
   [self.tableView setEditing:NO animated:YES];
   [self setSearchBarTableHeader];
   [self.tableView setContentOffset:
    CGPointByAddingYOffset(self.tableView.contentOffset, self.tableView.tableHeaderView.bounds.size.height)];
-  UIBarButtonItem *editItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
-                                                                             target:self
-                                                                             action:@selector(edit:)
-                                ] autorelease];
+  self.navigationItem.rightBarButtonItem.action = @selector(edit:);
   [self.navigationController setToolbarHidden:YES animated:YES];
   
   self.navigationItem.leftBarButtonItem.enabled = YES;
-  self.navigationItem.rightBarButtonItem = editItem;  
 }
 
 - (void)downloadAll:(UIBarButtonItem *)sender {
@@ -454,31 +426,19 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)newComicFetcherDidFinishFetchingAllComics:(NewComicFetcher *)fetcher {
-  [self.statusBarController stopSpinner];
-  self.statusBarController.messageLabel.text = NSLocalizedString(@"Updated", @"Status bar message indicated all new comics have been downloaded");
-  [self.statusBarAnimationTimer invalidate];
-  self.statusBarAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
-                                                                  target:self.statusBarController
-                                                                selector:@selector(hideAnimated)
-                                                                userInfo:nil repeats:NO];
+  [self didFinishRefreshing];
+  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)newComicFetcher:(NewComicFetcher *)comicFetcher didFailWithError:(NSError *)error {
-  [self.statusBarController stopSpinner];
-  
-  if([[error domain] isEqualToString:kXkcdErrorDomain]) {
-    // internal error
-    [FlurryAPI logError:@"Internal error" message:[NSString stringWithFormat:@"Error: %@", error] exception:nil];
-    self.statusBarController.messageLabel.text = NSLocalizedString(@"Update failed.", @"Status bar message indicated new comics downloading failed due to internal error.");
-  } else {
-    self.statusBarController.messageLabel.text = NSLocalizedString(@"Update failed. No internet connection.", @"Status bar message indicated new comics downloading failed due to lack of internet connection.");
+  if([error.domain isEqualToString:kXkcdErrorDomain]) {
+    [FlurryAPI logError:@"Internal error"
+                message:[NSString stringWithFormat:@"Error: %@", error]
+              exception:nil];
   }
-  
-  [self.statusBarAnimationTimer invalidate];
-  self.statusBarAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:4.0f
-                                                                  target:self.statusBarController
-                                                                selector:@selector(hideAnimated)
-                                                                userInfo:nil repeats:NO];
+  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+  [self didFinishRefreshing];
+  // TODO: Show in the UI that the fetch failed? e.g. modal indication a la tweetie 2?
 }
 
 #pragma mark -
@@ -567,9 +527,13 @@ static UIImage *downloadImage = nil;
   }
 
   comicCell.editingAccessoryView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-
+  
   cell = comicCell;
   return cell;
+}
+
+- (void)tableView:(UITableView *)aTableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+  cell.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -805,6 +769,71 @@ static UIImage *downloadImage = nil;
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
   [self.tableView endUpdates];
+}
+
+#pragma mark -
+#pragma mark Pull to refresh / UIScrollViewDelegate methods
+
+- (void)showRefreshAnimation {
+  [self didStartRefreshing];
+
+  [UIView beginAnimations:nil context:NULL];
+  [UIView setAnimationDuration:kRefreshContentOffsetAnimationDuration];
+  self.tableView.contentInset = UIEdgeInsetsMake(kDuringRefreshContentOffset, 0.0f, 0.0f, 0.0f);
+  [UIView commitAnimations];
+}
+
+- (void)didStartRefreshing {
+  self.refreshing = YES;
+	[self.refreshHeaderView setSpinnerAnimating:YES];
+  [self.refreshHeaderView setState:RefreshViewStateLoading];
+}
+
+- (void)didFinishRefreshing {
+	self.refreshing = NO;
+	[self.refreshHeaderView flipArrowAnimated:NO];
+
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:kReturnToNormalContentOffsetAnimationDuration];
+	[self.tableView setContentInset:UIEdgeInsetsZero];
+	[self.refreshHeaderView setState:RefreshViewStatePullToReload];
+	[self.refreshHeaderView setSpinnerAnimating:NO];
+	[UIView commitAnimations];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	if(!self.refreshing) {
+		self.shouldCheckForRefreshGesture = YES;
+	}
+} 
+
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {	
+	if(self.refreshing) {
+    return;
+  }
+    
+	if(self.shouldCheckForRefreshGesture) {
+		if(self.refreshHeaderView.flipped && aScrollView.contentOffset.y > -kRefreshTriggerOffset && aScrollView.contentOffset.y < 0.0f ) {
+			[self.refreshHeaderView flipArrowAnimated:YES];
+			[self.refreshHeaderView setState:RefreshViewStatePullToReload];
+		} else if(!self.refreshHeaderView.flipped && aScrollView.contentOffset.y < -kRefreshTriggerOffset) {
+			[self.refreshHeaderView flipArrowAnimated:YES];
+			[self.refreshHeaderView setState:RefreshViewStateReleaseToReload];
+		}
+	}
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView willDecelerate:(BOOL)decelerate {
+	if(self.refreshing) {
+    return;
+  }
+    
+	if(aScrollView.contentOffset.y <= -kRefreshTriggerOffset) {
+    [self showRefreshAnimation];
+    [self checkForNewComics];
+	}
+
+	self.shouldCheckForRefreshGesture = NO;
 }
 
 @end

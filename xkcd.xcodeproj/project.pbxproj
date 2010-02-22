@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032AF3571131EA470074C04C /* LorenRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 032AF3561131EA470074C04C /* LorenRefreshView.m */; };
+		032AF35E1131EC390074C04C /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 032AF35D1131EC390074C04C /* blueArrow.png */; };
 		034042B61056B1D7004B4909 /* xkcd.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 034042B51056B1D7004B4909 /* xkcd.sqlite */; };
 		034E0EB110A9F0E00021D494 /* web_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 034E0EAF10A9F0E00021D494 /* web_back.png */; };
 		034E0EB210A9F0E00021D494 /* web_forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 034E0EB010A9F0E00021D494 /* web_forward.png */; };
@@ -37,7 +39,6 @@
 		03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10DB0104D77030045AEFC /* NewComicFetcher.m */; };
 		03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10DBB104D78450045AEFC /* FetchComicFromWeb.m */; };
 		03F10F95104DD3380045AEFC /* libTLCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F10D78104D70220045AEFC /* libTLCommon.a */; };
-		03F110AE104E08D90045AEFC /* StatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F110AD104E08D90045AEFC /* StatusBarController.m */; };
 		03F11137104E13670045AEFC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F11136104E13670045AEFC /* QuartzCore.framework */; };
 		03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */; };
 		03F114A0104F2AC70045AEFC /* ComicImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1149F104F2AC70045AEFC /* ComicImageView.m */; };
@@ -94,6 +95,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		032AF3551131EA470074C04C /* LorenRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LorenRefreshView.h; sourceTree = "<group>"; };
+		032AF3561131EA470074C04C /* LorenRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LorenRefreshView.m; sourceTree = "<group>"; };
+		032AF35D1131EC390074C04C /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		034042B51056B1D7004B4909 /* xkcd.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = xkcd.sqlite; sourceTree = "<group>"; };
 		034042DB1056B4F6004B4909 /* xkcd-distro-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-distro-info.plist"; sourceTree = "<group>"; };
 		034E0E9A10A9ED8F0021D494 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -151,8 +155,6 @@
 		03F10DBA104D78450045AEFC /* FetchComicFromWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchComicFromWeb.h; sourceTree = "<group>"; };
 		03F10DBB104D78450045AEFC /* FetchComicFromWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchComicFromWeb.m; sourceTree = "<group>"; };
 		03F10F0B104D8F1C0045AEFC /* NewComicFetcherDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewComicFetcherDelegate.h; sourceTree = "<group>"; };
-		03F110AC104E08D90045AEFC /* StatusBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusBarController.h; sourceTree = "<group>"; };
-		03F110AD104E08D90045AEFC /* StatusBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusBarController.m; sourceTree = "<group>"; };
 		03F11136104E13670045AEFC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = SOURCE_ROOT; };
 		03F11404104F21110045AEFC /* XkcdErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XkcdErrorCodes.h; sourceTree = "<group>"; };
 		03F1149B104F2A7C0045AEFC /* SingleComicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleComicViewController.h; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 		03DA9D771097B4D7005A34B2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				032AF35D1131EC390074C04C /* blueArrow.png */,
 				03F114E4104F2E9B0045AEFC /* glyphish_download.png */,
 			);
 			name = Images;
@@ -365,8 +368,6 @@
 			children = (
 				0372FF7B10447552004CD031 /* ComicListViewController.h */,
 				0372FF7C10447552004CD031 /* ComicListViewController.m */,
-				03F110AC104E08D90045AEFC /* StatusBarController.h */,
-				03F110AD104E08D90045AEFC /* StatusBarController.m */,
 				03F1149B104F2A7C0045AEFC /* SingleComicViewController.h */,
 				03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */,
 				0384E90210503DAB0096D4E7 /* TwitterDotComViewController.h */,
@@ -390,6 +391,8 @@
 			children = (
 				03F1149E104F2AC70045AEFC /* ComicImageView.h */,
 				03F1149F104F2AC70045AEFC /* ComicImageView.m */,
+				032AF3551131EA470074C04C /* LorenRefreshView.h */,
+				032AF3561131EA470074C04C /* LorenRefreshView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				034E0EB110A9F0E00021D494 /* web_back.png in Resources */,
 				034E0EB210A9F0E00021D494 /* web_forward.png in Resources */,
 				03E905DA10AA366D00D74902 /* Default.png in Resources */,
+				032AF35E1131EC390074C04C /* blueArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,7 +619,6 @@
 				03F10D37104D6DDE0045AEFC /* Comic.m in Sources */,
 				03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */,
 				03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */,
-				03F110AE104E08D90045AEFC /* StatusBarController.m in Sources */,
 				03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */,
 				03F114A0104F2AC70045AEFC /* ComicImageView.m in Sources */,
 				03F114A9104F2B2B0045AEFC /* TiledImage.m in Sources */,
@@ -633,6 +636,7 @@
 				03B6BC5A112D9FA200C32C21 /* CJSONScanner.m in Sources */,
 				03B6BC5B112D9FA200C32C21 /* CJSONSerializer.m in Sources */,
 				03B6BC5C112D9FA200C32C21 /* CSerializedJSONData.m in Sources */,
+				032AF3571131EA470074C04C /* LorenRefreshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
