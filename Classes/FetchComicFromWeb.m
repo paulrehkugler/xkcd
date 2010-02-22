@@ -51,7 +51,6 @@
 }
 
 - (void)main {
-  sleep(5); // TODO: REMOVE THIS TESTING HOOK!
   if(self.comicNumber == 404) {
     // Smart ass :)
     self.comicName = @"Not found";
