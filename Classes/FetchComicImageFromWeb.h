@@ -16,18 +16,18 @@
   id target;
   SEL action;
   NSError *error;
-  BOOL openAfterDownload;
+  id context;
 }
 
 - (id)initWithComicNumber:(NSInteger)number
                  imageURL:(NSURL *)imageURL
          completionTarget:(id)completionTarget
                    action:(SEL)completionAction
-        openAfterDownload:(BOOL)shouldOpenAfterDownload;
+                  context:(id)context;
 
 @property(nonatomic, retain, readonly) NSData *comicImageData;
 @property(nonatomic, assign, readonly) NSInteger comicNumber;
 @property(nonatomic, retain, readonly) NSError *error;
-@property(nonatomic, assign, readonly) BOOL openAfterDownload;
+@property(nonatomic, retain, readonly) id context;
 
 @end

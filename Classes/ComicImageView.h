@@ -11,6 +11,7 @@
 @private
   NSString *titleText;
   NSTimer *touchAndHoldTimer;
+  NSTimer *singleTouchTimer;
   id<ComicImageViewDelegate> delegate;
 }
 

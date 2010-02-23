@@ -46,6 +46,9 @@
 		03F114E5104F2E9B0045AEFC /* glyphish_download.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F114E4104F2E9B0045AEFC /* glyphish_download.png */; };
 		03F114EF104F2EF30045AEFC /* SingleComicImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114EE104F2EF30045AEFC /* SingleComicImageFetcher.m */; };
 		03F114F3104F30140045AEFC /* FetchComicImageFromWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114F2104F30140045AEFC /* FetchComicImageFromWeb.m */; };
+		03F6FD4911334AEC00C3DE84 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FD4711334AEC00C3DE84 /* up.png */; };
+		03F6FD4A11334AEC00C3DE84 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FD4811334AEC00C3DE84 /* down.png */; };
+		03F6FD4C11334B5100C3DE84 /* glyphish_shuffle.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FD4B11334B5100C3DE84 /* glyphish_shuffle.png */; };
 		1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* xkcdAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -169,6 +172,9 @@
 		03F114F0104F2F4A0045AEFC /* SingleComicImageFetcherDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleComicImageFetcherDelegate.h; sourceTree = "<group>"; };
 		03F114F1104F30140045AEFC /* FetchComicImageFromWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchComicImageFromWeb.h; sourceTree = "<group>"; };
 		03F114F2104F30140045AEFC /* FetchComicImageFromWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchComicImageFromWeb.m; sourceTree = "<group>"; };
+		03F6FD4711334AEC00C3DE84 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
+		03F6FD4811334AEC00C3DE84 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
+		03F6FD4B11334B5100C3DE84 /* glyphish_shuffle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_shuffle.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* xkcdAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkcdAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* xkcdAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xkcdAppDelegate.m; sourceTree = "<group>"; };
@@ -312,6 +318,9 @@
 			children = (
 				032AF35D1131EC390074C04C /* blueArrow.png */,
 				03F114E4104F2E9B0045AEFC /* glyphish_download.png */,
+				03F6FD4B11334B5100C3DE84 /* glyphish_shuffle.png */,
+				03F6FD4711334AEC00C3DE84 /* up.png */,
+				03F6FD4811334AEC00C3DE84 /* down.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -577,6 +586,9 @@
 				034E0EB210A9F0E00021D494 /* web_forward.png in Resources */,
 				03E905DA10AA366D00D74902 /* Default.png in Resources */,
 				032AF35E1131EC390074C04C /* blueArrow.png in Resources */,
+				03F6FD4911334AEC00C3DE84 /* up.png in Resources */,
+				03F6FD4A11334AEC00C3DE84 /* down.png in Resources */,
+				03F6FD4C11334B5100C3DE84 /* glyphish_shuffle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

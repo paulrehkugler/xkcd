@@ -11,12 +11,15 @@
 #import "Comic.h"
 #import "XkcdErrorCodes.h"
 
+#define kImageDownloadFailAlertTitle NSLocalizedString(@"Whoops", @"Title of image download fail alert")
+
 #pragma mark -
 
 @interface SingleComicImageFetcher ()
 
 - (void)didCompleteFetchOperation:(FetchComicImageFromWeb *)fetchOperation;
 - (void)enqueueMoreDownloadAllComics;
+- (void)didFailWithError:(NSError *)error onComic:(Comic *)comic;
 
 @property(nonatomic, retain, readwrite) NSOperationQueue *fetchQueue;
 @property(nonatomic, retain, readwrite) NSMutableArray *comicsRemainingDuringDownloadAll;
@@ -38,24 +41,22 @@
   return self;
 }
 
-- (void)fetchImageForComic:(Comic *)comic openAfterDownload:(BOOL)openAfterDownload {
+- (void)fetchImageForComic:(Comic *)comic context:(id)context {
   if(comic.imageURL) {
     NSURL *comicImageURL = [NSURL URLWithString:comic.imageURL];
     FetchComicImageFromWeb *fetchOperation = [[[FetchComicImageFromWeb alloc] initWithComicNumber:[comic.number integerValue]
                                                                                          imageURL:comicImageURL
                                                                                  completionTarget:self
                                                                                            action:@selector(didCompleteFetchOperation:)
-                                                                                openAfterDownload:openAfterDownload]
+                                                                                          context:context]
                                               autorelease];
     comic.loading = [NSNumber numberWithBool:YES];
     [fetchQueue addOperation:fetchOperation];
   } else {
-    [[self retain] autorelease];
-    [self.delegate singleComicImageFetcher:self
-                          didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
-                                                               code:kXkcdErrorCodeBlankImageURL
-                                                           userInfo:nil]
-                                   onComic:comic];
+    [self didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
+                                               code:kXkcdErrorCodeBlankImageURL
+                                           userInfo:nil]
+                   onComic:comic];
   }
 }
 
@@ -75,7 +76,7 @@
   } else {
     // not done...start another
     Comic *comic = [self.comicsRemainingDuringDownloadAll lastObject];
-    [self fetchImageForComic:comic openAfterDownload:NO];
+    [self fetchImageForComic:comic context:[NSNumber numberWithBool:NO]]; // open after download: NO
     [self.comicsRemainingDuringDownloadAll removeLastObject];
   }    
 }
@@ -92,17 +93,39 @@
     [[self retain] autorelease];
     [self.delegate singleComicImageFetcher:self
                      didFetchImageForComic:comic
-                         openAfterDownload:fetchOperation.openAfterDownload];
+                                   context:fetchOperation.context];
   } else {
-    [[self retain] autorelease];
-    [self.delegate singleComicImageFetcher:self
-                          didFailWithError:fetchOperation.error
-                                   onComic:comic];
+    [self didFailWithError:fetchOperation.error onComic:comic];
   }
   
   if(self.comicsRemainingDuringDownloadAll) {
     [self enqueueMoreDownloadAllComics];    
   }
+}
+
+- (void)didFailWithError:(NSError *)error onComic:(Comic *)comic {
+  // Tell the user
+  if([[error domain] isEqualToString:kXkcdErrorDomain]) {
+    // internal error
+    [FlurryAPI logError:@"Internal error" message:[NSString stringWithFormat:@"Error: %@", error] exception:nil];
+    NSString *failAlertMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not download xkcd %i.",
+                                                                              @"Text of unknown error image download fail alert"),
+                                  [comic.number integerValue]];
+    [UIAlertView showAlertWithTitle:kImageDownloadFailAlertTitle
+                            message:failAlertMessage];
+  } else {
+    NSString *failAlertMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not download xkcd %i -- no internet connection.",
+                                                                              @"Text of image download fail alert due to connectivity"),
+                                  [comic.number integerValue]];
+    [UIAlertView showAlertWithTitle:kImageDownloadFailAlertTitle
+                            message:failAlertMessage];
+  }
+  
+  // Tell the delegate
+  [[self retain] autorelease];
+  [self.delegate singleComicImageFetcher:self
+                        didFailWithError:error
+                                 onComic:comic];
 }
 
 - (void)dealloc {

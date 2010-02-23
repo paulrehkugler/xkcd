@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define kMinComicNumber 1
+
 @interface Comic : NSManagedObject {
 }
 

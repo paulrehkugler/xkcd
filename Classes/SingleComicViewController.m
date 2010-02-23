@@ -14,6 +14,7 @@
 #import "xkcdAppDelegate.h"
 #import "FlurryAPI.h"
 #import "TwitterDotComViewController.h"
+#import "SingleComicImageFetcher.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -28,11 +29,22 @@
 - (void)email;
 - (void)tweet;
 - (void)openTwitterDotCom:(NSString *)tweet;
+- (void)toggleToolbarsAnimated:(BOOL)animated;
+- (void)goToPreviousComic;
+- (void)goToRandomComic;
+- (void)goToNextComic;
+- (void)displayComicImage;
+- (void)setupNavigationBar;
+- (void)setupToolbar;
+- (void)displayLoadingView;
+- (void)goToComicNumbered:(NSUInteger)comicNumber;
 
 @property(nonatomic, retain, readwrite) Comic *comic;
 @property(nonatomic, retain, readwrite) NSMutableArray *comicImageViews;
 @property(nonatomic, retain, readwrite) UIView *contentView;
 @property(nonatomic, retain, readwrite) UIScrollView *imageScroller;
+@property(nonatomic, retain, readwrite) TLLoadingView *loadingView;
+@property(nonatomic, retain, readwrite) SingleComicImageFetcher *imageFetcher;
 
 @end
 
@@ -44,6 +56,8 @@
 @synthesize comicImageViews;
 @synthesize contentView;
 @synthesize imageScroller;
+@synthesize loadingView;
+@synthesize imageFetcher;
 
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
@@ -55,20 +69,68 @@
 
 - (void)loadView {
   [super loadView];
+  self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
 
-  self.view.frame = CGRectMake(self.view.frame.origin.x,
-                               self.view.frame.origin.y,
-                               self.view.frame.size.width,
-                               self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height); // SO ANNOYING!
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  [self setupNavigationBar];
+  [self setupToolbar];
 
+  if([self.comic hasBeenDownloaded] && NO) {
+    [self displayComicImage];    
+  } else {
+    [self displayLoadingView];
+    self.imageFetcher = [[[SingleComicImageFetcher alloc] init] autorelease];
+    self.imageFetcher.delegate = self;    
+    [self.imageFetcher fetchImageForComic:self.comic context:nil];
+  }
+}
+
+- (void)setupNavigationBar {
   UIBarButtonItem *systemItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                target:self
                                                                                action:@selector(systemAction:)
                                   ] autorelease];
-  self.navigationItem.rightBarButtonItem = systemItem;  
-  
+  self.navigationItem.rightBarButtonItem = systemItem;
+}
+
+- (void)setupToolbar {
+  UIBarButtonItem *previousItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"down"]
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(goToPreviousComic)] autorelease];
+  if([self.comic.number unsignedIntegerValue] == kMinComicNumber) {
+    previousItem.enabled = NO;
+  }
+  UIBarButtonItem *randomItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_shuffle"]
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(goToRandomComic)] autorelease];
+  UIBarButtonItem *nextItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"up"]
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:self
+                                                               action:@selector(goToNextComic)] autorelease];
+  if(self.comic.number == [Comic lastKnownComic].number) {
+    nextItem.enabled = NO;
+  }
+  // TODO: Disable relevant toolbar items based on whether we're at the max/min comic
+  NSArray *toolbarItems = [NSArray arrayWithObjects:
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           previousItem,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           randomItem,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           nextItem,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           nil];
+  [self setToolbarItems:toolbarItems animated:NO];
+  [self.navigationController setToolbarHidden:NO animated:NO];  
+}
+
+- (void)displayComicImage {
   // Load up the comic image/view
-  UIImage *comicImage = comic.image;
+  UIImage *comicImage = self.comic.image;
   CGSize contentSize = comicImage.size;
   TiledImage *tiles = [[[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight] autorelease];
   self.contentView = [[[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)] autorelease];
@@ -77,7 +139,7 @@
     for(NSUInteger y = 0; y < tiles.heightCount; ++y) {
       ComicImageView *comicImageView = [[ComicImageView alloc] initWithImage:[tiles imageAtXIndex:x YIndex:y]];
       comicImageView.frame = CGRectWithXYAndSize(x * kTileWidth, y * kTileHeight, comicImageView.frame.size); // adjust origin appropriately
-      comicImageView.titleText = comic.titleText;
+      comicImageView.titleText = self.comic.titleText;
       comicImageView.delegate = self;
       [self.comicImageViews addObject:comicImageView];
       [comicImageView release];
@@ -106,13 +168,17 @@
     [self.contentView addSubview:tileView];
   }
   [self.imageScroller addSubview:self.contentView];
-}
 
-- (void)viewDidLoad {
-  [super viewDidLoad];
   if([AppDelegate openZoomedOut]) {
     [self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:NO];
-  }  
+  }
+}
+
+- (void)displayLoadingView {
+  self.loadingView = [[[TLLoadingView alloc] initWithFrame:self.view.bounds] autorelease];
+  self.loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  [self.loadingView setNeedsLayout];
+  [self.view addSubview:self.loadingView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -124,20 +190,16 @@
 - (void)viewDidUnload {
   self.imageScroller = nil;
   self.contentView = nil;
+  self.loadingView = nil;
 }
 
 - (void)dealloc {
-  [comic release];
-  comic = nil;
-  
-  [contentView release];
-  contentView = nil;
-  
-  [comicImageViews release];
-  comicImageViews = nil;
-  
-  [imageScroller release];
-  imageScroller = nil;
+  [comic release], comic = nil;
+  [contentView release], contentView = nil;
+  [comicImageViews release], comicImageViews = nil;
+  [imageScroller release], imageScroller = nil;
+  [loadingView release], loadingView = nil;
+  [imageFetcher release], imageFetcher = nil;
 
   [super dealloc];
 }
@@ -156,7 +218,57 @@
                      target:self
                      action:@selector(tweet)];   
   [sheet addCancelButton];
-  [sheet showInView:self.view];
+  [sheet showFromToolbar:self.navigationController.toolbar];
+}
+
+- (void)toggleToolbarsAnimated:(BOOL)animated {
+  BOOL toolbarIsHidden = self.navigationController.toolbarHidden;
+  [self.navigationController setToolbarHidden:!toolbarIsHidden animated:animated];
+  [self.navigationController setNavigationBarHidden:!toolbarIsHidden animated:animated];  
+}
+
+- (void)goToPreviousComic {
+  [self goToComicNumbered:([self.comic.number unsignedIntegerValue] - 1)];
+}
+
+- (void)goToRandomComic {
+  NSUInteger maxComicNumber = [[Comic lastKnownComic].number unsignedIntegerValue];
+  long randNumber = [TLMersenneTwister randInt31];
+  NSUInteger randomComicNumber = randNumber % (maxComicNumber - kMinComicNumber) + kMinComicNumber;
+  [self goToComicNumbered:randomComicNumber];
+}
+
+- (void)goToNextComic {
+  [self goToComicNumbered:([self.comic.number unsignedIntegerValue] + 1)];
+}
+
+- (void)goToComicNumbered:(NSUInteger)comicNumber {
+  // UGLY
+  [[self retain] autorelease];
+  NSMutableArray *viewControllerStack = [[self.navigationController.viewControllers mutableCopy] autorelease];
+  Comic *newComic = [Comic comicNumbered:comicNumber];
+  SingleComicViewController *newSingleComicViewController = [[[SingleComicViewController alloc] initWithComic:newComic] autorelease]; 
+  [viewControllerStack replaceObjectAtIndex:[viewControllerStack count] - 1
+                                 withObject:newSingleComicViewController];
+  
+  [self.navigationController setViewControllers:viewControllerStack animated:NO];
+}
+
+#pragma mark -
+#pragma mark SingleComicImageFetcherDelegate methods
+
+- (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
+          didFetchImageForComic:(Comic *)comic
+                        context:(id)context {
+  self.imageFetcher = nil;
+  [self.loadingView removeFromSuperview];
+  [self displayComicImage];
+}
+
+- (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
+               didFailWithError:(NSError *)error
+                        onComic:(Comic *)comic {
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
@@ -175,6 +287,10 @@
 - (void)zoomOutWithTouch:(UITouch *)touch {
   CGFloat newZoomScale = MIN(self.imageScroller.zoomScale * 1.5, self.imageScroller.maximumZoomScale);
   [self.imageScroller setZoomScale:newZoomScale animated:YES];
+}
+
+- (void)didDetectShortSingleTap {
+  [self toggleToolbarsAnimated:YES];
 }
 
 #pragma mark -

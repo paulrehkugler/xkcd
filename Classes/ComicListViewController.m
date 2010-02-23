@@ -204,6 +204,11 @@ static UIImage *downloadImage = nil;
   }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self.navigationController setToolbarHidden:YES animated:NO];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
@@ -332,7 +337,7 @@ static UIImage *downloadImage = nil;
     self.requestedLaunchComic = 0;      
   }  
 
-  [self.imageFetcher fetchImageForComic:comic openAfterDownload:(openAfterDownloadPreferenceSet || isLaunchComic)];
+  [self.imageFetcher fetchImageForComic:comic context:[NSNumber numberWithBool:(openAfterDownloadPreferenceSet || isLaunchComic)]];
 }
 
 - (void)reloadAllData {
@@ -446,8 +451,8 @@ static UIImage *downloadImage = nil;
 
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
           didFetchImageForComic:(Comic *)comic
-              openAfterDownload:(BOOL)openAfterDownload {
-  if(openAfterDownload && (self.navigationController.topViewController == self)) {
+              context:(id)context {
+  if([context boolValue] && (self.navigationController.topViewController == self)) { // context boolvalue == open after download
     [self viewComic:comic];
   }
 }
@@ -455,25 +460,7 @@ static UIImage *downloadImage = nil;
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
                didFailWithError:(NSError *)error
                         onComic:(Comic *)comic {
-  if([[error domain] isEqualToString:kXkcdErrorDomain]) {
-    // internal error
-    [FlurryAPI logError:@"Internal error" message:[NSString stringWithFormat:@"Error: %@", error] exception:nil];
-    UIAlertView *failAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Whoops", @"Title of image download fail alert")
-                                                         message:[NSString stringWithFormat:NSLocalizedString(@"Could not download xkcd %i.", @"Text of unknown error image download fail alert"), [comic.number integerValue]]
-                                                        delegate:nil
-                                               cancelButtonTitle:nil
-                                               otherButtonTitles:NSLocalizedString(@"Ok", @"Button to acknolwedge download fail alert"), nil] autorelease];
-    
-    [failAlert show];
-  } else {
-    UIAlertView *failAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Whoops", @"Title of image download fail alert")
-                                                         message:[NSString stringWithFormat:NSLocalizedString(@"Could not download xkcd %i -- no internet connection.", @"Text of image download fail alert due to connectivity"), [comic.number integerValue]]
-                                                        delegate:nil
-                                               cancelButtonTitle:nil
-                                               otherButtonTitles:NSLocalizedString(@"Ok", @"Button to acknolwedge download fail alert"), nil] autorelease];
-    
-    [failAlert show];
-  }
+  // The image fetcher throws up an alert for us...not much to do here, really...
 }
 
 
@@ -534,6 +521,7 @@ static UIImage *downloadImage = nil;
 
 - (void)tableView:(UITableView *)aTableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
   cell.backgroundColor = [UIColor whiteColor];
+  cell.accessoryView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

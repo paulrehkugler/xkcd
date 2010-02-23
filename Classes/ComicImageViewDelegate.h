@@ -11,5 +11,6 @@
 @required
 
 - (void)zoomOutWithTouch:(UITouch *)touch;
+- (void)didDetectShortSingleTap;
 
 @end

@@ -16,7 +16,7 @@
   NSMutableArray *comicsRemainingDuringDownloadAll;
 }
 
-- (void)fetchImageForComic:(Comic *)comic openAfterDownload:(BOOL)openAfterDownload;
+- (void)fetchImageForComic:(Comic *)comic context:(id)context;
 - (void)fetchImagesForAllComics;
 - (BOOL)downloadingAll;
 

@@ -19,7 +19,7 @@
 @property(nonatomic, assign, readwrite) id target;
 @property(nonatomic, assign, readwrite) SEL action;
 @property(nonatomic, retain, readwrite) NSError *error;
-@property(nonatomic, assign, readwrite) BOOL openAfterDownload;
+@property(nonatomic, retain, readwrite) id context;
 
 @end
 
@@ -33,19 +33,19 @@
 @synthesize target;
 @synthesize action;
 @synthesize error;
-@synthesize openAfterDownload;
+@synthesize context;
 
 - (id)initWithComicNumber:(NSInteger)number
                  imageURL:(NSURL *)imageURL
          completionTarget:(id)completionTarget
                    action:(SEL)completionAction
-        openAfterDownload:(BOOL)shouldOpenAfterDownload {
+                  context:(id)aContext {
   if(self = [super init]) {
     self.comicNumber = number;
     self.comicImageURL = imageURL;
     self.target = completionTarget;
     self.action = completionAction;
-    self.openAfterDownload = shouldOpenAfterDownload;
+    self.context = aContext;
   }
   return self;
 }
@@ -68,14 +68,10 @@
 }
 
 - (void)dealloc {
-  [comicImageURL release];
-  comicImageURL = nil;
-  
-  [comicImageData release];
-  comicImageData = nil;
-  
-  [error release];
-  error = nil;
+  [comicImageURL release], comicImageURL = nil;
+  [comicImageData release], comicImageData = nil;
+  [context release], context = nil;
+  [error release], error = nil;
   
   target = nil;
   action = NULL;

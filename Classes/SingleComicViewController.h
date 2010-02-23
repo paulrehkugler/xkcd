@@ -8,21 +8,26 @@
 
 #import <UIKit/UIKit.h>
 #import "ComicImageViewDelegate.h"
+#import "SingleComicImageFetcherDelegate.h"
 
 @class Comic;
+@class SingleComicImageFetcher;
 
 @interface SingleComicViewController : UIViewController
 <
 UIScrollViewDelegate,
 UIActionSheetDelegate,
 ComicImageViewDelegate,
-MFMailComposeViewControllerDelegate
+MFMailComposeViewControllerDelegate,
+SingleComicImageFetcherDelegate
 > {
 @private
   Comic *comic;
   NSMutableArray *comicImageViews;
   UIView *contentView;
-  UIScrollView *imageScroller;  
+  UIScrollView *imageScroller;
+  TLLoadingView *loadingView;
+  SingleComicImageFetcher *imageFetcher;
 }
 
 - (id)initWithComic:(Comic *)comicToView;

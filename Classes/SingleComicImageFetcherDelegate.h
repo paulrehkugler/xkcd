@@ -13,7 +13,7 @@
 
 @required
 
-- (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFetchImageForComic:(Comic *)comic openAfterDownload:(BOOL)openAfterDownload;
+- (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFetchImageForComic:(Comic *)comic context:(id)context;
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFailWithError:(NSError *)error onComic:(Comic *)comic;
 
 @end
