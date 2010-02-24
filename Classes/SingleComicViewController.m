@@ -24,7 +24,6 @@
 
 @interface SingleComicViewController ()
 
-- (void)systemAction:(UIBarButtonItem *)sender;
 - (void)openInSafari;
 - (void)email;
 - (void)tweet;
@@ -34,10 +33,10 @@
 - (void)goToRandomComic;
 - (void)goToNextComic;
 - (void)displayComicImage;
-- (void)setupNavigationBar;
 - (void)setupToolbar;
 - (void)displayLoadingView;
 - (void)goToComicNumbered:(NSUInteger)comicNumber;
+- (void)saveComicImage;
 
 @property(nonatomic, retain, readwrite) Comic *comic;
 @property(nonatomic, retain, readwrite) NSMutableArray *comicImageViews;
@@ -45,6 +44,7 @@
 @property(nonatomic, retain, readwrite) UIScrollView *imageScroller;
 @property(nonatomic, retain, readwrite) TLLoadingView *loadingView;
 @property(nonatomic, retain, readwrite) SingleComicImageFetcher *imageFetcher;
+@property(nonatomic, retain, readwrite) UIBarButtonItem *saveBarButtonItem;
 
 @end
 
@@ -58,6 +58,7 @@
 @synthesize imageScroller;
 @synthesize loadingView;
 @synthesize imageFetcher;
+@synthesize saveBarButtonItem;
 
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
@@ -74,9 +75,8 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [self setupNavigationBar];
   [self setupToolbar];
-
+  
   if([self.comic hasBeenDownloaded] && NO) {
     [self displayComicImage];    
   } else {
@@ -87,15 +87,14 @@
   }
 }
 
-- (void)setupNavigationBar {
-  UIBarButtonItem *systemItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                               target:self
-                                                                               action:@selector(systemAction:)
-                                  ] autorelease];
-  self.navigationItem.rightBarButtonItem = systemItem;
-}
-
 - (void)setupToolbar {
+  self.saveBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_camera"]
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(saveComicImage)] autorelease];
+  if(![self.comic hasBeenDownloaded]) {
+    self.saveBarButtonItem.enabled = NO;
+  }
   UIBarButtonItem *previousItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"down"]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
@@ -114,16 +113,48 @@
   if(self.comic.number == [Comic lastKnownComic].number) {
     nextItem.enabled = NO;
   }
-  // TODO: Disable relevant toolbar items based on whether we're at the max/min comic
-  NSArray *toolbarItems = [NSArray arrayWithObjects:
-                           [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           previousItem,
-                           [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           randomItem,
-                           [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           nextItem,
-                           [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           nil];
+  
+  UIBarButtonItem *saveToPhotosToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_compass"]
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self
+                                                                              action:@selector(openInSafari)] autorelease];
+  UIBarButtonItem *emailToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_envelope"]
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:@selector(email)] autorelease];
+  UIBarButtonItem *tweetToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_chat"]
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:@selector(tweet)] autorelease];
+  
+  NSArray *preMailToolbarItems = [NSArray arrayWithObjects:
+                                  self.saveBarButtonItem,
+                                  [UIBarButtonItem flexibleSpaceBarButtonItem],
+                                  saveToPhotosToolbarItem,
+                                  [UIBarButtonItem flexibleSpaceBarButtonItem],
+                                  nil];
+  NSArray *mailToolbarItems = [NSArray arrayWithObjects:
+                               emailToolbarItem,
+                               [UIBarButtonItem flexibleSpaceBarButtonItem],
+                               nil
+                               ];
+  NSArray *postMailToolbarItems = [NSArray arrayWithObjects:
+                                   tweetToolbarItem,
+                                   [UIBarButtonItem flexibleSpaceBarButtonItem],
+                                   [UIBarButtonItem flexibleSpaceBarButtonItem],
+                                   previousItem,
+                                   [UIBarButtonItem flexibleSpaceBarButtonItem],
+                                   randomItem,
+                                   [UIBarButtonItem flexibleSpaceBarButtonItem],
+                                   nextItem,
+                                   nil];
+  
+  NSMutableArray *toolbarItems = [NSMutableArray array];
+  [toolbarItems addObjectsFromArray:preMailToolbarItems];
+  if([MFMailComposeViewController canSendMail]) {
+    [toolbarItems addObjectsFromArray:mailToolbarItems];
+  }
+  [toolbarItems addObjectsFromArray:postMailToolbarItems];
   [self setToolbarItems:toolbarItems animated:NO];
   [self.navigationController setToolbarHidden:NO animated:NO];  
 }
@@ -168,7 +199,7 @@
     [self.contentView addSubview:tileView];
   }
   [self.imageScroller addSubview:self.contentView];
-
+  
   if([AppDelegate openZoomedOut]) {
     [self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:NO];
   }
@@ -184,13 +215,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
   return [AppDelegate rotate] ? (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown)
-                              : (interfaceOrientation == UIInterfaceOrientationPortrait);
+  : (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)viewDidUnload {
   self.imageScroller = nil;
   self.contentView = nil;
   self.loadingView = nil;
+  self.saveBarButtonItem = nil;
 }
 
 - (void)dealloc {
@@ -200,25 +232,9 @@
   [imageScroller release], imageScroller = nil;
   [loadingView release], loadingView = nil;
   [imageFetcher release], imageFetcher = nil;
-
+  [saveBarButtonItem release], saveBarButtonItem = nil;
+  
   [super dealloc];
-}
-
-- (void)systemAction:(UIBarButtonItem *)sender {
-  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
-  [sheet addButtonWithTitle:NSLocalizedString(@"View on xkcd.com", @"Action sheet title")
-                     target:self
-                     action:@selector(openInSafari)];
-  if([MFMailComposeViewController canSendMail]) {
-    [sheet addButtonWithTitle:NSLocalizedString(@"Email link to this comic", @"Action sheet title")
-                       target:self
-                       action:@selector(email)];
-  }
-  [sheet addButtonWithTitle:NSLocalizedString(@"Tweet link to this comic", @"Action sheet title")
-                     target:self
-                     action:@selector(tweet)];   
-  [sheet addCancelButton];
-  [sheet showFromToolbar:self.navigationController.toolbar];
 }
 
 - (void)toggleToolbarsAnimated:(BOOL)animated {
@@ -254,6 +270,24 @@
   [self.navigationController setViewControllers:viewControllerStack animated:NO];
 }
 
+- (void)saveComicImage {
+  TLModalActivityIndicatorView *modalSpinner = [[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Saving to Photos", @"Modal spinner text for saving to Photos.app")];
+  [modalSpinner show];
+  UIImageWriteToSavedPhotosAlbum(self.comic.image,
+                                 self,
+                                 @selector(image:didFinishSavingWithError:contextInfo:),
+                                 modalSpinner);
+}
+
+#pragma mark -
+#pragma mark UIImageWriteToSavedPhotosAlbum delegate methods
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+  TLModalActivityIndicatorView *modalSpinner = (TLModalActivityIndicatorView *)contextInfo;
+  [modalSpinner dismiss];
+  [modalSpinner release];
+}
+
 #pragma mark -
 #pragma mark SingleComicImageFetcherDelegate methods
 
@@ -263,6 +297,7 @@
   self.imageFetcher = nil;
   [self.loadingView removeFromSuperview];
   [self displayComicImage];
+  self.saveBarButtonItem.enabled = YES;
 }
 
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher

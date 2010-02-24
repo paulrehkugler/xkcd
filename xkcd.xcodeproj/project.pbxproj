@@ -49,6 +49,10 @@
 		03F6FD4911334AEC00C3DE84 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FD4711334AEC00C3DE84 /* up.png */; };
 		03F6FD4A11334AEC00C3DE84 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FD4811334AEC00C3DE84 /* down.png */; };
 		03F6FD4C11334B5100C3DE84 /* glyphish_shuffle.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FD4B11334B5100C3DE84 /* glyphish_shuffle.png */; };
+		03F6FE6D113465F100C3DE84 /* glyphish_envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FE6A113465F100C3DE84 /* glyphish_envelope.png */; };
+		03F6FE6E113465F100C3DE84 /* glyphish_compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FE6B113465F100C3DE84 /* glyphish_compass.png */; };
+		03F6FE7A1134672C00C3DE84 /* glyphish_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FE781134672C00C3DE84 /* glyphish_chat.png */; };
+		03F6FE7B1134672C00C3DE84 /* glyphish_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FE791134672C00C3DE84 /* glyphish_camera.png */; };
 		1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* xkcdAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -175,6 +179,10 @@
 		03F6FD4711334AEC00C3DE84 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
 		03F6FD4811334AEC00C3DE84 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
 		03F6FD4B11334B5100C3DE84 /* glyphish_shuffle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_shuffle.png; sourceTree = "<group>"; };
+		03F6FE6A113465F100C3DE84 /* glyphish_envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_envelope.png; sourceTree = "<group>"; };
+		03F6FE6B113465F100C3DE84 /* glyphish_compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_compass.png; sourceTree = "<group>"; };
+		03F6FE781134672C00C3DE84 /* glyphish_chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_chat.png; sourceTree = "<group>"; };
+		03F6FE791134672C00C3DE84 /* glyphish_camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_camera.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* xkcdAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkcdAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* xkcdAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xkcdAppDelegate.m; sourceTree = "<group>"; };
@@ -321,6 +329,10 @@
 				03F6FD4B11334B5100C3DE84 /* glyphish_shuffle.png */,
 				03F6FD4711334AEC00C3DE84 /* up.png */,
 				03F6FD4811334AEC00C3DE84 /* down.png */,
+				03F6FE6A113465F100C3DE84 /* glyphish_envelope.png */,
+				03F6FE6B113465F100C3DE84 /* glyphish_compass.png */,
+				03F6FE781134672C00C3DE84 /* glyphish_chat.png */,
+				03F6FE791134672C00C3DE84 /* glyphish_camera.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -589,6 +601,10 @@
 				03F6FD4911334AEC00C3DE84 /* up.png in Resources */,
 				03F6FD4A11334AEC00C3DE84 /* down.png in Resources */,
 				03F6FD4C11334B5100C3DE84 /* glyphish_shuffle.png in Resources */,
+				03F6FE6D113465F100C3DE84 /* glyphish_envelope.png in Resources */,
+				03F6FE6E113465F100C3DE84 /* glyphish_compass.png in Resources */,
+				03F6FE7A1134672C00C3DE84 /* glyphish_chat.png in Resources */,
+				03F6FE7B1134672C00C3DE84 /* glyphish_camera.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

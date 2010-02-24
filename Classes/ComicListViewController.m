@@ -351,7 +351,7 @@ static UIImage *downloadImage = nil;
 - (void)systemAction:(UIBarButtonItem *)sender {
   TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
   if([MFMailComposeViewController canSendMail]) {
-    [sheet addButtonWithTitle:NSLocalizedString(@"Email the developer", @"Action sheet title")
+    [sheet addButtonWithTitle:NSLocalizedString(@"Email the app developer", @"Action sheet title")
                        target:self
                        action:@selector(emailDeveloper)];
   }
@@ -381,9 +381,9 @@ static UIImage *downloadImage = nil;
                                                                 action:@selector(deleteAll:)]
                                   autorelease];
   NSArray *toolbarItems = [NSArray arrayWithObjects:
-                           downloadAll,
                            deleteAll,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           downloadAll,
                            nil];
   [self setToolbarItems:toolbarItems animated:YES];
   self.navigationItem.leftBarButtonItem.enabled = NO;
@@ -636,12 +636,17 @@ static UIImage *downloadImage = nil;
   
   [emailViewController setToRecipients:[NSArray arrayWithObject:@"xkcdapp@treelinelabs.com"]];
   [self presentModalViewController:emailViewController animated:YES];
+
+  if([TLSavedState firstTimeForEvent:@"emailDeveloper"]) {
+    [UIAlertView showAlertWithTitle:NSLocalizedString(@"Just so you know", @"Alert title")
+                            message:NSLocalizedString(@"This email goes to the person who wrote the iPhone app, not the person who writes the actual comics.", @"Alert body")];
+  }
 }
 
 - (void)goToAppStore {
   [FlurryAPI logEvent:@"goToAppStore"];
 
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=303688284&mt=8"]];  
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"]];  
 }
 
 - (void)downloadAllComicImages {

@@ -28,6 +28,7 @@ SingleComicImageFetcherDelegate
   UIScrollView *imageScroller;
   TLLoadingView *loadingView;
   SingleComicImageFetcher *imageFetcher;
+  UIBarButtonItem *saveBarButtonItem;
 }
 
 - (id)initWithComic:(Comic *)comicToView;
