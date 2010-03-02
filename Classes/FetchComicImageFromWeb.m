@@ -51,15 +51,18 @@
 }
 
 - (void)main {
-  NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:self.comicImageURL] autorelease];
+  NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
+                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                           timeoutInterval:180.0f] autorelease];
   [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
   NSURLResponse *response = nil;
   NSError *requestError = nil;
+  TLDebugLog(@"Fetching image at %@", self.comicImageURL);
   self.comicImageData = [NSURLConnection sendSynchronousRequest:request
                                               returningResponse:&response
                                                           error:&requestError];
   self.error = requestError;
-  
+  TLDebugLog(@"Image fetch failed with error: %@", self.error);
   if(![self isCancelled]) {
     [self.target performSelectorOnMainThread:self.action
                                   withObject:self
