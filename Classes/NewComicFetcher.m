@@ -6,6 +6,8 @@
 //  Copyright 2009 Treeline Labs. All rights reserved.
 //
 
+#define RECREATE_FROM_SCRATCH 0
+
 #import "NewComicFetcher.h"
 #import "FetchComicFromWeb.h"
 #import "Comic.h"
@@ -49,11 +51,15 @@
     NSInteger comicToFetch = [lastKnownComic.number integerValue] + 1;    
     [self fetchComic:comicToFetch];
   } else {
+#if RECREATE_FROM_SCRATCH
+    [self fetchComic:1];
+#else
     [[self retain] autorelease];
     [delegate newComicFetcher:self
              didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
                                                   code:kXkcdErrorCodeCouldNotFindLastComic
                                               userInfo:nil]];
+#endif
   }
 }
 

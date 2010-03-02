@@ -222,6 +222,7 @@ void uncaughtExceptionHandler(NSException *exception) {
   }
 	
   NSString *storePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"xkcd.sqlite"];
+  TLDebugLog(@"Store path: %@", storePath);
 
   NSFileManager *fileManager = [NSFileManager defaultManager];
   if(![fileManager fileExistsAtPath:storePath]) {
@@ -231,10 +232,14 @@ void uncaughtExceptionHandler(NSException *exception) {
   
   NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
 	NSError *error = nil;
-  persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
-  if(![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
+  persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+  if(![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                               configuration:nil
+                                                         URL:storeUrl
+                                                     options:nil
+                                                       error:&error]) {
     NSLog(@"Error opening store: %@", error);
-  }    
+  }
 	
   return persistentStoreCoordinator;
 }
