@@ -75,7 +75,7 @@
   [super viewDidLoad];
   [self setupToolbar];
   
-  if([self.comic hasBeenDownloaded] && NO) {
+  if([self.comic hasBeenDownloaded]) {
     [self displayComicImage];    
   } else {
     [self displayLoadingView];
