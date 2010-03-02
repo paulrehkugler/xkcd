@@ -62,7 +62,7 @@
                                               returningResponse:&response
                                                           error:&requestError];
   self.error = requestError;
-  TLDebugLog(@"Image fetch failed with error: %@", self.error);
+  TLDebugLog(@"Image fetch completed with error: %@", self.error);
   if(![self isCancelled]) {
     [self.target performSelectorOnMainThread:self.action
                                   withObject:self
