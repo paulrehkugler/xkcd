@@ -44,7 +44,6 @@
 @property(nonatomic, retain, readwrite) UIScrollView *imageScroller;
 @property(nonatomic, retain, readwrite) TLLoadingView *loadingView;
 @property(nonatomic, retain, readwrite) SingleComicImageFetcher *imageFetcher;
-@property(nonatomic, retain, readwrite) UIBarButtonItem *saveBarButtonItem;
 
 @end
 
@@ -58,7 +57,6 @@
 @synthesize imageScroller;
 @synthesize loadingView;
 @synthesize imageFetcher;
-@synthesize saveBarButtonItem;
 
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
@@ -88,13 +86,14 @@
 }
 
 - (void)setupToolbar {
-  self.saveBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_camera"]
-                                                             style:UIBarButtonItemStylePlain
-                                                            target:self
-                                                            action:@selector(saveComicImage)] autorelease];
-  if(![self.comic hasBeenDownloaded]) {
-    self.saveBarButtonItem.enabled = NO;
-  }
+  UIBarButtonItem *systemActionItem = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemAction
+                                                                    target:self
+                                                                    action:@selector(systemAction:)];
+  UIBarButtonItem *shareToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_chat"]
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:@selector(share:)] autorelease];
+  
   UIBarButtonItem *previousItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"down"]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
@@ -114,47 +113,19 @@
     nextItem.enabled = NO;
   }
   
-  UIBarButtonItem *saveToPhotosToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_compass"]
-                                                                               style:UIBarButtonItemStylePlain
-                                                                              target:self
-                                                                              action:@selector(openInSafari)] autorelease];
-  UIBarButtonItem *emailToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_envelope"]
-                                                                        style:UIBarButtonItemStylePlain
-                                                                       target:self
-                                                                       action:@selector(email)] autorelease];
-  UIBarButtonItem *tweetToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_chat"]
-                                                                        style:UIBarButtonItemStylePlain
-                                                                       target:self
-                                                                       action:@selector(tweet)] autorelease];
+  NSArray *toolbarItems = [NSArray arrayWithObjects:
+                           systemActionItem,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           shareToolbarItem,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           previousItem,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           randomItem,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           nextItem,
+                           nil];
   
-  NSArray *preMailToolbarItems = [NSArray arrayWithObjects:
-                                  self.saveBarButtonItem,
-                                  [UIBarButtonItem flexibleSpaceBarButtonItem],
-                                  saveToPhotosToolbarItem,
-                                  [UIBarButtonItem flexibleSpaceBarButtonItem],
-                                  nil];
-  NSArray *mailToolbarItems = [NSArray arrayWithObjects:
-                               emailToolbarItem,
-                               [UIBarButtonItem flexibleSpaceBarButtonItem],
-                               nil
-                               ];
-  NSArray *postMailToolbarItems = [NSArray arrayWithObjects:
-                                   tweetToolbarItem,
-                                   [UIBarButtonItem flexibleSpaceBarButtonItem],
-                                   [UIBarButtonItem flexibleSpaceBarButtonItem],
-                                   previousItem,
-                                   [UIBarButtonItem flexibleSpaceBarButtonItem],
-                                   randomItem,
-                                   [UIBarButtonItem flexibleSpaceBarButtonItem],
-                                   nextItem,
-                                   nil];
-  
-  NSMutableArray *toolbarItems = [NSMutableArray array];
-  [toolbarItems addObjectsFromArray:preMailToolbarItems];
-  if([MFMailComposeViewController canSendMail]) {
-    [toolbarItems addObjectsFromArray:mailToolbarItems];
-  }
-  [toolbarItems addObjectsFromArray:postMailToolbarItems];
   [self setToolbarItems:toolbarItems animated:NO];
   [self.navigationController setToolbarHidden:NO animated:NO];  
 }
@@ -222,7 +193,6 @@
   self.imageScroller = nil;
   self.contentView = nil;
   self.loadingView = nil;
-  self.saveBarButtonItem = nil;
 }
 
 - (void)dealloc {
@@ -231,8 +201,8 @@
   [comicImageViews release], comicImageViews = nil;
   [imageScroller release], imageScroller = nil;
   [loadingView release], loadingView = nil;
+  imageFetcher.delegate = nil;
   [imageFetcher release], imageFetcher = nil;
-  [saveBarButtonItem release], saveBarButtonItem = nil;
   
   [super dealloc];
 }
@@ -241,6 +211,35 @@
   BOOL toolbarIsHidden = self.navigationController.toolbarHidden;
   [self.navigationController setToolbarHidden:!toolbarIsHidden animated:animated];
   [self.navigationController setNavigationBarHidden:!toolbarIsHidden animated:animated];  
+}
+
+- (void)share:(UIBarButtonItem *)sender {
+  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
+  sheet.actionSheet.title = NSLocalizedString(@"Share link to this comic", @"Action sheet title");
+  if([MFMailComposeViewController canSendMail]) {
+    [sheet addButtonWithTitle:NSLocalizedString(@"Email", @"Action sheet title")
+                       target:self
+                       action:@selector(email)];
+  }
+  [sheet addButtonWithTitle:NSLocalizedString(@"Twitter", @"Action sheet title")
+                     target:self
+                     action:@selector(tweet)];   
+  [sheet addCancelButton];
+  [sheet showFromToolbar:self.navigationController.toolbar];
+}
+
+- (void)systemAction:(UIBarButtonItem *)sender {
+  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
+  if([self.comic hasBeenDownloaded]) {
+    [sheet addButtonWithTitle:NSLocalizedString(@"Save to Photos", @"Action sheet title")
+                       target:self
+                       action:@selector(saveComicImage)];
+  }
+  [sheet addButtonWithTitle:NSLocalizedString(@"View on xkcd.com", @"Action sheet title")
+                     target:self
+                     action:@selector(openInSafari)];   
+  [sheet addCancelButton];
+  [sheet showFromToolbar:self.navigationController.toolbar];
 }
 
 - (void)goToPreviousComic {
@@ -297,7 +296,6 @@
   self.imageFetcher = nil;
   [self.loadingView removeFromSuperview];
   [self displayComicImage];
-  self.saveBarButtonItem.enabled = YES;
 }
 
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
