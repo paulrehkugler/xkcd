@@ -526,17 +526,19 @@ static UIImage *downloadImage = nil;
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   Comic *selectedComic = [self comicAtIndexPath:indexPath inTableView:aTableView];
+  BOOL shouldDeselect = YES;
   if([selectedComic.number integerValue] != 404) {
     if([selectedComic hasBeenDownloaded]) {
       [self viewComic:selectedComic];
+      shouldDeselect = NO;
     } else if(!([selectedComic.loading boolValue] || [self.imageFetcher downloadingAll])) {
       [self fetchImageForComic:selectedComic];
-      [aTableView deselectRowAtIndexPath:indexPath animated:NO];
     }    
-  } else {
+  }
+
+  if(shouldDeselect) {
     [aTableView deselectRowAtIndexPath:indexPath animated:NO];
   }
-  
 }
 
 - (NSString *)tableView:(UITableView *)aTableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
