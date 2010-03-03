@@ -380,6 +380,10 @@ static UIImage *downloadImage = nil;
                                                                 target:self
                                                                 action:@selector(deleteAll:)]
                                   autorelease];
+  if([self.imageFetcher downloadingAll]) {
+    downloadAll.enabled = NO;
+    deleteAll.enabled = NO;
+  }
   NSArray *toolbarItems = [NSArray arrayWithObjects:
                            deleteAll,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
