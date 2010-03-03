@@ -68,13 +68,6 @@
 			remoteGlobalIDString = 03F0EFBC109FB6FA00B938CA;
 			remoteInfo = UnitTests;
 		};
-		03B6BC63112DA03100C32C21 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 03F10D70104D70220045AEFC /* TLCommon.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 03F0EFBB109FB6FA00B938CA;
-			remoteInfo = UnitTests;
-		};
 		03B6BCA6112DA3CB00C32C21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -526,7 +519,6 @@
 			);
 			dependencies = (
 				03F10D82104D70380045AEFC /* PBXTargetDependency */,
-				03B6BC64112DA03100C32C21 /* PBXTargetDependency */,
 				03B6BCA7112DA3CB00C32C21 /* PBXTargetDependency */,
 			);
 			name = xkcd;
@@ -667,11 +659,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		03B6BC64112DA03100C32C21 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = UnitTests;
-			targetProxy = 03B6BC63112DA03100C32C21 /* PBXContainerItemProxy */;
-		};
 		03B6BCA7112DA3CB00C32C21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 03B6BC19112D9D9B00C32C21 /* UnitTests */;
@@ -694,6 +681,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BBEE8B84-BCB8-42C3-815F-414F892F7CCB";
 				SDKROOT = iphoneos3.0;
@@ -736,6 +727,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "17660EA6-5847-4A27-92A1-56C14502DCA8";
 				SDKROOT = iphoneos3.0;
@@ -748,6 +743,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = "ad-hoc-entitlements.plist";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -762,6 +758,7 @@
 					"\"$(SRCROOT)/FlurryLib\"",
 				);
 				PRODUCT_NAME = xkcd;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = "Ad hoc distribution";
 		};
@@ -825,6 +822,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -842,6 +840,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = "Ad hoc distribution";
@@ -928,8 +927,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
-					"-all_load",
 					"-ObjC",
+					"-all_load",
 				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.0;
@@ -946,6 +945,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.0;
 				USER_HEADER_SEARCH_PATHS = "../TLCommon/**";
