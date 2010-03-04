@@ -129,6 +129,7 @@
 }
 
 - (void)dealloc {
+  [fetchQueue cancelAllOperations];
   [fetchQueue release];
   fetchQueue = nil;
   
