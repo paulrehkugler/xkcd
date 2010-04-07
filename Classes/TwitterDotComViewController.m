@@ -68,6 +68,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  // use m.twitter.com/?status=blah!
   [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.twitter.com/"]]];
   [self copyTweet];
   
