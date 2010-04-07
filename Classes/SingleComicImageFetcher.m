@@ -51,6 +51,7 @@
                                                                                           context:context]
                                               autorelease];
     comic.loading = [NSNumber numberWithBool:YES];
+    [self retain]; // make sure we're still around when the fetch operation completes
     [fetchQueue addOperation:fetchOperation];
   } else {
     [self didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
@@ -86,6 +87,7 @@
 }
 
 - (void)didCompleteFetchOperation:(FetchComicImageFromWeb *)fetchOperation {
+  [self autorelease]; // matches the [self retain] in fetchImageForComic:context: -- autorelease b/c this could be our last lease on life
   Comic *comic = [Comic comicNumbered:fetchOperation.comicNumber];
   comic.loading = [NSNumber numberWithBool:NO];
   if(!fetchOperation.error && fetchOperation.comicImageData) {
