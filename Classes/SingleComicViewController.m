@@ -15,6 +15,7 @@
 #import "FlurryAPI.h"
 #import "TwitterDotComViewController.h"
 #import "SingleComicImageFetcher.h"
+#import "ComicListViewController.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -265,8 +266,11 @@
   SingleComicViewController *newSingleComicViewController = [[[SingleComicViewController alloc] initWithComic:newComic] autorelease]; 
   [viewControllerStack replaceObjectAtIndex:[viewControllerStack count] - 1
                                  withObject:newSingleComicViewController];
-  
   [self.navigationController setViewControllers:viewControllerStack animated:NO];
+
+  // deselect any selected rows, to avoid ugliness (still kinda ugly, but it'll have to be good enough for now, need to release)
+  ComicListViewController *comicList = [viewControllerStack objectAtIndex:0];
+  [comicList.tableView deselectRowAtIndexPath:[comicList.tableView indexPathForSelectedRow] animated:NO];
 }
 
 - (void)saveComicImage {
