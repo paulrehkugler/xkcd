@@ -222,7 +222,8 @@ void uncaughtExceptionHandler(NSException *exception) {
   }
 	
   NSString *storePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"xkcd.sqlite"];
-  TLDebugLog(@"Store path: %@", storePath);
+  TLDebugLog(@"Store path: %@", [storePath stringByReplacingOccurrencesOfString:@" " 
+                                                                     withString:@"\\ "]);
 
   NSFileManager *fileManager = [NSFileManager defaultManager];
   if(![fileManager fileExistsAtPath:storePath]) {
