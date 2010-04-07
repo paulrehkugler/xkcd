@@ -137,6 +137,7 @@ static UIImage *downloadImage = nil;
 
 - (void)setSearchBarTableHeader {
   UISearchBar *searchBar = [[[UISearchBar alloc] initWithFrame:CGRectZero] autorelease];
+  searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   [searchBar sizeToFit];
   searchBar.placeholder = NSLocalizedString(@"Search xkcd", @"Search bar placeholder text");
   searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
