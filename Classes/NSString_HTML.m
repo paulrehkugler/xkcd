@@ -12,7 +12,7 @@ static NSArray *characterEntityArray = nil;
 
 #pragma mark -
 
-@interface HTMLStringCleaner : NSObject {
+@interface HTMLStringCleaner : NSObject<NSXMLParserDelegate> {
 @private
   NSString *snippet;
   NSMutableString *resultAccumulator;
