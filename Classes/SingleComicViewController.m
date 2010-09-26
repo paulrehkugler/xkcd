@@ -90,23 +90,23 @@
   UIBarButtonItem *systemActionItem = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemAction
                                                                     target:self
                                                                     action:@selector(systemAction:)];
-  UIBarButtonItem *shareToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_chat"]
+  UIBarButtonItem *shareToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_chat"]
                                                                         style:UIBarButtonItemStylePlain
                                                                        target:self
                                                                        action:@selector(share:)] autorelease];
   
-  UIBarButtonItem *previousItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"down"]
+  UIBarButtonItem *previousItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(goToPreviousComic)] autorelease];
   if([self.comic.number unsignedIntegerValue] == kMinComicNumber) {
     previousItem.enabled = NO;
   }
-  UIBarButtonItem *randomItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"glyphish_shuffle"]
+  UIBarButtonItem *randomItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_shuffle"]
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(goToRandomComic)] autorelease];
-  UIBarButtonItem *nextItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"up"]
+  UIBarButtonItem *nextItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goToNextComic)] autorelease];
