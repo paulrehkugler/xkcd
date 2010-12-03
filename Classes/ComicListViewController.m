@@ -11,7 +11,6 @@
 #import "UIViewController_TLCommon.h"
 #import "NewComicFetcher.h"
 #import "xkcdAppDelegate.h"
-#import "FlurryAPI.h"
 #import "XkcdErrorCodes.h"
 #import "SingleComicViewController.h"
 #import "SingleComicImageFetcher.h"
@@ -163,7 +162,7 @@ static UIImage *downloadImage = nil;
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
   }
   @catch (NSException *e) {
-    [FlurryAPI logError:@"Scroll error" message:nil exception:e];
+    NSLog(@"Scroll error");
   }
   
   // Set up new comic fetcher
@@ -191,7 +190,6 @@ static UIImage *downloadImage = nil;
       }
       @catch (NSException *e) {
         NSLog(@"scroll fail %@", e);
-        [FlurryAPI logError:@"Launch comic scroll error" message:nil exception:e];
       }
       
       Comic *launchComic = [Comic comicNumbered:self.requestedLaunchComic];
@@ -301,9 +299,7 @@ static UIImage *downloadImage = nil;
   NSError *fetchError = nil;
   BOOL success = [self.fetchedResultsController performFetch:&fetchError];
   if(!success) {
-    [FlurryAPI logError:@"List fetch failed"
-                message:[NSString stringWithFormat:@"Error %@: %@", fetchError, fetchError.userInfo]
-              exception:nil];
+    NSLog(@"List fetch failed");
   }  
 }
 
@@ -313,9 +309,7 @@ static UIImage *downloadImage = nil;
   NSError *fetchError = nil;
   BOOL success = [self.searchFetchedResultsController performFetch:&fetchError];
   if(!success) {
-    [FlurryAPI logError:@"Search list fetch failed"
-                message:[NSString stringWithFormat:@"Error %@: %@", fetchError, fetchError.userInfo]
-              exception:nil];
+    NSLog(@"Search list fetch failed");
   }  
 }
 
@@ -442,9 +436,7 @@ static UIImage *downloadImage = nil;
 
 - (void)newComicFetcher:(NewComicFetcher *)comicFetcher didFailWithError:(NSError *)error {
   if([error.domain isEqualToString:kXkcdErrorDomain]) {
-    [FlurryAPI logError:@"Internal error"
-                message:[NSString stringWithFormat:@"Error: %@", error]
-              exception:nil];
+    NSLog(@"Internal error: %@", error);
   }
   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
   [self didFinishRefreshing];
@@ -635,8 +627,6 @@ static UIImage *downloadImage = nil;
 #pragma mark TLActionSheetController supporting methods
 
 - (void)emailDeveloper {
-  [FlurryAPI logEvent:@"emailDeveloper"];
-
   MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
   emailViewController.mailComposeDelegate = self;
   [emailViewController setSubject:NSLocalizedString(@"Feedback on xkcd app", @"Subject of feedback email")];
@@ -651,8 +641,6 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)goToAppStore {
-  [FlurryAPI logEvent:@"goToAppStore"];
-
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"]];  
 }
 
@@ -692,23 +680,6 @@ static UIImage *downloadImage = nil;
 #pragma mark MFMailComposeViewControllerDelegate methods
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-  switch(result) {
-    case MFMailComposeResultFailed:
-      [FlurryAPI logEvent:@"devEmailFailed"];
-      break;
-    case MFMailComposeResultCancelled:
-      [FlurryAPI logEvent:@"devEmailCancelled"];
-      break;
-    case MFMailComposeResultSaved:
-      [FlurryAPI logEvent:@"devEmailSaved"];
-      break;
-    case MFMailComposeResultSent:
-      [FlurryAPI logEvent:@"devEmailSent"];
-      break;
-    default:
-      break;
-  }
-  
   [controller dismissModalViewControllerAnimated:YES];
 }
 

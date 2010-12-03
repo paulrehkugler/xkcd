@@ -31,7 +31,6 @@
 		03B6BC5A112D9FA200C32C21 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC4E112D9FA200C32C21 /* CJSONScanner.m */; };
 		03B6BC5B112D9FA200C32C21 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC50112D9FA200C32C21 /* CJSONSerializer.m */; };
 		03B6BC5C112D9FA200C32C21 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC52112D9FA200C32C21 /* CSerializedJSONData.m */; };
-		03B6BC62112DA02100C32C21 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B6BC61112DA02100C32C21 /* libFlurry.a */; };
 		03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		03D840D9116CC2E000A80DF1 /* xkcd.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 03D840D8116CC2E000A80DF1 /* xkcd.sqlite */; };
@@ -158,8 +157,6 @@
 		03B6BC50112D9FA200C32C21 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		03B6BC51112D9FA200C32C21 /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSerializedJSONData.h; sourceTree = "<group>"; };
 		03B6BC52112D9FA200C32C21 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
-		03B6BC60112DA02100C32C21 /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
-		03B6BC61112DA02100C32C21 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		03B6BC6B112DA07D00C32C21 /* TestNSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNSString_HTML.h; sourceTree = "<group>"; };
 		03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSString_HTML.m; sourceTree = "<group>"; };
 		03D840D8116CC2E000A80DF1 /* xkcd.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = xkcd.sqlite; sourceTree = "<group>"; };
@@ -233,7 +230,6 @@
 				0384E8C4105036D40096D4E7 /* MessageUI.framework in Frameworks */,
 				0384E978105046BA0096D4E7 /* MobileCoreServices.framework in Frameworks */,
 				03DA9CAA1097A4DA005A34B2 /* CoreLocation.framework in Frameworks */,
-				03B6BC62112DA02100C32C21 /* libFlurry.a in Frameworks */,
 				037CC6DC122B183C002E4738 /* Security.framework in Frameworks */,
 				037CC6DE122B183C002E4738 /* SystemConfiguration.framework in Frameworks */,
 				037CC6E0122B1846002E4738 /* QuartzCore.framework in Frameworks */,
@@ -386,15 +382,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		03F10E0B104D7D2A0045AEFC /* FlurryLib */ = {
-			isa = PBXGroup;
-			children = (
-				03B6BC60112DA02100C32C21 /* FlurryAPI.h */,
-				03B6BC61112DA02100C32C21 /* libFlurry.a */,
-			);
-			path = FlurryLib;
-			sourceTree = SOURCE_ROOT;
-		};
 		03F10F03104D8ECB0045AEFC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,7 +469,6 @@
 			children = (
 				03B6BC2D112D9F5A00C32C21 /* UnitTests */,
 				03B6BC3C112D9FA200C32C21 /* TouchJSON */,
-				03F10E0B104D7D2A0045AEFC /* FlurryLib */,
 				03F10D70104D70220045AEFC /* TLCommon.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,

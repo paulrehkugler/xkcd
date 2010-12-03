@@ -12,7 +12,6 @@
 #import "TiledImage.h"
 #import "CGGeometry_TLCommon.h"
 #import "xkcdAppDelegate.h"
-#import "FlurryAPI.h"
 #import "TwitterDotComViewController.h"
 #import "SingleComicImageFetcher.h"
 #import "ComicListViewController.h"
@@ -334,14 +333,12 @@
 #pragma mark Action sheet supporting actions
 
 - (void)openInSafari {
-  [FlurryAPI logEvent:@"openInSafari"];
   TLWebViewController *webViewController = (TLWebViewController *)[TLWebViewController viewController];
   [self.navigationController pushViewController:webViewController animated:YES];
   [webViewController loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[comic websiteURL]]]];
 }
 
 - (void)email {
-  [FlurryAPI logEvent:@"email"];
   MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
   emailViewController.mailComposeDelegate = self;
   [emailViewController setSubject:comic.name];
@@ -359,7 +356,6 @@
 }
 
 - (void)tweet {
-  [FlurryAPI logEvent:@"tweet"];
   NSString *tweet = [NSString stringWithFormat:@"%@ (via @xkcdapp)", comic.websiteURL];
   if([tweet length] + [comic.name length] + 2 < kMaxTweetLength) { // 2 == [@": " length]
     tweet = [NSString stringWithFormat:@"%@: %@", comic.name, tweet];
@@ -418,23 +414,6 @@
 #pragma mark MFMailComposeViewControllerDelegate methods
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-  switch(result) {
-    case MFMailComposeResultFailed:
-      [FlurryAPI logEvent:@"comicEmailFailed"];
-      break;
-    case MFMailComposeResultCancelled:
-      [FlurryAPI logEvent:@"comicEmailCancelled"];
-      break;
-    case MFMailComposeResultSaved:
-      [FlurryAPI logEvent:@"comicEmailSaved"];
-      break;
-    case MFMailComposeResultSent:
-      [FlurryAPI logEvent:@"comicEmailSent"];
-      break;
-    default:
-      break;
-  }
-  
   [controller dismissModalViewControllerAnimated:YES];
 }
 

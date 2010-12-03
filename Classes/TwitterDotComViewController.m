@@ -37,7 +37,6 @@
   if(self = [super initWithNibName:nil bundle:nil]) {
     self.tweet = aTweet;
     self.title = NSLocalizedString(@"twitter.com", @"Title of twitter.com view");
-    [FlurryAPI logEvent:@"Used m.twitter.com"]; // see if anyone uses this; on the slate for removal.
   }
   return self;
 }

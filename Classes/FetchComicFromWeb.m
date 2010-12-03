@@ -7,7 +7,6 @@
 //
 
 #import "FetchComicFromWeb.h"
-#import "FlurryAPI.h"
 #import "Comic.h"
 #import "xkcdAppDelegate.h"
 #import "CJSONDeserializer.h"

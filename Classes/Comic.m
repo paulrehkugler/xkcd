@@ -8,7 +8,6 @@
 
 #import "Comic.h"
 #import "xkcdAppDelegate.h"
-#import "FlurryAPI.h"
 
 #pragma mark -
 
@@ -74,7 +73,7 @@ static NSEntityDescription *comicEntityDescription = nil;
   
   Comic *lastKnownComic = nil;
   if(error || !array || [array count] == 0) {
-    [FlurryAPI logError:@"Fetch fail" message:[NSString stringWithFormat:@"Couldn't find last comic, error: %@", error] exception:nil];
+    NSLog(@"Couldn't find last comic, error: %@", error);
   } else {
     lastKnownComic = [array objectAtIndex:0];
   }
@@ -95,9 +94,7 @@ static NSEntityDescription *comicEntityDescription = nil;
   
   Comic *comic = nil;
   if(error || !array || [array count] == 0) {
-    [FlurryAPI logError:@"Fetch fail"
-                message:[NSString stringWithFormat:@"Couldn't find comic numbered %i, error: %@", comicNumber, error]
-              exception:nil];
+    NSLog(@"Couldn't find comic numbered %i, error: %@", comicNumber, error);
   } else {
     comic = [array objectAtIndex:0];
   }
@@ -160,9 +157,7 @@ static NSEntityDescription *comicEntityDescription = nil;
   [[NSFileManager defaultManager] removeItemAtPath:self.imagePath
                                              error:&deleteError];
   if(deleteError && ([deleteError code] != NSFileNoSuchFileError)) {
-    [FlurryAPI logError:@"Delete fail"
-                message:[NSString stringWithFormat:@"Error %@: %@", deleteError, deleteError.userInfo]
-              exception:nil];
+    NSLog(@"Delete fail %@: %@", deleteError, deleteError.userInfo);
   }
   self.downloaded = [NSNumber numberWithBool:NO];
 }

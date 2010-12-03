@@ -7,7 +7,6 @@
 //
 
 #import "xkcdAppDelegate.h"
-#import "FlurryAPI.h"
 #import "ComicListViewController.h"
 #import "NSString_HTML.h"
 
@@ -43,14 +42,7 @@ static NSString *applicationDocumentsDirectory = nil;
 #pragma mark -
 #pragma mark Application lifecycle
 
-void uncaughtExceptionHandler(NSException *exception) {
-  [FlurryAPI logError:@"Uncaught" message:@"Oops" exception:exception];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-  [FlurryAPI startSession:@"HSR3B7WRFPVLI93FPEQH"];
-
   self.listViewController = [[[ComicListViewController alloc] initWithNibName:nil bundle:nil] autorelease];
 
   BOOL canLaunchApplication = YES;
@@ -63,7 +55,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     if(launchedComic > 0) {
       listViewController.requestedLaunchComic = launchedComic;
     }
-    [FlurryAPI logEvent:@"launched via url" withParameters:launchOptions];
   }
 
   self.navigationController = [[[UINavigationController alloc] initWithRootViewController:self.listViewController] autorelease];
@@ -80,9 +71,6 @@ void uncaughtExceptionHandler(NSException *exception) {
   NSError *error;
   if(managedObjectContext != nil) {
     if([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-      [FlurryAPI logError:@"Save error during termination"
-                  message:[NSString stringWithFormat:@"Unresolved error %@, %@", error, [error userInfo]]
-                exception:nil];
 			exit(-1);  // Fail
     } 
   }
@@ -166,10 +154,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)save {
   NSError *error;
   if(![[self managedObjectContext] save:&error]) {
-		// Handle error
-    [FlurryAPI logError:@"Save error"
-                message:[NSString stringWithFormat:@"Unresolved error %@, %@", error, [error userInfo]]
-              exception:nil];
 		exit(-1);  // Fail
   }
 }

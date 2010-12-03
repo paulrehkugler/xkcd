@@ -109,7 +109,6 @@
   // Tell the user
   if([[error domain] isEqualToString:kXkcdErrorDomain]) {
     // internal error
-    [FlurryAPI logError:@"Internal error" message:[NSString stringWithFormat:@"Error: %@", error] exception:nil];
     NSString *failAlertMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not download xkcd %i.",
                                                                               @"Text of unknown error image download fail alert"),
                                   [comic.number integerValue]];
