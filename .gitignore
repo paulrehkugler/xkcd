@@ -1,2 +1,11 @@
-xkcd.xcodeproj/*.mode1v3
-xkcd.xcodeproj/*.pbxuser
+build/
+
+*.xcodeproj/*.mode2v3
+*.xcodeproj/*.mode1v3
+*.xcodeproj/*.pbxuser
+*.xcodeproj/xcuserdata/*
+*.xcodeproj/project.xcworkspace/xcuserdata/*
+
+.DS_Store
+**/*.pbxuser
+**/*.perspectivev*
