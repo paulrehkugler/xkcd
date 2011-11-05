@@ -10,6 +10,7 @@
 #import "FetchComicImageFromWeb.h"
 #import "Comic.h"
 #import "XkcdErrorCodes.h"
+#import "UIAlertView_TLCommon.h"
 
 #define kImageDownloadFailAlertTitle NSLocalizedString(@"Whoops", @"Title of image download fail alert")
 

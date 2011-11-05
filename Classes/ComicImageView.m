@@ -5,6 +5,7 @@
 //
 
 #import "ComicImageView.h"
+#import "UIAlertView_TLCommon.h"
 
 #define kTouchAndHoldThreshold 0.5f
 #define kSingleTapThreshold 0.25f

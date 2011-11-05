@@ -8,6 +8,7 @@
 
 #import "FetchComicImageFromWeb.h"
 #import "xkcdAppDelegate.h"
+#import "TLMacros.h"
 
 #pragma mark -
 

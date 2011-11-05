@@ -15,6 +15,13 @@
 #import "TwitterDotComViewController.h"
 #import "SingleComicImageFetcher.h"
 #import "ComicListViewController.h"
+#import "TLActionSheetController.h"
+#import "TLLoadingView.h"
+#import "UIBarButtonItem_TLCommon.h"
+#import "TLActionSheet.h"
+#import "TLMersenneTwister.h"
+#import "TLWebViewController.h"
+#import "UIViewController_TLCommon.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -149,7 +156,7 @@
   }
   
   // Scroll view
-  self.imageScroller = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+  self.imageScroller = [[[UIScrollView alloc] initWithFrame:self.view.bounds] autorelease];
   self.imageScroller.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   self.imageScroller.backgroundColor = [UIColor whiteColor];
   self.imageScroller.delaysContentTouches = NO;
@@ -273,12 +280,13 @@
 }
 
 - (void)saveComicImage {
-  TLModalActivityIndicatorView *modalSpinner = [[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Saving to Photos", @"Modal spinner text for saving to Photos.app")];
+  TLModalActivityIndicatorView *modalSpinner = [[[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Saving to Photos", @"Modal spinner text for saving to Photos.app")] autorelease];
   [modalSpinner show];
   UIImageWriteToSavedPhotosAlbum(self.comic.image,
                                  self,
                                  @selector(image:didFinishSavingWithError:contextInfo:),
                                  modalSpinner);
+  [modalSpinner performSelector:@selector(retain)]; // fool clang -- we'll release later
 }
 
 #pragma mark -

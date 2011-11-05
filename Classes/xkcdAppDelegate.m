@@ -9,6 +9,7 @@
 #import "xkcdAppDelegate.h"
 #import "ComicListViewController.h"
 #import "NSString_HTML.h"
+#import "TLMacros.h"
 
 #define kUserDefaultsRotateKey @"rotate"
 #define kUserDefaultsOpenZoomedOutKey @"zoomed_out"

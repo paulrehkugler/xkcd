@@ -117,8 +117,8 @@
 }
 
 - (void)copyTweet {
-  UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
-  [generalPasteboard setValue:self.tweet forPasteboardType:(NSString *)kUTTypeUTF8PlainText];
+  //  UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
+  //  [generalPasteboard setValue:self.tweet forPasteboardType:(NSString *)kUTTypeUTF8PlainText];
 }
 
 - (void)didPressCopyTweetButton {

@@ -12,6 +12,7 @@
 
 @class Comic;
 @class SingleComicImageFetcher;
+@class TLLoadingView;
 
 @interface SingleComicViewController : UIViewController
 <

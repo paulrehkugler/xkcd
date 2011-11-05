@@ -6,6 +6,9 @@
 //
 
 #import "LorenRefreshView.h"
+#import "UIFont_TLCommon.h"
+#import "UIImageView_TLCommon.h"
+#import "UIActivityIndicatorView_TLCommon.h"
 
 #define kArrowInset 40.0f
 #define kArrowFlipAnimationDuration 0.2f
