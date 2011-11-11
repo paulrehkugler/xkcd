@@ -187,9 +187,12 @@ static NSString *applicationDocumentsDirectory = nil;
                                                                      withString:@"\\ "]);
 
   NSFileManager *fileManager = [NSFileManager defaultManager];
+  
   if(![fileManager fileExistsAtPath:storePath]) {
     NSString *bundledPath = [[NSBundle mainBundle] pathForResource:@"xkcd" ofType:@"sqlite"];
-    [fileManager copyItemAtPath:bundledPath toPath:storePath error:NULL];
+    if([fileManager fileExistsAtPath:bundledPath]) {
+      [fileManager copyItemAtPath:bundledPath toPath:storePath error:NULL];
+    }
   }
   
   NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
