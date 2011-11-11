@@ -15,17 +15,16 @@
 @class SingleComicImageFetcher;
 @class LorenRefreshView;
 
-@interface ComicListViewController : UIViewController
-<
-UITableViewDataSource,
-UITableViewDelegate,
-NewComicFetcherDelegate,
-NSFetchedResultsControllerDelegate,
-UISearchBarDelegate,
-UISearchDisplayDelegate,
-SingleComicImageFetcherDelegate,
-UIActionSheetDelegate,
-MFMailComposeViewControllerDelegate
+@interface ComicListViewController : UIViewController <
+  UITableViewDataSource,
+  UITableViewDelegate,
+  NewComicFetcherDelegate,
+  NSFetchedResultsControllerDelegate,
+  UISearchBarDelegate,
+  UISearchDisplayDelegate,
+  SingleComicImageFetcherDelegate,
+  UIActionSheetDelegate,
+  MFMailComposeViewControllerDelegate
 > {
 @private
   UITableView *tableView;
