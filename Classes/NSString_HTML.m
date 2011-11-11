@@ -31,8 +31,8 @@ static NSArray *characterEntityArray = nil;
 - (id)initWithHTMLSnippet:(NSString *)HTMLSnippet;
 - (NSString *)cleanedString;
 
-@property(nonatomic, retain, readwrite) NSString *snippet;
-@property(nonatomic, retain, readwrite) NSMutableString *resultAccumulator;
+@property(nonatomic, strong, readwrite) NSString *snippet;
+@property(nonatomic, strong, readwrite) NSMutableString *resultAccumulator;
 @property(nonatomic, assign, readwrite) BOOL parseErrorEncountered;
   
 @end
@@ -46,7 +46,7 @@ static NSArray *characterEntityArray = nil;
 @synthesize parseErrorEncountered;
 
 + (NSString *)cleanedStringFromHTMLSnippet:(NSString *)HTMLSnippet {
-  HTMLStringCleaner *cleaner = [[[self alloc] initWithHTMLSnippet:HTMLSnippet] autorelease];
+  HTMLStringCleaner *cleaner = [[self alloc] initWithHTMLSnippet:HTMLSnippet];
   return [cleaner cleanedString];
 }
 
@@ -74,7 +74,6 @@ static NSArray *characterEntityArray = nil;
                             @"&igrave;", @"&iacute;", @"&icirc;", @"&iuml;", @"&eth;", @"&ntilde;", @"&ograve;",
                             @"&oacute;", @"&ocirc;", @"&otilde;", @"&ouml;", @"&divide;", @"&oslash;", @"&ugrave;",
                             @"&uacute;", @"&ucirc;", @"&uuml;", @"&yacute;", @"&thorn;", @"&yuml;", nil];
-    [characterEntityArray retain];
   }
   
   int i;
@@ -142,7 +141,7 @@ static NSArray *characterEntityArray = nil;
 - (NSString *)cleanedString {
   self.resultAccumulator = [NSMutableString string];
   NSString *wrappedSnippet = [NSString stringWithFormat:@"<html>%@</html>", self.snippet];
-  NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:[wrappedSnippet dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+  NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[wrappedSnippet dataUsingEncoding:NSUTF8StringEncoding]];
   [parser setDelegate:self];
   [parser parse];
   NSString *tagFreeString = self.parseErrorEncountered ? self.snippet : self.resultAccumulator;
@@ -163,9 +162,8 @@ static NSArray *characterEntityArray = nil;
 }
 
 - (void)dealloc {
-  [snippet release], snippet = nil;
-  [resultAccumulator release], resultAccumulator = nil;
-  [super dealloc];
+  snippet = nil;
+  resultAccumulator = nil;
 }
 
 @end

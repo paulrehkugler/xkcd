@@ -15,12 +15,12 @@
 @interface FetchComicImageFromWeb ()
 
 @property(nonatomic, assign, readwrite) NSInteger comicNumber;
-@property(nonatomic, retain, readwrite) NSURL *comicImageURL;
-@property(nonatomic, retain, readwrite) NSData *comicImageData;
-@property(nonatomic, assign, readwrite) id target;
+@property(nonatomic, strong, readwrite) NSURL *comicImageURL;
+@property(nonatomic, strong, readwrite) NSData *comicImageData;
+@property(nonatomic, unsafe_unretained, readwrite) id target;
 @property(nonatomic, assign, readwrite) SEL action;
-@property(nonatomic, retain, readwrite) NSError *error;
-@property(nonatomic, retain, readwrite) id context;
+@property(nonatomic, strong, readwrite) NSError *error;
+@property(nonatomic, strong, readwrite) id context;
 
 @end
 
@@ -52,9 +52,9 @@
 }
 
 - (void)main {
-  NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
+  NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:180.0f] autorelease];
+                                                           timeoutInterval:180.0f];
   [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
   NSURLResponse *response = nil;
   NSError *requestError = nil;
@@ -72,15 +72,14 @@
 }
 
 - (void)dealloc {
-  [comicImageURL release], comicImageURL = nil;
-  [comicImageData release], comicImageData = nil;
-  [context release], context = nil;
-  [error release], error = nil;
+  comicImageURL = nil;
+  comicImageData = nil;
+  context = nil;
+  error = nil;
   
   target = nil;
   action = NULL;
   
-  [super dealloc];
 }
 
 @end

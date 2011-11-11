@@ -14,8 +14,8 @@
 
 @interface ComicImageView ()
 
-@property(nonatomic, retain, readwrite) NSTimer *touchAndHoldTimer;
-@property(nonatomic, retain, readwrite) NSTimer *singleTouchTimer;
+@property(nonatomic, strong, readwrite) NSTimer *touchAndHoldTimer;
+@property(nonatomic, strong, readwrite) NSTimer *singleTouchTimer;
 
 @end
 
@@ -87,15 +87,10 @@
 
 - (void)dealloc {
   [touchAndHoldTimer invalidate];
-  [touchAndHoldTimer release];
-  touchAndHoldTimer = nil;
   
   delegate = nil;
   
-  [titleText release];
-  titleText = nil;
   
-  [super dealloc];
 }
 
 @end

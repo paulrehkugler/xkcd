@@ -20,7 +20,7 @@
 
 @interface TLModalActivityIndicatorView ()
 
-@property(nonatomic, retain, readwrite) UIActivityIndicatorView *spinner;
+@property(nonatomic, strong, readwrite) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -47,17 +47,16 @@
     backgroundLayer.position = keyWindowCenter;
     backgroundLayer.backgroundColor = kModalColor.CGColor;
     
-    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(keyWindowCenter.x - kModalSize / 2.0f,
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(keyWindowCenter.x - kModalSize / 2.0f,
                                                                 keyWindowCenter.y + kModalSize / 2.0f - kLabelHeight,
                                                                 kModalSize,
-                                                                kLabelHeight)]
-                      autorelease];
+                                                                kLabelHeight)];
     label.text = text;
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     label.font = kLabelFont;
     label.textAlignment = UITextAlignmentCenter;
-    self.spinner = [[[UIActivityIndicatorView alloc] initWithFrame:CGRectZero] autorelease];
+    self.spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
     self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     [self.spinner sizeToFit];
     [self.spinner startAnimating];
@@ -85,11 +84,5 @@
   [self removeFromSuperview];
 }
 
-- (void)dealloc {
-  [spinner release];
-  spinner = nil;
-  
-  [super dealloc];
-}
 
 @end

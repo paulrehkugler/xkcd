@@ -12,11 +12,11 @@
 @implementation UIViewController (TLCommon)
 
 + (UIViewController *)viewController {
-  return [[[self alloc] initWithNibName:nil bundle:nil] autorelease];
+  return [[self alloc] initWithNibName:nil bundle:nil];
 }
 
 - (UINavigationController *)navigationControllerWithSelfAsRootViewController {
-  return [[[UINavigationController alloc] initWithRootViewController:self] autorelease];
+  return [[UINavigationController alloc] initWithRootViewController:self];
 }
 
 - (void)dismissAnimated {

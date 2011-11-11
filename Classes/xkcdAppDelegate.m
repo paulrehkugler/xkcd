@@ -24,9 +24,9 @@ static NSString *applicationDocumentsDirectory = nil;
 
 @interface xkcdAppDelegate ()
 
-@property(nonatomic, retain, readwrite) UINavigationController *navigationController;
-@property(nonatomic, retain, readwrite) ComicListViewController *listViewController;
-@property(nonatomic, retain, readonly) NSUserDefaults *userDefaults;
+@property(nonatomic, strong, readwrite) UINavigationController *navigationController;
+@property(nonatomic, strong, readwrite) ComicListViewController *listViewController;
+@property(nonatomic, strong, readonly) NSUserDefaults *userDefaults;
 
 @end
 
@@ -43,7 +43,7 @@ static NSString *applicationDocumentsDirectory = nil;
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  self.listViewController = [[[ComicListViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+  self.listViewController = [[ComicListViewController alloc] initWithNibName:nil bundle:nil];
 
   BOOL canLaunchApplication = YES;
   if(launchOptions) {
@@ -57,7 +57,7 @@ static NSString *applicationDocumentsDirectory = nil;
     }
   }
 
-  self.navigationController = [[[UINavigationController alloc] initWithRootViewController:self.listViewController] autorelease];
+  self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.listViewController];
   [window addSubview:self.navigationController.view];
   [window makeKeyAndVisible];
 
@@ -114,7 +114,6 @@ static NSString *applicationDocumentsDirectory = nil;
 - (NSUserDefaults *)userDefaults {
   if(!userDefaults) {
     userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults retain];
     [userDefaults synchronize];
   }
   return userDefaults;
@@ -168,7 +167,7 @@ static NSString *applicationDocumentsDirectory = nil;
   if (managedObjectModel != nil) {
     return managedObjectModel;
   }
-  managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];    
+  managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];    
   return managedObjectModel;
 }
 
@@ -222,7 +221,6 @@ static NSString *applicationDocumentsDirectory = nil;
     NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
     if(basePath) {
       applicationDocumentsDirectory = basePath;
-      [applicationDocumentsDirectory retain];
     }
   }
   return applicationDocumentsDirectory;
@@ -232,27 +230,17 @@ static NSString *applicationDocumentsDirectory = nil;
 #pragma mark Memory management
 
 - (void)dealloc {
-  [listViewController release];
-  listViewController = nil;
   
-  [navigationController release];
-  navigationController = nil;
   
-  [managedObjectContext release];
   managedObjectContext = nil;
 
-  [managedObjectModel release];
   managedObjectModel = nil;
 
-  [persistentStoreCoordinator release];
   persistentStoreCoordinator = nil;
   
   [userDefaults synchronize];
-  [userDefaults release];
   userDefaults = nil;
   
-	[window release];
-	[super dealloc];
 }
 
 

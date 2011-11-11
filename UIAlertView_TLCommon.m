@@ -16,7 +16,6 @@
                                         cancelButtonTitle:nil
                                         otherButtonTitles:NSLocalizedString(@"Ok", @"Button to acknowledge modal alert"), nil];
   [alert show];
-  [alert release];
 }
 
 @end

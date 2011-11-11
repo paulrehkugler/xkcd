@@ -28,7 +28,7 @@ static NSEntityDescription *comicEntityDescription = nil;
 
 - (NSString *)imagePath;
 
-@property(nonatomic, retain, readwrite) NSNumber *downloaded;
+@property(nonatomic, strong, readwrite) NSNumber *downloaded;
 
 @end
 
@@ -47,22 +47,21 @@ static NSEntityDescription *comicEntityDescription = nil;
   if([self class] == [Comic class]) {
     if(!comicEntityDescription) {
       comicEntityDescription = [NSEntityDescription entityForName:@"Comic" inManagedObjectContext:AppDelegate.managedObjectContext];
-      [comicEntityDescription retain];
     }
   }
 }
 
 + (Comic *)comic {
-  Comic *comic = [[[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:AppDelegate.managedObjectContext] autorelease];
+  Comic *comic = [[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:AppDelegate.managedObjectContext];
   comic.downloaded = [NSNumber numberWithBool:NO];
   return comic;
 }
 
 + (Comic *)lastKnownComic {
-  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
   [request setEntity:comicEntityDescription];
   
-  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO] autorelease];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO];
   NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
   [request setSortDescriptors:sortDescriptors];
   
@@ -81,7 +80,7 @@ static NSEntityDescription *comicEntityDescription = nil;
 }
 
 + (Comic *)comicNumbered:(NSInteger)comicNumber {
-  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
   [request setEntity:comicEntityDescription];
   
   NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeNumber @" = %@", [NSNumber numberWithInteger:comicNumber]];
@@ -102,10 +101,10 @@ static NSEntityDescription *comicEntityDescription = nil;
 }
 
 + (NSArray *)allComics {
-  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
   [request setEntity:comicEntityDescription];
 
-  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO] autorelease];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO];
   NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
   [request setSortDescriptors:sortDescriptors];
   
@@ -117,13 +116,13 @@ static NSEntityDescription *comicEntityDescription = nil;
 }
 
 + (NSArray *)comicsWithImages {
-  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
   [request setEntity:comicEntityDescription];
   
   NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", [NSNumber numberWithBool:YES]];
   request.predicate = searchPredicate;
 
-  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES] autorelease];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES];
   NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
   [request setSortDescriptors:sortDescriptors];
   
@@ -135,13 +134,13 @@ static NSEntityDescription *comicEntityDescription = nil;
 }
 
 + (NSArray *)comicsWithoutImages {
-  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
   [request setEntity:comicEntityDescription];
   
   NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", [NSNumber numberWithBool:NO]];
   request.predicate = searchPredicate;
   
-  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES] autorelease];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES];
   NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
   [request setSortDescriptors:sortDescriptors];
   

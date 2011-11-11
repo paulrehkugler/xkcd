@@ -19,7 +19,7 @@
 
 - (void)fetchComic:(NSInteger)comicNumber;
 
-@property(nonatomic, retain, readwrite) NSOperationQueue *fetchQueue;
+@property(nonatomic, strong, readwrite) NSOperationQueue *fetchQueue;
 
 @end
 
@@ -32,16 +32,15 @@
 
 - (id)init {
   if(self = [super init]) {
-    self.fetchQueue = [[[NSOperationQueue alloc] init] autorelease];
+    self.fetchQueue = [[NSOperationQueue alloc] init];
   }
   return self;
 }
 
 - (void)fetchComic:(NSInteger)comicNumber {
-  FetchComicFromWeb *fetchOperation = [[[FetchComicFromWeb alloc] initWithComicNumber:comicNumber
+  FetchComicFromWeb *fetchOperation = [[FetchComicFromWeb alloc] initWithComicNumber:comicNumber
                                                                      completionTarget:self
-                                                                               action:@selector(didCompleteFetchOperation:)]
-                                       autorelease];
+                                                                               action:@selector(didCompleteFetchOperation:)];
   [fetchQueue addOperation:fetchOperation];
 }
 
@@ -84,12 +83,9 @@
 }
 
 - (void)dealloc {
-  [fetchQueue release];
-  fetchQueue = nil;
   
   delegate = nil;
   
-  [super dealloc];
 }
 
 @end

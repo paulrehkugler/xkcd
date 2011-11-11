@@ -13,7 +13,7 @@
   NSInteger comicNumber;
   NSURL *comicImageURL;
   NSData *comicImageData;
-  id target;
+  id __unsafe_unretained target;
   SEL action;
   NSError *error;
   id context;
@@ -25,9 +25,9 @@
                    action:(SEL)completionAction
                   context:(id)context;
 
-@property(nonatomic, retain, readonly) NSData *comicImageData;
+@property(nonatomic, strong, readonly) NSData *comicImageData;
 @property(nonatomic, assign, readonly) NSInteger comicNumber;
-@property(nonatomic, retain, readonly) NSError *error;
-@property(nonatomic, retain, readonly) id context;
+@property(nonatomic, strong, readonly) NSError *error;
+@property(nonatomic, strong, readonly) id context;
 
 @end

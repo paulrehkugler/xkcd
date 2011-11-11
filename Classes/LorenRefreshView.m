@@ -24,9 +24,9 @@
 @interface LorenRefreshView ()
 
 @property(nonatomic, assign, readwrite) BOOL flipped;
-@property(nonatomic, retain, readwrite) UILabel *statusLabel;
-@property(nonatomic, retain, readwrite) UIImageView *arrowImageView;
-@property(nonatomic, retain, readwrite) UIActivityIndicatorView *spinner;
+@property(nonatomic, strong, readwrite) UILabel *statusLabel;
+@property(nonatomic, strong, readwrite) UIImageView *arrowImageView;
+@property(nonatomic, strong, readwrite) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -42,7 +42,7 @@
 
 - (id)initWithFrame:(CGRect)frame {
   if(self = [super initWithFrame:frame]) {
-		self.statusLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, 320.0f, 20.0f)] autorelease];
+		self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, 320.0f, 20.0f)];
 		self.statusLabel.textAlignment = UITextAlignmentCenter;
     self.statusLabel.backgroundColor = [UIColor clearColor];
     self.statusLabel.font = [UIFont helveticaWithSize:16.0f];
@@ -105,11 +105,10 @@
 }
 
 - (void)dealloc {
-  [statusLabel release], statusLabel = nil;
-  [arrowImageView release], arrowImageView = nil;
-  [spinner release], spinner = nil;
+  statusLabel = nil;
+  arrowImageView = nil;
+  spinner = nil;
 
-  [super dealloc];
 }
 
 @end

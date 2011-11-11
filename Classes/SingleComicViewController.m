@@ -44,13 +44,13 @@
 - (void)goToComicNumbered:(NSUInteger)comicNumber;
 - (void)saveComicImage;
 
-@property(nonatomic, retain, readwrite) Comic *comic;
-@property(nonatomic, retain, readwrite) NSMutableArray *comicImageViews;
-@property(nonatomic, retain, readwrite) UIView *contentView;
-@property(nonatomic, retain, readwrite) UIScrollView *imageScroller;
-@property(nonatomic, retain, readwrite) TLLoadingView *loadingView;
-@property(nonatomic, retain, readwrite) SingleComicImageFetcher *imageFetcher;
-@property(nonatomic, retain, readwrite) TLModalActivityIndicatorView *spinner;
+@property(nonatomic, strong, readwrite) Comic *comic;
+@property(nonatomic, strong, readwrite) NSMutableArray *comicImageViews;
+@property(nonatomic, strong, readwrite) UIView *contentView;
+@property(nonatomic, strong, readwrite) UIScrollView *imageScroller;
+@property(nonatomic, strong, readwrite) TLLoadingView *loadingView;
+@property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
+@property(nonatomic, strong, readwrite) TLModalActivityIndicatorView *spinner;
 
 @end
 
@@ -87,7 +87,7 @@
     [self displayComicImage];    
   } else {
     [self displayLoadingView];
-    self.imageFetcher = [[[SingleComicImageFetcher alloc] init] autorelease];
+    self.imageFetcher = [[SingleComicImageFetcher alloc] init];
     self.imageFetcher.delegate = self;    
     [self.imageFetcher fetchImageForComic:self.comic context:nil];
   }
@@ -97,26 +97,26 @@
   UIBarButtonItem *systemActionItem = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemAction
                                                                     target:self
                                                                     action:@selector(systemAction:)];
-  UIBarButtonItem *shareToolbarItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_chat"]
+  UIBarButtonItem *shareToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_chat"]
                                                                         style:UIBarButtonItemStylePlain
                                                                        target:self
-                                                                       action:@selector(share:)] autorelease];
+                                                                       action:@selector(share:)];
   
-  UIBarButtonItem *previousItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
+  UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
-                                                                   action:@selector(goToPreviousComic)] autorelease];
+                                                                   action:@selector(goToPreviousComic)];
   if([self.comic.number unsignedIntegerValue] == kMinComicNumber) {
     previousItem.enabled = NO;
   }
-  UIBarButtonItem *randomItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_shuffle"]
+  UIBarButtonItem *randomItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_shuffle"]
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
-                                                                 action:@selector(goToRandomComic)] autorelease];
-  UIBarButtonItem *nextItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up"]
+                                                                 action:@selector(goToRandomComic)];
+  UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
-                                                               action:@selector(goToNextComic)] autorelease];
+                                                               action:@selector(goToNextComic)];
   if(self.comic.number == [Comic lastKnownComic].number) {
     nextItem.enabled = NO;
   }
@@ -142,8 +142,8 @@
   // Load up the comic image/view
   UIImage *comicImage = self.comic.image;
   CGSize contentSize = comicImage.size;
-  TiledImage *tiles = [[[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight] autorelease];
-  self.contentView = [[[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)] autorelease];
+  TiledImage *tiles = [[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight];
+  self.contentView = [[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)];
   self.comicImageViews = [NSMutableArray arrayWithCapacity:(tiles.widthCount * tiles.heightCount)];
   for(NSUInteger x = 0; x < tiles.widthCount; ++x) {
     for(NSUInteger y = 0; y < tiles.heightCount; ++y) {
@@ -152,12 +152,11 @@
       comicImageView.titleText = self.comic.titleText;
       comicImageView.delegate = self;
       [self.comicImageViews addObject:comicImageView];
-      [comicImageView release];
     }
   }
   
   // Scroll view
-  self.imageScroller = [[[UIScrollView alloc] initWithFrame:self.view.bounds] autorelease];
+  self.imageScroller = [[UIScrollView alloc] initWithFrame:self.view.bounds];
   self.imageScroller.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   self.imageScroller.backgroundColor = [UIColor whiteColor];
   self.imageScroller.delaysContentTouches = NO;
@@ -185,7 +184,7 @@
 }
 
 - (void)displayLoadingView {
-  self.loadingView = [[[TLLoadingView alloc] initWithFrame:self.view.bounds] autorelease];
+  self.loadingView = [[TLLoadingView alloc] initWithFrame:self.view.bounds];
   self.loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   [self.loadingView setNeedsLayout];
   [self.view addSubview:self.loadingView];
@@ -204,16 +203,15 @@
 }
 
 - (void)dealloc {
-  [comic release], comic = nil;
-  [contentView release], contentView = nil;
-  [comicImageViews release], comicImageViews = nil;
-  [imageScroller release], imageScroller = nil;
-  [loadingView release], loadingView = nil;
+  comic = nil;
+  contentView = nil;
+  comicImageViews = nil;
+  imageScroller = nil;
+  loadingView = nil;
   imageFetcher.delegate = nil;
-  [imageFetcher release], imageFetcher = nil;
-  [spinner release], spinner = nil;
+  imageFetcher = nil;
+  spinner = nil;
   
-  [super dealloc];
 }
 
 - (void)toggleToolbarsAnimated:(BOOL)animated {
@@ -223,7 +221,7 @@
 }
 
 - (void)share:(UIBarButtonItem *)sender {
-  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:NSLocalizedString(@"Share link to this comic", @"Action sheet title")] autorelease];
+  LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:NSLocalizedString(@"Share link to this comic", @"Action sheet title")];
   if([MFMailComposeViewController canSendMail]) {
     [sheet addButtonWithTitle:NSLocalizedString(@"Email", @"Action sheet title")
                         block:^void {
@@ -241,7 +239,7 @@
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:nil] autorelease];
+  LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
   if([self.comic hasBeenDownloaded]) {
     [sheet addButtonWithTitle:NSLocalizedString(@"Save to Photos", @"Action sheet title")
                         block:^void {
@@ -273,9 +271,9 @@
 
 - (void)goToComicNumbered:(NSUInteger)comicNumber {
   // UGLY
-  NSMutableArray *viewControllerStack = [[self.navigationController.viewControllers mutableCopy] autorelease];
+  NSMutableArray *viewControllerStack = [self.navigationController.viewControllers mutableCopy];
   Comic *newComic = [Comic comicNumbered:comicNumber];
-  SingleComicViewController *newSingleComicViewController = [[[SingleComicViewController alloc] initWithComic:newComic] autorelease]; 
+  SingleComicViewController *newSingleComicViewController = [[SingleComicViewController alloc] initWithComic:newComic]; 
   [viewControllerStack replaceObjectAtIndex:[viewControllerStack count] - 1
                                  withObject:newSingleComicViewController];
   [self.navigationController setViewControllers:viewControllerStack animated:NO];
@@ -286,7 +284,7 @@
 }
 
 - (void)saveComicImage {
-  self.spinner = [[[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Saving to Photos", @"Modal spinner text for saving to Photos.app")] autorelease];
+  self.spinner = [[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Saving to Photos", @"Modal spinner text for saving to Photos.app")];
   [self.spinner show];
   UIImageWriteToSavedPhotosAlbum(self.comic.image,
                                  self,
@@ -362,7 +360,7 @@
 }
 
 - (void)tweet {
-  TWTweetComposeViewController *composer = [[[TWTweetComposeViewController alloc] init] autorelease];
+  TWTweetComposeViewController *composer = [[TWTweetComposeViewController alloc] init];
   [composer addURL:[NSURL URLWithString:comic.websiteURL]];
   [self presentModalViewController:composer animated:YES];
 }

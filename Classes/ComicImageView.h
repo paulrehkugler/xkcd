@@ -12,10 +12,10 @@
   NSString *titleText;
   NSTimer *touchAndHoldTimer;
   NSTimer *singleTouchTimer;
-  id<ComicImageViewDelegate> delegate;
+  id<ComicImageViewDelegate> __unsafe_unretained delegate;
 }
 
-@property(nonatomic, retain, readwrite) NSString *titleText;
-@property(nonatomic, assign, readwrite) id<ComicImageViewDelegate> delegate;
+@property(nonatomic, strong, readwrite) NSString *titleText;
+@property(nonatomic, unsafe_unretained, readwrite) id<ComicImageViewDelegate> delegate;
 
 @end

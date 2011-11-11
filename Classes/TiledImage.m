@@ -28,7 +28,6 @@
     }
     sourceImage = imageToTile;
     // according to the docs, CGImageCreateWithImageInRect retains this anyway...since we're relying on this to do lazy loads of tiles, go ahead and enforce it here as well
-    [sourceImage retain];
   }
   return self;
 }
@@ -65,13 +64,10 @@
 }
 
 - (void)dealloc {
-  [tiles release];
   tiles = nil;
 
-  [sourceImage release];
   sourceImage = nil;
   
-  [super dealloc];
 }
 
 @end

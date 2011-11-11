@@ -35,6 +35,6 @@ SingleComicImageFetcherDelegate
 
 - (id)initWithComic:(Comic *)comicToView;
 
-@property(nonatomic, retain, readonly) Comic *comic;
+@property(nonatomic, strong, readonly) Comic *comic;
 
 @end

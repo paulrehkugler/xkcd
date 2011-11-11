@@ -42,7 +42,6 @@
   [sheet addButtonWithTitle:title];
   dispatch_block_t block_copy = [block copy];
   [blocks addObject:block_copy];
-  [block_copy release];
 }
 
 - (void)addDestructiveButtonWithTitle:(NSString *)title block:(dispatch_block_t) block {

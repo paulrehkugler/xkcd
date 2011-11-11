@@ -23,8 +23,8 @@
 - (void)didFailWithError:(NSError *)error onComic:(Comic *)comic;
 
 @property(strong) id keepInMemory;
-@property(nonatomic, retain, readwrite) NSOperationQueue *fetchQueue;
-@property(nonatomic, retain, readwrite) NSMutableArray *comicsRemainingDuringDownloadAll;
+@property(nonatomic, strong, readwrite) NSOperationQueue *fetchQueue;
+@property(nonatomic, strong, readwrite) NSMutableArray *comicsRemainingDuringDownloadAll;
 
 @end
 
@@ -39,7 +39,7 @@
 
 - (id)init {
   if(self = [super init]) {
-    self.fetchQueue = [[[NSOperationQueue alloc] init] autorelease];
+    self.fetchQueue = [[NSOperationQueue alloc] init];
   }
   return self;
 }
@@ -47,12 +47,11 @@
 - (void)fetchImageForComic:(Comic *)comic context:(id)context {
   if(comic.imageURL) {
     NSURL *comicImageURL = [NSURL URLWithString:comic.imageURL];
-    FetchComicImageFromWeb *fetchOperation = [[[FetchComicImageFromWeb alloc] initWithComicNumber:[comic.number integerValue]
+    FetchComicImageFromWeb *fetchOperation = [[FetchComicImageFromWeb alloc] initWithComicNumber:[comic.number integerValue]
                                                                                          imageURL:comicImageURL
                                                                                  completionTarget:self
                                                                                            action:@selector(didCompleteFetchOperation:)
-                                                                                          context:context]
-                                              autorelease];
+                                                                                          context:context];
     comic.loading = [NSNumber numberWithBool:YES];
     self.keepInMemory = self;
     [fetchQueue addOperation:fetchOperation];
@@ -67,7 +66,7 @@
 - (void)fetchImagesForAllComics {
   // don't start afresh if there's a download-all ongoing!
   if(!self.comicsRemainingDuringDownloadAll) {
-    self.comicsRemainingDuringDownloadAll = [[[Comic comicsWithoutImages] mutableCopy] autorelease];
+    self.comicsRemainingDuringDownloadAll = [[Comic comicsWithoutImages] mutableCopy];
     [self enqueueMoreDownloadAllComics];
   }
 }
@@ -133,15 +132,10 @@
 
 - (void)dealloc {
   [fetchQueue cancelAllOperations];
-  [fetchQueue release];
-  fetchQueue = nil;
   
-  [comicsRemainingDuringDownloadAll release];
-  comicsRemainingDuringDownloadAll = nil;
 
-  [keepInMemory release], keepInMemory = nil;
+  keepInMemory = nil;
   
-  [super dealloc];
 }
 
 @end

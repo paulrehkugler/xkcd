@@ -22,7 +22,7 @@
 - (void)refreshToolbars;
 - (void)systemAction:(UIBarButtonItem *)sender;
 
-@property(nonatomic, retain, readwrite) UIWebView *webView;
+@property(nonatomic, strong, readwrite) UIWebView *webView;
 @property(nonatomic, assign, readwrite) BOOL loading;
 @property(nonatomic, assign, readwrite) BOOL toolbarWasHidden;
 
@@ -39,7 +39,7 @@
 
 - (void)loadView {
   [super loadView];
-  self.webView = [[[UIWebView alloc] initWithFrame:CGRectZeroWithSize(self.view.bounds.size)] autorelease];
+  self.webView = [[UIWebView alloc] initWithFrame:CGRectZeroWithSize(self.view.bounds.size)];
   self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   self.webView.delegate = self;
   [self.view addSubview:self.webView];
@@ -67,18 +67,16 @@
 }
 
 - (void)refreshToolbars {
-  UIBarButtonItem *back = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"web_back"]
+  UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"web_back"]
                                                             style:UIBarButtonItemStylePlain
                                                             target:self.webView
-                                                           action:@selector(goBack)]
-                           autorelease];
+                                                           action:@selector(goBack)];
   back.enabled = self.webView.canGoBack;
 
-  UIBarButtonItem *forward = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"web_forward"]
+  UIBarButtonItem *forward = [[UIBarButtonItem alloc] initWithImage:[UIImage imageWithName:@"web_forward"]
                                                             style:UIBarButtonItemStylePlain
                                                            target:self.webView
-                                                           action:@selector(goForward)]
-                           autorelease];
+                                                           action:@selector(goForward)];
   forward.enabled = self.webView.canGoForward;
 
   UIBarButtonSystemItem stopOrRefreshSystemItem = self.webView.loading ? UIBarButtonSystemItemStop : UIBarButtonSystemItemRefresh;
@@ -104,14 +102,13 @@
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:[[self.webView.request URL] absoluteString]
+  UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[[self.webView.request URL] absoluteString]
                                                             delegate:self
                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action sheet cancel button")
                                               destructiveButtonTitle:nil
                                                    otherButtonTitles:
                                  NSLocalizedString(@"Open in Safari", @"Action sheet button"),
-                                 nil]
-                                autorelease];
+                                 nil];
   [actionSheet showFromToolbar:self.navigationController.toolbar];
 }
 
@@ -119,10 +116,7 @@
   [self setLoading:NO];
   [webView stopLoading];
   webView.delegate = nil;
-  [webView release];
-  webView = nil;
   
-  [super dealloc];
 }
 
 #pragma mark -

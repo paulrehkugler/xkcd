@@ -60,16 +60,16 @@ static UIImage *downloadImage = nil;
 // Action sheet actions
 - (void)emailDeveloper;
 
-@property(nonatomic, retain, readwrite) UITableView *tableView;
-@property(nonatomic, retain, readwrite) NewComicFetcher *fetcher;
-@property(nonatomic, retain, readwrite) SingleComicImageFetcher *imageFetcher;
-@property(nonatomic, retain, readwrite) NSFetchedResultsController *fetchedResultsController;
-@property(nonatomic, retain, readwrite) NSFetchedResultsController *searchFetchedResultsController;
-@property(nonatomic, retain, readwrite) UISearchDisplayController *searchController;
-@property(nonatomic, retain, readwrite) NSString *savedSearchTerm;
+@property(nonatomic, strong, readwrite) UITableView *tableView;
+@property(nonatomic, strong, readwrite) NewComicFetcher *fetcher;
+@property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
+@property(nonatomic, strong, readwrite) NSFetchedResultsController *fetchedResultsController;
+@property(nonatomic, strong, readwrite) NSFetchedResultsController *searchFetchedResultsController;
+@property(nonatomic, strong, readwrite) UISearchDisplayController *searchController;
+@property(nonatomic, strong, readwrite) NSString *savedSearchTerm;
 @property(nonatomic, assign, readwrite) BOOL searchWasActive;
-@property(nonatomic, retain, readwrite) TLModalActivityIndicatorView *modalSpinner;
-@property(nonatomic, retain, readwrite) LorenRefreshView *refreshHeaderView;
+@property(nonatomic, strong, readwrite) TLModalActivityIndicatorView *modalSpinner;
+@property(nonatomic, strong, readwrite) LorenRefreshView *refreshHeaderView;
 @property(nonatomic, assign, readwrite) BOOL shouldCheckForRefreshGesture;
 @property(nonatomic, assign, readwrite) BOOL refreshing;
 
@@ -97,7 +97,6 @@ static UIImage *downloadImage = nil;
   if([self class] == [ComicListViewController class]) {
     if(!downloadImage) {
       downloadImage = [UIImage imageNamed:@"glyphish_download.png"];
-      [downloadImage retain];
     }
   }
 }
@@ -114,10 +113,10 @@ static UIImage *downloadImage = nil;
   
   self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   
-  UIBarButtonItem *systemItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+  UIBarButtonItem *systemItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                target:self
                                                                                action:@selector(systemAction:)
-                                  ] autorelease];
+                                  ];
   self.navigationItem.leftBarButtonItem = systemItem;
 
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -129,7 +128,7 @@ static UIImage *downloadImage = nil;
   self.navigationItem.rightBarButtonItem.enabled = NO;
 #endif
   
-  self.tableView = [[[UITableView alloc] initWithFrame:CGRectZeroWithSize(self.view.bounds.size)] autorelease];
+  self.tableView = [[UITableView alloc] initWithFrame:CGRectZeroWithSize(self.view.bounds.size)];
   self.tableView.dataSource = self;
   self.tableView.delegate = self;
   self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -139,12 +138,12 @@ static UIImage *downloadImage = nil;
   
   [self setSearchBarTableHeader];
 
-	self.refreshHeaderView = [[[LorenRefreshView alloc] initWithFrame:CGRectMake(0.0f, -self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)] autorelease];
+	self.refreshHeaderView = [[LorenRefreshView alloc] initWithFrame:CGRectMake(0.0f, -self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)];
 	[self.tableView addSubview:refreshHeaderView];
 }
 
 - (void)setSearchBarTableHeader {
-  UISearchBar *searchBar = [[[UISearchBar alloc] initWithFrame:CGRectZero] autorelease];
+  UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
   searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   [searchBar sizeToFit];
   searchBar.placeholder = NSLocalizedString(@"Search xkcd", @"Search bar placeholder text");
@@ -176,7 +175,7 @@ static UIImage *downloadImage = nil;
   
   // Set up new comic fetcher
   if(!self.fetcher) {
-    self.fetcher = [[[NewComicFetcher alloc] init] autorelease];
+    self.fetcher = [[NewComicFetcher alloc] init];
     self.fetcher.delegate = self;      
   }
   
@@ -184,7 +183,7 @@ static UIImage *downloadImage = nil;
 
   // Set up image fetcher, for the future
   if(!self.imageFetcher) {
-    self.imageFetcher = [[[SingleComicImageFetcher alloc] init] autorelease];
+    self.imageFetcher = [[SingleComicImageFetcher alloc] init];
     self.imageFetcher.delegate = self;    
   }
   
@@ -247,56 +246,40 @@ static UIImage *downloadImage = nil;
 
 - (void)dealloc {
   fetcher.delegate = nil;
-  [fetcher release];
-  fetcher = nil;
   
   imageFetcher.delegate = nil;
-  [imageFetcher release];
-  imageFetcher = nil;
   
   searchController.searchBar.delegate = nil;
   searchController.delegate = nil;
   searchController.searchResultsDataSource = nil;
   searchController.searchResultsDelegate = nil;
-  [searchController release];
-  searchController = nil;
   
   tableView.delegate = nil;
   tableView.dataSource = nil;
-  [tableView release];
-  tableView = nil;
   
-  [fetchedResultsController release];
-  fetchedResultsController = nil;
   
-  [searchFetchedResultsController release];
-  searchFetchedResultsController = nil;
   
-  [savedSearchTerm release];
-  savedSearchTerm = nil;
   
-  [refreshHeaderView release], refreshHeaderView = nil;
+  refreshHeaderView = nil;
   
-  [super dealloc];
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString cacheName:(NSString *)cacheName {
   // Set up table data fetcher
-  NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[Comic entityDescription]];
   if(searchString) {
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR titleText CONTAINS[cd] %@ OR number = %@", searchString, searchString, [NSNumber numberWithInteger:[searchString integerValue]]];
     fetchRequest.predicate = searchPredicate;
   }
-  NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO] autorelease];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO];
   NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
   [fetchRequest setSortDescriptors:sortDescriptors];
   
-  NSFetchedResultsController *aFetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:AppDelegate.managedObjectContext
                                                                                                  sectionNameKeyPath:nil
-                                                                                                          cacheName:cacheName]
-                                                           autorelease];
+                                                                                                          cacheName:cacheName];
   aFetchedResultsController.delegate = self;
   return aFetchedResultsController;
 }
@@ -323,7 +306,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)viewComic:(Comic *)comic {
-  SingleComicViewController *singleComicViewController = [[[SingleComicViewController alloc] initWithComic:comic] autorelease];
+  SingleComicViewController *singleComicViewController = [[SingleComicViewController alloc] initWithComic:comic];
   [self.navigationController pushViewController:singleComicViewController animated:YES];
 }
 
@@ -353,7 +336,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:nil] autorelease];
+  LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
   if([MFMailComposeViewController canSendMail]) {
     [sheet addButtonWithTitle:NSLocalizedString(@"Email the app developer", @"Action sheet title")
                         block:^void {
@@ -377,16 +360,14 @@ static UIImage *downloadImage = nil;
   self.tableView.tableHeaderView = nil;
   self.navigationItem.rightBarButtonItem.action = @selector(doneEditing:);
   [self.navigationController setToolbarHidden:NO animated:YES];
-  UIBarButtonItem *downloadAll = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Download all", @"Button")
+  UIBarButtonItem *downloadAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Download all", @"Button")
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:self
-                                                                  action:@selector(downloadAll:)]
-                                  autorelease];
-  UIBarButtonItem *deleteAll = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Delete all", @"Button")
+                                                                  action:@selector(downloadAll:)];
+  UIBarButtonItem *deleteAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Delete all", @"Button")
                                                                  style:UIBarButtonItemStyleBordered
                                                                 target:self
-                                                                action:@selector(deleteAll:)]
-                                  autorelease];
+                                                                action:@selector(deleteAll:)];
   if([self.imageFetcher downloadingAll]) {
     downloadAll.enabled = NO;
     deleteAll.enabled = NO;
@@ -414,7 +395,7 @@ static UIImage *downloadImage = nil;
 
 - (void)downloadAll:(UIBarButtonItem *)sender {
   NSString *sheetTitle = NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning");
-  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:sheetTitle] autorelease];
+  LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:sheetTitle];
   [sheet addButtonWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
                       block:^void {
                         [self downloadAllComicImages];
@@ -424,7 +405,7 @@ static UIImage *downloadImage = nil;
 }
    
 - (void)deleteAll:(UIBarButtonItem *)sender {
-  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:nil] autorelease];
+  LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
   [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
                                  block:^void {
                                    [self deleteAllComicImages];
@@ -495,7 +476,7 @@ static UIImage *downloadImage = nil;
   static NSString *comicCellIdentifier = @"comicCell";
   UITableViewCell *comicCell = [self.tableView dequeueReusableCellWithIdentifier:comicCellIdentifier];
   if(!comicCell) {
-    comicCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:comicCellIdentifier] autorelease];
+    comicCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:comicCellIdentifier];
   }
   
 #if GENERATE_DEFAULT_PNG
@@ -524,7 +505,7 @@ static UIImage *downloadImage = nil;
     }
   }
 
-  comicCell.editingAccessoryView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+  comicCell.editingAccessoryView = [[UIView alloc] initWithFrame:CGRectZero];
   
   cell = comicCell;
   return cell;
@@ -612,7 +593,7 @@ static UIImage *downloadImage = nil;
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
   if(!self.searchController) {
-    self.searchController = [[[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self] autorelease];
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
     self.searchController.delegate = self;    
@@ -661,22 +642,22 @@ static UIImage *downloadImage = nil;
 - (void)deleteAllComicImages {
   [self doneEditing:nil];
   NSArray *comicsWithImages = [Comic comicsWithImages];
-  self.modalSpinner = [[[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Deleting...", @"Modal spinner text")] autorelease];
+  self.modalSpinner = [[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Deleting...", @"Modal spinner text")];
   [self.modalSpinner show];
   [self performSelectorInBackground:@selector(deleteAllComicImagesBlocking:) withObject:comicsWithImages];
 }
 
 - (void)deleteAllComicImagesBlocking:(NSArray *)comicsWithImages {
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  for(Comic *comic in comicsWithImages) {
-    [comic performSelectorOnMainThread:@selector(deleteImage)
-                            withObject:nil
-                         waitUntilDone:YES]; // wait until done to avoid flooding
+  @autoreleasepool {
+    for(Comic *comic in comicsWithImages) {
+      [comic performSelectorOnMainThread:@selector(deleteImage)
+                              withObject:nil
+                           waitUntilDone:YES]; // wait until done to avoid flooding
+    }
+    [self performSelectorOnMainThread:@selector(didFinishDeletingImages)
+                           withObject:nil
+                        waitUntilDone:NO];
   }
-  [self performSelectorOnMainThread:@selector(didFinishDeletingImages)
-                         withObject:nil
-                      waitUntilDone:NO];
-  [pool drain];
 }
 
 - (void)didFinishDeletingImages {

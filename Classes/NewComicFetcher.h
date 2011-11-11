@@ -11,12 +11,12 @@
 
 @interface NewComicFetcher : NSObject {
 @private
-  id<NewComicFetcherDelegate> delegate;
+  id<NewComicFetcherDelegate> __unsafe_unretained delegate;
   NSOperationQueue *fetchQueue;
 }
 
 - (void)fetch;
 
-@property(nonatomic, assign, readwrite) id<NewComicFetcherDelegate> delegate;
+@property(nonatomic, unsafe_unretained, readwrite) id<NewComicFetcherDelegate> delegate;
 
 @end

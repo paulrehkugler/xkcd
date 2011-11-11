@@ -11,7 +11,7 @@
 @implementation UIActivityIndicatorView (TLCommon)
 
 + (UIActivityIndicatorView *)animatingActivityIndicatorViewWithStyle:(UIActivityIndicatorViewStyle)style {
-  UIActivityIndicatorView *spinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style] autorelease];
+  UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
   [spinner sizeToFit];
   [spinner startAnimating];
   spinner.hidesWhenStopped = YES;

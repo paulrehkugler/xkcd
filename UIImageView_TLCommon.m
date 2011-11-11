@@ -13,7 +13,7 @@
 @implementation UIImageView (TLCommon)
 
 + (UIImageView *)imageViewWithImage:(UIImage *)image {
-  return [[[UIImageView alloc] initWithImage:image] autorelease];
+  return [[UIImageView alloc] initWithImage:image];
 }
 
 

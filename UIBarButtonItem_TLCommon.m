@@ -14,7 +14,7 @@
 + (UIBarButtonItem *)spinnerBarButtonItem {
   UIActivityIndicatorView *spinner = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleWhite];
   
-  UIBarButtonItem *spinnerBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:spinner] autorelease];
+  UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
   spinnerBarButtonItem.enabled = NO;
   
   return spinnerBarButtonItem;
@@ -31,7 +31,7 @@
 }
 
 + (UIBarButtonItem *)barButtonSystemItem:(UIBarButtonSystemItem)systemItem target:(id)target action:(SEL)action {
-  return [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:systemItem target:target action:action] autorelease];
+  return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:systemItem target:target action:action];
 }
 
 

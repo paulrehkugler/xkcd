@@ -23,6 +23,6 @@
 @property(nonatomic, assign, readonly) NSUInteger heightCount;
 @property(nonatomic, assign, readonly) NSUInteger tileWidth;
 @property(nonatomic, assign, readonly) NSUInteger tileHeight;
-@property(nonatomic, retain, readonly) NSArray *allTiles; // a little expensive, use sparingly
+@property(nonatomic, strong, readonly) NSArray *allTiles; // a little expensive, use sparingly
 
 @end

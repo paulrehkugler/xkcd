@@ -29,11 +29,11 @@
 - (void)deleteImage;
 - (NSString *)websiteURL;
 
-@property(nonatomic, retain, readonly) UIImage *image;
-@property(nonatomic, retain, readwrite) NSNumber *loading;
-@property(nonatomic, retain, readwrite) NSString *imageURL;
-@property(nonatomic, retain, readwrite) NSString *name;
-@property(nonatomic, retain, readwrite) NSString *titleText;
-@property(nonatomic, retain, readwrite) NSNumber *number;
+@property(nonatomic, strong, readonly) UIImage *image;
+@property(nonatomic, strong, readwrite) NSNumber *loading;
+@property(nonatomic, strong, readwrite) NSString *imageURL;
+@property(nonatomic, strong, readwrite) NSString *name;
+@property(nonatomic, strong, readwrite) NSString *titleText;
+@property(nonatomic, strong, readwrite) NSNumber *number;
 
 @end

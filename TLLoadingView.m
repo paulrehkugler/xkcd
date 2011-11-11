@@ -15,8 +15,8 @@
 
 @interface TLLoadingView ()
 
-@property(nonatomic, retain, readwrite) UILabel *label;
-@property(nonatomic, retain, readwrite) UIActivityIndicatorView *spinner;
+@property(nonatomic, strong, readwrite) UILabel *label;
+@property(nonatomic, strong, readwrite) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -30,7 +30,7 @@
 
 - (id)initWithFrame:(CGRect)frame {
   if(self = [super initWithFrame:frame]) {
-    self.label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    self.label = [[UILabel alloc] initWithFrame:CGRectZero];
     self.label.text = kDefaultLoadingText;
     self.spinner = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleGray];
     [self addSubview:self.label];
@@ -69,14 +69,5 @@
   self.label.frame = labelFrame;
 }
 
-- (void)dealloc {
-  [label release];
-  label = nil;
-  
-  [spinner release];
-  spinner = nil;
-  
-  [super dealloc];
-}
 
 @end

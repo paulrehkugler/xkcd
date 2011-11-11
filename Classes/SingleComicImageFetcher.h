@@ -11,7 +11,7 @@
 
 @interface SingleComicImageFetcher : NSObject {
 @private
-  id<SingleComicImageFetcherDelegate> delegate;
+  id<SingleComicImageFetcherDelegate> __unsafe_unretained delegate;
   NSOperationQueue *fetchQueue;
   NSMutableArray *comicsRemainingDuringDownloadAll;
 }
@@ -20,6 +20,6 @@
 - (void)fetchImagesForAllComics;
 - (BOOL)downloadingAll;
 
-@property(nonatomic, assign, readwrite) id<SingleComicImageFetcherDelegate> delegate;
+@property(nonatomic, unsafe_unretained, readwrite) id<SingleComicImageFetcherDelegate> delegate;
 
 @end

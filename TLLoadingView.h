@@ -20,7 +20,7 @@
   UIActivityIndicatorView *spinner;
 }
 
-@property(nonatomic, retain, readonly) UILabel *label;
-@property(nonatomic, retain, readonly) UIActivityIndicatorView *spinner;
+@property(nonatomic, strong, readonly) UILabel *label;
+@property(nonatomic, strong, readonly) UIActivityIndicatorView *spinner;
 
 @end

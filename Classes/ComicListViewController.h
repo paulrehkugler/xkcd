@@ -49,7 +49,7 @@ MFMailComposeViewControllerDelegate
 	BOOL refreshing;
 }
 
-@property(nonatomic, retain, readonly) UITableView *tableView;
+@property(nonatomic, strong, readonly) UITableView *tableView;
 @property(nonatomic, assign, readwrite) NSInteger requestedLaunchComic;
 
 @end

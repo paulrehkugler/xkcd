@@ -16,12 +16,12 @@
 @interface FetchComicFromWeb ()
 
 @property(nonatomic, assign, readwrite) NSInteger comicNumber;
-@property(nonatomic, retain, readwrite) NSString *comicName;
-@property(nonatomic, retain, readwrite) NSString *comicTitleText;
-@property(nonatomic, retain, readwrite) NSString *comicImageURL;
-@property(nonatomic, assign, readwrite) id target;
+@property(nonatomic, strong, readwrite) NSString *comicName;
+@property(nonatomic, strong, readwrite) NSString *comicTitleText;
+@property(nonatomic, strong, readwrite) NSString *comicImageURL;
+@property(nonatomic, unsafe_unretained, readwrite) id target;
 @property(nonatomic, assign, readwrite) SEL action;
-@property(nonatomic, retain, readwrite) NSError *error;
+@property(nonatomic, strong, readwrite) NSError *error;
 @property(nonatomic, assign, readwrite) BOOL got404;
 
 @end
@@ -56,7 +56,7 @@
     self.comicImageURL = @"http://imgs.xkcd.com/static/xkcdLogo.png"; // anything...
   } else {
     NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i/info.0.json", self.comicNumber]];
-    NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:comicURL] autorelease];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:comicURL];
     [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
     NSHTTPURLResponse *response = nil;
     NSError *requestError = nil;
@@ -90,22 +90,13 @@
 }
 
 - (void)dealloc {
-  [comicName release];
-  comicName = nil;
   
-  [comicTitleText release];
-  comicTitleText = nil;
   
-  [comicImageURL release];
-  comicImageURL = nil;
   
-  [error release];
-  error = nil;
   
   target = nil;
   action = NULL;
   
-  [super dealloc];
 }
 
 @end
