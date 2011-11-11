@@ -21,7 +21,6 @@
 #import "UIActivityIndicatorView_TLCommon.h"
 #import "UIImageView_TLCommon.h"
 #import "UITableView_TLCommon.h"
-#import "TLSavedState.h"
 #import "UIAlertView_TLCommon.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
@@ -641,10 +640,8 @@ static UIImage *downloadImage = nil;
   [emailViewController setToRecipients:[NSArray arrayWithObject:@"xkcdapp@treelinelabs.com"]];
   [self presentModalViewController:emailViewController animated:YES];
 
-  if([TLSavedState firstTimeForEvent:@"emailDeveloper"]) {
-    [UIAlertView showAlertWithTitle:NSLocalizedString(@"Just so you know", @"Alert title")
-                            message:NSLocalizedString(@"This email goes to the person who wrote the iPhone app, not the person who writes the actual comics.", @"Alert body")];
-  }
+  [UIAlertView showAlertWithTitle:NSLocalizedString(@"Just so you know", @"Alert title")
+                          message:NSLocalizedString(@"I just write the app, not the comics.", @"Alert body")];
 }
 
 - (void)goToAppStore {
