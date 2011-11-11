@@ -56,10 +56,6 @@
 		03F40E81122AC9ED00A35F44 /* glyphish_download.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E7D122AC9ED00A35F44 /* glyphish_download.png */; };
 		03F6FD4911334AEC00C3DE84 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FD4711334AEC00C3DE84 /* up.png */; };
 		03F6FD4A11334AEC00C3DE84 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F6FD4811334AEC00C3DE84 /* down.png */; };
-		03F702001464BF600091BF49 /* TLActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F701FF1464BF600091BF49 /* TLActionSheetController.m */; };
-		03F702011464BF600091BF49 /* TLActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F701FF1464BF600091BF49 /* TLActionSheetController.m */; };
-		03F702041464BF770091BF49 /* TLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702031464BF770091BF49 /* TLActionSheet.m */; };
-		03F702051464BF770091BF49 /* TLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702031464BF770091BF49 /* TLActionSheet.m */; };
 		03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702071464C0ED0091BF49 /* LambdaSheet.m */; };
 		03F702091464C0ED0091BF49 /* LambdaSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702071464C0ED0091BF49 /* LambdaSheet.m */; };
 		03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */; };
@@ -178,10 +174,6 @@
 		03F6FD4711334AEC00C3DE84 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
 		03F6FD4811334AEC00C3DE84 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
 		03F701FD1464BEDF0091BF49 /* TLMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMacros.h; sourceTree = "<group>"; };
-		03F701FE1464BF600091BF49 /* TLActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLActionSheetController.h; sourceTree = "<group>"; };
-		03F701FF1464BF600091BF49 /* TLActionSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLActionSheetController.m; sourceTree = "<group>"; };
-		03F702021464BF770091BF49 /* TLActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLActionSheet.h; sourceTree = "<group>"; };
-		03F702031464BF770091BF49 /* TLActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLActionSheet.m; sourceTree = "<group>"; };
 		03F702061464C0ED0091BF49 /* LambdaSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaSheet.h; sourceTree = "<group>"; };
 		03F702071464C0ED0091BF49 /* LambdaSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LambdaSheet.m; sourceTree = "<group>"; };
 		03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLModalActivityIndicatorView.h; sourceTree = "<group>"; };
@@ -399,10 +391,6 @@
 			isa = PBXGroup;
 			children = (
 				03F701FD1464BEDF0091BF49 /* TLMacros.h */,
-				03F702021464BF770091BF49 /* TLActionSheet.h */,
-				03F702031464BF770091BF49 /* TLActionSheet.m */,
-				03F701FE1464BF600091BF49 /* TLActionSheetController.h */,
-				03F701FF1464BF600091BF49 /* TLActionSheetController.m */,
 				03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */,
 				03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */,
 				03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */,
@@ -665,8 +653,6 @@
 			files = (
 				03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */,
 				03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */,
-				03F702011464BF600091BF49 /* TLActionSheetController.m in Sources */,
-				03F702051464BF770091BF49 /* TLActionSheet.m in Sources */,
 				03F702091464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020D1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
 				03F702161464C3D10091BF49 /* UIFont_TLCommon.m in Sources */,
@@ -704,8 +690,6 @@
 				03F114F3104F30140045AEFC /* FetchComicImageFromWeb.m in Sources */,
 				03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */,
 				032AF3571131EA470074C04C /* LorenRefreshView.m in Sources */,
-				03F702001464BF600091BF49 /* TLActionSheetController.m in Sources */,
-				03F702041464BF770091BF49 /* TLActionSheet.m in Sources */,
 				03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
 				03F702151464C3D10091BF49 /* UIFont_TLCommon.m in Sources */,

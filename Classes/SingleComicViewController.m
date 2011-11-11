@@ -16,13 +16,12 @@
 #import "xkcdAppDelegate.h"
 #import "SingleComicImageFetcher.h"
 #import "ComicListViewController.h"
-#import "TLActionSheetController.h"
 #import "TLLoadingView.h"
 #import "UIBarButtonItem_TLCommon.h"
-#import "TLActionSheet.h"
 #import "TLMersenneTwister.h"
 #import "TLWebViewController.h"
 #import "UIViewController_TLCommon.h"
+#import "LambdaSheet.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -221,32 +220,35 @@
 }
 
 - (void)share:(UIBarButtonItem *)sender {
-  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
-  sheet.actionSheet.title = NSLocalizedString(@"Share link to this comic", @"Action sheet title");
+  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:NSLocalizedString(@"Share link to this comic", @"Action sheet title")] autorelease];
   if([MFMailComposeViewController canSendMail]) {
     [sheet addButtonWithTitle:NSLocalizedString(@"Email", @"Action sheet title")
-                       target:self
-                       action:@selector(email)];
+                        block:^void {
+                          [self email];
+                        }];
   }
   if([TWTweetComposeViewController canSendTweet]) {
     [sheet addButtonWithTitle:NSLocalizedString(@"Twitter", @"Action sheet title")
-                       target:self
-                       action:@selector(tweet)];   
+                        block:^void {
+                          [self tweet];
+                        }];   
   }
   [sheet addCancelButton];
   [sheet showFromToolbar:self.navigationController.toolbar];
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
+  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:nil] autorelease];
   if([self.comic hasBeenDownloaded]) {
     [sheet addButtonWithTitle:NSLocalizedString(@"Save to Photos", @"Action sheet title")
-                       target:self
-                       action:@selector(saveComicImage)];
+                        block:^void {
+                          [self saveComicImage];
+                        }];
   }
   [sheet addButtonWithTitle:NSLocalizedString(@"View on xkcd.com", @"Action sheet title")
-                     target:self
-                     action:@selector(openInSafari)];   
+                      block:^void {
+                        [self openInSafari];
+                      }];
   [sheet addCancelButton];
   [sheet showFromToolbar:self.navigationController.toolbar];
 }

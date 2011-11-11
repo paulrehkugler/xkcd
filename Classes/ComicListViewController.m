@@ -16,7 +16,7 @@
 #import "SingleComicImageFetcher.h"
 #import "CGGeometry_TLCommon.h"
 #import "LorenRefreshView.h"
-#import "TLActionSheetController.h"
+#import "LambdaSheet.h"
 #import "UIBarButtonItem_TLCommon.h"
 #import "UIActivityIndicatorView_TLCommon.h"
 #import "UIImageView_TLCommon.h"
@@ -56,6 +56,9 @@ static UIImage *downloadImage = nil;
 - (void)showRefreshAnimation;
 - (void)didStartRefreshing;
 - (void)didFinishRefreshing;
+
+// Action sheet actions
+- (void)emailDeveloper;
 
 @property(nonatomic, retain, readwrite) UITableView *tableView;
 @property(nonatomic, retain, readwrite) NewComicFetcher *fetcher;
@@ -350,15 +353,18 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
+  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:nil] autorelease];
   if([MFMailComposeViewController canSendMail]) {
     [sheet addButtonWithTitle:NSLocalizedString(@"Email the app developer", @"Action sheet title")
-                       target:self
-                       action:@selector(emailDeveloper)];
+                        block:^void {
+                          [self emailDeveloper];
+                        }];
   }
   [sheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
-                     target:self
-                     action:@selector(goToAppStore)];
+                      block:^void {
+                        NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
+                        [[UIApplication sharedApplication] openURL:appStoreReviewURL];
+                      }];
   [sheet addCancelButton];
   [sheet showInView:self.view];
 }
@@ -408,19 +414,21 @@ static UIImage *downloadImage = nil;
 
 - (void)downloadAll:(UIBarButtonItem *)sender {
   NSString *sheetTitle = NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning");
-  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:sheetTitle] autorelease];
+  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:sheetTitle] autorelease];
   [sheet addButtonWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
-                     target:self
-                     action:@selector(downloadAllComicImages)];
+                      block:^void {
+                        [self downloadAllComicImages];
+                      }];
   [sheet addCancelButton];
   [sheet showFromToolbar:self.navigationController.toolbar];
 }
    
 - (void)deleteAll:(UIBarButtonItem *)sender {
-  TLActionSheetController *sheet = [[[TLActionSheetController alloc] initWithTitle:nil] autorelease];
+  LambdaSheet *sheet = [[[LambdaSheet alloc] initWithTitle:nil] autorelease];
   [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
-                     target:self
-                     action:@selector(deleteAllComicImages)];
+                                 block:^void {
+                                   [self deleteAllComicImages];
+                                 }];
   [sheet addCancelButton];
   [sheet showFromToolbar:self.navigationController.toolbar];
 }
@@ -642,10 +650,6 @@ static UIImage *downloadImage = nil;
 
   [UIAlertView showAlertWithTitle:NSLocalizedString(@"Just so you know", @"Alert title")
                           message:NSLocalizedString(@"I just write the app, not the comics.", @"Alert body")];
-}
-
-- (void)goToAppStore {
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"]];  
 }
 
 - (void)downloadAllComicImages {
