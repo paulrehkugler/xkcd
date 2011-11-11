@@ -50,6 +50,7 @@
 @property(nonatomic, retain, readwrite) UIScrollView *imageScroller;
 @property(nonatomic, retain, readwrite) TLLoadingView *loadingView;
 @property(nonatomic, retain, readwrite) SingleComicImageFetcher *imageFetcher;
+@property(nonatomic, retain, readwrite) TLModalActivityIndicatorView *spinner;
 
 @end
 
@@ -63,6 +64,7 @@
 @synthesize imageScroller;
 @synthesize loadingView;
 @synthesize imageFetcher;
+@synthesize spinner;
 
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
@@ -209,6 +211,7 @@
   [loadingView release], loadingView = nil;
   imageFetcher.delegate = nil;
   [imageFetcher release], imageFetcher = nil;
+  [spinner release], spinner = nil;
   
   [super dealloc];
 }
@@ -284,22 +287,20 @@
 }
 
 - (void)saveComicImage {
-  TLModalActivityIndicatorView *modalSpinner = [[[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Saving to Photos", @"Modal spinner text for saving to Photos.app")] autorelease];
-  [modalSpinner show];
+  self.spinner = [[[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Saving to Photos", @"Modal spinner text for saving to Photos.app")] autorelease];
+  [self.spinner show];
   UIImageWriteToSavedPhotosAlbum(self.comic.image,
                                  self,
                                  @selector(image:didFinishSavingWithError:contextInfo:),
-                                 modalSpinner);
-  [modalSpinner performSelector:@selector(retain)]; // fool clang -- we'll release later
+                                 nil);
 }
 
 #pragma mark -
 #pragma mark UIImageWriteToSavedPhotosAlbum delegate methods
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-  TLModalActivityIndicatorView *modalSpinner = (TLModalActivityIndicatorView *)contextInfo;
-  [modalSpinner dismiss];
-  [modalSpinner release];
+  [self.spinner dismiss];
+  self.spinner = nil;
 }
 
 #pragma mark -
