@@ -9,7 +9,6 @@
 #import "FetchComicFromWeb.h"
 #import "Comic.h"
 #import "xkcdAppDelegate.h"
-#import "CJSONDeserializer.h"
 #import "NSString_HTML.h"
 
 #pragma mark -
