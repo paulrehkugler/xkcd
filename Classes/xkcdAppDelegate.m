@@ -15,7 +15,6 @@
 #define kUserDefaultsOpenZoomedOutKey @"zoomed_out"
 #define kUserDefaultsAutodownloadKey @"autodownload"
 #define kUserDefaultsOpenAfterDownloadKey @"autoopen"
-#define kUserDefaultsTwitterClientKey @"twitter_client"
 
 #pragma mark -
 
@@ -110,30 +109,6 @@ static NSString *applicationDocumentsDirectory = nil;
     [self.userDefaults synchronize];
   }
   return [self.userDefaults boolForKey:kUserDefaultsOpenAfterDownloadKey];
-}
-
-- (NSInteger)twitterClient {
-  if(![[self.userDefaults dictionaryRepresentation] objectForKey:kUserDefaultsTwitterClientKey]) {
-    [self.userDefaults setInteger:kTwitterClientAutodetect forKey:kUserDefaultsTwitterClientKey];
-    [self.userDefaults synchronize];
-  }  
-  NSInteger client = [self.userDefaults integerForKey:kUserDefaultsTwitterClientKey];
-  if(client == kTwitterClientAutodetect) {
-    // attempt to autodetect
-    UIApplication *application = [UIApplication sharedApplication];
-    if([application canOpenURL:[NSURL URLWithString:@"tweetie:///post?message=test"]]) {
-      client = kTwitterClientTweetie;
-    } else if([application canOpenURL:[NSURL URLWithString:@"twitterfon:///message?test"]]) {
-      client = kTwitterClientTwitterFon;
-    } else if([application canOpenURL:[NSURL URLWithString:@"twitterrific:///post?message=test"]]) {
-      client = kTwitterClientTwitterrific;
-    } else if([application canOpenURL:[NSURL URLWithString:@"twit:///post?message=test"]]) {
-      client = kTwitterClientTwittelator;
-    } else {
-      client = kTwitterClientTwitterCom;
-    }
-  }
-  return client;
 }
 
 - (NSUserDefaults *)userDefaults {

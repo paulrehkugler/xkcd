@@ -3,8 +3,6 @@ TODO, in *roughly* descending order:
 
 * Fix ugly interaction between edit toolbar + status bar
 
-* Migrate to using the Twitter client functionality in TLCommon instead of reproducing it here
-
 * Add navigation (first / back / random / next / last) to SingleComicViewController
  * How to handle not-yet-loaded comics?
 

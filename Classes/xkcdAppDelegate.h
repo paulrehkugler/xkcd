@@ -11,15 +11,6 @@
 #define AppDelegate ((xkcdAppDelegate *)[UIApplication sharedApplication].delegate)
 #define kUseragent @"xkcd iPhone app (xkcdapp@treelinelabs.com; http://bit.ly/rZtDq). Thank you for the API!"
 
-// TODO: Remove all this twitter stuff and use the Twitter helper in TLCommon
-
-#define kTwitterClientAutodetect 0
-#define kTwitterClientTwitterCom 1
-#define kTwitterClientTweetie 2
-#define kTwitterClientTwitterFon 3
-#define kTwitterClientTwitterrific 4
-#define kTwitterClientTwittelator 5
-
 @class ComicListViewController;
 
 @interface xkcdAppDelegate : NSObject<UIApplicationDelegate> {
@@ -41,7 +32,6 @@
 - (BOOL)downloadNewComics;
 - (BOOL)openZoomedOut;
 - (BOOL)openAfterDownload;
-- (NSInteger)twitterClient;
 
 @property(nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property(nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;

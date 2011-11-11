@@ -6,13 +6,14 @@
 //  Copyright 2009 Treeline Labs. All rights reserved.
 //
 
+#import <Twitter/Twitter.h>
+
 #import "SingleComicViewController.h"
 #import "Comic.h"
 #import "ComicImageView.h"
 #import "TiledImage.h"
 #import "CGGeometry_TLCommon.h"
 #import "xkcdAppDelegate.h"
-#import "TwitterDotComViewController.h"
 #import "SingleComicImageFetcher.h"
 #import "ComicListViewController.h"
 #import "TLActionSheetController.h"
@@ -34,7 +35,6 @@
 - (void)openInSafari;
 - (void)email;
 - (void)tweet;
-- (void)openTwitterDotCom:(NSString *)tweet;
 - (void)toggleToolbarsAnimated:(BOOL)animated;
 - (void)goToPreviousComic;
 - (void)goToRandomComic;
@@ -228,9 +228,11 @@
                        target:self
                        action:@selector(email)];
   }
-  [sheet addButtonWithTitle:NSLocalizedString(@"Twitter", @"Action sheet title")
-                     target:self
-                     action:@selector(tweet)];   
+  if([TWTweetComposeViewController canSendTweet]) {
+    [sheet addButtonWithTitle:NSLocalizedString(@"Twitter", @"Action sheet title")
+                       target:self
+                       action:@selector(tweet)];   
+  }
   [sheet addCancelButton];
   [sheet showFromToolbar:self.navigationController.toolbar];
 }
@@ -357,65 +359,10 @@
   [self presentModalViewController:emailViewController animated:YES];
 }
 
-- (void)openTwitterDotCom:(NSString *)tweet {
-  TwitterDotComViewController *twitterViewController = [[[TwitterDotComViewController alloc] initWithTweet:tweet] autorelease];
-  UINavigationController *twitterNavigationController = [[[UINavigationController alloc] initWithRootViewController:twitterViewController] autorelease];
-  [self presentModalViewController:twitterNavigationController animated:YES];
-}
-
 - (void)tweet {
-  NSString *tweet = [NSString stringWithFormat:@"%@ (via @xkcdapp)", comic.websiteURL];
-  if([tweet length] + [comic.name length] + 2 < kMaxTweetLength) { // 2 == [@": " length]
-    tweet = [NSString stringWithFormat:@"%@: %@", comic.name, tweet];
-  }
-  NSString *encodedTweet = [tweet stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-  
-  UIApplication *application = [UIApplication sharedApplication];
-  
-  NSInteger client = [AppDelegate twitterClient];
-  switch(client) {
-    case kTwitterClientTwitterCom:;
-      [self openTwitterDotCom:tweet];
-      break;
-    case kTwitterClientTweetie:;
-      NSString *tweetie = [NSString stringWithFormat:@"tweetie:///post?message=%@", encodedTweet];
-      NSURL *tweetieURL = [NSURL URLWithString:tweetie];
-      if([application canOpenURL:tweetieURL]) {
-        [application openURL:tweetieURL];
-      } else {
-        [self openTwitterDotCom:tweet];
-      }      
-      break;
-    case kTwitterClientTwitterFon:;
-      NSString *twitterFon = [NSString stringWithFormat:@"twitterfon:///message?%@", encodedTweet];
-      NSURL *twitterFonURL = [NSURL URLWithString:twitterFon];
-      if([application canOpenURL:twitterFonURL]) {
-        [application openURL:twitterFonURL];
-      } else {
-        [self openTwitterDotCom:tweet];
-      }
-      break;
-    case kTwitterClientTwitterrific:;
-      NSString *twitterrific = [NSString stringWithFormat:@"twitterrific:///post?message=%@", encodedTweet];
-      NSURL *twitterrificURL = [NSURL URLWithString:twitterrific];
-      if([application canOpenURL:twitterrificURL]) {
-        [application openURL:twitterrificURL];
-      } else {
-        [self openTwitterDotCom:tweet];
-      }
-      break;
-    case kTwitterClientTwittelator:;
-      NSString *twittelator = [NSString stringWithFormat:@"twit:///post?message=%@", encodedTweet];
-      NSURL *twittelatorURL = [NSURL URLWithString:twittelator];
-      if([application canOpenURL:twittelatorURL]) {
-        [application openURL:twittelatorURL];
-      } else {
-        [self openTwitterDotCom:tweet];
-      }
-      break;
-    default:
-      break;
-  }
+  TWTweetComposeViewController *composer = [[[TWTweetComposeViewController alloc] init] autorelease];
+  [composer addURL:[NSURL URLWithString:comic.websiteURL]];
+  [self presentModalViewController:composer animated:YES];
 }
 
 #pragma mark -
