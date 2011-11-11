@@ -85,10 +85,6 @@
 		03F7023E1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7023C1464C58B0091BF49 /* NSFileManager_TLCommon.m */; };
 		03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
 		03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
-		03F702451464C5D50091BF49 /* TLWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702441464C5D50091BF49 /* TLWebViewController.m */; };
-		03F702461464C5D50091BF49 /* TLWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702441464C5D50091BF49 /* TLWebViewController.m */; };
-		03F702491464C5E50091BF49 /* UIWebView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702481464C5E50091BF49 /* UIWebView_TLCommon.m */; };
-		03F7024A1464C5E50091BF49 /* UIWebView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702481464C5E50091BF49 /* UIWebView_TLCommon.m */; };
 		03F7024D1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7024C1464C5FF0091BF49 /* UIApplication_TLCommon.m */; };
 		03F7024E1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7024C1464C5FF0091BF49 /* UIApplication_TLCommon.m */; };
 		1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* xkcdAppDelegate.m */; };
@@ -202,10 +198,6 @@
 		03F7023C1464C58B0091BF49 /* NSFileManager_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileManager_TLCommon.m; sourceTree = "<group>"; };
 		03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMersenneTwister.h; sourceTree = "<group>"; };
 		03F702401464C5B10091BF49 /* TLMersenneTwister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLMersenneTwister.m; sourceTree = "<group>"; };
-		03F702431464C5D50091BF49 /* TLWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLWebViewController.h; sourceTree = "<group>"; };
-		03F702441464C5D50091BF49 /* TLWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLWebViewController.m; sourceTree = "<group>"; };
-		03F702471464C5E50091BF49 /* UIWebView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebView_TLCommon.h; sourceTree = "<group>"; };
-		03F702481464C5E50091BF49 /* UIWebView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebView_TLCommon.m; sourceTree = "<group>"; };
 		03F7024B1464C5FF0091BF49 /* UIApplication_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIApplication_TLCommon.h; sourceTree = "<group>"; };
 		03F7024C1464C5FF0091BF49 /* UIApplication_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIApplication_TLCommon.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -416,10 +408,6 @@
 				03F7023C1464C58B0091BF49 /* NSFileManager_TLCommon.m */,
 				03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */,
 				03F702401464C5B10091BF49 /* TLMersenneTwister.m */,
-				03F702431464C5D50091BF49 /* TLWebViewController.h */,
-				03F702441464C5D50091BF49 /* TLWebViewController.m */,
-				03F702471464C5E50091BF49 /* UIWebView_TLCommon.h */,
-				03F702481464C5E50091BF49 /* UIWebView_TLCommon.m */,
 				03F7024B1464C5FF0091BF49 /* UIApplication_TLCommon.h */,
 				03F7024C1464C5FF0091BF49 /* UIApplication_TLCommon.m */,
 			);
@@ -666,8 +654,6 @@
 				03F702361464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				03F7023E1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */,
 				03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
-				03F702461464C5D50091BF49 /* TLWebViewController.m in Sources */,
-				03F7024A1464C5E50091BF49 /* UIWebView_TLCommon.m in Sources */,
 				03F7024E1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,8 +689,6 @@
 				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				03F7023D1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */,
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
-				03F702451464C5D50091BF49 /* TLWebViewController.m in Sources */,
-				03F702491464C5E50091BF49 /* UIWebView_TLCommon.m in Sources */,
 				03F7024D1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

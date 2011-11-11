@@ -19,7 +19,6 @@
 #import "TLLoadingView.h"
 #import "UIBarButtonItem_TLCommon.h"
 #import "TLMersenneTwister.h"
-#import "TLWebViewController.h"
 #import "UIViewController_TLCommon.h"
 #import "LambdaSheet.h"
 
@@ -31,7 +30,6 @@
 
 @interface SingleComicViewController ()
 
-- (void)openInSafari;
 - (void)email;
 - (void)tweet;
 - (void)toggleToolbarsAnimated:(BOOL)animated;
@@ -246,9 +244,10 @@
                           [self saveComicImage];
                         }];
   }
-  [sheet addButtonWithTitle:NSLocalizedString(@"View on xkcd.com", @"Action sheet title")
+  [sheet addButtonWithTitle:NSLocalizedString(@"Open in Safari", @"Action sheet title")
                       block:^void {
-                        [self openInSafari];
+                        NSURL *comicURL = [NSURL URLWithString:[self.comic websiteURL]];
+                        [[UIApplication sharedApplication] openURL:comicURL];
                       }];
   [sheet addCancelButton];
   [sheet showFromToolbar:self.navigationController.toolbar];
@@ -341,12 +340,6 @@
 
 #pragma mark -
 #pragma mark Action sheet supporting actions
-
-- (void)openInSafari {
-  TLWebViewController *webViewController = (TLWebViewController *)[TLWebViewController viewController];
-  [self.navigationController pushViewController:webViewController animated:YES];
-  [webViewController loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[comic websiteURL]]]];
-}
 
 - (void)email {
   MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
