@@ -27,10 +27,6 @@
   [sheet addButtonWithTitle:title];
   dispatch_block_t block_copy = [block copy];
   [blocks addObject:block_copy];
-  // clang is annoyingly stupid sometimes
-  // There's got to be a pragma somehow to silence it in places
-  // that it gets things wrong...
-  [block_copy performSelector:@selector(retain)];
   [block_copy release];
 }
 
