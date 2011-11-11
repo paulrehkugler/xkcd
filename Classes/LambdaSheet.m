@@ -3,24 +3,36 @@
 #import "LambdaSheet.h"
 
 @interface LambdaSheet () <UIActionSheetDelegate>
+
 @property(strong) UIActionSheet *sheet;
 @property(strong) NSMutableArray *blocks;
 @property(strong) id keepInMemory;
+
 @end
 
-@implementation LambdaSheet
-@synthesize sheet, blocks, dismissAction, keepInMemory;
+#pragma mark -
 
-- (id) initWithTitle:(NSString *)title {
-  self = [super init];
-  sheet = [[UIActionSheet alloc] initWithTitle:title delegate:self
-                             cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-  blocks = [[NSMutableArray alloc] init];
+@implementation LambdaSheet
+
+@synthesize sheet;
+@synthesize blocks;
+@synthesize dismissAction;
+@synthesize keepInMemory;
+
+- (id)initWithTitle:(NSString *)title {
+  if((self = [super init])) {
+    sheet = [[UIActionSheet alloc] initWithTitle:title
+                                        delegate:self
+                               cancelButtonTitle:nil
+                          destructiveButtonTitle:nil
+                               otherButtonTitles:nil];
+    blocks = [[NSMutableArray alloc] init];
+  }
   return self;
 }
 
 
-#pragma mark Button Management
+#pragma mark - Button management
 
 - (void)addButtonWithTitle:(NSString *)title block:(dispatch_block_t)block {
   if(!block) {
@@ -51,7 +63,7 @@
   [self addCancelButtonWithTitle:title block:NULL];
 }
 
-#pragma mark Display
+#pragma mark - Display
 
 - (void)showInView:(UIView *)view {
   [sheet showInView:view];
@@ -82,15 +94,15 @@
   [sheet dismissWithClickedButtonIndex:-1 animated:animated];
 }
 
-#pragma mark UIActionSheetDelegate
+#pragma mark - UIActionSheetDelegate methods
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger) buttonIndex {
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
   NSParameterAssert(actionSheet == sheet);
   if (buttonIndex >= 0 && buttonIndex < [blocks count]) {
     dispatch_block_t block = [blocks objectAtIndex:buttonIndex];
     block();
   }
-  if (dismissAction != NULL) {
+  if(dismissAction != NULL) {
     dismissAction();
   }
   [self setKeepInMemory:nil];
