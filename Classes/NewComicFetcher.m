@@ -54,7 +54,6 @@
 #if RECREATE_FROM_SCRATCH
     [self fetchComic:1];
 #else
-    [[self retain] autorelease];
     [delegate newComicFetcher:self
              didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
                                                   code:kXkcdErrorCodeCouldNotFindLastComic
@@ -66,11 +65,9 @@
 - (void)didCompleteFetchOperation:(FetchComicFromWeb *)fetchOperation {
   if(fetchOperation.got404) {
     // all done!
-    [[self retain] autorelease];
     [delegate newComicFetcherDidFinishFetchingAllComics:self];
   } else if(fetchOperation.error) {
     // Network fail? Change in API?
-    [[self retain] autorelease];
     [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
   } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL) {
     // Got a comic -- store it and keep going
@@ -79,7 +76,6 @@
     newComic.name = fetchOperation.comicName;
     newComic.titleText = fetchOperation.comicTitleText;
     newComic.imageURL = fetchOperation.comicImageURL;
-    [[self retain] autorelease];
     [delegate newComicFetcher:self didFetchComic:newComic];
     [self fetchComic:(fetchOperation.comicNumber + 1)];    
   } else {

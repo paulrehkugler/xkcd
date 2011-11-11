@@ -273,7 +273,6 @@
 
 - (void)goToComicNumbered:(NSUInteger)comicNumber {
   // UGLY
-  [[self retain] autorelease];
   NSMutableArray *viewControllerStack = [[self.navigationController.viewControllers mutableCopy] autorelease];
   Comic *newComic = [Comic comicNumbered:comicNumber];
   SingleComicViewController *newSingleComicViewController = [[[SingleComicViewController alloc] initWithComic:newComic] autorelease]; 

@@ -22,6 +22,7 @@
 - (void)enqueueMoreDownloadAllComics;
 - (void)didFailWithError:(NSError *)error onComic:(Comic *)comic;
 
+@property(strong) id keepInMemory;
 @property(nonatomic, retain, readwrite) NSOperationQueue *fetchQueue;
 @property(nonatomic, retain, readwrite) NSMutableArray *comicsRemainingDuringDownloadAll;
 
@@ -34,6 +35,7 @@
 @synthesize fetchQueue;
 @synthesize delegate;
 @synthesize comicsRemainingDuringDownloadAll;
+@synthesize keepInMemory;
 
 - (id)init {
   if(self = [super init]) {
@@ -52,7 +54,7 @@
                                                                                           context:context]
                                               autorelease];
     comic.loading = [NSNumber numberWithBool:YES];
-    [self retain]; // make sure we're still around when the fetch operation completes
+    self.keepInMemory = self;
     [fetchQueue addOperation:fetchOperation];
   } else {
     [self didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
@@ -88,12 +90,10 @@
 }
 
 - (void)didCompleteFetchOperation:(FetchComicImageFromWeb *)fetchOperation {
-  [self autorelease]; // matches the [self retain] in fetchImageForComic:context: -- autorelease b/c this could be our last lease on life
   Comic *comic = [Comic comicNumbered:fetchOperation.comicNumber];
   comic.loading = [NSNumber numberWithBool:NO];
   if(!fetchOperation.error && fetchOperation.comicImageData) {
     [comic saveImageData:fetchOperation.comicImageData];
-    [[self retain] autorelease];
     [self.delegate singleComicImageFetcher:self
                      didFetchImageForComic:comic
                                    context:fetchOperation.context];
@@ -102,8 +102,10 @@
   }
   
   if(self.comicsRemainingDuringDownloadAll) {
-    [self enqueueMoreDownloadAllComics];    
+    [self enqueueMoreDownloadAllComics];
   }
+
+  self.keepInMemory = nil;
 }
 
 - (void)didFailWithError:(NSError *)error onComic:(Comic *)comic {
@@ -124,7 +126,6 @@
   }
   
   // Tell the delegate
-  [[self retain] autorelease];
   [self.delegate singleComicImageFetcher:self
                         didFailWithError:error
                                  onComic:comic];
@@ -137,6 +138,8 @@
   
   [comicsRemainingDuringDownloadAll release];
   comicsRemainingDuringDownloadAll = nil;
+
+  [keepInMemory release], keepInMemory = nil;
   
   [super dealloc];
 }
