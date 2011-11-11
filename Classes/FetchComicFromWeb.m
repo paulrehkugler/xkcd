@@ -67,9 +67,9 @@
       self.error = requestError;
       if(!requestError) {
         NSError *parseError = nil;
-        NSDictionary *comicDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:comicData error:&parseError];
+        NSDictionary *comicDictionary = [NSJSONSerialization JSONObjectWithData:comicData options:0 error:&parseError];
         self.error = parseError;
-        if(!parseError) {
+        if(!parseError && [comicDictionary isKindOfClass:[NSDictionary class]]) {
           if(self.comicNumber == 712) {
             // Work around broken unicode from xkcd :(
             self.comicName = @"Single Ladies";
