@@ -115,7 +115,7 @@
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goToNextComic)];
-  if(self.comic.number == [Comic lastKnownComic].number) {
+  if([self.comic.number unsignedIntegerValue] == [[Comic lastKnownComic].number unsignedIntegerValue]) {
     nextItem.enabled = NO;
   }
   
