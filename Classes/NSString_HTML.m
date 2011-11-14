@@ -157,7 +157,7 @@ static NSArray *characterEntityArray = nil;
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-  TLDebugLog(@"HTMLStringCleaner encountered parse error %@ on snippet %@", parseError, self.snippet);
+  //  TLDebugLog(@"HTMLStringCleaner encountered parse error %@ on snippet %@", parseError, self.snippet);
   self.parseErrorEncountered = YES;
 }
 
