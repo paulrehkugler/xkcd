@@ -14,7 +14,7 @@ Popular feature requests and personal wish list items include:
   * Share on Facebook
   * Track read/unread
   * Save tableview scroll location between launches
-  * Retina display throughout (!)
+  * Retina display throughout (!), including springboard icon and comic image viewing
   * Local notifications for new comics (as far as I can tell, MWF at midnight EST)
   * Full text search, since it is now supported in the API
   * Use iOS 5.0.1 / 5.1 mechanism to not back up images to iCloud
@@ -22,6 +22,8 @@ Popular feature requests and personal wish list items include:
   * Faster navigation by way of a tableview index
   * Simple help page (how do I...see tooltip text? search?)
   * Better handling of small comic images linked to bigger images
+  * General code cleanup
+  * Improve initial app experience (takes a long time to download *lots* of new comics, UI locks up)
 
 Yes, this list belongs in Issues -- I'll get it there soon, really. :)
 
