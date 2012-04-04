@@ -21,6 +21,8 @@
 		03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
+		03C1852C152BDC02005EF7D0 /* xkcd114.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E4A122AA87800A35F44 /* xkcd114.png */; };
+		03C1852D152BDC08005EF7D0 /* xkcd57.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E48122AA87800A35F44 /* xkcd57.png */; };
 		03D840D9116CC2E000A80DF1 /* xkcd.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 03D840D8116CC2E000A80DF1 /* xkcd.sqlite */; };
 		03DA9CAA1097A4DA005A34B2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */; };
 		03E905DA10AA366D00D74902 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E905D910AA366D00D74902 /* Default.png */; };
@@ -35,9 +37,7 @@
 		03F40E44122AA58600A35F44 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E43122AA58600A35F44 /* iTunesArtwork */; };
 		03F40E45122AA58600A35F44 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E43122AA58600A35F44 /* iTunesArtwork */; };
 		03F40E4B122AA87800A35F44 /* xkcd29.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E47122AA87800A35F44 /* xkcd29.png */; };
-		03F40E4C122AA87800A35F44 /* xkcd57.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E48122AA87800A35F44 /* xkcd57.png */; };
 		03F40E4D122AA87800A35F44 /* xkcd58.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E49122AA87800A35F44 /* xkcd58.png */; };
-		03F40E4E122AA87800A35F44 /* xkcd114.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E4A122AA87800A35F44 /* xkcd114.png */; };
 		03F40E4F122AA87800A35F44 /* xkcd29.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E47122AA87800A35F44 /* xkcd29.png */; };
 		03F40E50122AA87800A35F44 /* xkcd57.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E48122AA87800A35F44 /* xkcd57.png */; };
 		03F40E51122AA87800A35F44 /* xkcd58.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E49122AA87800A35F44 /* xkcd58.png */; };
@@ -604,15 +604,15 @@
 				03D840D9116CC2E000A80DF1 /* xkcd.sqlite in Resources */,
 				03F40E44122AA58600A35F44 /* iTunesArtwork in Resources */,
 				03F40E4B122AA87800A35F44 /* xkcd29.png in Resources */,
-				03F40E4C122AA87800A35F44 /* xkcd57.png in Resources */,
 				03F40E4D122AA87800A35F44 /* xkcd58.png in Resources */,
-				03F40E4E122AA87800A35F44 /* xkcd114.png in Resources */,
 				03F40E55122AB8C700A35F44 /* glyphish_shuffle.png in Resources */,
 				03F40E56122AB8C700A35F44 /* glyphish_shuffle@2x.png in Resources */,
 				03F40E5B122AB97000A35F44 /* glyphish_chat.png in Resources */,
 				03F40E5C122AB97000A35F44 /* glyphish_chat@2x.png in Resources */,
 				03F40E7E122AC9ED00A35F44 /* glyphish_download@2x.png in Resources */,
 				03F40E7F122AC9ED00A35F44 /* glyphish_download.png in Resources */,
+				03C1852C152BDC02005EF7D0 /* xkcd114.png in Resources */,
+				03C1852D152BDC08005EF7D0 /* xkcd57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
