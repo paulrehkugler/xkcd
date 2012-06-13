@@ -55,7 +55,7 @@
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     label.font = kLabelFont;
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     self.spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
     self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     [self.spinner sizeToFit];

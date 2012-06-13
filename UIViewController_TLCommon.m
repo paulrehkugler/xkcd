@@ -20,11 +20,11 @@
 }
 
 - (void)dismissAnimated {
-  [self dismissModalViewControllerAnimated:YES];
+  [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)dismissNotAnimated {
-  [self dismissModalViewControllerAnimated:NO];
+  [self dismissViewControllerAnimated:NO completion:^{}];
 }
 
 - (void)popAnimated {

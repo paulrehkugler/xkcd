@@ -43,7 +43,7 @@
 - (id)initWithFrame:(CGRect)frame {
   if(self = [super initWithFrame:frame]) {
 		self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, 320.0f, 20.0f)];
-		self.statusLabel.textAlignment = UITextAlignmentCenter;
+		self.statusLabel.textAlignment = NSTextAlignmentCenter;
     self.statusLabel.backgroundColor = [UIColor clearColor];
     self.statusLabel.font = [UIFont helveticaWithSize:16.0f];
     self.statusLabel.textColor = kStatusLabelFontColor;

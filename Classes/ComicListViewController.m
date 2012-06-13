@@ -627,7 +627,7 @@ static UIImage *downloadImage = nil;
   [emailViewController setSubject:NSLocalizedString(@"Feedback on xkcd app", @"Subject of feedback email")];
   
   [emailViewController setToRecipients:[NSArray arrayWithObject:@"xkcdapp@treelinelabs.com"]];
-  [self presentModalViewController:emailViewController animated:YES];
+  [self presentViewController:emailViewController animated:YES completion:^{}];
 
   [UIAlertView showAlertWithTitle:NSLocalizedString(@"Just so you know", @"Alert title")
                           message:NSLocalizedString(@"I just write the app, not the comics.", @"Alert body")];
@@ -669,7 +669,7 @@ static UIImage *downloadImage = nil;
 #pragma mark MFMailComposeViewControllerDelegate methods
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-  [controller dismissModalViewControllerAnimated:YES];
+  [controller dismissViewControllerAnimated:YES completion:^{}];
 }
 
 #pragma mark -

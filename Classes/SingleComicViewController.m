@@ -349,20 +349,20 @@
   NSString *messageBody = [NSString stringWithFormat:NSLocalizedString(@"<a href=\"%@\">%@</a><br/><br/><br/>Via the <a href=\"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=303688284&mt=8\">xkcd iPhone app</a>",
                                                                        @"Body of share comic email."), [comic websiteURL], [comic websiteURL]];
   [emailViewController setMessageBody:messageBody isHTML:YES];
-  [self presentModalViewController:emailViewController animated:YES];
+  [self presentViewController:emailViewController animated:YES completion:^{}];
 }
 
 - (void)tweet {
   TWTweetComposeViewController *composer = [[TWTweetComposeViewController alloc] init];
   [composer addURL:[NSURL URLWithString:comic.websiteURL]];
-  [self presentModalViewController:composer animated:YES];
+  [self presentViewController:composer animated:YES completion:^{}];
 }
 
 #pragma mark -
 #pragma mark MFMailComposeViewControllerDelegate methods
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-  [controller dismissModalViewControllerAnimated:YES];
+  [controller dismissViewControllerAnimated:YES completion:^{}];
 }
 
 @end
