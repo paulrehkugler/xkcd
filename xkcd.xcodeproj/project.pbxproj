@@ -738,6 +738,7 @@
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "xkcd-distro-info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -782,6 +783,7 @@
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "xkcd-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = xkcd;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -907,6 +909,7 @@
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "xkcd-dev-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = xkcd;
 			};
@@ -923,6 +926,7 @@
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "xkcd-dev-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = xkcd;
 			};
