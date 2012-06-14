@@ -50,6 +50,8 @@
 	<string>MainWindow</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackOpaque</string>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 </dict>

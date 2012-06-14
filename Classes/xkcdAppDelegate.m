@@ -58,11 +58,15 @@ static NSString *applicationDocumentsDirectory = nil;
   }
 
   self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.listViewController];
+  self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+  self.navigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
+
   [window addSubview:self.navigationController.view];
   [window makeKeyAndVisible];
 
   return canLaunchApplication;
 }
+
 
 /**
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
