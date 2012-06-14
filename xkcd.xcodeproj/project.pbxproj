@@ -13,6 +13,9 @@
 		034E0EB210A9F0E00021D494 /* web_forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 034E0EB010A9F0E00021D494 /* web_forward.png */; };
 		0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0372FF7C10447552004CD031 /* ComicListViewController.m */; };
 		03798E73146C9FD8006AD9B1 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03798E72146C9FD8006AD9B1 /* Twitter.framework */; };
+		037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
+		037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
+		037C49E81589648A0026DE43 /* TestBrokenUnicodeFixer.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */; };
 		037CC6DC122B183C002E4738 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DB122B183C002E4738 /* Security.framework */; };
 		037CC6E0122B1846002E4738 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
 		0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0384E76210500E0F0096D4E7 /* Settings.bundle */; };
@@ -119,6 +122,10 @@
 		0372FF7B10447552004CD031 /* ComicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicListViewController.h; sourceTree = "<group>"; };
 		0372FF7C10447552004CD031 /* ComicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComicListViewController.m; sourceTree = "<group>"; };
 		03798E72146C9FD8006AD9B1 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		037C49E115895B7E0026DE43 /* NSData+BrokenUnicodeJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+BrokenUnicodeJSON.h"; sourceTree = "<group>"; };
+		037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+BrokenUnicodeJSON.m"; sourceTree = "<group>"; };
+		037C49E61589648A0026DE43 /* TestBrokenUnicodeFixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestBrokenUnicodeFixer.h; path = Classes/TestBrokenUnicodeFixer.h; sourceTree = "<group>"; };
+		037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestBrokenUnicodeFixer.m; path = Classes/TestBrokenUnicodeFixer.m; sourceTree = "<group>"; };
 		037CC6DB122B183C002E4738 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		037CC6DD122B183C002E4738 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		037CC6DF122B1846002E4738 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -267,6 +274,8 @@
 			children = (
 				03B6BC6B112DA07D00C32C21 /* TestNSString_HTML.h */,
 				03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */,
+				037C49E61589648A0026DE43 /* TestBrokenUnicodeFixer.h */,
+				037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */,
 			);
 			name = UnitTests;
 			sourceTree = "<group>";
@@ -329,6 +338,8 @@
 				03F114A8104F2B2B0045AEFC /* TiledImage.m */,
 				03B6BC04112CB3A100C32C21 /* NSString_HTML.h */,
 				03B6BC05112CB3A200C32C21 /* NSString_HTML.m */,
+				037C49E115895B7E0026DE43 /* NSData+BrokenUnicodeJSON.h */,
+				037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -655,6 +666,8 @@
 				03F7023E1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */,
 				03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				03F7024E1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
+				037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
+				037C49E81589648A0026DE43 /* TestBrokenUnicodeFixer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,6 +703,7 @@
 				03F7023D1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */,
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				03F7024D1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
+				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

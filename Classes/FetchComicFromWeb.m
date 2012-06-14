@@ -6,6 +6,7 @@
 #import "Comic.h"
 #import "xkcdAppDelegate.h"
 #import "NSString_HTML.h"
+#import "NSData+BrokenUnicodeJSON.h"
 
 #pragma mark -
 
@@ -62,20 +63,14 @@
       self.error = requestError;
       if(!requestError) {
         NSError *parseError = nil;
-        NSDictionary *comicDictionary = [NSJSONSerialization JSONObjectWithData:comicData options:0 error:&parseError];
+        NSData *fixedData = [comicData dataByFixingFuckedUpUnicodeInJSON];
+        NSDictionary *comicDictionary = [NSJSONSerialization JSONObjectWithData:fixedData options:0 error:&parseError];
         self.error = parseError;
         if(!parseError && [comicDictionary isKindOfClass:[NSDictionary class]]) {
-          if(self.comicNumber == 712) {
-            // Work around broken unicode from xkcd :(
-            self.comicName = @"Single Ladies";
-            self.comicTitleText = @"Using a ring to bind someone you covet into your dark and twisted world? Wow, just got the subtext there. Also, the apparently eager Beyonc\u00e9 would've made one badass Nazg\u0217l.";
-            self.comicImageURL = @"http://imgs.xkcd.com/comics/single_ladies.png";
-          } else {
-            self.comicName = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"title"]];
-            self.comicTitleText = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"alt"]];
-            self.comicImageURL = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"img"]];
-            // TODO: use link/news to detect "large version" image urls
-          }
+          self.comicName = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"title"]];
+          self.comicTitleText = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"alt"]];
+          self.comicImageURL = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"img"]];
+          // TODO: use link/news to detect "large version" image urls
         }
       }
     }
