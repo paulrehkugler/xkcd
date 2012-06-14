@@ -1,9 +1,5 @@
 //
 //  ComicListViewController.m
-//  xkcd
-//
-//  Created by Joshua Bleecher Snyder on 8/25/09.
-//  Copyright 2009 Treeline Labs. All rights reserved.
 //
 
 #import "ComicListViewController.h"
