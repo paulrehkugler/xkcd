@@ -1,9 +1,5 @@
 //
 //  TestNSString_HTML.m
-//  TLCommon
-//
-//  Created by Joshua Bleecher Snyder on 2/18/10.
-//  Copyright 2010 AdCru. All rights reserved.
 //
 
 #import "TestNSString_HTML.h"
