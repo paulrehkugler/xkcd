@@ -161,6 +161,14 @@ static NSEntityDescription *comicEntityDescription = nil;
   self.downloaded = [NSNumber numberWithBool:NO];
 }
 
++ (void)deleteAllComics {
+  // No need to be efficient, this is only done during development
+  for(Comic *comic in [self allComics]) {
+    [AppDelegate.managedObjectContext delete:comic];
+  }
+  [AppDelegate save];
+}
+
 - (void)saveImageData:(NSData *)imageData {
   [imageData writeToFile:self.imagePath atomically:YES];
   self.downloaded = [NSNumber numberWithBool:YES];

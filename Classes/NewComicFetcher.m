@@ -51,6 +51,7 @@
     [self fetchComic:comicToFetch];
   } else {
 #if RECREATE_FROM_SCRATCH
+    [Comic deleteAllComics];
     [self fetchComic:1];
 #else
     [delegate newComicFetcher:self

@@ -15,6 +15,7 @@
 
 + (Comic *)comic; // use this, not init/etc.
 
++ (void)deleteAllComics; // for total recreation from scratch
 + (NSArray *)allComics; // use sparingly!!
 + (NSArray *)comicsWithImages;
 + (NSArray *)comicsWithoutImages;
