@@ -282,7 +282,7 @@ static UIImage *downloadImage = nil;
 
 - (void)setFetchedResultsController {
   
-  self.fetchedResultsController = [self fetchedResultsControllerWithSearchString:nil cacheName:@"comicsCache"];
+  self.fetchedResultsController = [self fetchedResultsControllerWithSearchString:nil cacheName:nil];
   
   NSError *fetchError = nil;
   BOOL success = [self.fetchedResultsController performFetch:&fetchError];
@@ -292,7 +292,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)setSearchFetchedResultsControllerWithSearchString:(NSString *)searchString {
-  self.searchFetchedResultsController = [self fetchedResultsControllerWithSearchString:searchString cacheName:@"searchComicsCache"];
+  self.searchFetchedResultsController = [self fetchedResultsControllerWithSearchString:searchString cacheName:nil];
   
   NSError *fetchError = nil;
   BOOL success = [self.searchFetchedResultsController performFetch:&fetchError];
