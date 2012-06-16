@@ -336,12 +336,12 @@ static UIImage *downloadImage = nil;
   LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
   if([MFMailComposeViewController canSendMail]) {
     [sheet addButtonWithTitle:NSLocalizedString(@"Email the app developer", @"Action sheet title")
-                        block:^void {
+                        block:^ {
                           [self emailDeveloper];
                         }];
   }
   [sheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
-                      block:^void {
+                      block:^ {
                         NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
                         [[UIApplication sharedApplication] openURL:appStoreReviewURL];
                       }];
