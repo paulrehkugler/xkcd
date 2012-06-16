@@ -345,6 +345,14 @@ static UIImage *downloadImage = nil;
                         NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
                         [[UIApplication sharedApplication] openURL:appStoreReviewURL];
                       }];
+  [sheet addButtonWithTitle:NSLocalizedString(@"Share this app", @"Action sheet title")
+                      block:^ {
+                        NSURL *appUrl = [NSURL URLWithString:@"http://bit.ly/xkcdapp"];
+                        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[appUrl]
+                                                                                                             applicationActivities:nil];
+                        
+                        [self presentViewController:activityViewController animated:YES completion:^{}];
+                      }];
   [sheet addCancelButton];
   [sheet showInView:self.view];
 }
