@@ -16,6 +16,7 @@
 		037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
 		037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
 		037C49E81589648A0026DE43 /* TestBrokenUnicodeFixer.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */; };
+		037C49EB15897A870026DE43 /* SaveToPhotosActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49EA15897A870026DE43 /* SaveToPhotosActivity.m */; };
 		037CC6DC122B183C002E4738 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DB122B183C002E4738 /* Security.framework */; };
 		037CC6E0122B1846002E4738 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
 		0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0384E76210500E0F0096D4E7 /* Settings.bundle */; };
@@ -126,6 +127,8 @@
 		037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+BrokenUnicodeJSON.m"; sourceTree = "<group>"; };
 		037C49E61589648A0026DE43 /* TestBrokenUnicodeFixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestBrokenUnicodeFixer.h; path = Classes/TestBrokenUnicodeFixer.h; sourceTree = "<group>"; };
 		037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestBrokenUnicodeFixer.m; path = Classes/TestBrokenUnicodeFixer.m; sourceTree = "<group>"; };
+		037C49E915897A870026DE43 /* SaveToPhotosActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveToPhotosActivity.h; sourceTree = "<group>"; };
+		037C49EA15897A870026DE43 /* SaveToPhotosActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveToPhotosActivity.m; sourceTree = "<group>"; };
 		037CC6DB122B183C002E4738 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		037CC6DD122B183C002E4738 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		037CC6DF122B1846002E4738 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -340,6 +343,8 @@
 				03B6BC05112CB3A200C32C21 /* NSString_HTML.m */,
 				037C49E115895B7E0026DE43 /* NSData+BrokenUnicodeJSON.h */,
 				037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */,
+				037C49E915897A870026DE43 /* SaveToPhotosActivity.h */,
+				037C49EA15897A870026DE43 /* SaveToPhotosActivity.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -704,6 +709,7 @@
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				03F7024D1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
 				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
+				037C49EB15897A870026DE43 /* SaveToPhotosActivity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
