@@ -30,8 +30,6 @@
 
 @interface SingleComicViewController ()
 
-- (void)email;
-- (void)tweet;
 - (void)toggleToolbarsAnimated:(BOOL)animated;
 - (void)goToPreviousComic;
 - (void)goToRandomComic;
@@ -219,21 +217,13 @@
 }
 
 - (void)share:(UIBarButtonItem *)sender {
-  LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:NSLocalizedString(@"Share link to this comic", @"Action sheet title")];
-  if([MFMailComposeViewController canSendMail]) {
-    [sheet addButtonWithTitle:NSLocalizedString(@"Email", @"Action sheet title")
-                        block:^void {
-                          [self email];
-                        }];
-  }
-  if([TWTweetComposeViewController canSendTweet]) {
-    [sheet addButtonWithTitle:NSLocalizedString(@"Twitter", @"Action sheet title")
-                        block:^void {
-                          [self tweet];
-                        }];   
-  }
-  [sheet addCancelButton];
-  [sheet showFromToolbar:self.navigationController.toolbar];
+  NSURL *comicUrl = [NSURL URLWithString:comic.websiteURL];
+  UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[comicUrl, comic.image]
+                                                                                       applicationActivities:nil];
+
+  [self presentViewController:activityViewController animated:YES completion:^{}];
+  
+  // TODO: Save to photos activity, Open in Safari activity
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
@@ -336,33 +326,6 @@
 
 - (void)didDetectShortSingleTap {
   [self toggleToolbarsAnimated:YES];
-}
-
-#pragma mark -
-#pragma mark Action sheet supporting actions
-
-- (void)email {
-  MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
-  emailViewController.mailComposeDelegate = self;
-  [emailViewController setSubject:comic.name];
-  
-  NSString *messageBody = [NSString stringWithFormat:NSLocalizedString(@"<a href=\"%@\">%@</a><br/><br/><br/>Via the <a href=\"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=303688284&mt=8\">xkcd iPhone app</a>",
-                                                                       @"Body of share comic email."), [comic websiteURL], [comic websiteURL]];
-  [emailViewController setMessageBody:messageBody isHTML:YES];
-  [self presentViewController:emailViewController animated:YES completion:^{}];
-}
-
-- (void)tweet {
-  TWTweetComposeViewController *composer = [[TWTweetComposeViewController alloc] init];
-  [composer addURL:[NSURL URLWithString:comic.websiteURL]];
-  [self presentViewController:composer animated:YES completion:^{}];
-}
-
-#pragma mark -
-#pragma mark MFMailComposeViewControllerDelegate methods
-
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-  [controller dismissViewControllerAnimated:YES completion:^{}];
 }
 
 @end
