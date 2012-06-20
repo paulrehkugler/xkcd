@@ -24,7 +24,6 @@
   MFMailComposeViewControllerDelegate
 > {
 @private
-  UITableView *tableView;
   NSFetchedResultsController *fetchedResultsController;
   NSFetchedResultsController *searchFetchedResultsController;
   NewComicFetcher *fetcher;

@@ -50,7 +50,6 @@ static UIImage *downloadImage = nil;
 // Action sheet actions
 - (void)emailDeveloper;
 
-@property(nonatomic, strong, readwrite) UITableView *tableView;
 @property(nonatomic, strong, readwrite) NewComicFetcher *fetcher;
 @property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
 @property(nonatomic, strong, readwrite) NSFetchedResultsController *fetchedResultsController;
@@ -66,7 +65,6 @@ static UIImage *downloadImage = nil;
 
 @implementation ComicListViewController
 
-@synthesize tableView;
 @synthesize fetcher;
 @synthesize imageFetcher;
 @synthesize fetchedResultsController;
@@ -106,10 +104,6 @@ static UIImage *downloadImage = nil;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  NSLog(@"view %@ tv %@", self.view, self.tableView);
-  self.tableView = (UITableView *)self.view; // TODO: this oughtn't be necessary...why is it?
-  self.tableView.delegate = self;
-  self.tableView.dataSource = self;
 
   self.refreshControl = [[UIRefreshControl alloc] init];
   [self.refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
@@ -227,9 +221,6 @@ static UIImage *downloadImage = nil;
   searchController.delegate = nil;
   searchController.searchResultsDataSource = nil;
   searchController.searchResultsDelegate = nil;
-  
-  tableView.delegate = nil;
-  tableView.dataSource = nil;
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString cacheName:(NSString *)cacheName {
