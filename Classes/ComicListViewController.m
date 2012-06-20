@@ -28,7 +28,7 @@ static UIImage *downloadImage = nil;
 
 @interface ComicListViewController ()
 
-- (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString cacheName:(NSString *)cacheName;
+- (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString;
 - (void)setFetchedResultsController;
 - (void)setSearchFetchedResultsControllerWithSearchString:(NSString *)searchString;
 - (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView;
@@ -193,14 +193,6 @@ static UIImage *downloadImage = nil;
   [self reloadAllData]; // TODO: Is this necessary?
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-  [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-  [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
   return [AppDelegate rotate] ? (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown)
@@ -223,7 +215,7 @@ static UIImage *downloadImage = nil;
   searchController.searchResultsDelegate = nil;
 }
 
-- (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString cacheName:(NSString *)cacheName {
+- (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString {
   // Set up table data fetcher
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[Comic entityDescription]];
@@ -238,14 +230,13 @@ static UIImage *downloadImage = nil;
   NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:AppDelegate.managedObjectContext
                                                                                                  sectionNameKeyPath:nil
-                                                                                                          cacheName:cacheName];
+                                                                                                          cacheName:nil];
   aFetchedResultsController.delegate = self;
   return aFetchedResultsController;
 }
 
 - (void)setFetchedResultsController {
-  
-  self.fetchedResultsController = [self fetchedResultsControllerWithSearchString:nil cacheName:nil];
+  self.fetchedResultsController = [self fetchedResultsControllerWithSearchString:nil];
   
   NSError *fetchError = nil;
   BOOL success = [self.fetchedResultsController performFetch:&fetchError];
@@ -255,7 +246,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)setSearchFetchedResultsControllerWithSearchString:(NSString *)searchString {
-  self.searchFetchedResultsController = [self fetchedResultsControllerWithSearchString:searchString cacheName:nil];
+  self.searchFetchedResultsController = [self fetchedResultsControllerWithSearchString:searchString];
   
   NSError *fetchError = nil;
   BOOL success = [self.searchFetchedResultsController performFetch:&fetchError];
@@ -328,13 +319,13 @@ static UIImage *downloadImage = nil;
   self.navigationItem.rightBarButtonItem.action = @selector(doneEditing:);
   [self.navigationController setToolbarHidden:NO animated:YES];
   UIBarButtonItem *downloadAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Download all", @"Button")
-                                                                   style:UIBarButtonItemStyleBordered
-                                                                  target:self
-                                                                  action:@selector(downloadAll:)];
+                                                                  style:UIBarButtonItemStyleBordered
+                                                                 target:self
+                                                                 action:@selector(downloadAll:)];
   UIBarButtonItem *deleteAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Delete all", @"Button")
-                                                                 style:UIBarButtonItemStyleBordered
-                                                                target:self
-                                                                action:@selector(deleteAll:)];
+                                                                style:UIBarButtonItemStyleBordered
+                                                               target:self
+                                                               action:@selector(deleteAll:)];
   if([self.imageFetcher downloadingAll]) {
     downloadAll.enabled = NO;
     deleteAll.enabled = NO;
@@ -364,7 +355,7 @@ static UIImage *downloadImage = nil;
   NSString *sheetTitle = NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning");
   LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:sheetTitle];
   [sheet addButtonWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
-                      block:^void {
+                      block:^ {
                         [self downloadAllComicImages];
                       }];
   [sheet addCancelButton];
@@ -374,7 +365,7 @@ static UIImage *downloadImage = nil;
 - (void)deleteAll:(UIBarButtonItem *)sender {
   LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
   [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
-                                 block:^void {
+                                 block:^ {
                                    [self deleteAllComicImages];
                                  }];
   [sheet addCancelButton];
