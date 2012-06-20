@@ -21,6 +21,8 @@
 #import "TLMersenneTwister.h"
 #import "UIViewController_TLCommon.h"
 #import "LambdaSheet.h"
+#import "SaveToPhotosActivity.h"
+#import "OpenInSafariActivity.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -38,7 +40,6 @@
 - (void)setupToolbar;
 - (void)displayLoadingView;
 - (void)goToComicNumbered:(NSUInteger)comicNumber;
-- (void)saveComicImage;
 
 @property(nonatomic, strong, readwrite) Comic *comic;
 @property(nonatomic, strong, readwrite) NSMutableArray *comicImageViews;
@@ -46,7 +47,6 @@
 @property(nonatomic, strong, readwrite) UIScrollView *imageScroller;
 @property(nonatomic, strong, readwrite) TLLoadingView *loadingView;
 @property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
-@property(nonatomic, strong, readwrite) TLModalActivityIndicatorView *spinner;
 
 @end
 
@@ -60,7 +60,6 @@
 @synthesize imageScroller;
 @synthesize loadingView;
 @synthesize imageFetcher;
-@synthesize spinner;
 
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
@@ -93,10 +92,6 @@
   UIBarButtonItem *systemActionItem = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemAction
                                                                     target:self
                                                                     action:@selector(systemAction:)];
-  UIBarButtonItem *shareToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_chat"]
-                                                                        style:UIBarButtonItemStylePlain
-                                                                       target:self
-                                                                       action:@selector(share:)];
   
   UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
                                                                     style:UIBarButtonItemStylePlain
@@ -119,8 +114,6 @@
   
   NSArray *toolbarItems = [NSArray arrayWithObjects:
                            systemActionItem,
-                           [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           shareToolbarItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            previousItem,
@@ -206,8 +199,6 @@
   loadingView = nil;
   imageFetcher.delegate = nil;
   imageFetcher = nil;
-  spinner = nil;
-  
 }
 
 - (void)toggleToolbarsAnimated:(BOOL)animated {
@@ -216,31 +207,21 @@
   [self.navigationController setNavigationBarHidden:!toolbarIsHidden animated:animated];  
 }
 
-- (void)share:(UIBarButtonItem *)sender {
+- (void)systemAction:(UIBarButtonItem *)sender {
+  SaveToPhotosActivity *saveActivity = [[SaveToPhotosActivity alloc] init];
+  OpenInSafariActivity *openActivity = [[OpenInSafariActivity alloc] init];
+
+  NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
   NSURL *comicUrl = [NSURL URLWithString:comic.websiteURL];
-  UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[comicUrl, comic.image]
-                                                                                       applicationActivities:nil];
+  [activityItems addObject:comicUrl];
+  if([self.comic hasBeenDownloaded]) {
+    [activityItems addObject:self.comic.image];
+  }
+
+  UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
+                                                                                       applicationActivities:@[saveActivity, openActivity]];
 
   [self presentViewController:activityViewController animated:YES completion:^{}];
-  
-  // TODO: Save to photos activity, Open in Safari activity
-}
-
-- (void)systemAction:(UIBarButtonItem *)sender {
-  LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
-  if([self.comic hasBeenDownloaded]) {
-    [sheet addButtonWithTitle:NSLocalizedString(@"Save to Photos", @"Action sheet title")
-                        block:^void {
-                          [self saveComicImage];
-                        }];
-  }
-  [sheet addButtonWithTitle:NSLocalizedString(@"Open in Safari", @"Action sheet title")
-                      block:^void {
-                        NSURL *comicURL = [NSURL URLWithString:[self.comic websiteURL]];
-                        [[UIApplication sharedApplication] openURL:comicURL];
-                      }];
-  [sheet addCancelButton];
-  [sheet showFromToolbar:self.navigationController.toolbar];
 }
 
 - (void)goToPreviousComic {
@@ -270,23 +251,6 @@
   // deselect any selected rows, to avoid ugliness (still kinda ugly, but it'll have to be good enough for now, need to release)
   ComicListViewController *comicList = [viewControllerStack objectAtIndex:0];
   [comicList.tableView deselectRowAtIndexPath:[comicList.tableView indexPathForSelectedRow] animated:NO];
-}
-
-- (void)saveComicImage {
-  self.spinner = [[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Saving to Photos", @"Modal spinner text for saving to Photos.app")];
-  [self.spinner show];
-  UIImageWriteToSavedPhotosAlbum(self.comic.image,
-                                 self,
-                                 @selector(image:didFinishSavingWithError:contextInfo:),
-                                 nil);
-}
-
-#pragma mark -
-#pragma mark UIImageWriteToSavedPhotosAlbum delegate methods
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-  [self.spinner dismiss];
-  self.spinner = nil;
 }
 
 #pragma mark -

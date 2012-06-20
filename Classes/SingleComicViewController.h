@@ -13,7 +13,6 @@
 @class Comic;
 @class SingleComicImageFetcher;
 @class TLLoadingView;
-@class TLModalActivityIndicatorView;
 
 @interface SingleComicViewController : UIViewController
 <
@@ -30,7 +29,6 @@ SingleComicImageFetcherDelegate
   UIScrollView *imageScroller;
   TLLoadingView *loadingView;
   SingleComicImageFetcher *imageFetcher;
-  TLModalActivityIndicatorView *spinner;
 }
 
 - (id)initWithComic:(Comic *)comicToView;

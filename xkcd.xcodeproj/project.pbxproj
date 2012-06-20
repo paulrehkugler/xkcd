@@ -22,6 +22,8 @@
 		0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0384E76210500E0F0096D4E7 /* Settings.bundle */; };
 		0384E8C4105036D40096D4E7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0384E8C3105036D40096D4E7 /* MessageUI.framework */; };
 		039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */; };
+		03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */; };
+		03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */; };
 		03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
@@ -50,10 +52,6 @@
 		03F40E56122AB8C700A35F44 /* glyphish_shuffle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E54122AB8C700A35F44 /* glyphish_shuffle@2x.png */; };
 		03F40E57122AB8C700A35F44 /* glyphish_shuffle.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E53122AB8C700A35F44 /* glyphish_shuffle.png */; };
 		03F40E58122AB8C700A35F44 /* glyphish_shuffle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E54122AB8C700A35F44 /* glyphish_shuffle@2x.png */; };
-		03F40E5B122AB97000A35F44 /* glyphish_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E59122AB97000A35F44 /* glyphish_chat.png */; };
-		03F40E5C122AB97000A35F44 /* glyphish_chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E5A122AB97000A35F44 /* glyphish_chat@2x.png */; };
-		03F40E5D122AB97000A35F44 /* glyphish_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E59122AB97000A35F44 /* glyphish_chat.png */; };
-		03F40E5E122AB97000A35F44 /* glyphish_chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E5A122AB97000A35F44 /* glyphish_chat@2x.png */; };
 		03F40E7E122AC9ED00A35F44 /* glyphish_download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E7C122AC9ED00A35F44 /* glyphish_download@2x.png */; };
 		03F40E7F122AC9ED00A35F44 /* glyphish_download.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E7D122AC9ED00A35F44 /* glyphish_download.png */; };
 		03F40E80122AC9ED00A35F44 /* glyphish_download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E7C122AC9ED00A35F44 /* glyphish_download@2x.png */; };
@@ -137,6 +135,10 @@
 		0384E8C3105036D40096D4E7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		039387E910508D86001EFE4E /* xkcd-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-dev-Info.plist"; sourceTree = "<group>"; };
 		039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ad-hoc-entitlements.plist"; sourceTree = "<group>"; };
+		03941EDA1591613E00ADBED9 /* OpenInSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInSafariActivity.h; sourceTree = "<group>"; };
+		03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInSafariActivity.m; sourceTree = "<group>"; };
+		03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Filtering.h"; sourceTree = "<group>"; };
+		03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Filtering.m"; sourceTree = "<group>"; };
 		03B6BC04112CB3A100C32C21 /* NSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_HTML.h; sourceTree = "<group>"; };
 		03B6BC05112CB3A200C32C21 /* NSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_HTML.m; sourceTree = "<group>"; };
 		03B6BC1A112D9D9B00C32C21 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,8 +175,6 @@
 		03F40E4A122AA87800A35F44 /* xkcd114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xkcd114.png; sourceTree = "<group>"; };
 		03F40E53122AB8C700A35F44 /* glyphish_shuffle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_shuffle.png; sourceTree = "<group>"; };
 		03F40E54122AB8C700A35F44 /* glyphish_shuffle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphish_shuffle@2x.png"; sourceTree = "<group>"; };
-		03F40E59122AB97000A35F44 /* glyphish_chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_chat.png; sourceTree = "<group>"; };
-		03F40E5A122AB97000A35F44 /* glyphish_chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphish_chat@2x.png"; sourceTree = "<group>"; };
 		03F40E7C122AC9ED00A35F44 /* glyphish_download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphish_download@2x.png"; sourceTree = "<group>"; };
 		03F40E7D122AC9ED00A35F44 /* glyphish_download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphish_download.png; sourceTree = "<group>"; };
 		03F6FD4711334AEC00C3DE84 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
@@ -272,6 +272,15 @@
 			name = TLCommon;
 			sourceTree = "<group>";
 		};
+		03941EDE159161BC00ADBED9 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */,
+				03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		03B6BC2D112D9F5A00C32C21 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +354,8 @@
 				037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */,
 				037C49E915897A870026DE43 /* SaveToPhotosActivity.h */,
 				037C49EA15897A870026DE43 /* SaveToPhotosActivity.m */,
+				03941EDA1591613E00ADBED9 /* OpenInSafariActivity.h */,
+				03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -437,8 +448,6 @@
 				03F40E54122AB8C700A35F44 /* glyphish_shuffle@2x.png */,
 				03F6FD4711334AEC00C3DE84 /* up.png */,
 				03F6FD4811334AEC00C3DE84 /* down.png */,
-				03F40E59122AB97000A35F44 /* glyphish_chat.png */,
-				03F40E5A122AB97000A35F44 /* glyphish_chat@2x.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -446,6 +455,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				03941EDE159161BC00ADBED9 /* Categories */,
 				03F10F0A104D8F0A0045AEFC /* Protocols */,
 				03F10D34104D6DD20045AEFC /* Models */,
 				03F112EA104EB50F0045AEFC /* Views */,
@@ -597,8 +607,6 @@
 				03F40E52122AA87800A35F44 /* xkcd114.png in Resources */,
 				03F40E57122AB8C700A35F44 /* glyphish_shuffle.png in Resources */,
 				03F40E58122AB8C700A35F44 /* glyphish_shuffle@2x.png in Resources */,
-				03F40E5D122AB97000A35F44 /* glyphish_chat.png in Resources */,
-				03F40E5E122AB97000A35F44 /* glyphish_chat@2x.png in Resources */,
 				03F40E80122AC9ED00A35F44 /* glyphish_download@2x.png in Resources */,
 				03F40E81122AC9ED00A35F44 /* glyphish_download.png in Resources */,
 			);
@@ -623,8 +631,6 @@
 				03F40E4D122AA87800A35F44 /* xkcd58.png in Resources */,
 				03F40E55122AB8C700A35F44 /* glyphish_shuffle.png in Resources */,
 				03F40E56122AB8C700A35F44 /* glyphish_shuffle@2x.png in Resources */,
-				03F40E5B122AB97000A35F44 /* glyphish_chat.png in Resources */,
-				03F40E5C122AB97000A35F44 /* glyphish_chat@2x.png in Resources */,
 				03F40E7E122AC9ED00A35F44 /* glyphish_download@2x.png in Resources */,
 				03F40E7F122AC9ED00A35F44 /* glyphish_download.png in Resources */,
 				03C1852C152BDC02005EF7D0 /* xkcd114.png in Resources */,
@@ -710,6 +716,8 @@
 				03F7024D1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
 				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				037C49EB15897A870026DE43 /* SaveToPhotosActivity.m in Sources */,
+				03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */,
+				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
