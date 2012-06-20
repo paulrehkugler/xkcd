@@ -218,7 +218,7 @@
 
   UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
                                                                                        applicationActivities:@[saveActivity, openActivity]];
-
+  activityViewController.excludedActivityTypes = @[UIActivityTypeAssignToContact];
   [self presentViewController:activityViewController animated:YES completion:^{}];
 }
 
