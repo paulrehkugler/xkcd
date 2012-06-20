@@ -40,7 +40,10 @@ static UIImage *downloadImage = nil;
 - (void)deleteAll:(UIBarButtonItem *)sender;
 - (void)edit:(UIBarButtonItem *)sender;
 - (void)doneEditing:(UIBarButtonItem *)sender;
-- (void)setSearchBarTableHeader;
+- (void)addSearchBarTableHeader;
+- (void)addRefreshControl;
+- (void)addNavigationBarButtons;
+- (void)scrollToComicAtRow:(NSUInteger)comicRow;
 - (void)deleteAllComicImages;
 - (void)downloadAllComicImages;
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
@@ -90,7 +93,7 @@ static UIImage *downloadImage = nil;
   return self;
 }
 
-- (void)setSearchBarTableHeader {
+- (void)addSearchBarTableHeader {
   UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
   searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   [searchBar sizeToFit];
@@ -101,18 +104,13 @@ static UIImage *downloadImage = nil;
   self.tableView.tableHeaderView = searchBar;  
 }
 
-
 - (void)addRefreshControl {
   self.refreshControl = [[UIRefreshControl alloc] init];
   [self.refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
   self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Check for new comics"];
 }
 
-- (void)viewDidLoad {
-  [super viewDidLoad];
-
-  [self addRefreshControl];
-
+- (void)addNavigationBarButtons {
   UIBarButtonItem *systemItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                               target:self
                                                                               action:@selector(systemAction:)
@@ -127,9 +125,14 @@ static UIImage *downloadImage = nil;
   self.navigationItem.leftBarButtonItem.enabled = NO;
   self.navigationItem.rightBarButtonItem.enabled = NO;
 #endif
+}
 
-  [self setSearchBarTableHeader];
+- (void)viewDidLoad {
+  [super viewDidLoad];
 
+  [self addRefreshControl];
+  [self addNavigationBarButtons];
+  [self addSearchBarTableHeader];
   [self setFetchedResultsController];
   
   if(self.savedSearchTerm) {
@@ -140,47 +143,29 @@ static UIImage *downloadImage = nil;
   }
   
   [self reloadAllData];
-  @try {
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-  }
-  @catch (NSException *e) {
-    NSLog(@"Scroll error");
-  }
+  [self scrollToComicAtRow:0];
   
   // Set up new comic fetcher
   if(!self.fetcher) {
     self.fetcher = [[NewComicFetcher alloc] init];
     self.fetcher.delegate = self;      
   }
-  
-  [self checkForNewComics];
 
   // Set up image fetcher, for the future
   if(!self.imageFetcher) {
     self.imageFetcher = [[SingleComicImageFetcher alloc] init];
     self.imageFetcher.delegate = self;    
   }
-  
+
+  [self checkForNewComics];
+
   if(self.requestedLaunchComic) {
     NSInteger lastKnownComicNumber = [[Comic lastKnownComic].number integerValue];
     if(lastKnownComicNumber >= self.requestedLaunchComic) {
-      @try {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(lastKnownComicNumber - self.requestedLaunchComic)
-                                                                  inSection:0]
-         atScrollPosition:UITableViewScrollPositionTop
-         animated:NO];
-      }
-      @catch (NSException *e) {
-        NSLog(@"scroll fail %@", e);
-      }
-      
+      [self scrollToComicAtRow:(lastKnownComicNumber - self.requestedLaunchComic)];
       Comic *launchComic = [Comic comicNumbered:self.requestedLaunchComic];
-      if([launchComic hasBeenDownloaded]) {
-        [self viewComic:launchComic];
-        self.requestedLaunchComic = 0;
-      } else {
-        [self fetchImageForComic:launchComic];
-      }
+      [self viewComic:launchComic];
+      self.requestedLaunchComic = 0;
     }
   }
 }
@@ -217,6 +202,16 @@ static UIImage *downloadImage = nil;
   searchController.delegate = nil;
   searchController.searchResultsDataSource = nil;
   searchController.searchResultsDelegate = nil;
+}
+
+- (void)scrollToComicAtRow:(NSUInteger)comicRow {
+  @try {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:comicRow inSection:0]
+                          atScrollPosition:UITableViewScrollPositionTop
+                                  animated:NO];
+  } @catch (NSException *e) {
+    NSLog(@"Scroll error");
+  }
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString {
@@ -350,7 +345,7 @@ static UIImage *downloadImage = nil;
   [self setEditing:NO animated:YES];
   [self.tableView setEditing:NO animated:YES];
   [self addRefreshControl];
-  [self setSearchBarTableHeader];
+  [self addSearchBarTableHeader];
   [self.tableView setContentOffset:
    CGPointByAddingYOffset(self.tableView.contentOffset, self.tableView.tableHeaderView.bounds.size.height)];
   self.navigationItem.rightBarButtonItem.action = @selector(edit:);
