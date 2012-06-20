@@ -10,24 +10,37 @@
 
 @implementation NSArray (Filtering)
 
-- (BOOL)containsObjectOfKindOfClass:(Class)cls {
+
+- (BOOL)containsObjectPassingTest:(ObjectTestBlock)test {
   NSUInteger index = [self indexOfObjectPassingTest:^(id obj, NSUInteger index, BOOL *stop) {
-    BOOL isCorrectKindOfClass = [obj isKindOfClass:cls];
-    if(isCorrectKindOfClass) {
-      *stop = isCorrectKindOfClass;
+    BOOL passesTest = test(obj);
+    if(passesTest) {
+      *stop = YES;
     }
-    return isCorrectKindOfClass;
+    return passesTest;
   }];
   
   return index != NSNotFound;
 }
 
-- (NSArray *)objectsOfKindOfClass:(Class)cls {
+- (NSArray *)objectsPassingTest:(ObjectTestBlock)test {
   NSIndexSet *indices = [self indexesOfObjectsPassingTest:^(id obj, NSUInteger index, BOOL *stop) {
+    return test(obj);
+  }];
+  
+  return [self objectsAtIndexes:indices];
+}
+
+- (BOOL)containsObjectOfKindOfClass:(Class)cls {
+  return [self containsObjectPassingTest:^BOOL(id obj) {
     return [obj isKindOfClass:cls];
   }];
+}
 
-  return [self objectsAtIndexes:indices];
+- (NSArray *)objectsOfKindOfClass:(Class)cls {
+  return [self objectsPassingTest:^BOOL(id obj) {
+    return [obj isKindOfClass:cls];
+  }];
 }
 
 @end

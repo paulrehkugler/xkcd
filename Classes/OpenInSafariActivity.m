@@ -31,12 +31,28 @@
   return [UIImage imageNamed:@"blueArrow.png"];  // TODO: Needs image here
 }
 
++ (BOOL)canPerformWithObject:(id)obj {
+  if(![obj isKindOfClass:[NSURL class]]) {
+    return NO;
+  }
+  
+  // can't (or anyway shouldn't) open mailto: or sms: in safari
+  NSURL *url = (NSURL *)obj;
+  return [url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"];
+}
+
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-  return [activityItems containsObjectOfKindOfClass:[NSURL class]];
+  return [activityItems containsObjectPassingTest:^BOOL(id obj) {
+    return [[self class] canPerformWithObject:obj];
+  }];
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
-  self.urlToOpen = [activityItems objectsOfKindOfClass:[NSURL class]][0];
+  NSArray *openableUrls = [activityItems objectsPassingTest:^BOOL(id obj) {
+    return [[self class] canPerformWithObject:obj];
+  }];
+
+  self.urlToOpen = openableUrls[0];
 }
 
 - (void)performActivity {

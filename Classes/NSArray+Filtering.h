@@ -8,7 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef BOOL (^ObjectTestBlock)(id obj);
+
 @interface NSArray (Filtering)
+
+- (BOOL)containsObjectPassingTest:(ObjectTestBlock)test;
+- (NSArray *)objectsPassingTest:(ObjectTestBlock)test;
 
 - (BOOL)containsObjectOfKindOfClass:(Class)cls;
 - (NSArray *)objectsOfKindOfClass:(Class)cls;
