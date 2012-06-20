@@ -13,11 +13,8 @@
 
 @class NewComicFetcher;
 @class SingleComicImageFetcher;
-@class LorenRefreshView;
 
-@interface ComicListViewController : UIViewController <
-  UITableViewDataSource,
-  UITableViewDelegate,
+@interface ComicListViewController : UITableViewController <
   NewComicFetcherDelegate,
   NSFetchedResultsControllerDelegate,
   UISearchBarDelegate,
@@ -41,14 +38,8 @@
   NSInteger requestedLaunchComic;
 
   TLModalActivityIndicatorView *modalSpinner;
-
-  // Pull-to-refresh
-  LorenRefreshView *refreshHeaderView;
-	BOOL shouldCheckForRefreshGesture;
-	BOOL refreshing;
 }
 
-@property(nonatomic, strong, readonly) UITableView *tableView;
 @property(nonatomic, assign, readwrite) NSInteger requestedLaunchComic;
 
 @end

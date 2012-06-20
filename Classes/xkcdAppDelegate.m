@@ -43,7 +43,8 @@ static NSString *applicationDocumentsDirectory = nil;
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  self.listViewController = [[ComicListViewController alloc] initWithNibName:nil bundle:nil];
+//  self.listViewController = [[ComicListViewController alloc] initWithNibName:nil bundle:nil];
+  self.listViewController = [[ComicListViewController alloc] initWithStyle:UITableViewStylePlain];
 
   BOOL canLaunchApplication = YES;
   if(launchOptions) {

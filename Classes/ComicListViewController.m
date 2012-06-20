@@ -11,7 +11,6 @@
 #import "SingleComicViewController.h"
 #import "SingleComicImageFetcher.h"
 #import "CGGeometry_TLCommon.h"
-#import "LorenRefreshView.h"
 #import "LambdaSheet.h"
 #import "UIBarButtonItem_TLCommon.h"
 #import "UIActivityIndicatorView_TLCommon.h"
@@ -20,10 +19,6 @@
 #import "UIAlertView_TLCommon.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
-#define kRefreshTriggerOffset 65.0f
-#define kDuringRefreshContentOffset 80.0f
-#define kRefreshContentOffsetAnimationDuration 0.2f
-#define kReturnToNormalContentOffsetAnimationDuration 0.3f
 
 #pragma mark -
 
@@ -49,7 +44,6 @@ static UIImage *downloadImage = nil;
 - (void)deleteAllComicImages;
 - (void)downloadAllComicImages;
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
-- (void)showRefreshAnimation;
 - (void)didStartRefreshing;
 - (void)didFinishRefreshing;
 
@@ -65,9 +59,6 @@ static UIImage *downloadImage = nil;
 @property(nonatomic, strong, readwrite) NSString *savedSearchTerm;
 @property(nonatomic, assign, readwrite) BOOL searchWasActive;
 @property(nonatomic, strong, readwrite) TLModalActivityIndicatorView *modalSpinner;
-@property(nonatomic, strong, readwrite) LorenRefreshView *refreshHeaderView;
-@property(nonatomic, assign, readwrite) BOOL shouldCheckForRefreshGesture;
-@property(nonatomic, assign, readwrite) BOOL refreshing;
 
 @end
 
@@ -85,9 +76,6 @@ static UIImage *downloadImage = nil;
 @synthesize searchWasActive;
 @synthesize requestedLaunchComic;
 @synthesize modalSpinner;
-@synthesize refreshHeaderView;
-@synthesize shouldCheckForRefreshGesture;
-@synthesize refreshing;
 
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
@@ -97,45 +85,11 @@ static UIImage *downloadImage = nil;
   }
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+- (id)initWithStyle:(UITableViewStyle)style {
+  if(self = [super initWithStyle:style]) {
     self.title = NSLocalizedString(@"xkcd", @"Title of main view");
   }
   return self;
-}
-
-- (void)loadView {
-  [super loadView];
-  
-  self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  
-  UIBarButtonItem *systemItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                               target:self
-                                                                               action:@selector(systemAction:)
-                                  ];
-  self.navigationItem.leftBarButtonItem = systemItem;
-
-  self.navigationItem.rightBarButtonItem = self.editButtonItem;
-  self.navigationItem.rightBarButtonItem.target = self;
-  self.navigationItem.rightBarButtonItem.action = @selector(edit:);
-
-#if GENERATE_DEFAULT_PNG
-  self.navigationItem.leftBarButtonItem.enabled = NO;
-  self.navigationItem.rightBarButtonItem.enabled = NO;
-#endif
-  
-  self.tableView = [[UITableView alloc] initWithFrame:CGRectZeroWithSize(self.view.bounds.size)];
-  self.tableView.dataSource = self;
-  self.tableView.delegate = self;
-  self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  self.tableView.backgroundColor = kTableViewBackgroundColor;
-  
-  [self.view addSubview:self.tableView];
-  
-  [self setSearchBarTableHeader];
-
-	self.refreshHeaderView = [[LorenRefreshView alloc] initWithFrame:CGRectMake(0.0f, -self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)];
-	[self.tableView addSubview:refreshHeaderView];
 }
 
 - (void)setSearchBarTableHeader {
@@ -152,7 +106,32 @@ static UIImage *downloadImage = nil;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  NSLog(@"view %@ tv %@", self.view, self.tableView);
+  self.tableView = (UITableView *)self.view; // TODO: this oughtn't be necessary...why is it?
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
+
+  self.refreshControl = [[UIRefreshControl alloc] init];
+  [self.refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
+  self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Check for new comics"];
   
+  UIBarButtonItem *systemItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                              target:self
+                                                                              action:@selector(systemAction:)
+                                 ];
+  self.navigationItem.leftBarButtonItem = systemItem;
+  
+  self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  self.navigationItem.rightBarButtonItem.target = self;
+  self.navigationItem.rightBarButtonItem.action = @selector(edit:);
+  
+#if GENERATE_DEFAULT_PNG
+  self.navigationItem.leftBarButtonItem.enabled = NO;
+  self.navigationItem.rightBarButtonItem.enabled = NO;
+#endif
+
+  [self setSearchBarTableHeader];
+
   [self setFetchedResultsController];
   
   if(self.savedSearchTerm) {
@@ -215,9 +194,9 @@ static UIImage *downloadImage = nil;
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
+
   [self.searchController.searchResultsTableView deselectRowAtIndexPath:[self.searchController.searchResultsTableView indexPathForSelectedRow] animated:NO];
-  [self reloadAllData];
+  [self reloadAllData]; // TODO: Is this necessary?
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -237,8 +216,6 @@ static UIImage *downloadImage = nil;
 - (void)viewDidUnload {
   self.searchWasActive = [self.searchDisplayController isActive];
   self.savedSearchTerm = self.searchDisplayController.searchBar.text;
-  self.refreshHeaderView = nil;
-  self.tableView = nil;
 }
 
 - (void)dealloc {
@@ -253,12 +230,6 @@ static UIImage *downloadImage = nil;
   
   tableView.delegate = nil;
   tableView.dataSource = nil;
-  
-  
-  
-  
-  refreshHeaderView = nil;
-  
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString cacheName:(NSString *)cacheName {
@@ -739,66 +710,13 @@ static UIImage *downloadImage = nil;
 #pragma mark -
 #pragma mark Pull to refresh / UIScrollViewDelegate methods
 
-- (void)showRefreshAnimation {
-  [self didStartRefreshing];
-
-  [UIView beginAnimations:nil context:NULL];
-  [UIView setAnimationDuration:kRefreshContentOffsetAnimationDuration];
-  self.tableView.contentInset = UIEdgeInsetsMake(kDuringRefreshContentOffset, 0.0f, 0.0f, 0.0f);
-  [UIView commitAnimations];
-}
-
 - (void)didStartRefreshing {
-  self.refreshing = YES;
-	[self.refreshHeaderView setSpinnerAnimating:YES];
-  [self.refreshHeaderView setState:RefreshViewStateLoading];
+  [self.refreshControl beginRefreshing];
 }
 
 - (void)didFinishRefreshing {
-	self.refreshing = NO;
-	[self.refreshHeaderView flipArrowAnimated:NO];
-
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:kReturnToNormalContentOffsetAnimationDuration];
-	[self.tableView setContentInset:UIEdgeInsetsZero];
-	[self.refreshHeaderView setState:RefreshViewStatePullToReload];
-	[self.refreshHeaderView setSpinnerAnimating:NO];
-	[UIView commitAnimations];
+  [self.refreshControl endRefreshing];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	if(!self.refreshing) {
-		self.shouldCheckForRefreshGesture = YES;
-	}
-} 
-
-- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {	
-	if(self.refreshing) {
-    return;
-  }
-    
-	if(self.shouldCheckForRefreshGesture) {
-		if(self.refreshHeaderView.flipped && aScrollView.contentOffset.y > -kRefreshTriggerOffset && aScrollView.contentOffset.y < 0.0f ) {
-			[self.refreshHeaderView flipArrowAnimated:YES];
-			[self.refreshHeaderView setState:RefreshViewStatePullToReload];
-		} else if(!self.refreshHeaderView.flipped && aScrollView.contentOffset.y < -kRefreshTriggerOffset) {
-			[self.refreshHeaderView flipArrowAnimated:YES];
-			[self.refreshHeaderView setState:RefreshViewStateReleaseToReload];
-		}
-	}
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView willDecelerate:(BOOL)decelerate {
-	if(self.refreshing) {
-    return;
-  }
-    
-	if(aScrollView.contentOffset.y <= -kRefreshTriggerOffset) {
-    [self showRefreshAnimation];
-    [self checkForNewComics];
-	}
-
-	self.shouldCheckForRefreshGesture = NO;
-}
 
 @end

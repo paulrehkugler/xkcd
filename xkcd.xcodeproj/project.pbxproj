@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		032AF3571131EA470074C04C /* LorenRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 032AF3561131EA470074C04C /* LorenRefreshView.m */; };
 		032AF35E1131EC390074C04C /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 032AF35D1131EC390074C04C /* blueArrow.png */; };
 		034E0EB110A9F0E00021D494 /* web_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 034E0EAF10A9F0E00021D494 /* web_back.png */; };
 		034E0EB210A9F0E00021D494 /* web_forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 034E0EB010A9F0E00021D494 /* web_forward.png */; };
@@ -65,8 +64,6 @@
 		03F702101464C3270091BF49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F7020F1464C3270091BF49 /* CoreGraphics.framework */; };
 		03F702111464C3A90091BF49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F7020F1464C3270091BF49 /* CoreGraphics.framework */; };
 		03F702121464C3B30091BF49 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
-		03F702151464C3D10091BF49 /* UIFont_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702141464C3D10091BF49 /* UIFont_TLCommon.m */; };
-		03F702161464C3D10091BF49 /* UIFont_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702141464C3D10091BF49 /* UIFont_TLCommon.m */; };
 		03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */; };
 		03F7021A1464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */; };
 		03F7021D1464C4330091BF49 /* TLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7021C1464C4330091BF49 /* TLLoadingView.m */; };
@@ -109,8 +106,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		032AF3551131EA470074C04C /* LorenRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LorenRefreshView.h; sourceTree = "<group>"; };
-		032AF3561131EA470074C04C /* LorenRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LorenRefreshView.m; sourceTree = "<group>"; };
 		032AF35D1131EC390074C04C /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		034042DB1056B4F6004B4909 /* xkcd-distro-info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; fileEncoding = 4; path = "xkcd-distro-info.plist"; sourceTree = "<group>"; };
 		034E0E9A10A9ED8F0021D494 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -186,8 +181,6 @@
 		03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLModalActivityIndicatorView.m; sourceTree = "<group>"; };
 		03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGGeometry_TLCommon.h; sourceTree = "<group>"; };
 		03F7020F1464C3270091BF49 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		03F702131464C3D00091BF49 /* UIFont_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIFont_TLCommon.h; sourceTree = "<group>"; };
-		03F702141464C3D10091BF49 /* UIFont_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIFont_TLCommon.m; sourceTree = "<group>"; };
 		03F702171464C3FA0091BF49 /* UIAlertView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlertView_TLCommon.h; sourceTree = "<group>"; };
 		03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertView_TLCommon.m; sourceTree = "<group>"; };
 		03F7021B1464C4330091BF49 /* TLLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLLoadingView.h; sourceTree = "<group>"; };
@@ -388,8 +381,6 @@
 				03F702071464C0ED0091BF49 /* LambdaSheet.m */,
 				03F1149E104F2AC70045AEFC /* ComicImageView.h */,
 				03F1149F104F2AC70045AEFC /* ComicImageView.m */,
-				032AF3551131EA470074C04C /* LorenRefreshView.h */,
-				032AF3561131EA470074C04C /* LorenRefreshView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -413,8 +404,6 @@
 				03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */,
 				03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */,
 				03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */,
-				03F702131464C3D00091BF49 /* UIFont_TLCommon.h */,
-				03F702141464C3D10091BF49 /* UIFont_TLCommon.m */,
 				03F702171464C3FA0091BF49 /* UIAlertView_TLCommon.h */,
 				03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */,
 				03F7021B1464C4330091BF49 /* TLLoadingView.h */,
@@ -665,7 +654,6 @@
 				03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */,
 				03F702091464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020D1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
-				03F702161464C3D10091BF49 /* UIFont_TLCommon.m in Sources */,
 				03F7021A1464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
 				03F7021E1464C4330091BF49 /* TLLoadingView.m in Sources */,
 				03F702221464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
@@ -699,10 +687,8 @@
 				03F114EF104F2EF30045AEFC /* SingleComicImageFetcher.m in Sources */,
 				03F114F3104F30140045AEFC /* FetchComicImageFromWeb.m in Sources */,
 				03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */,
-				032AF3571131EA470074C04C /* LorenRefreshView.m in Sources */,
 				03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
-				03F702151464C3D10091BF49 /* UIFont_TLCommon.m in Sources */,
 				03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
 				03F7021D1464C4330091BF49 /* TLLoadingView.m in Sources */,
 				03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
