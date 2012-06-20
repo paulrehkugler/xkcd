@@ -345,7 +345,7 @@ static UIImage *downloadImage = nil;
                         NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
                         [[UIApplication sharedApplication] openURL:appStoreReviewURL];
                       }];
-  [sheet addButtonWithTitle:NSLocalizedString(@"Share this app", @"Action sheet title")
+  [sheet addButtonWithTitle:NSLocalizedString(@"Share link to this app", @"Action sheet title")
                       block:^ {
                         NSURL *appUrl = [NSURL URLWithString:@"http://bit.ly/xkcdapp"];
                         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[appUrl]
@@ -634,8 +634,8 @@ static UIImage *downloadImage = nil;
   [emailViewController setToRecipients:[NSArray arrayWithObject:@"xkcdapp@treelinelabs.com"]];
   [self presentViewController:emailViewController animated:YES completion:^{}];
 
-  [UIAlertView showAlertWithTitle:NSLocalizedString(@"Just so you know", @"Alert title")
-                          message:NSLocalizedString(@"I just write the app, not the comics.", @"Alert body")];
+  [UIAlertView showAlertWithTitle:NSLocalizedString(@"Do me a favor?", @"Alert title")
+                          message:NSLocalizedString(@"Take a look at the FAQ before emailing. Thanks!", @"Alert body")];
 }
 
 - (void)downloadAllComicImages {
