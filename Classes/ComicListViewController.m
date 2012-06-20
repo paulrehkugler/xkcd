@@ -102,13 +102,17 @@ static UIImage *downloadImage = nil;
 }
 
 
-- (void)viewDidLoad {
-  [super viewDidLoad];
-
+- (void)addRefreshControl {
   self.refreshControl = [[UIRefreshControl alloc] init];
   [self.refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
   self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Check for new comics"];
-  
+}
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+
+  [self addRefreshControl];
+
   UIBarButtonItem *systemItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                               target:self
                                                                               action:@selector(systemAction:)
@@ -313,9 +317,12 @@ static UIImage *downloadImage = nil;
 - (void)edit:(UIBarButtonItem *)sender {
   [self setEditing:YES animated:YES];
   [self.tableView setEditing:YES animated:YES];
-  [self.tableView setContentOffset:
-   CGPointByAddingYOffset(self.tableView.contentOffset, -self.tableView.tableHeaderView.bounds.size.height)];
+
+  CGFloat searchBarHeight = self.tableView.tableHeaderView.bounds.size.height;
+  [self.tableView setContentOffset:CGPointByAddingYOffset(self.tableView.contentOffset, -searchBarHeight)];
   self.tableView.tableHeaderView = nil;
+  self.refreshControl = nil;
+
   self.navigationItem.rightBarButtonItem.action = @selector(doneEditing:);
   [self.navigationController setToolbarHidden:NO animated:YES];
   UIBarButtonItem *downloadAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Download all", @"Button")
@@ -342,6 +349,7 @@ static UIImage *downloadImage = nil;
 - (void)doneEditing:(UIBarButtonItem *)sender {
   [self setEditing:NO animated:YES];
   [self.tableView setEditing:NO animated:YES];
+  [self addRefreshControl];
   [self setSearchBarTableHeader];
   [self.tableView setContentOffset:
    CGPointByAddingYOffset(self.tableView.contentOffset, self.tableView.tableHeaderView.bounds.size.height)];
