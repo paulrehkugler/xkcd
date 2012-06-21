@@ -91,8 +91,7 @@
   UIBarButtonItem *systemActionItem = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemAction
                                                                     target:self
                                                                     action:@selector(systemAction:)];
-  self.navigationItem.rightBarButtonItem = systemActionItem;
-
+  
   UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
@@ -113,6 +112,9 @@
   }
   
   NSArray *toolbarItems = [NSArray arrayWithObjects:
+                           systemActionItem,
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
                            previousItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            randomItem,
