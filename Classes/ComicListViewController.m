@@ -17,6 +17,7 @@
 #import "UIImageView_TLCommon.h"
 #import "UITableView_TLCommon.h"
 #import "UIAlertView_TLCommon.h"
+#import "FAQViewController.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
 
@@ -292,6 +293,13 @@ static UIImage *downloadImage = nil;
                           [self emailDeveloper];
                         }];
   }
+  [sheet addButtonWithTitle:NSLocalizedString(@"Read the FAQ", @"Action sheet title")
+                      block:^ {
+                        FAQViewController *faq = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faq];
+                        nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
+                        [self presentViewController:nav animated:YES completion:^{}];
+                      }];
   [sheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
                       block:^ {
                         NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
