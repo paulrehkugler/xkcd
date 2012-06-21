@@ -115,6 +115,8 @@
                            systemActionItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           [UIBarButtonItem flexibleSpaceBarButtonItem],
                            previousItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            randomItem,

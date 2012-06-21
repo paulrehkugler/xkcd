@@ -54,7 +54,7 @@
 		<key>Q</key>
 		<string>I sent you feedback. Why haven&apos;t you replied to me?</string>
 		<key>A</key>
-		<string>I apologize; I&apos;m very busy. I read and digest every single email I receive, but I don't always reply to all of them. Oh, and I don&apos;t write back to rude people. If you want a reply, be nice. :)</string>
+		<string>I apologize; I&apos;m very busy. I read and digest every single email I receive, but I don&apos;t always reply to all of them. Oh, and I don&apos;t write back to rude people. If you want a reply, be nice. :)</string>
 	</dict>
 	<dict>
 		<key>Q</key>
@@ -67,12 +67,6 @@
 		<string>Will you write an app for my (other) favorite web comic?</string>
 		<key>A</key>
 		<string>Nope. This app is a labor of love (free, no ads), and I don&apos;t love any other webcomics.</string>
-	</dict>
-	<dict>
-		<key>Q</key>
-		<string>How do you jump to a random comic?</string>
-		<key>A</key>
-		<string>Drag a comic image to the right.</string>
 	</dict>
 </array>
 </plist>
