@@ -14,13 +14,11 @@
 @class SingleComicImageFetcher;
 @class TLLoadingView;
 
-@interface SingleComicViewController : UIViewController
-<
-UIScrollViewDelegate,
-UIActionSheetDelegate,
-ComicImageViewDelegate,
-MFMailComposeViewControllerDelegate,
-SingleComicImageFetcherDelegate
+@interface SingleComicViewController : UIViewController <
+  UIScrollViewDelegate,
+  UIActionSheetDelegate,
+  ComicImageViewDelegate,
+  SingleComicImageFetcherDelegate
 > {
 @private
   Comic *comic;
