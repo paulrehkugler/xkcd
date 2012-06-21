@@ -26,7 +26,6 @@
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
-#define kMaxTweetLength 140
 
 #pragma mark -
 
@@ -187,16 +186,6 @@
   self.imageScroller = nil;
   self.contentView = nil;
   self.loadingView = nil;
-}
-
-- (void)dealloc {
-  comic = nil;
-  contentView = nil;
-  comicImageViews = nil;
-  imageScroller = nil;
-  loadingView = nil;
-  imageFetcher.delegate = nil;
-  imageFetcher = nil;
 }
 
 - (void)toggleToolbarsAnimated:(BOOL)animated {
