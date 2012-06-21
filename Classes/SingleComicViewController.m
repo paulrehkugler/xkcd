@@ -10,8 +10,6 @@
 
 #import "SingleComicViewController.h"
 #import "Comic.h"
-#import "ComicImageView.h"
-#import "TiledImage.h"
 #import "CGGeometry_TLCommon.h"
 #import "xkcdAppDelegate.h"
 #import "SingleComicImageFetcher.h"
@@ -21,6 +19,8 @@
 #import "TLMersenneTwister.h"
 #import "UIViewController_TLCommon.h"
 #import "LambdaSheet.h"
+#import "TiledImage.h"
+#import "ComicImageView.h"
 #import "SaveToPhotosActivity.h"
 #import "OpenInSafariActivity.h"
 
@@ -260,11 +260,62 @@
 #pragma mark -
 #pragma mark UIScrollViewDelegate methods
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView {
   return contentView;
 }
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
+#define kTriggerOffset 65.0f
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)aScrollView {
+  trackingScroll = YES;
+  // TODO: Reset detection state
+  NSLog(@"scrollViewWillBeginDragging:%@", aScrollView);
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)aScrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+  // TODO: If across threshold, scroll *away* or prevent scrolling back
+  // TODO: Trigger actual modifications if across threshold
+  NSLog(@"scrollViewWillEndDragging:%@ withVelocity:%f,%f targetContentOffset:%f,%f", aScrollView, velocity.x, velocity.y, targetContentOffset->x, targetContentOffset->y);
+  if(trackingScroll) {
+    CGPoint contentOffset = aScrollView.contentOffset;
+    if(contentOffset.y < -kTriggerOffset) {
+      NSLog(@"triggered up!");
+      for(ComicImageView *v in self.comicImageViews) {
+        v.alpha = 1.0f;
+      }
+    }
+    if(contentOffset.x < -kTriggerOffset) {
+      NSLog(@"triggered left!");
+      for(ComicImageView *v in self.comicImageViews) {
+        v.alpha = 1.0f;
+      }
+    }
+  }
+  trackingScroll = NO;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
+  if(trackingScroll) {
+    CGPoint contentOffset = aScrollView.contentOffset;
+    // TODO: Which is more offset, x or y?
+    if(contentOffset.y < 0) {
+      // bouncing up -- update display
+      for(ComicImageView *v in self.comicImageViews) {
+        v.alpha = 1.0f - (contentOffset.y / -kTriggerOffset);
+      }
+    }
+    if(contentOffset.x < 0) {
+      // bouncing left -- update display
+      for(ComicImageView *v in self.comicImageViews) {
+        v.alpha = 1.0f - (contentOffset.x / -kTriggerOffset);
+      }
+    }
+    // TODO: Check bottom
+  }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView willDecelerate:(BOOL)decelerate {
+  // TODO: This used to be used to trigger modifications, but I think doing it in WillEndDragging is better
 }
 
 #pragma mark -
@@ -277,6 +328,12 @@
 
 - (void)didDetectShortSingleTap {
   [self toggleToolbarsAnimated:YES];
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 }
 
 @end

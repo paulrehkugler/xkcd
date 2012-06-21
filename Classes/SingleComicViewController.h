@@ -27,6 +27,9 @@
   UIScrollView *imageScroller;
   TLLoadingView *loadingView;
   SingleComicImageFetcher *imageFetcher;
+
+  // Scroll-based triggering of moving to next/prev/random comic
+  BOOL trackingScroll;
 }
 
 - (id)initWithComic:(Comic *)comicToView;
