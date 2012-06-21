@@ -17,7 +17,7 @@
 @property(nonatomic, assign, readwrite) NSInteger comicNumber;
 @property(nonatomic, strong, readwrite) NSURL *comicImageURL;
 @property(nonatomic, strong, readwrite) NSData *comicImageData;
-@property(nonatomic, unsafe_unretained, readwrite) id target;
+@property(nonatomic, weak, readwrite) id target;
 @property(nonatomic, assign, readwrite) SEL action;
 @property(nonatomic, strong, readwrite) NSError *error;
 @property(nonatomic, strong, readwrite) id context;

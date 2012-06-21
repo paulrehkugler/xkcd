@@ -13,7 +13,7 @@
   NSInteger comicNumber;
   NSURL *comicImageURL;
   NSData *comicImageData;
-  id __unsafe_unretained target;
+  id __weak target;
   SEL action;
   NSError *error;
   id context;

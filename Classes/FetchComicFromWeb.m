@@ -16,7 +16,7 @@
 @property(nonatomic, strong, readwrite) NSString *comicName;
 @property(nonatomic, strong, readwrite) NSString *comicTitleText;
 @property(nonatomic, strong, readwrite) NSString *comicImageURL;
-@property(nonatomic, unsafe_unretained, readwrite) id target;
+@property(nonatomic, weak, readwrite) id target;
 @property(nonatomic, assign, readwrite) SEL action;
 @property(nonatomic, strong, readwrite) NSError *error;
 @property(nonatomic, assign, readwrite) BOOL got404;
