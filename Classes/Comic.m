@@ -41,6 +41,7 @@ static NSMutableSet *downloadedImages = nil;
 
 @dynamic name;
 @dynamic titleText;
+@dynamic transcript;
 @dynamic imageURL;
 @dynamic number;
 @dynamic loading;

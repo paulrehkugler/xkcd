@@ -36,6 +36,7 @@
 @property(nonatomic, strong, readwrite) NSString *imageURL;
 @property(nonatomic, strong, readwrite) NSString *name;
 @property(nonatomic, strong, readwrite) NSString *titleText;
+@property(nonatomic, strong, readwrite) NSString *transcript;
 @property(nonatomic, strong, readwrite) NSNumber *number;
 
 @end

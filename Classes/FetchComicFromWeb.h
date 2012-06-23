@@ -14,6 +14,7 @@
   NSString *comicName;
   NSString *comicTitleText;
   NSString *comicImageURL;
+  NSString *comicTranscript;
   id __weak target;
   SEL action;
   NSError *error;
@@ -26,6 +27,7 @@
 @property(nonatomic, strong, readonly) NSString *comicName;
 @property(nonatomic, strong, readonly) NSString *comicTitleText;
 @property(nonatomic, strong, readonly) NSString *comicImageURL;
+@property(nonatomic, strong, readonly) NSString *comicTranscript;
 @property(nonatomic, strong, readonly) NSError *error;
 @property(nonatomic, assign, readonly) BOOL got404;
 

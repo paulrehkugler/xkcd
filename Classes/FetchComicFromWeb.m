@@ -17,6 +17,7 @@
 @property(nonatomic, strong, readwrite) NSString *comicName;
 @property(nonatomic, strong, readwrite) NSString *comicTitleText;
 @property(nonatomic, strong, readwrite) NSString *comicImageURL;
+@property(nonatomic, strong, readwrite) NSString *comicTranscript;
 @property(nonatomic, weak, readwrite) id target;
 @property(nonatomic, assign, readwrite) SEL action;
 @property(nonatomic, strong, readwrite) NSError *error;
@@ -32,6 +33,7 @@
 @synthesize comicName;
 @synthesize comicTitleText;
 @synthesize comicImageURL;
+@synthesize comicTranscript;
 @synthesize target;
 @synthesize action;
 @synthesize error;
@@ -52,6 +54,7 @@
     self.comicName = @"Not found";
     self.comicTitleText = @"";
     self.comicImageURL = @"http://imgs.xkcd.com/static/xkcdLogo.png"; // anything...
+    self.comicTranscript = @"";
   } else {
     NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i/info.0.json", self.comicNumber]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:comicURL];
@@ -71,6 +74,7 @@
           self.comicName = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"title"]];
           self.comicTitleText = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"alt"]];
           self.comicImageURL = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"img"]];
+          self.comicTranscript = [comicDictionary stringForKey:@"transcript"];
           // TODO: use link/news to detect "large version" image urls
         }
       }

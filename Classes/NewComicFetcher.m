@@ -71,13 +71,14 @@
   } else if(fetchOperation.error) {
     // Network fail? Change in API?
     [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
-  } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL) {
+  } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL && fetchOperation.comicTranscript) {
     // Got a comic -- store it and keep going
     Comic *newComic = [Comic comic];
     newComic.number = [NSNumber numberWithInteger:fetchOperation.comicNumber];
     newComic.name = fetchOperation.comicName;
     newComic.titleText = fetchOperation.comicTitleText;
     newComic.imageURL = fetchOperation.comicImageURL;
+    newComic.transcript = fetchOperation.comicTranscript;
     [delegate newComicFetcher:self didFetchComic:newComic];
     [self fetchComic:(fetchOperation.comicNumber + 1)];
   } else {
