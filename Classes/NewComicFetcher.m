@@ -12,6 +12,7 @@
 #import "FetchComicFromWeb.h"
 #import "Comic.h"
 #import "XkcdErrorCodes.h"
+#import "TLMacros.h"
 
 #pragma mark -
 
@@ -51,6 +52,7 @@
     [self fetchComic:comicToFetch];
   } else {
 #if RECREATE_FROM_SCRATCH
+    TLDebugLog(@"RECREATE_FROM_SCRATCH: Fetching comic 1");
     [Comic deleteAllComics];
     [self fetchComic:1];
 #else
