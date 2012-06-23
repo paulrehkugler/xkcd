@@ -7,6 +7,7 @@
 #import "xkcdAppDelegate.h"
 #import "NSString_HTML.h"
 #import "NSData+BrokenUnicodeJSON.h"
+#import "NSDictionary+TypeSafety.h"
 
 #pragma mark -
 
@@ -67,9 +68,9 @@
         NSDictionary *comicDictionary = [NSJSONSerialization JSONObjectWithData:fixedData options:0 error:&parseError];
         self.error = parseError;
         if(!parseError && [comicDictionary isKindOfClass:[NSDictionary class]]) {
-          self.comicName = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"title"]];
-          self.comicTitleText = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"alt"]];
-          self.comicImageURL = [NSString stringByCleaningHTML:[comicDictionary objectForKey:@"img"]];
+          self.comicName = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"title"]];
+          self.comicTitleText = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"alt"]];
+          self.comicImageURL = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"img"]];
           // TODO: use link/news to detect "large version" image urls
         }
       }

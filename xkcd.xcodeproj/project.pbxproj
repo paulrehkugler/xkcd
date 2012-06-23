@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = 031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */; };
+		031FE8F2159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = 031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */; };
 		032AF35E1131EC390074C04C /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 032AF35D1131EC390074C04C /* blueArrow.png */; };
 		032FA24D1592928D00C39198 /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032FA24B1592928D00C39198 /* FAQViewController.m */; };
 		032FA24E1592928D00C39198 /* FAQViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 032FA24C1592928D00C39198 /* FAQViewController.xib */; };
@@ -31,7 +33,6 @@
 		03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		03C1852C152BDC02005EF7D0 /* xkcd114.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E4A122AA87800A35F44 /* xkcd114.png */; };
 		03C1852D152BDC08005EF7D0 /* xkcd57.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E48122AA87800A35F44 /* xkcd57.png */; };
-		03D840D9116CC2E000A80DF1 /* xkcd.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 03D840D8116CC2E000A80DF1 /* xkcd.sqlite */; };
 		03DA9CAA1097A4DA005A34B2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */; };
 		03E905DA10AA366D00D74902 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E905D910AA366D00D74902 /* Default.png */; };
 		03F10D37104D6DDE0045AEFC /* Comic.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10D36104D6DDE0045AEFC /* Comic.m */; };
@@ -109,6 +110,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031FE8EF159536C3008E92DF /* NSDictionary+TypeSafety.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+TypeSafety.h"; sourceTree = "<group>"; };
+		031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+TypeSafety.m"; sourceTree = "<group>"; };
 		032AF35D1131EC390074C04C /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		032FA24A1592928D00C39198 /* FAQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAQViewController.h; sourceTree = "<group>"; };
 		032FA24B1592928D00C39198 /* FAQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAQViewController.m; sourceTree = "<group>"; };
@@ -147,7 +150,6 @@
 		03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		03B6BC6B112DA07D00C32C21 /* TestNSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNSString_HTML.h; sourceTree = "<group>"; };
 		03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSString_HTML.m; sourceTree = "<group>"; };
-		03D840D8116CC2E000A80DF1 /* xkcd.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = xkcd.sqlite; sourceTree = "<group>"; };
 		03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		03E905D910AA366D00D74902 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		03E9062B10AA3C0100D74902 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
@@ -277,6 +279,8 @@
 			children = (
 				03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */,
 				03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */,
+				031FE8EF159536C3008E92DF /* NSDictionary+TypeSafety.h */,
+				031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -310,7 +314,6 @@
 			isa = PBXGroup;
 			children = (
 				28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */,
-				03D840D8116CC2E000A80DF1 /* xkcd.sqlite */,
 			);
 			name = "Core data";
 			sourceTree = "<group>";
@@ -625,7 +628,6 @@
 				032AF35E1131EC390074C04C /* blueArrow.png in Resources */,
 				03F6FD4911334AEC00C3DE84 /* up.png in Resources */,
 				03F6FD4A11334AEC00C3DE84 /* down.png in Resources */,
-				03D840D9116CC2E000A80DF1 /* xkcd.sqlite in Resources */,
 				03F40E44122AA58600A35F44 /* iTunesArtwork in Resources */,
 				03F40E4B122AA87800A35F44 /* xkcd29.png in Resources */,
 				03F40E4D122AA87800A35F44 /* xkcd58.png in Resources */,
@@ -680,6 +682,7 @@
 				03F7024E1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
 				037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				037C49E81589648A0026DE43 /* TestBrokenUnicodeFixer.m in Sources */,
+				031FE8F2159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +721,7 @@
 				03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */,
 				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
 				032FA24D1592928D00C39198 /* FAQViewController.m in Sources */,
+				031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
