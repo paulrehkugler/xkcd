@@ -137,9 +137,9 @@ static NSString *applicationDocumentsDirectory = nil;
  message to the application's managed object context.
  */
 - (void)save {
-  NSError *error;
+  NSError *error = nil;
   if(![[self managedObjectContext] save:&error]) {
-		exit(-1);  // Fail
+    TLDebugLog(@"SAVE FAILED %@", error);
   }
 }
 
