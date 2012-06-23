@@ -51,6 +51,7 @@ static UIImage *downloadImage = nil;
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
 - (void)didStartRefreshing;
 - (void)didFinishRefreshing;
+- (UITableView *)activeTableView;
 - (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller;
 
 // Action sheet actions
@@ -278,11 +279,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)reloadAllData {
-  if([self.searchController isActive]) {
-    [self.searchController.searchResultsTableView reloadData];    
-  } else {
-    [self.tableView reloadData];
-  }
+  [self.activeTableView reloadData];
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
