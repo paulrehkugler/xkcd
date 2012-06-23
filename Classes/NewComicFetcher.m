@@ -79,7 +79,7 @@
     newComic.titleText = fetchOperation.comicTitleText;
     newComic.imageURL = fetchOperation.comicImageURL;
     [delegate newComicFetcher:self didFetchComic:newComic];
-    [self fetchComic:(fetchOperation.comicNumber + 1)];    
+    [self fetchComic:(fetchOperation.comicNumber + 1)];
   } else {
     // wtf?
   }
