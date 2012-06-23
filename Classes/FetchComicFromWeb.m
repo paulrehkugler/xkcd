@@ -85,9 +85,4 @@
   }
 }
 
-- (void)dealloc {
-  target = nil;
-  action = NULL;
-}
-
 @end
