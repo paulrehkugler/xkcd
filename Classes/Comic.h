@@ -25,10 +25,11 @@
 + (Comic *)comicNumbered:(NSInteger)comicNumber;
 
 - (void)saveImageData:(NSData *)imageData;
-- (BOOL)hasBeenDownloaded;
+- (BOOL)downloaded;
 + (NSEntityDescription *)entityDescription;
 - (void)deleteImage;
 - (NSString *)websiteURL;
++ (void)synchronizeDownloadedImages;
 
 @property(nonatomic, strong, readonly) UIImage *image;
 @property(nonatomic, strong, readwrite) NSNumber *loading;

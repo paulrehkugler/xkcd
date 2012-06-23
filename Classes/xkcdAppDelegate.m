@@ -10,6 +10,7 @@
 #import "ComicListViewController.h"
 #import "NSString_HTML.h"
 #import "TLMacros.h"
+#import "Comic.h"
 
 #define kUserDefaultsRotateKey @"rotate"
 #define kUserDefaultsOpenZoomedOutKey @"zoomed_out"
@@ -79,6 +80,10 @@ static NSString *applicationDocumentsDirectory = nil;
 			exit(-1);  // Fail
     } 
   }
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [Comic synchronizeDownloadedImages];
 }
 
 #pragma mark -
@@ -185,15 +190,24 @@ static NSString *applicationDocumentsDirectory = nil;
   if (persistentStoreCoordinator != nil) {
     return persistentStoreCoordinator;
   }
-	
-  NSString *storePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"xkcd.sqlite"];
-  TLDebugLog(@"Store path: %@", [storePath stringByReplacingOccurrencesOfString:@" " 
-                                                                     withString:@"\\ "]);
 
   NSFileManager *fileManager = [NSFileManager defaultManager];
+
+  // Clean up the old file from previous versions
+  NSString *oldStorePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"xkcd.sqlite"];
+  if([fileManager fileExistsAtPath:oldStorePath]) {
+    NSError *removalError = nil;
+    [fileManager removeItemAtPath:oldStorePath error:&removalError];
+    if(removalError) {
+      TLDebugLog(@"Error removing old sqlite file at %@", removalError);
+    }
+  }
+
+  NSString *storePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"comics.sqlite"];
+  TLDebugLog(@"Store path: %@", [storePath stringByReplacingOccurrencesOfString:@" " withString:@"\\ "]);
   
   if(![fileManager fileExistsAtPath:storePath]) {
-    NSString *bundledPath = [[NSBundle mainBundle] pathForResource:@"xkcd" ofType:@"sqlite"];
+    NSString *bundledPath = [[NSBundle mainBundle] pathForResource:@"comics" ofType:@"sqlite"];
     if([fileManager fileExistsAtPath:bundledPath]) {
       [fileManager copyItemAtPath:bundledPath toPath:storePath error:NULL];
     }

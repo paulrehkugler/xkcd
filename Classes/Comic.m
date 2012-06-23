@@ -8,6 +8,8 @@
 
 #import "Comic.h"
 #import "xkcdAppDelegate.h"
+#import "NSArray+Filtering.h"
+#import "TLMacros.h"
 
 #pragma mark -
 
@@ -21,6 +23,7 @@
 #pragma mark -
 
 static NSEntityDescription *comicEntityDescription = nil;
+static NSMutableSet *downloadedImages = nil;
 
 #pragma mark -
 
@@ -28,7 +31,7 @@ static NSEntityDescription *comicEntityDescription = nil;
 
 - (NSString *)imagePath;
 
-@property(nonatomic, strong, readwrite) NSNumber *downloaded;
+- (NSString *)imageFilename;
 
 @end
 
@@ -39,7 +42,6 @@ static NSEntityDescription *comicEntityDescription = nil;
 @dynamic name;
 @dynamic titleText;
 @dynamic imageURL;
-@dynamic downloaded;
 @dynamic number;
 @dynamic loading;
 
@@ -51,9 +53,23 @@ static NSEntityDescription *comicEntityDescription = nil;
   }
 }
 
++ (void)synchronizeDownloadedImages {
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  NSError *error = nil;
+  TLDebugLog(@"Starting synchronization of downloaded images");
+  NSArray *allDocuments = [fileManager contentsOfDirectoryAtPath:AppDelegate.applicationDocumentsDirectory error:&error];
+  if(!error) {
+    NSArray *imageDataPaths = [allDocuments objectsPassingTest:^BOOL (id obj) {
+      NSString *path = (NSString *)obj;
+      return [path hasSuffix:@".imagedata"];
+    }];
+    downloadedImages = [NSMutableSet setWithArray:imageDataPaths];
+    TLDebugLog(@"Synchronized downloaded images: %i images", downloadedImages.count);
+  }
+}
+
 + (Comic *)comic {
   Comic *comic = [[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:AppDelegate.managedObjectContext];
-  comic.downloaded = [NSNumber numberWithBool:NO];
   return comic;
 }
 
@@ -153,12 +169,13 @@ static NSEntityDescription *comicEntityDescription = nil;
 
 - (void)deleteImage {
   NSError *deleteError = nil;
-  [[NSFileManager defaultManager] removeItemAtPath:self.imagePath
-                                             error:&deleteError];
+  [[NSFileManager defaultManager] removeItemAtPath:self.imagePath error:&deleteError];
+  if(!deleteError) {
+    [downloadedImages removeObject:self.imageFilename];
+  }
   if(deleteError && ([deleteError code] != NSFileNoSuchFileError)) {
     NSLog(@"Delete fail %@: %@", deleteError, deleteError.userInfo);
   }
-  self.downloaded = [NSNumber numberWithBool:NO];
 }
 
 + (void)deleteAllComics {
@@ -170,8 +187,20 @@ static NSEntityDescription *comicEntityDescription = nil;
 }
 
 - (void)saveImageData:(NSData *)imageData {
-  [imageData writeToFile:self.imagePath atomically:YES];
-  self.downloaded = [NSNumber numberWithBool:YES];
+  NSString *path = self.imagePath;
+
+  [imageData writeToFile:path atomically:YES];
+  [downloadedImages addObject:self.imageFilename];
+
+  // mark as iCloud do-not-backup (since it can be redownloaded as needed)
+  NSURL *fileURL = [NSURL fileURLWithPath:path];
+  NSError *error = nil;
+  [fileURL setResourceValue:@YES
+                     forKey:NSURLIsExcludedFromBackupKey
+                      error:&error];
+  if(error) {
+    TLDebugLog(@"Error setting do-not-backup for %@: %@", path, error);
+  }
 }
 
 + (NSEntityDescription *)entityDescription {
@@ -186,26 +215,20 @@ static NSEntityDescription *comicEntityDescription = nil;
 #pragma mark Properties
 
 - (NSString *)imagePath {
-  NSInteger comicNumber = [[self valueForKey:kAttributeNumber] integerValue];
-  return [AppDelegate.applicationDocumentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%i.imagedata", comicNumber]];  
+  return [AppDelegate.applicationDocumentsDirectory stringByAppendingPathComponent:self.imageFilename];
 }
 
 - (UIImage *)image {
   return [UIImage imageWithContentsOfFile:self.imagePath];
 }
 
-- (BOOL)hasBeenDownloaded {
-  NSNumber *storedDownloadedValue = [self valueForKey:kAttributeDownloaded];
-  BOOL hasBeenDownloaded;
-  if(storedDownloadedValue == nil) {
-    // First time -- check on disk, and then store that for the future
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    hasBeenDownloaded = [fileManager fileExistsAtPath:self.imagePath];
-    self.downloaded = [NSNumber numberWithBool:hasBeenDownloaded];
-  } else {
-    hasBeenDownloaded = [storedDownloadedValue boolValue];
-  }
-  return hasBeenDownloaded;
+- (NSString *)imageFilename {
+  NSInteger comicNumber = [[self valueForKey:kAttributeNumber] integerValue];
+  return [NSString stringWithFormat:@"%i.imagedata", comicNumber];
+}
+
+- (BOOL)downloaded {
+  return [downloadedImages containsObject:self.imageFilename];
 }
 
 @end

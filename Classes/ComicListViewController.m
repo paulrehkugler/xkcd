@@ -462,7 +462,7 @@ static UIImage *downloadImage = nil;
     comicCell.accessoryView = nil;
     comicCell.accessoryType = UITableViewCellAccessoryNone;
   } else {
-    if([comic hasBeenDownloaded]) {
+    if(comic.downloaded) {
       comicCell.accessoryView = nil;
       comicCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if([comic.loading boolValue] || [self.imageFetcher downloadingAll]) {
@@ -489,7 +489,7 @@ static UIImage *downloadImage = nil;
   Comic *selectedComic = [self comicAtIndexPath:indexPath inTableView:aTableView];
   BOOL shouldDeselect = YES;
   if([selectedComic.number integerValue] != 404) {
-    if([selectedComic hasBeenDownloaded]) {
+    if(selectedComic.downloaded) {
       [self viewComic:selectedComic];
       shouldDeselect = NO;
     } else if(!([selectedComic.loading boolValue] || [self.imageFetcher downloadingAll])) {
@@ -518,7 +518,7 @@ static UIImage *downloadImage = nil;
     return UITableViewCellEditingStyleNone;
   }
   Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
-  return [comic hasBeenDownloaded] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;  
+  return comic.downloaded ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
 }
 
 - (BOOL)tableView:(UITableView *)aTableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -526,7 +526,7 @@ static UIImage *downloadImage = nil;
     return NO;
   }
   Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
-  return [comic hasBeenDownloaded];  
+  return comic.downloaded;
 }
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

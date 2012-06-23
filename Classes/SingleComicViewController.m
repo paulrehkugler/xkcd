@@ -77,7 +77,7 @@
   [super viewDidLoad];
   [self setupToolbar];
   
-  if([self.comic hasBeenDownloaded]) {
+  if(self.comic.downloaded) {
     [self displayComicImage];    
   } else {
     [self displayLoadingView];
@@ -205,7 +205,7 @@
   NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
   NSURL *comicUrl = [NSURL URLWithString:comic.websiteURL];
   [activityItems addObject:comicUrl];
-  if([self.comic hasBeenDownloaded]) {
+  if(self.comic.downloaded) {
     [activityItems addObject:self.comic.image];
   }
 
