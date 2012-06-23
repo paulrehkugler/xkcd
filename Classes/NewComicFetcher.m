@@ -21,6 +21,7 @@
 - (void)fetchComic:(NSInteger)comicNumber;
 
 @property(nonatomic, strong, readwrite) NSOperationQueue *fetchQueue;
+@property(nonatomic, strong, readwrite) NSMutableArray *comicsToInsert;
 
 @end
 
@@ -30,10 +31,12 @@
 
 @synthesize delegate;
 @synthesize fetchQueue;
+@synthesize comicsToInsert;
 
 - (id)init {
   if(self = [super init]) {
     self.fetchQueue = [[NSOperationQueue alloc] init];
+    self.comicsToInsert = [NSMutableArray arrayWithCapacity:25];
   }
   return self;
 }
@@ -64,15 +67,8 @@
   }
 }
 
-- (void)didCompleteFetchOperation:(FetchComicFromWeb *)fetchOperation {
-  if(fetchOperation.got404) {
-    // all done!
-    [delegate newComicFetcherDidFinishFetchingAllComics:self];
-  } else if(fetchOperation.error) {
-    // Network fail? Change in API?
-    [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
-  } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL && fetchOperation.comicTranscript) {
-    // Got a comic -- store it and keep going
+- (void)insertComics {
+  for(FetchComicFromWeb *fetchOperation in self.comicsToInsert) {
     Comic *newComic = [Comic comic];
     newComic.number = [NSNumber numberWithInteger:fetchOperation.comicNumber];
     newComic.name = fetchOperation.comicName;
@@ -80,9 +76,29 @@
     newComic.imageURL = fetchOperation.comicImageURL;
     newComic.transcript = fetchOperation.comicTranscript;
     [delegate newComicFetcher:self didFetchComic:newComic];
+  }
+  [self.comicsToInsert removeAllObjects];
+}
+
+- (void)didCompleteFetchOperation:(FetchComicFromWeb *)fetchOperation {
+  if(fetchOperation.got404) {
+    // all done!
+    [self insertComics];
+    [delegate newComicFetcherDidFinishFetchingAllComics:self];
+  } else if(fetchOperation.error) {
+    // Network fail? Change in API?
+    [self insertComics];
+    [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
+  } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL && fetchOperation.comicTranscript) {
+    // Got a comic -- store it and keep going
+    [self.comicsToInsert addObject:fetchOperation];
     [self fetchComic:(fetchOperation.comicNumber + 1)];
+    if(fetchOperation.comicNumber % 25 == 0) {
+      [self insertComics];
+    }
   } else {
     // wtf?
+    [self insertComics];
   }
 }
 
