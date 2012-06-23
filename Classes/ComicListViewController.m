@@ -51,6 +51,7 @@ static UIImage *downloadImage = nil;
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
 - (void)didStartRefreshing;
 - (void)didFinishRefreshing;
+- (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller;
 
 // Action sheet actions
 - (void)emailDeveloper;
@@ -382,6 +383,15 @@ static UIImage *downloadImage = nil;
   [sheet showFromToolbar:self.navigationController.toolbar];
 }
 
+- (UITableView *)activeTableView {
+  return self.searchController.active ? self.searchController.searchResultsTableView : self.tableView;
+}
+
+- (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller {
+  return [controller isEqual:searchFetchedResultsController] ? self.searchController.searchResultsTableView : self.tableView;
+}
+
+
 #pragma mark -
 #pragma mark NewComicFetcherDelegate methods
 
@@ -644,21 +654,24 @@ static UIImage *downloadImage = nil;
 #pragma mark NSFetchedResultsControllerDelegate methods
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-  [self.tableView beginUpdates];
+  UITableView *tableViewToUpdate = [self tableViewForFetchedResultsController:controller];
+  [tableViewToUpdate beginUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type {
-  
+
+  UITableView *tableViewToUpdate = [self tableViewForFetchedResultsController:controller];
+
   switch(type) {
     case NSFetchedResultsChangeInsert:;
-      [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+      [tableViewToUpdate insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
     case NSFetchedResultsChangeDelete:;
-      [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+      [tableViewToUpdate deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
   }
@@ -670,31 +683,27 @@ static UIImage *downloadImage = nil;
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
 
-  BOOL searching = [self.searchDisplayController isActive];
-  BOOL isSearchController = [controller isEqual:searchFetchedResultsController];
-  if(searching != isSearchController) {
-    TLDebugLog(@"Ignoring cross-table/controller update");
-    return;
-  }
+  UITableView *tableViewToUpdate = [self tableViewForFetchedResultsController:controller];
+
   switch(type) {
     case NSFetchedResultsChangeInsert:;
-      [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+      [tableViewToUpdate insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                             withRowAnimation:UITableViewRowAnimationFade];
       break;
       
     case NSFetchedResultsChangeDelete:;
-      [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+      [tableViewToUpdate deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                             withRowAnimation:UITableViewRowAnimationFade];
       break;
       
     case NSFetchedResultsChangeUpdate:;
-      [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
+      [tableViewToUpdate reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
       break;
       
     case NSFetchedResultsChangeMove:;
-      [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+      [tableViewToUpdate deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                             withRowAnimation:UITableViewRowAnimationFade];
-      [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
+      [tableViewToUpdate reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
   }
@@ -702,7 +711,9 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-  [self.tableView endUpdates];
+  UITableView *tableViewToUpdate = [self tableViewForFetchedResultsController:controller];
+
+  [tableViewToUpdate endUpdates];
 }
 
 #pragma mark -
