@@ -9,7 +9,7 @@
 #define GENERATE_DEFAULT_PNG 0
 
 #define AppDelegate ((xkcdAppDelegate *)[UIApplication sharedApplication].delegate)
-#define kUseragent @"xkcd iPhone app (xkcdapp@treelinelabs.com; http://bit.ly/rZtDq). Thank you for the API!"
+#define kUseragent @"xkcd iPhone app (josh@treelinelabs.com; http://bit.ly/xkcdapp). Thank you for the API!"
 
 @class ComicListViewController;
 
