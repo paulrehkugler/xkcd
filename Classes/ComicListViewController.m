@@ -223,9 +223,7 @@ static UIImage *downloadImage = nil;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR titleText CONTAINS[cd] %@ OR transcript CONTAINS[cd] %@ OR number = %@",
                               searchString, searchString, searchString, [NSNumber numberWithInteger:[searchString integerValue]]];
   }
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO];
-  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-  [fetchRequest setSortDescriptors:sortDescriptors];
+  fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO]];
   
   NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:AppDelegate.managedObjectContext
