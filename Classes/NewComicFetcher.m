@@ -85,10 +85,4 @@
   }
 }
 
-- (void)dealloc {
-  
-  delegate = nil;
-  
-}
-
 @end
