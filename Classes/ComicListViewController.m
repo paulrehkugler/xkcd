@@ -218,7 +218,7 @@ static UIImage *downloadImage = nil;
 - (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString {
   // Set up table data fetcher
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  [fetchRequest setEntity:[Comic entityDescription]];
+  fetchRequest.entity = [Comic entityDescription];
   if(searchString) {
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR titleText CONTAINS[cd] %@ OR number = %@", searchString, searchString, [NSNumber numberWithInteger:[searchString integerValue]]];
     fetchRequest.predicate = searchPredicate;
