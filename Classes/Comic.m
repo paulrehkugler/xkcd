@@ -76,96 +76,71 @@ static NSMutableSet *downloadedImages = nil;
 
 + (Comic *)lastKnownComic {
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  [request setEntity:comicEntityDescription];
-  
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO];
-  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-  [request setSortDescriptors:sortDescriptors];
-  
-  [request setFetchLimit:1];
+  request.entity = comicEntityDescription;
+  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO]];
+  request.fetchLimit = 1;
   
   NSError *error = nil;
   NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
   
   Comic *lastKnownComic = nil;
-  if(error || !array || [array count] == 0) {
+  if(error || !array || array.count == 0) {
     NSLog(@"Couldn't find last comic, error: %@", error);
   } else {
-    lastKnownComic = [array objectAtIndex:0];
+    lastKnownComic = array[0];
   }
   return lastKnownComic;
 }
 
 + (Comic *)comicNumbered:(NSInteger)comicNumber {
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  [request setEntity:comicEntityDescription];
+  request.entity = comicEntityDescription;
   
-  NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeNumber @" = %@", [NSNumber numberWithInteger:comicNumber]];
-  request.predicate = searchPredicate;
-
-  [request setFetchLimit:1];
+  request.predicate = [NSPredicate predicateWithFormat:kAttributeNumber @" = %@", [NSNumber numberWithInteger:comicNumber]];
+  request.fetchLimit = 1;
   
   NSError *error = nil;
   NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
   
   Comic *comic = nil;
-  if(error || !array || [array count] == 0) {
+  if(error || !array || array.count == 0) {
     NSLog(@"Couldn't find comic numbered %i, error: %@", comicNumber, error);
   } else {
-    comic = [array objectAtIndex:0];
+    comic = array[0];
   }
   return comic;
 }
 
 + (NSArray *)allComics {
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  [request setEntity:comicEntityDescription];
-
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO];
-  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-  [request setSortDescriptors:sortDescriptors];
+  request.entity = comicEntityDescription;
+  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO]];
   
   NSError *error = nil;
-  NSArray *allComics = [AppDelegate.managedObjectContext executeFetchRequest:request
-                                                                   error:&error];
-  
+  NSArray *allComics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
   return allComics;
 }
 
 + (NSArray *)comicsWithImages {
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  [request setEntity:comicEntityDescription];
-  
-  NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", [NSNumber numberWithBool:YES]];
-  request.predicate = searchPredicate;
-
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES];
-  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-  [request setSortDescriptors:sortDescriptors];
+  request.entity = comicEntityDescription;
+  request.predicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", @YES];
+  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES]];
   
   NSError *error = nil;
-  NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request
-                                                                    error:&error];
-  
+  NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
   return comics;
 }
 
 + (NSArray *)comicsWithoutImages {
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  [request setEntity:comicEntityDescription];
-  
-  NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", [NSNumber numberWithBool:NO]];
-  request.predicate = searchPredicate;
-  
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES];
-  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-  [request setSortDescriptors:sortDescriptors];
+  request.entity = comicEntityDescription;
+  request.predicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", @NO];
+  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES]];
   
   NSError *error = nil;
-  NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request
-                                                                    error:&error];
-  
-  return comics;  
+  NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+  return comics;
 }
 
 - (void)deleteImage {
