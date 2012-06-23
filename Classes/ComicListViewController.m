@@ -220,8 +220,8 @@ static UIImage *downloadImage = nil;
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   fetchRequest.entity = [Comic entityDescription];
   if(searchString) {
-    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR titleText CONTAINS[cd] %@ OR number = %@", searchString, searchString, [NSNumber numberWithInteger:[searchString integerValue]]];
-    fetchRequest.predicate = searchPredicate;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR titleText CONTAINS[cd] %@ OR transcript CONTAINS[cd] %@ OR number = %@",
+                              searchString, searchString, searchString, [NSNumber numberWithInteger:[searchString integerValue]]];
   }
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO];
   NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
