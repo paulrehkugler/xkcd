@@ -432,7 +432,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView {
-  NSFetchedResultsController *fetchedResults = (self.tableView == aTableView) ? self.fetchedResultsController : self.searchFetchedResultsController;
+  NSFetchedResultsController *fetchedResults = [self.tableView isEqual:aTableView] ? self.fetchedResultsController : self.searchFetchedResultsController;
   return fetchedResults;
 }
 
