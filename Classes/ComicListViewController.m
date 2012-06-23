@@ -669,7 +669,13 @@ static UIImage *downloadImage = nil;
        atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
-  
+
+  BOOL searching = [self.searchDisplayController isActive];
+  BOOL isSearchController = [controller isEqual:searchFetchedResultsController];
+  if(searching != isSearchController) {
+    TLDebugLog(@"Ignoring cross-table/controller update");
+    return;
+  }
   switch(type) {
     case NSFetchedResultsChangeInsert:;
       [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
