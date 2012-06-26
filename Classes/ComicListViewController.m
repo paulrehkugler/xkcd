@@ -224,7 +224,7 @@ static UIImage *downloadImage = nil;
   fetchRequest.entity = [Comic entityDescription];
   if(searchString) {
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR titleText CONTAINS[cd] %@ OR transcript CONTAINS[cd] %@ OR number = %@",
-                              searchString, searchString, searchString, [NSNumber numberWithInteger:[searchString integerValue]]];
+                              searchString, searchString, searchString, @([searchString integerValue])];
   }
   fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO]];
   
@@ -276,7 +276,7 @@ static UIImage *downloadImage = nil;
   }  
 
   BOOL openAfterDownload = openAfterDownloadPreferenceSet || isLaunchComic;
-  [self.imageFetcher fetchImageForComic:comic context:[NSNumber numberWithBool:openAfterDownload]];
+  [self.imageFetcher fetchImageForComic:comic context:@(openAfterDownload)];
 }
 
 - (void)reloadAllData {
@@ -338,11 +338,9 @@ static UIImage *downloadImage = nil;
     downloadAll.enabled = NO;
     deleteAll.enabled = NO;
   }
-  NSArray *toolbarItems = [NSArray arrayWithObjects:
-                           deleteAll,
+  NSArray *toolbarItems = @[deleteAll,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           downloadAll,
-                           nil];
+                           downloadAll];
   [self setToolbarItems:toolbarItems animated:YES];
   self.navigationItem.leftBarButtonItem.enabled = NO;
 }
@@ -602,7 +600,7 @@ static UIImage *downloadImage = nil;
   emailViewController.mailComposeDelegate = self;
   [emailViewController setSubject:NSLocalizedString(@"Feedback on xkcd app", @"Subject of feedback email")];
   
-  [emailViewController setToRecipients:[NSArray arrayWithObject:@"xkcdapp@treelinelabs.com"]];
+  [emailViewController setToRecipients:@[@"xkcdapp@treelinelabs.com"]];
   [self presentViewController:emailViewController animated:YES completion:^{}];
 
   [UIAlertView showAlertWithTitle:NSLocalizedString(@"Do me a favor?", @"Alert title")
@@ -685,12 +683,12 @@ static UIImage *downloadImage = nil;
 
   switch(type) {
     case NSFetchedResultsChangeInsert:;
-      [tableViewToUpdate insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+      [tableViewToUpdate insertRowsAtIndexPaths:@[newIndexPath]
                             withRowAnimation:UITableViewRowAnimationFade];
       break;
       
     case NSFetchedResultsChangeDelete:;
-      [tableViewToUpdate deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+      [tableViewToUpdate deleteRowsAtIndexPaths:@[indexPath]
                             withRowAnimation:UITableViewRowAnimationFade];
       break;
       
@@ -699,7 +697,7 @@ static UIImage *downloadImage = nil;
       break;
       
     case NSFetchedResultsChangeMove:;
-      [tableViewToUpdate deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+      [tableViewToUpdate deleteRowsAtIndexPaths:@[indexPath]
                             withRowAnimation:UITableViewRowAnimationFade];
       [tableViewToUpdate reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
                     withRowAnimation:UITableViewRowAnimationFade];

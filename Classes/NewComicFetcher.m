@@ -70,7 +70,7 @@
 - (void)insertComics {
   for(FetchComicFromWeb *fetchOperation in self.comicsToInsert) {
     Comic *newComic = [Comic comic];
-    newComic.number = [NSNumber numberWithInteger:fetchOperation.comicNumber];
+    newComic.number = @(fetchOperation.comicNumber);
     newComic.name = fetchOperation.comicName;
     newComic.titleText = fetchOperation.comicTitleText;
     newComic.imageURL = fetchOperation.comicImageURL;

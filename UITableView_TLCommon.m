@@ -11,12 +11,12 @@
 @implementation UITableView (TLCommon)
 
 - (void)reloadRowAtRow:(NSUInteger)row section:(NSUInteger)section withRowAnimation:(UITableViewRowAnimation)animation {
-  [self reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:row inSection:section]]
+  [self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]]
               withRowAnimation:animation];
 }
 
 - (void)reloadRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
-  [self reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+  [self reloadRowsAtIndexPaths:@[indexPath]
               withRowAnimation:animation];  
 }
 

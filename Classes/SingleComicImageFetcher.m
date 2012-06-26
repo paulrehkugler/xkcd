@@ -52,7 +52,7 @@
                                                                                  completionTarget:self
                                                                                            action:@selector(didCompleteFetchOperation:)
                                                                                           context:context];
-    comic.loading = [NSNumber numberWithBool:YES];
+    comic.loading = @YES;
     self.keepInMemory = self;
     [fetchQueue addOperation:fetchOperation];
   } else {
@@ -79,7 +79,7 @@
   } else {
     // not done...start another
     Comic *comic = [self.comicsRemainingDuringDownloadAll lastObject];
-    [self fetchImageForComic:comic context:[NSNumber numberWithBool:NO]]; // open after download: NO
+    [self fetchImageForComic:comic context:@NO]; // open after download: NO
     [self.comicsRemainingDuringDownloadAll removeLastObject];
   }    
 }
@@ -90,7 +90,7 @@
 
 - (void)didCompleteFetchOperation:(FetchComicImageFromWeb *)fetchOperation {
   Comic *comic = [Comic comicNumbered:fetchOperation.comicNumber];
-  comic.loading = [NSNumber numberWithBool:NO];
+  comic.loading = @NO;
   if(!fetchOperation.error && fetchOperation.comicImageData) {
     [comic saveImageData:fetchOperation.comicImageData];
     [self.delegate singleComicImageFetcher:self

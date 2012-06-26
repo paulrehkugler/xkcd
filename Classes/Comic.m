@@ -96,7 +96,7 @@ static NSMutableSet *downloadedImages = nil;
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
   request.entity = comicEntityDescription;
   
-  request.predicate = [NSPredicate predicateWithFormat:kAttributeNumber @" = %@", [NSNumber numberWithInteger:comicNumber]];
+  request.predicate = [NSPredicate predicateWithFormat:kAttributeNumber @" = %@", @(comicNumber)];
   request.fetchLimit = 1;
   
   NSError *error = nil;

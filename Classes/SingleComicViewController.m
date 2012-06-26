@@ -111,8 +111,7 @@
     nextItem.enabled = NO;
   }
   
-  NSArray *toolbarItems = [NSArray arrayWithObjects:
-                           systemActionItem,
+  NSArray *toolbarItems = @[systemActionItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
@@ -121,8 +120,7 @@
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            randomItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           nextItem,
-                           nil];
+                           nextItem];
   
   [self setToolbarItems:toolbarItems animated:NO];
   [self.navigationController setToolbarHidden:NO animated:NO];  
