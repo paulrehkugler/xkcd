@@ -275,7 +275,8 @@ static UIImage *downloadImage = nil;
     self.requestedLaunchComic = 0;      
   }  
 
-  [self.imageFetcher fetchImageForComic:comic context:[NSNumber numberWithBool:(openAfterDownloadPreferenceSet || isLaunchComic)]];
+  BOOL openAfterDownload = openAfterDownloadPreferenceSet || isLaunchComic;
+  [self.imageFetcher fetchImageForComic:comic context:[NSNumber numberWithBool:openAfterDownload]];
 }
 
 - (void)reloadAllData {
