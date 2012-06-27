@@ -37,7 +37,7 @@
 @property(nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property(nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property(weak, nonatomic, readonly) NSString *applicationDocumentsDirectory;
+- (NSString *)applicationDocumentsDirectory;
 
 @property(nonatomic, strong) IBOutlet UIWindow *window;
 

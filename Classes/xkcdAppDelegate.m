@@ -38,7 +38,6 @@ static NSString *applicationDocumentsDirectory = nil;
 @synthesize navigationController;
 @synthesize listViewController;
 @synthesize window;
-@dynamic applicationDocumentsDirectory;
 
 #pragma mark -
 #pragma mark Application lifecycle
