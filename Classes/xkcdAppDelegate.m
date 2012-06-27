@@ -25,7 +25,6 @@ static NSString *applicationDocumentsDirectory = nil;
 
 @interface xkcdAppDelegate ()
 
-@property(nonatomic, strong, readwrite) UINavigationController *navigationController;
 @property(nonatomic, strong, readwrite) ComicListViewController *listViewController;
 @property(nonatomic, strong, readonly) NSUserDefaults *userDefaults;
 
@@ -35,7 +34,6 @@ static NSString *applicationDocumentsDirectory = nil;
 
 @implementation xkcdAppDelegate
 
-@synthesize navigationController;
 @synthesize listViewController;
 @synthesize window;
 
@@ -56,12 +54,13 @@ static NSString *applicationDocumentsDirectory = nil;
       listViewController.requestedLaunchComic = launchedComic;
     }
   }
+  
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.listViewController];
+  navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+  navigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
 
-  self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.listViewController];
-  self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
-  self.navigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
-
-  [window addSubview:self.navigationController.view];
+  window.rootViewController = navigationController;
+  [window addSubview:navigationController.view];
   [window makeKeyAndVisible];
 
   return canLaunchApplication;
