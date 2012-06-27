@@ -16,11 +16,7 @@
 
 - (id)objectForKey:(id)aKey ofKindOfClass:(Class)requiredClass {
   id obj = [self objectForKey:aKey];
-  if([obj isKindOfClass:requiredClass]) {
-    return obj;
-  } else {
-    return nil;
-  }
+  return [obj isKindOfClass:requiredClass] ? obj : nil;
 }
 
 @end
