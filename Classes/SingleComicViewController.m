@@ -96,6 +96,7 @@
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(goToPreviousComic)];
+  previousItem.accessibilityLabel = NSLocalizedString(@"Older comic", @"older_comic_accessibility_label");
   if([self.comic.number unsignedIntegerValue] == kMinComicNumber) {
     previousItem.enabled = NO;
   }
@@ -103,10 +104,12 @@
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(goToRandomComic)];
+  randomItem.accessibilityLabel = NSLocalizedString(@"Random comic", @"random_comic_accessibility_label");
   UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goToNextComic)];
+  nextItem.accessibilityLabel = NSLocalizedString(@"Newer comic", @"newer_comic_accessibility_label");
   if([self.comic.number unsignedIntegerValue] == [[Comic lastKnownComic].number unsignedIntegerValue]) {
     nextItem.enabled = NO;
   }
@@ -168,6 +171,15 @@
   
   if([AppDelegate openZoomedOut]) {
     [self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:NO];
+  }
+  self.view.isAccessibilityElement = YES;
+  self.view.accessibilityHint = nil;
+
+  if(self.comic.transcript.length == 0) {
+    self.view.accessibilityLabel = @"Transcript not available";
+    NSLog(@"Missing transcript for comic %i", self.comic.number.integerValue);
+  } else {
+    self.view.accessibilityLabel = self.comic.transcript;
   }
 }
 
