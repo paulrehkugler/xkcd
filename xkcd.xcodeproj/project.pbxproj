@@ -41,7 +41,6 @@
 		03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10DB0104D77030045AEFC /* NewComicFetcher.m */; };
 		03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10DBB104D78450045AEFC /* FetchComicFromWeb.m */; };
 		03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */; };
-		03F114A0104F2AC70045AEFC /* ComicImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1149F104F2AC70045AEFC /* ComicImageView.m */; };
 		03F114A9104F2B2B0045AEFC /* TiledImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114A8104F2B2B0045AEFC /* TiledImage.m */; };
 		03F114EF104F2EF30045AEFC /* SingleComicImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114EE104F2EF30045AEFC /* SingleComicImageFetcher.m */; };
 		03F114F3104F30140045AEFC /* FetchComicImageFromWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114F2104F30140045AEFC /* FetchComicImageFromWeb.m */; };
@@ -138,7 +137,6 @@
 		037CC6DD122B183C002E4738 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		037CC6DF122B1846002E4738 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0384E76210500E0F0096D4E7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		0384E85B105031850096D4E7 /* ComicImageViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicImageViewDelegate.h; sourceTree = "<group>"; };
 		0384E8C3105036D40096D4E7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		03870FCE1595525D00436B99 /* comics.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = comics.sqlite; sourceTree = "<group>"; };
 		03870FD11595540E00436B99 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -167,8 +165,6 @@
 		03F11404104F21110045AEFC /* XkcdErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XkcdErrorCodes.h; sourceTree = "<group>"; };
 		03F1149B104F2A7C0045AEFC /* SingleComicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleComicViewController.h; sourceTree = "<group>"; };
 		03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleComicViewController.m; sourceTree = "<group>"; };
-		03F1149E104F2AC70045AEFC /* ComicImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComicImageView.h; path = Classes/ComicImageView.h; sourceTree = SOURCE_ROOT; };
-		03F1149F104F2AC70045AEFC /* ComicImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComicImageView.m; path = Classes/ComicImageView.m; sourceTree = SOURCE_ROOT; };
 		03F114A7104F2B2B0045AEFC /* TiledImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiledImage.h; path = Classes/TiledImage.h; sourceTree = SOURCE_ROOT; };
 		03F114A8104F2B2B0045AEFC /* TiledImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiledImage.m; path = Classes/TiledImage.m; sourceTree = SOURCE_ROOT; };
 		03F114ED104F2EF30045AEFC /* SingleComicImageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleComicImageFetcher.h; sourceTree = "<group>"; };
@@ -388,7 +384,6 @@
 			children = (
 				03F10F0B104D8F1C0045AEFC /* NewComicFetcherDelegate.h */,
 				03F114F0104F2F4A0045AEFC /* SingleComicImageFetcherDelegate.h */,
-				0384E85B105031850096D4E7 /* ComicImageViewDelegate.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -398,8 +393,6 @@
 			children = (
 				03F702061464C0ED0091BF49 /* LambdaSheet.h */,
 				03F702071464C0ED0091BF49 /* LambdaSheet.m */,
-				03F1149E104F2AC70045AEFC /* ComicImageView.h */,
-				03F1149F104F2AC70045AEFC /* ComicImageView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -706,7 +699,6 @@
 				03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */,
 				03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */,
 				03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */,
-				03F114A0104F2AC70045AEFC /* ComicImageView.m in Sources */,
 				03F114A9104F2B2B0045AEFC /* TiledImage.m in Sources */,
 				03F114EF104F2EF30045AEFC /* SingleComicImageFetcher.m in Sources */,
 				03F114F3104F30140045AEFC /* FetchComicImageFromWeb.m in Sources */,

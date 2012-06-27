@@ -10,7 +10,6 @@
 
 #import "SingleComicViewController.h"
 #import "Comic.h"
-#import "ComicImageView.h"
 #import "TiledImage.h"
 #import "CGGeometry_TLCommon.h"
 #import "xkcdAppDelegate.h"
@@ -23,6 +22,7 @@
 #import "LambdaSheet.h"
 #import "SaveToPhotosActivity.h"
 #import "OpenInSafariActivity.h"
+#import "UIAlertView_TLCommon.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -138,10 +138,8 @@
   self.comicImageViews = [NSMutableArray arrayWithCapacity:(tiles.widthCount * tiles.heightCount)];
   for(NSUInteger x = 0; x < tiles.widthCount; ++x) {
     for(NSUInteger y = 0; y < tiles.heightCount; ++y) {
-      ComicImageView *comicImageView = [[ComicImageView alloc] initWithImage:[tiles imageAtXIndex:x YIndex:y]];
+      UIImageView *comicImageView = [[UIImageView alloc] initWithImage:[tiles imageAtXIndex:x YIndex:y]];
       comicImageView.frame = CGRectWithXYAndSize(x * kTileWidth, y * kTileHeight, comicImageView.frame.size); // adjust origin appropriately
-      comicImageView.titleText = self.comic.titleText;
-      comicImageView.delegate = self;
       [self.comicImageViews addObject:comicImageView];
     }
   }
@@ -172,6 +170,19 @@
   if([AppDelegate openZoomedOut]) {
     [self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:NO];
   }
+
+  UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTitleText:)];
+  longPress.minimumPressDuration = 0.5f;
+  [self.view addGestureRecognizer:longPress];
+
+  UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didDetectDoubleTap:)];
+  doubleTap.numberOfTapsRequired = 2;
+  [self.view addGestureRecognizer:doubleTap];
+
+  UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didDetectSingleTap:)];
+  [singleTap requireGestureRecognizerToFail:doubleTap];
+  [self.view addGestureRecognizer:singleTap];
+  
   self.view.isAccessibilityElement = YES;
   self.view.accessibilityHint = nil;
 
@@ -254,8 +265,29 @@
   [comicList.tableView deselectRowAtIndexPath:[comicList.tableView indexPathForSelectedRow] animated:NO];
 }
 
-#pragma mark -
-#pragma mark SingleComicImageFetcherDelegate methods
+#pragma mark - Gesture recognizer callbacks
+
+- (void)didDetectDoubleTap:(UITapGestureRecognizer *)recognizer {
+  CGFloat newZoomScale = 1.0f;
+  if(self.imageScroller.zoomScale == self.imageScroller.minimumZoomScale) {
+    newZoomScale = 1.0f;
+  } else {
+    newZoomScale = self.imageScroller.minimumZoomScale;
+  }
+  [self.imageScroller setZoomScale:newZoomScale animated:YES];
+}
+
+- (void)didDetectSingleTap:(UITapGestureRecognizer *)recognizer {
+  [self toggleToolbarsAnimated:YES];
+}
+
+- (void)showTitleText:(UILongPressGestureRecognizer *)recognizer {
+  if(recognizer.state == UIGestureRecognizerStateBegan) {
+    [UIAlertView showAlertWithTitle:nil message:self.comic.titleText];
+  }
+}
+
+#pragma mark - SingleComicImageFetcherDelegate methods
 
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
           didFetchImageForComic:(Comic *)comic
@@ -271,26 +303,13 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark -
-#pragma mark UIScrollViewDelegate methods
+#pragma mark - UIScrollViewDelegate methods
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
   return contentView;
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
-}
-
-#pragma mark -
-#pragma mark ComicImageViewDelegate
-
-- (void)zoomOutWithTouch:(UITouch *)touch {
-  CGFloat newZoomScale = MIN(self.imageScroller.zoomScale * 1.5, self.imageScroller.maximumZoomScale);
-  [self.imageScroller setZoomScale:newZoomScale animated:YES];
-}
-
-- (void)didDetectShortSingleTap {
-  [self toggleToolbarsAnimated:YES];
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ComicImageViewDelegate.h"
 #import "SingleComicImageFetcherDelegate.h"
 
 @class Comic;
@@ -17,7 +16,6 @@
 @interface SingleComicViewController : UIViewController <
   UIScrollViewDelegate,
   UIActionSheetDelegate,
-  ComicImageViewDelegate,
   SingleComicImageFetcherDelegate
 > {
 @private
