@@ -466,16 +466,20 @@ static UIImage *downloadImage = nil;
     // Handle comic 404 specially...sigh
     comicCell.accessoryView = nil;
     comicCell.accessoryType = UITableViewCellAccessoryNone;
+    comicCell.accessibilityHint = nil;
   } else {
     if(comic.downloaded) {
       comicCell.accessoryView = nil;
       comicCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+      comicCell.accessibilityHint = NSLocalizedString(@"Opens the comic", @"downloaded_comic_accessibility_hint");
     } else if([comic.loading boolValue] || [self.imageFetcher downloadingAll]) {
       comicCell.accessoryView = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleGray];
+      comicCell.accessibilityHint = NSLocalizedString(@"Waiting for download", @"downloading_comic_accessibility_hint");
     } else {
       UIImageView *downloadImageView = [UIImageView imageViewWithImage:downloadImage];
       downloadImageView.opaque = YES;
       comicCell.accessoryView = downloadImageView;
+      comicCell.accessibilityHint = NSLocalizedString(@"Downloads the comic", @"undownloaded_comic_accessibility_hint");
     }
   }
 
