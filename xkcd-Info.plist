@@ -30,7 +30,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2.2</string>
+	<string>3.0</string>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
