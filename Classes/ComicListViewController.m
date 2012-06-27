@@ -598,9 +598,10 @@ static UIImage *downloadImage = nil;
 - (void)emailDeveloper {
   MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
   emailViewController.mailComposeDelegate = self;
-  [emailViewController setSubject:NSLocalizedString(@"Feedback on xkcd app", @"Subject of feedback email")];
-  
-  [emailViewController setToRecipients:@[@"xkcdapp@treelinelabs.com"]];
+  emailViewController.subject = [NSString stringWithFormat:NSLocalizedString(@"Feedback on xkcd app (version %@)", @"Subject of feedback email"),
+                                 [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"]];
+  emailViewController.toRecipients = @[@"xkcdapp@treelinelabs.com"];
+
   [self presentViewController:emailViewController animated:YES completion:^{}];
 
   [UIAlertView showAlertWithTitle:NSLocalizedString(@"Do me a favor?", @"Alert title")
