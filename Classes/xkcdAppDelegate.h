@@ -14,8 +14,6 @@
 @class ComicListViewController;
 
 @interface xkcdAppDelegate : NSObject<UIApplicationDelegate> {
-  ComicListViewController *listViewController;
-  
   NSManagedObjectModel *managedObjectModel;
   NSManagedObjectContext *managedObjectContext;	    
   NSPersistentStoreCoordinator *persistentStoreCoordinator;

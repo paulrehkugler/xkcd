@@ -25,7 +25,6 @@ static NSString *applicationDocumentsDirectory = nil;
 
 @interface xkcdAppDelegate ()
 
-@property(nonatomic, strong, readwrite) ComicListViewController *listViewController;
 @property(nonatomic, strong, readonly) NSUserDefaults *userDefaults;
 
 @end
@@ -34,14 +33,13 @@ static NSString *applicationDocumentsDirectory = nil;
 
 @implementation xkcdAppDelegate
 
-@synthesize listViewController;
 @synthesize window;
 
 #pragma mark -
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  self.listViewController = [[ComicListViewController alloc] initWithStyle:UITableViewStylePlain];
+  ComicListViewController *listViewController = [[ComicListViewController alloc] initWithStyle:UITableViewStylePlain];
 
   BOOL canLaunchApplication = YES;
   if(launchOptions) {
@@ -55,7 +53,7 @@ static NSString *applicationDocumentsDirectory = nil;
     }
   }
   
-  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.listViewController];
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:listViewController];
   navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
   navigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
 
