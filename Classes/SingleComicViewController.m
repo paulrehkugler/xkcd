@@ -97,22 +97,20 @@
                                                                    target:self
                                                                    action:@selector(goToPreviousComic)];
   previousItem.accessibilityLabel = NSLocalizedString(@"Older comic", @"older_comic_accessibility_label");
-  if([self.comic.number unsignedIntegerValue] == kMinComicNumber) {
-    previousItem.enabled = NO;
-  }
+  previousItem.enabled = (self.comic.number.unsignedIntegerValue != kMinComicNumber);
+
   UIBarButtonItem *randomItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_shuffle"]
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(goToRandomComic)];
   randomItem.accessibilityLabel = NSLocalizedString(@"Random comic", @"random_comic_accessibility_label");
+
   UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goToNextComic)];
   nextItem.accessibilityLabel = NSLocalizedString(@"Newer comic", @"newer_comic_accessibility_label");
-  if([self.comic.number unsignedIntegerValue] == [[Comic lastKnownComic].number unsignedIntegerValue]) {
-    nextItem.enabled = NO;
-  }
+  nextItem.enabled = (self.comic.number.unsignedIntegerValue != [Comic lastKnownComic].number.unsignedIntegerValue);
   
   NSArray *toolbarItems = @[systemActionItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
