@@ -305,6 +305,7 @@
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* xkcd-Info.plist */,
 				039387E910508D86001EFE4E /* xkcd-dev-Info.plist */,
+				03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */,
 				0384E76210500E0F0096D4E7 /* Settings.bundle */,
 				039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */,
 				03E905D910AA366D00D74902 /* Default.png */,
@@ -490,7 +491,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
