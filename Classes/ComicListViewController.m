@@ -13,7 +13,6 @@
 #import "LambdaSheet.h"
 #import "UIBarButtonItem_TLCommon.h"
 #import "UIActivityIndicatorView_TLCommon.h"
-#import "UIImageView_TLCommon.h"
 #import "UITableView_TLCommon.h"
 #import "UIAlertView_TLCommon.h"
 #import "FAQViewController.h"
@@ -475,7 +474,7 @@ static UIImage *downloadImage = nil;
       comicCell.accessoryView = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleGray];
       comicCell.accessibilityHint = NSLocalizedString(@"Waiting for download", @"downloading_comic_accessibility_hint");
     } else {
-      UIImageView *downloadImageView = [UIImageView imageViewWithImage:downloadImage];
+      UIImageView *downloadImageView = [[UIImageView alloc] initWithImage:downloadImage];
       downloadImageView.opaque = YES;
       comicCell.accessoryView = downloadImageView;
       comicCell.accessibilityHint = NSLocalizedString(@"Downloads the comic", @"undownloaded_comic_accessibility_hint");
