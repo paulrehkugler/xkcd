@@ -21,6 +21,7 @@
 + (NSArray *)comicsWithoutImages;
 
 + (Comic *)lastKnownComic; // highest numbered comic that has been fetched
++ (NSArray *)comicsMissingTranscripts; // transcripts seem to lag, update them
 
 + (Comic *)comicNumbered:(NSInteger)comicNumber;
 

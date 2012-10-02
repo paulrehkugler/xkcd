@@ -18,10 +18,11 @@
 
 @interface NewComicFetcher ()
 
-- (void)fetchComic:(NSInteger)comicNumber;
+- (void)fetchNewComic:(NSInteger)comicNumber;
 
 @property(nonatomic, strong, readwrite) NSOperationQueue *fetchQueue;
 @property(nonatomic, strong, readwrite) NSMutableArray *comicsToInsert;
+@property(nonatomic, assign, readwrite) NSInteger nComicsUpdating;
 
 @end
 
@@ -32,19 +33,23 @@
 @synthesize delegate;
 @synthesize fetchQueue;
 @synthesize comicsToInsert;
+@synthesize nComicsUpdating;
 
 - (id)init {
   if(self = [super init]) {
     self.fetchQueue = [[NSOperationQueue alloc] init];
     self.comicsToInsert = [NSMutableArray arrayWithCapacity:25];
+    self.nComicsUpdating = 0;
   }
   return self;
 }
 
-- (void)fetchComic:(NSInteger)comicNumber {
+- (void)fetchNewComic:(NSInteger)comicNumber {
+  TLDebugLog(@"Starting fetch of comic %i", comicNumber);
   FetchComicFromWeb *fetchOperation = [[FetchComicFromWeb alloc] initWithComicNumber:comicNumber
                                                                      completionTarget:self
                                                                                action:@selector(didCompleteFetchOperation:)];
+  fetchOperation.updating = NO;
   [fetchQueue addOperation:fetchOperation];
 }
 
@@ -52,18 +57,30 @@
   Comic *lastKnownComic = [Comic lastKnownComic];
   if(lastKnownComic) {
     NSInteger comicToFetch = [lastKnownComic.number integerValue] + 1;    
-    [self fetchComic:comicToFetch];
+    [self fetchNewComic:comicToFetch];
   } else {
 #if RECREATE_FROM_SCRATCH
     TLDebugLog(@"RECREATE_FROM_SCRATCH: Fetching comic 1");
     [Comic deleteAllComics];
-    [self fetchComic:1];
+    [self fetchNewComic:1];
 #else
     [delegate newComicFetcher:self
              didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
                                                   code:kXkcdErrorCodeCouldNotFindLastComic
                                               userInfo:nil]];
 #endif
+  }
+}
+
+- (void)updateComicsMissingTranscripts {
+  for(Comic *comicWithoutTranscript in [Comic comicsMissingTranscripts]) {
+    TLDebugLog(@"Starting update of comic %i", comicWithoutTranscript.number.integerValue);
+    FetchComicFromWeb *fetchOperation = [[FetchComicFromWeb alloc] initWithComicNumber:comicWithoutTranscript.number.integerValue
+                                                                      completionTarget:self
+                                                                                action:@selector(didCompleteFetchOperation:)];
+    fetchOperation.updating = YES;
+    [fetchQueue addOperation:fetchOperation];
+    self.nComicsUpdating++;
   }
 }
 
@@ -81,24 +98,53 @@
 }
 
 - (void)didCompleteFetchOperation:(FetchComicFromWeb *)fetchOperation {
-  if(fetchOperation.got404) {
-    // all done!
-    [self insertComics];
-    [delegate newComicFetcherDidFinishFetchingAllComics:self];
-  } else if(fetchOperation.error) {
-    // Network fail? Change in API?
-    [self insertComics];
-    [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
-  } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL && fetchOperation.comicTranscript) {
-    // Got a comic -- store it and keep going
-    [self.comicsToInsert addObject:fetchOperation];
-    [self fetchComic:(fetchOperation.comicNumber + 1)];
-    if(fetchOperation.comicNumber % 25 == 0) {
-      [self insertComics];
+  if(fetchOperation.updating) {
+    if(fetchOperation.got404 || fetchOperation.error) {
+      // Network fail? Change in API?
+      [fetchQueue cancelAllOperations];
+      self.nComicsUpdating = 0;
+      TLDebugLog(@"Sending newComicFetcher:didFailWithError:");
+      [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
+    } else if(fetchOperation.comicName && fetchOperation.comicTitleText &&
+              fetchOperation.comicImageURL && fetchOperation.comicTranscript) {
+      Comic *existingComic = [Comic comicNumbered:fetchOperation.comicNumber];
+      TLDebugLog(@"Updating existing comic %@", existingComic);
+      // Update immediately, no need to queue
+      existingComic.name = fetchOperation.comicName;
+      existingComic.titleText = fetchOperation.comicTitleText;
+      existingComic.imageURL = fetchOperation.comicImageURL;
+      existingComic.transcript = fetchOperation.comicTranscript;
+      [delegate newComicFetcher:self didUpdateComic:existingComic];
+      self.nComicsUpdating--;
+      if(self.nComicsUpdating == 0) {
+        TLDebugLog(@"Sending newComicFetcherDidFinishUpdatingAllComics:");
+        [delegate newComicFetcherDidFinishUpdatingAllComics:self];
+      }
     }
   } else {
-    // wtf?
-    [self insertComics];
+    if(fetchOperation.got404) {
+      // all done!
+      [self insertComics];
+      TLDebugLog(@"Sending newComicFetcherDidFinishFetchingAllComics:");
+      [delegate newComicFetcherDidFinishFetchingAllComics:self];
+    } else if(fetchOperation.error) {
+      // Network fail? Change in API?
+      [self insertComics];
+      TLDebugLog(@"Sending newComicFetcher:didFailWithError:");
+      [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
+    } else if(fetchOperation.comicName && fetchOperation.comicTitleText &&
+              fetchOperation.comicImageURL && fetchOperation.comicTranscript) {
+      // New comic -- queue it and keep going
+      TLDebugLog(@"Queueing new comic %i", fetchOperation.comicNumber);
+      [self.comicsToInsert addObject:fetchOperation];
+      [self fetchNewComic:(fetchOperation.comicNumber + 1)];
+      if(fetchOperation.comicNumber % 25 == 0) {
+        [self insertComics];
+      }
+    } else {
+      // wtf?
+      [self insertComics];
+    }
   }
 }
 

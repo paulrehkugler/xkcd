@@ -38,6 +38,7 @@
 @synthesize action;
 @synthesize error;
 @synthesize got404;
+@synthesize updating;
 
 - (id)initWithComicNumber:(NSInteger)comicNumberToFetch completionTarget:(id)completionTarget action:(SEL)completionAction {
   if(self = [super init]) {

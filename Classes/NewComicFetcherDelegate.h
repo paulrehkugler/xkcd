@@ -14,7 +14,9 @@
 @required
 
 - (void)newComicFetcher:(NewComicFetcher *)fetcher didFetchComic:(Comic *)comic;
+- (void)newComicFetcher:(NewComicFetcher *)fetcher didUpdateComic:(Comic *)comic;
 - (void)newComicFetcherDidFinishFetchingAllComics:(NewComicFetcher *)fetcher;
+- (void)newComicFetcherDidFinishUpdatingAllComics:(NewComicFetcher *)fetcher;
 - (void)newComicFetcher:(NewComicFetcher *)fetcher didFailWithError:(NSError *)error;
 
 @end

@@ -385,7 +385,15 @@ static UIImage *downloadImage = nil;
   }
 }
 
+- (void)newComicFetcher:(NewComicFetcher *)fetcher didUpdateComic:(Comic *)comic {
+  [AppDelegate save]; // write new comic to disk so that CoreData can clear its memory as needed
+}
+
 - (void)newComicFetcherDidFinishFetchingAllComics:(NewComicFetcher *)fetcher {
+  [self.fetcher updateComicsMissingTranscripts];
+}
+
+- (void)newComicFetcherDidFinishUpdatingAllComics:(NewComicFetcher *)fetcher {
   [self didFinishRefreshing];
   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -394,8 +402,8 @@ static UIImage *downloadImage = nil;
   if([error.domain isEqualToString:kXkcdErrorDomain]) {
     NSLog(@"Internal error: %@", error);
   }
-  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
   [self didFinishRefreshing];
+  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
   // TODO: Show in the UI that the fetch failed? e.g. modal indication a la tweetie 2?
 }
 

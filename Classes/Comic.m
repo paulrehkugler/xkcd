@@ -19,6 +19,7 @@
 #define kAttributeName @"name"
 #define kAttributeDownloaded @"downloaded"
 #define kAttributeTitleText @"titleText"
+#define kAttributeTranscript @"transcript"
 
 #pragma mark -
 
@@ -90,6 +91,16 @@ static NSMutableSet *downloadedImages = nil;
     lastKnownComic = array[0];
   }
   return lastKnownComic;
+}
+
++ (NSArray *)comicsMissingTranscripts {
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
+  request.entity = comicEntityDescription;
+  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES]];
+  request.predicate = [NSPredicate predicateWithFormat:kAttributeTranscript @" = %@", @""];
+
+  NSError *error = nil;
+  return [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
 }
 
 + (Comic *)comicNumbered:(NSInteger)comicNumber {

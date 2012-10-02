@@ -17,6 +17,7 @@
 }
 
 - (void)fetch;
+- (void)updateComicsMissingTranscripts;
 
 @property(nonatomic, weak, readwrite) id<NewComicFetcherDelegate> delegate;
 
