@@ -73,16 +73,12 @@
 		03F702221464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */; };
 		03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */; };
 		03F7022A1464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */; };
-		03F702311464C4E20091BF49 /* UIImage_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702301464C4E20091BF49 /* UIImage_TLCommon.m */; };
-		03F702321464C4E20091BF49 /* UIImage_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702301464C4E20091BF49 /* UIImage_TLCommon.m */; };
 		03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702341464C5550091BF49 /* UITableView_TLCommon.m */; };
 		03F702361464C5550091BF49 /* UITableView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702341464C5550091BF49 /* UITableView_TLCommon.m */; };
 		03F7023D1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7023C1464C58B0091BF49 /* NSFileManager_TLCommon.m */; };
 		03F7023E1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7023C1464C58B0091BF49 /* NSFileManager_TLCommon.m */; };
 		03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
 		03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
-		03F7024D1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7024C1464C5FF0091BF49 /* UIApplication_TLCommon.m */; };
-		03F7024E1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7024C1464C5FF0091BF49 /* UIApplication_TLCommon.m */; };
 		1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* xkcdAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -193,16 +189,12 @@
 		03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIActivityIndicatorView_TLCommon.m; sourceTree = "<group>"; };
 		03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBarButtonItem_TLCommon.h; sourceTree = "<group>"; };
 		03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBarButtonItem_TLCommon.m; sourceTree = "<group>"; };
-		03F7022F1464C4E20091BF49 /* UIImage_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImage_TLCommon.h; sourceTree = "<group>"; };
-		03F702301464C4E20091BF49 /* UIImage_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImage_TLCommon.m; sourceTree = "<group>"; };
 		03F702331464C5550091BF49 /* UITableView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableView_TLCommon.h; sourceTree = "<group>"; };
 		03F702341464C5550091BF49 /* UITableView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableView_TLCommon.m; sourceTree = "<group>"; };
 		03F7023B1464C58B0091BF49 /* NSFileManager_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileManager_TLCommon.h; sourceTree = "<group>"; };
 		03F7023C1464C58B0091BF49 /* NSFileManager_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileManager_TLCommon.m; sourceTree = "<group>"; };
 		03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMersenneTwister.h; sourceTree = "<group>"; };
 		03F702401464C5B10091BF49 /* TLMersenneTwister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLMersenneTwister.m; sourceTree = "<group>"; };
-		03F7024B1464C5FF0091BF49 /* UIApplication_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIApplication_TLCommon.h; sourceTree = "<group>"; };
-		03F7024C1464C5FF0091BF49 /* UIApplication_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIApplication_TLCommon.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* xkcdAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkcdAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* xkcdAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xkcdAppDelegate.m; sourceTree = "<group>"; };
@@ -418,16 +410,12 @@
 				03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */,
 				03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */,
 				03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */,
-				03F7022F1464C4E20091BF49 /* UIImage_TLCommon.h */,
-				03F702301464C4E20091BF49 /* UIImage_TLCommon.m */,
 				03F702331464C5550091BF49 /* UITableView_TLCommon.h */,
 				03F702341464C5550091BF49 /* UITableView_TLCommon.m */,
 				03F7023B1464C58B0091BF49 /* NSFileManager_TLCommon.h */,
 				03F7023C1464C58B0091BF49 /* NSFileManager_TLCommon.m */,
 				03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */,
 				03F702401464C5B10091BF49 /* TLMersenneTwister.m */,
-				03F7024B1464C5FF0091BF49 /* UIApplication_TLCommon.h */,
-				03F7024C1464C5FF0091BF49 /* UIApplication_TLCommon.m */,
 			);
 			name = TLCommon;
 			sourceTree = "<group>";
@@ -665,11 +653,9 @@
 				03F7021E1464C4330091BF49 /* TLLoadingView.m in Sources */,
 				03F702221464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
 				03F7022A1464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
-				03F702321464C4E20091BF49 /* UIImage_TLCommon.m in Sources */,
 				03F702361464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				03F7023E1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */,
 				03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
-				03F7024E1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
 				037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				037C49E81589648A0026DE43 /* TestBrokenUnicodeFixer.m in Sources */,
 				031FE8F2159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
@@ -700,11 +686,9 @@
 				03F7021D1464C4330091BF49 /* TLLoadingView.m in Sources */,
 				03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
 				03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
-				03F702311464C4E20091BF49 /* UIImage_TLCommon.m in Sources */,
 				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				03F7023D1464C58C0091BF49 /* NSFileManager_TLCommon.m in Sources */,
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
-				03F7024D1464C5FF0091BF49 /* UIApplication_TLCommon.m in Sources */,
 				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */,
 				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
