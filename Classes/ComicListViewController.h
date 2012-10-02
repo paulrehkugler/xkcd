@@ -21,7 +21,8 @@
   UISearchDisplayDelegate,
   SingleComicImageFetcherDelegate,
   UIActionSheetDelegate,
-  MFMailComposeViewControllerDelegate
+  MFMailComposeViewControllerDelegate,
+  UIScrollViewDelegate
 > {
 @private
   NSFetchedResultsController *fetchedResultsController;

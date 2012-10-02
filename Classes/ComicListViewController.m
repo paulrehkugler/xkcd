@@ -19,6 +19,7 @@
 #import "TLMacros.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
+#define kUserDefaultsSavedTopVisibleComicKey @"topVisibleComic"
 
 #pragma mark -
 
@@ -43,7 +44,7 @@ static UIImage *downloadImage = nil;
 - (void)addSearchBarTableHeader;
 - (void)addRefreshControl;
 - (void)addNavigationBarButtons;
-- (void)scrollToComicAtRow:(NSUInteger)comicRow;
+- (void)scrollToComicAtIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteAllComicImages;
 - (void)downloadAllComicImages;
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
@@ -51,6 +52,8 @@ static UIImage *downloadImage = nil;
 - (void)didFinishRefreshing;
 - (UITableView *)activeTableView;
 - (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller;
+- (void)saveScrollPosition;
+- (void)restoreScrollPosition;
 
 // Action sheet actions
 - (void)emailDeveloper;
@@ -134,7 +137,7 @@ static UIImage *downloadImage = nil;
   [self setFetchedResultsController];
   
   [self reloadAllData];
-  [self scrollToComicAtRow:0];
+  [self scrollToComicAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
   
   // Set up new comic fetcher
   if(!self.fetcher) {
@@ -151,13 +154,15 @@ static UIImage *downloadImage = nil;
   [self checkForNewComics];
 
   if(self.requestedLaunchComic) {
-    NSInteger lastKnownComicNumber = [[Comic lastKnownComic].number integerValue];
-    if(lastKnownComicNumber >= self.requestedLaunchComic) {
-      [self scrollToComicAtRow:(lastKnownComicNumber - self.requestedLaunchComic)];
+    NSIndexPath *indexPath = [self indexPathForComicNumbered:self.requestedLaunchComic];
+    if(indexPath) {
+      [self scrollToComicAtIndexPath:indexPath];
       Comic *launchComic = [Comic comicNumbered:self.requestedLaunchComic];
       [self viewComic:launchComic];
-      self.requestedLaunchComic = 0;
     }
+    self.requestedLaunchComic = 0;
+  } else {
+    [self restoreScrollPosition];
   }
 }
 
@@ -190,9 +195,9 @@ static UIImage *downloadImage = nil;
   searchController.searchResultsDelegate = nil;
 }
 
-- (void)scrollToComicAtRow:(NSUInteger)comicRow {
+- (void)scrollToComicAtIndexPath:(NSIndexPath *)indexPath {
   @try {
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:comicRow inSection:0]
+    [self.tableView scrollToRowAtIndexPath:indexPath
                           atScrollPosition:UITableViewScrollPositionTop
                                   animated:NO];
   } @catch (NSException *e) {
@@ -414,6 +419,14 @@ static UIImage *downloadImage = nil;
 
 #pragma mark -
 #pragma mark UITableViewDelegate and UITableViewDataSource and supporting methods
+
+- (NSIndexPath *)indexPathForComicNumbered:(NSInteger)comicNumber {
+  NSInteger lastKnownComicNumber = [Comic lastKnownComic].number.integerValue;
+  if(lastKnownComicNumber >= comicNumber) {
+    return [NSIndexPath indexPathForRow:(lastKnownComicNumber - comicNumber) inSection:0];
+  }
+  return nil;
+}
 
 - (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView {
   Comic *comic = [[self fetchedResultsControllerForTableView:aTableView] objectAtIndexPath:indexPath];
@@ -698,7 +711,7 @@ static UIImage *downloadImage = nil;
 }
 
 #pragma mark -
-#pragma mark Pull to refresh / UIScrollViewDelegate methods
+#pragma mark Pull to refresh methods
 
 - (void)didStartRefreshing {
   [self.refreshControl beginRefreshing];
@@ -708,5 +721,42 @@ static UIImage *downloadImage = nil;
   [self.refreshControl endRefreshing];
 }
 
+#pragma mark -
+#pragma mark Scroll position saving/restoring
+
+- (void)saveScrollPosition {
+  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  if(visibleIndexPaths.count > 0) {
+    NSIndexPath *topIndexPath = visibleIndexPaths[0];
+    Comic *topComic = [self comicAtIndexPath:topIndexPath inTableView:self.tableView];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setInteger:topComic.number.integerValue forKey:kUserDefaultsSavedTopVisibleComicKey];
+    [userDefaults synchronize];
+  }
+}
+
+- (void)restoreScrollPosition {
+  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+  NSInteger topVisibleComic = [userDefaults integerForKey:kUserDefaultsSavedTopVisibleComicKey];
+  [self scrollToComicAtIndexPath:[self indexPathForComicNumbered:topVisibleComic]];
+}
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate methods
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+  if([self.activeTableView isEqual:self.tableView]) {
+    if(!decelerate) {
+      [self saveScrollPosition];
+    }
+  }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+  if([self.activeTableView isEqual:self.tableView]) {
+    [self saveScrollPosition];
+  }
+}
 
 @end
