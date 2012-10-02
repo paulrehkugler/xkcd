@@ -21,6 +21,7 @@
 #import "UIViewController_TLCommon.h"
 #import "LambdaSheet.h"
 #import "OpenInSafariActivity.h"
+#import "OpenInChromeActivity.h"
 #import "UIAlertView_TLCommon.h"
 
 #define kTileWidth 1024.0f
@@ -217,7 +218,8 @@
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  OpenInSafariActivity *openActivity = [[OpenInSafariActivity alloc] init];
+  OpenInSafariActivity *safariActivity = [[OpenInSafariActivity alloc] init];
+  OpenInChromeActivity *chromeActivity = [[OpenInChromeActivity alloc] init];
 
   NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
   NSURL *comicUrl = [NSURL URLWithString:comic.websiteURL];
@@ -227,7 +229,7 @@
   }
 
   UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                                                                       applicationActivities:@[openActivity]];
+                                                                                       applicationActivities:@[safariActivity, chromeActivity]];
   activityViewController.excludedActivityTypes = @[UIActivityTypeAssignToContact];
   [self presentViewController:activityViewController animated:YES completion:^{}];
 }
