@@ -20,7 +20,6 @@
 #import "TLMersenneTwister.h"
 #import "UIViewController_TLCommon.h"
 #import "LambdaSheet.h"
-#import "SaveToPhotosActivity.h"
 #import "OpenInSafariActivity.h"
 #import "UIAlertView_TLCommon.h"
 
@@ -218,7 +217,6 @@
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  SaveToPhotosActivity *saveActivity = [[SaveToPhotosActivity alloc] init];
   OpenInSafariActivity *openActivity = [[OpenInSafariActivity alloc] init];
 
   NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
@@ -229,7 +227,7 @@
   }
 
   UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                                                                       applicationActivities:@[saveActivity, openActivity]];
+                                                                                       applicationActivities:@[openActivity]];
   activityViewController.excludedActivityTypes = @[UIActivityTypeAssignToContact];
   [self presentViewController:activityViewController animated:YES completion:^{}];
 }
