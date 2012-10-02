@@ -2,11 +2,6 @@
 //  SingleComicViewController.m
 //  xkcd
 //
-//  Created by Joshua Bleecher Snyder on 9/2/09.
-//  Copyright 2009 Treeline Labs. All rights reserved.
-//
-
-#import <Twitter/Twitter.h>
 
 #import "SingleComicViewController.h"
 #import "Comic.h"
@@ -67,15 +62,12 @@
   return self;
 }
 
-- (void)loadView {
-  [super loadView];
-  self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-}
-
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
   [self setupToolbar];
-  
+
   if(self.comic.downloaded) {
     [self displayComicImage];    
   } else {
