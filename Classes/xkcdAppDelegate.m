@@ -69,8 +69,10 @@ static NSString *applicationDocumentsDirectory = nil;
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
-  NSError *error;
-  if(managedObjectContext != nil) {
+  [[NSUserDefaults standardUserDefaults] synchronize];
+
+  NSError *error = nil;
+  if(managedObjectContext) {
     if([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
 			exit(-1);  // Fail
     } 
@@ -239,24 +241,6 @@ static NSString *applicationDocumentsDirectory = nil;
   }
   return applicationDocumentsDirectory;
 }
-
-#pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-  
-  
-  managedObjectContext = nil;
-
-  managedObjectModel = nil;
-
-  persistentStoreCoordinator = nil;
-  
-  [userDefaults synchronize];
-  userDefaults = nil;
-  
-}
-
 
 @end
 
