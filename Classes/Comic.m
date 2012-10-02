@@ -103,7 +103,7 @@ static NSMutableSet *downloadedImages = nil;
   NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
   
   Comic *comic = nil;
-  if(error || !array || array.count == 0) {
+  if(error || array.count == 0) {
     NSLog(@"Couldn't find comic numbered %i, error: %@", comicNumber, error);
   } else {
     comic = array[0];
