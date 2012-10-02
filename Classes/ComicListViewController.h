@@ -29,10 +29,6 @@
   NewComicFetcher *fetcher;
   SingleComicImageFetcher *imageFetcher;
   UISearchDisplayController *searchController;
-  
-  // The saved state of the search UI if a memory warning removed the view.
-  NSString *savedSearchTerm;
-  BOOL searchWasActive;
 
   NSInteger requestedLaunchComic;
 

@@ -60,8 +60,6 @@ static UIImage *downloadImage = nil;
 @property(nonatomic, strong, readwrite) NSFetchedResultsController *fetchedResultsController;
 @property(nonatomic, strong, readwrite) NSFetchedResultsController *searchFetchedResultsController;
 @property(nonatomic, strong, readwrite) UISearchDisplayController *searchController;
-@property(nonatomic, strong, readwrite) NSString *savedSearchTerm;
-@property(nonatomic, assign, readwrite) BOOL searchWasActive;
 @property(nonatomic, strong, readwrite) TLModalActivityIndicatorView *modalSpinner;
 
 @end
@@ -75,8 +73,6 @@ static UIImage *downloadImage = nil;
 @synthesize fetchedResultsController;
 @synthesize searchFetchedResultsController;
 @synthesize searchController;
-@synthesize savedSearchTerm;
-@synthesize searchWasActive;
 @synthesize requestedLaunchComic;
 @synthesize modalSpinner;
 
@@ -137,13 +133,6 @@ static UIImage *downloadImage = nil;
   [self addSearchBarTableHeader];
   [self setFetchedResultsController];
   
-  if(self.savedSearchTerm) {
-    [self setSearchFetchedResultsControllerWithSearchString:self.savedSearchTerm];
-    [self.searchDisplayController setActive:self.searchWasActive];
-    [self.searchDisplayController.searchBar setText:self.savedSearchTerm];    
-    self.savedSearchTerm = nil;
-  }
-  
   [self reloadAllData];
   [self scrollToComicAtRow:0];
   
@@ -188,11 +177,6 @@ static UIImage *downloadImage = nil;
   [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
   return [AppDelegate rotate] ? (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown)
                               : (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)viewDidUnload {
-  self.searchWasActive = [self.searchDisplayController isActive];
-  self.savedSearchTerm = self.searchDisplayController.searchBar.text;
 }
 
 - (void)dealloc {
@@ -589,8 +573,6 @@ static UIImage *downloadImage = nil;
 - (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
   [self.searchDisplayController.searchResultsTableView reloadData];
   [self.searchDisplayController.searchBar resignFirstResponder];
-  self.searchWasActive = NO;
-  self.savedSearchTerm = nil;
   [self reloadAllData];
 }
 
