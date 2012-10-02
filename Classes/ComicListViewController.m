@@ -4,7 +4,6 @@
 
 #import "ComicListViewController.h"
 #import "Comic.h"
-#import "UIViewController_TLCommon.h"
 #import "NewComicFetcher.h"
 #import "xkcdAppDelegate.h"
 #import "XkcdErrorCodes.h"
