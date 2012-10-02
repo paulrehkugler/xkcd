@@ -13,8 +13,6 @@
 		032FA24D1592928D00C39198 /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032FA24B1592928D00C39198 /* FAQViewController.m */; };
 		032FA24E1592928D00C39198 /* FAQViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 032FA24C1592928D00C39198 /* FAQViewController.xib */; };
 		032FA250159294B900C39198 /* faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = 032FA24F159294B900C39198 /* faq.plist */; };
-		034E0EB110A9F0E00021D494 /* web_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 034E0EAF10A9F0E00021D494 /* web_back.png */; };
-		034E0EB210A9F0E00021D494 /* web_forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 034E0EB010A9F0E00021D494 /* web_forward.png */; };
 		0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0372FF7C10447552004CD031 /* ComicListViewController.m */; };
 		03798E73146C9FD8006AD9B1 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03798E72146C9FD8006AD9B1 /* Twitter.framework */; };
 		037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
@@ -128,8 +126,6 @@
 		034E0E9A10A9ED8F0021D494 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		034E0E9C10A9ED960021D494 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		034E0E9E10A9EDA00021D494 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
-		034E0EAF10A9F0E00021D494 /* web_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web_back.png; sourceTree = "<group>"; };
-		034E0EB010A9F0E00021D494 /* web_forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web_forward.png; sourceTree = "<group>"; };
 		0372FF7B10447552004CD031 /* ComicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicListViewController.h; sourceTree = "<group>"; };
 		0372FF7C10447552004CD031 /* ComicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComicListViewController.m; sourceTree = "<group>"; };
 		03798E72146C9FD8006AD9B1 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -274,15 +270,6 @@
 				03E9062B10AA3C0100D74902 /* CHANGELOG */,
 			);
 			name = Meta;
-			sourceTree = "<group>";
-		};
-		034E0EAE10A9F0E00021D494 /* TLCommon */ = {
-			isa = PBXGroup;
-			children = (
-				034E0EAF10A9F0E00021D494 /* web_back.png */,
-				034E0EB010A9F0E00021D494 /* web_forward.png */,
-			);
-			name = TLCommon;
 			sourceTree = "<group>";
 		};
 		03941EDE159161BC00ADBED9 /* Categories */ = {
@@ -525,7 +512,6 @@
 				034E0E9910A9ED7C0021D494 /* Meta */,
 				03DA9D721097B497005A34B2 /* System */,
 				03DA9D751097B4C1005A34B2 /* Core data */,
-				034E0EAE10A9F0E00021D494 /* TLCommon */,
 				03DA9D771097B4D7005A34B2 /* Images */,
 				032FA24F159294B900C39198 /* faq.plist */,
 			);
@@ -637,8 +623,6 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */,
 				039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */,
-				034E0EB110A9F0E00021D494 /* web_back.png in Resources */,
-				034E0EB210A9F0E00021D494 /* web_forward.png in Resources */,
 				03E905DA10AA366D00D74902 /* Default.png in Resources */,
 				032AF35E1131EC390074C04C /* blueArrow.png in Resources */,
 				03F40E44122AA58600A35F44 /* iTunesArtwork in Resources */,
