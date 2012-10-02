@@ -204,12 +204,6 @@
   : (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)viewDidUnload {
-  self.imageScroller = nil;
-  self.contentView = nil;
-  self.loadingView = nil;
-}
-
 - (void)toggleToolbarsAnimated:(BOOL)animated {
   BOOL toolbarIsHidden = self.navigationController.toolbarHidden;
   [self.navigationController setToolbarHidden:!toolbarIsHidden animated:animated];
