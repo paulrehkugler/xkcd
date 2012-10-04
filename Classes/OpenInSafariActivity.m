@@ -17,10 +17,6 @@
   return @"Open in Safari";
 }
 
-- (UIImage *)activityImage {
-  return [UIImage imageNamed:@"blueArrow.png"];  // TODO: Needs image here
-}
-
 - (void)performActivity {
   [[UIApplication sharedApplication] openURL:self.urlToOpen];
   [self activityDidFinish:YES];

@@ -15,10 +15,6 @@
   return @"Open in Chrome";
 }
 
-- (UIImage *)activityImage {
-  return [UIImage imageNamed:@"blueArrow.png"];  // TODO: Needs image here
-}
-
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
   if(![super canPerformWithActivityItems:activityItems]) {
     return NO;

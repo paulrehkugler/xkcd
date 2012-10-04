@@ -27,6 +27,8 @@
 		039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */; };
 		03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */; };
 		03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */; };
+		039A966A161D44B700C95AAB /* globe_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 039A9668161D44B700C95AAB /* globe_43.png */; };
+		039A966B161D44B700C95AAB /* globe_43@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 039A9669161D44B700C95AAB /* globe_43@2x.png */; };
 		03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
@@ -135,6 +137,8 @@
 		03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInSafariActivity.m; sourceTree = "<group>"; };
 		03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Filtering.h"; sourceTree = "<group>"; };
 		03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Filtering.m"; sourceTree = "<group>"; };
+		039A9668161D44B700C95AAB /* globe_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe_43.png; sourceTree = "<group>"; };
+		039A9669161D44B700C95AAB /* globe_43@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "globe_43@2x.png"; sourceTree = "<group>"; };
 		03B6BC04112CB3A100C32C21 /* NSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_HTML.h; sourceTree = "<group>"; };
 		03B6BC05112CB3A200C32C21 /* NSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_HTML.m; sourceTree = "<group>"; };
 		03B6BC1A112D9D9B00C32C21 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -413,6 +417,8 @@
 		03F8FBCA113DC1E300E717A6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				039A9668161D44B700C95AAB /* globe_43.png */,
+				039A9669161D44B700C95AAB /* globe_43@2x.png */,
 				03F40E53122AB8C700A35F44 /* glyphish_shuffle.png */,
 				03F40E54122AB8C700A35F44 /* glyphish_shuffle@2x.png */,
 				B5C7A60B161A6763003C0FC0 /* down@2x.png */,
@@ -609,6 +615,8 @@
 				B5C7A610161A6763003C0FC0 /* up.png in Resources */,
 				B5C7A611161A6763003C0FC0 /* up@2x.png in Resources */,
 				B5C7A612161A6763003C0FC0 /* down.png in Resources */,
+				039A966A161D44B700C95AAB /* globe_43.png in Resources */,
+				039A966B161D44B700C95AAB /* globe_43@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
