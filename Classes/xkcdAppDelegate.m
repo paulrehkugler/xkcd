@@ -60,8 +60,76 @@ static NSString *applicationDocumentsDirectory = nil;
   window.rootViewController = navigationController;
   [window addSubview:navigationController.view];
   [window makeKeyAndVisible];
+  [self performSelector:@selector(setUpLocalNotifications) withObject:nil afterDelay:0.0f];
 
   return canLaunchApplication;
+}
+
+- (UILocalNotification *)weeklyLocalNotification {
+  
+}
+
+- (void)setUpLocalNotifications {
+  NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+
+  NSDate *now = [NSDate date];
+  NSDateComponents *nowComponents = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit)
+                                                fromDate:now];
+
+  NSDateComponents *nextWeekdayComponents = [[NSDateComponents alloc] init];
+  nextWeekdayComponents.year = nowComponents.year;
+  nextWeekdayComponents.month = nowComponents.month;
+  nextWeekdayComponents.weekdayOrdinal = 0;
+
+  UILocalNotification *monday = [[UILocalNotification alloc] init];
+  monday.fireDate = [NSDate ];
+
+
+
+
+  // Get the current date
+  NSDate *pickerDate = [self.datePicker date];
+
+  // Break the date up into components
+  NSDateComponents *dateComponents = [calendar components:( NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit )
+                                                 fromDate:pickerDate];
+  NSDateComponents *timeComponents = [calendar components:( NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit )
+                                                 fromDate:pickerDate];
+  // Set up the fire time
+  [dateComps setDay:[dateComponents day]];
+  [dateComps setMonth:[dateComponents month]];
+  [dateComps setYear:[dateComponents year]];
+  [dateComps setHour:[timeComponents hour]];
+	// Notification will fire in one minute
+  [dateComps setMinute:[timeComponents minute]];
+	[dateComps setSecond:[timeComponents second]];
+  NSDate *itemDate = [calendar dateFromComponents:dateComps];
+  [dateComps release];
+
+  UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+  if (localNotif == nil)
+    return;
+  localNotif.fireDate = itemDate;
+  localNotif.timeZone = [NSTimeZone defaultTimeZone];
+
+	// Notification details
+  localNotif.alertBody = [eventText text];
+	// Set the action button
+  localNotif.alertAction = @"View";
+
+  localNotif.soundName = UILocalNotificationDefaultSoundName;
+  localNotif.applicationIconBadgeNumber = 1;
+
+	// Specify custom data for the notification
+  NSDictionary *infoDict = [NSDictionary dictionaryWithObject:@"someValue" forKey:@"someKey"];
+  localNotif.userInfo = infoDict;
+
+	// Schedule the notification
+  [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+  [localNotif release];
+
+	[self.tableview reloadData];
+}
 }
 
 
