@@ -1,7 +1,0 @@
-v2.1 (in progress)
-------------------
-* Changelog started.
-* "View on xkcd.com" now opens in-app.
-* Some code cleanup.
-* Reduced touch-and-hold time from 1s to 0.5s.
-* Added download-all and delete-all functionality.

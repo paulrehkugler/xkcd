@@ -112,7 +112,6 @@
 		032FA24F159294B900C39198 /* faq.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = faq.plist; sourceTree = "<group>"; };
 		034042DB1056B4F6004B4909 /* xkcd-distro-info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; fileEncoding = 4; path = "xkcd-distro-info.plist"; sourceTree = "<group>"; };
 		034E0E9A10A9ED8F0021D494 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		034E0E9C10A9ED960021D494 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		034E0E9E10A9EDA00021D494 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		0372FF7B10447552004CD031 /* ComicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicListViewController.h; sourceTree = "<group>"; };
 		0372FF7C10447552004CD031 /* ComicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComicListViewController.m; sourceTree = "<group>"; };
@@ -145,7 +144,6 @@
 		03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSString_HTML.m; sourceTree = "<group>"; };
 		03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		03E905D910AA366D00D74902 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		03E9062B10AA3C0100D74902 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
 		03F10D35104D6DDE0045AEFC /* Comic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comic.h; sourceTree = "<group>"; };
 		03F10D36104D6DDE0045AEFC /* Comic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comic.m; sourceTree = "<group>"; };
 		03F10DAF104D77030045AEFC /* NewComicFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewComicFetcher.h; sourceTree = "<group>"; };
@@ -244,9 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				034E0E9A10A9ED8F0021D494 /* LICENSE */,
-				034E0E9C10A9ED960021D494 /* TODO */,
 				034E0E9E10A9EDA00021D494 /* README.md */,
-				03E9062B10AA3C0100D74902 /* CHANGELOG */,
 			);
 			name = Meta;
 			sourceTree = "<group>";
