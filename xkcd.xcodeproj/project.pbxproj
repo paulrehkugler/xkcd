@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = 031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */; };
 		031FE8F2159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = 031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */; };
-		032AF35E1131EC390074C04C /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 032AF35D1131EC390074C04C /* blueArrow.png */; };
 		032FA24D1592928D00C39198 /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032FA24B1592928D00C39198 /* FAQViewController.m */; };
 		032FA24E1592928D00C39198 /* FAQViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 032FA24C1592928D00C39198 /* FAQViewController.xib */; };
 		032FA250159294B900C39198 /* faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = 032FA24F159294B900C39198 /* faq.plist */; };
@@ -107,7 +106,6 @@
 /* Begin PBXFileReference section */
 		031FE8EF159536C3008E92DF /* NSDictionary+TypeSafety.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+TypeSafety.h"; sourceTree = "<group>"; };
 		031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+TypeSafety.m"; sourceTree = "<group>"; };
-		032AF35D1131EC390074C04C /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		032FA24A1592928D00C39198 /* FAQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAQViewController.h; sourceTree = "<group>"; };
 		032FA24B1592928D00C39198 /* FAQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAQViewController.m; sourceTree = "<group>"; };
 		032FA24C1592928D00C39198 /* FAQViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FAQViewController.xib; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 		03DA9D771097B4D7005A34B2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				032AF35D1131EC390074C04C /* blueArrow.png */,
 				03F40E7D122AC9ED00A35F44 /* glyphish_download.png */,
 				03F40E7C122AC9ED00A35F44 /* glyphish_download@2x.png */,
 			);
@@ -596,7 +593,6 @@
 				0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */,
 				039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */,
 				03E905DA10AA366D00D74902 /* Default.png in Resources */,
-				032AF35E1131EC390074C04C /* blueArrow.png in Resources */,
 				03F40E44122AA58600A35F44 /* iTunesArtwork in Resources */,
 				03F40E4B122AA87800A35F44 /* xkcd29.png in Resources */,
 				03F40E4D122AA87800A35F44 /* xkcd58.png in Resources */,
