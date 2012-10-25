@@ -17,7 +17,6 @@
 #define kAttributeImageURL @"imageURL"
 #define kAttributeLoading @"loading"
 #define kAttributeName @"name"
-#define kAttributeDownloaded @"downloaded"
 #define kAttributeTitleText @"titleText"
 
 #pragma mark -
@@ -29,9 +28,8 @@ static NSMutableSet *downloadedImages = nil;
 
 @interface Comic ()
 
-- (NSString *)imagePath;
-
-- (NSString *)imageFilename;
+@property(nonatomic, strong, readonly) NSString *imagePath;
+@property(nonatomic, strong, readonly) NSString *imageFilename;
 
 @end
 
@@ -121,21 +119,18 @@ static NSMutableSet *downloadedImages = nil;
   return allComics;
 }
 
-+ (NSArray *)comicsWithImages {
-  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  request.entity = comicEntityDescription;
-  request.predicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", @YES];
-  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES]];
-  
-  NSError *error = nil;
-  NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
-  return comics;
-}
-
 + (NSArray *)comicsWithoutImages {
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
   request.entity = comicEntityDescription;
-  request.predicate = [NSPredicate predicateWithFormat:kAttributeDownloaded @" = %@", @NO];
+
+  // This is pretty lame, but for now, it gets the job down. Someday, fix this ugly hack.
+  NSMutableSet *downloadedImageNumbers = [NSMutableSet setWithCapacity:downloadedImages.count];
+  for(NSString *downloadedImageFilename in downloadedImages) {
+    NSNumber *downloadedImageNumber = @([downloadedImageFilename integerValue]);
+    [downloadedImageNumbers addObject:downloadedImageNumber];
+  }
+  
+  request.predicate = [NSPredicate predicateWithFormat:@"NOT (" kAttributeNumber " IN %@)", downloadedImageNumbers];
   request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES]];
   
   NSError *error = nil;
@@ -144,14 +139,7 @@ static NSMutableSet *downloadedImages = nil;
 }
 
 - (void)deleteImage {
-  NSError *deleteError = nil;
-  [[NSFileManager defaultManager] removeItemAtPath:self.imagePath error:&deleteError];
-  if(!deleteError) {
-    [downloadedImages removeObject:self.imageFilename];
-  }
-  if(deleteError && ([deleteError code] != NSFileNoSuchFileError)) {
-    NSLog(@"Delete fail %@: %@", deleteError, deleteError.userInfo);
-  }
+  [[self class] deleteDownloadedImage:self.imageFilename];
 }
 
 + (void)deleteAllComics {
@@ -187,11 +175,32 @@ static NSMutableSet *downloadedImages = nil;
   return [NSString stringWithFormat:@"http://xkcd.com/%i", [self.number integerValue]];
 }
 
++ (NSSet *)downloadedImages {
+  return [downloadedImages copy];
+}
+
++ (void)deleteDownloadedImage:(NSString *)imageFilename {
+  NSString *imagePath = [self imagePathForImageFilename:imageFilename];
+  NSLog(@"Deleting %@ (at %@)", imageFilename, imagePath);
+  NSError *deleteError = nil;
+  [[NSFileManager defaultManager] removeItemAtPath:imagePath error:&deleteError];
+  if(!deleteError) {
+    [downloadedImages removeObject:imageFilename];
+  }
+  if(deleteError && ([deleteError code] != NSFileNoSuchFileError)) {
+    NSLog(@"Delete fail %@: %@", deleteError, deleteError.userInfo);
+  }
+}
+
++ (NSString *)imagePathForImageFilename:(NSString *)imageFilename {
+  return [AppDelegate.applicationDocumentsDirectory stringByAppendingPathComponent:imageFilename];
+}
+
 #pragma mark -
 #pragma mark Properties
 
 - (NSString *)imagePath {
-  return [AppDelegate.applicationDocumentsDirectory stringByAppendingPathComponent:self.imageFilename];
+  return [[self class] imagePathForImageFilename:self.imageFilename];
 }
 
 - (UIImage *)image {

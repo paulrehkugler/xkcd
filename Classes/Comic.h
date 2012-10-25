@@ -17,7 +17,6 @@
 
 + (void)deleteAllComics; // for total recreation from scratch
 + (NSArray *)allComics; // use sparingly!!
-+ (NSArray *)comicsWithImages;
 + (NSArray *)comicsWithoutImages;
 
 + (Comic *)lastKnownComic; // highest numbered comic that has been fetched
@@ -30,6 +29,9 @@
 - (void)deleteImage;
 - (NSString *)websiteURL;
 + (void)synchronizeDownloadedImages;
++ (NSSet *)downloadedImages;
++ (void)deleteDownloadedImage:(NSString *)downloadedImage; // strings drawn from +downloadedImages
++ (NSString *)imagePathForImageFilename:(NSString *)imageFilename;
 
 @property(nonatomic, strong, readonly) UIImage *image;
 @property(nonatomic, strong, readwrite) NSNumber *loading;

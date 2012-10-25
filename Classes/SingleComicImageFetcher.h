@@ -19,6 +19,7 @@
 - (void)fetchImageForComic:(Comic *)comic context:(id)context;
 - (void)fetchImagesForAllComics;
 - (BOOL)downloadingAll;
+- (void)cancelDownloadAll;
 
 @property(nonatomic, weak, readwrite) id<SingleComicImageFetcherDelegate> delegate;
 

@@ -20,21 +20,9 @@
   UISearchBarDelegate,
   UISearchDisplayDelegate,
   SingleComicImageFetcherDelegate,
-  UIActionSheetDelegate,
   MFMailComposeViewControllerDelegate,
   UIScrollViewDelegate
-> {
-@private
-  NSFetchedResultsController *fetchedResultsController;
-  NSFetchedResultsController *searchFetchedResultsController;
-  NewComicFetcher *fetcher;
-  SingleComicImageFetcher *imageFetcher;
-  UISearchDisplayController *searchController;
-
-  NSInteger requestedLaunchComic;
-
-  TLModalActivityIndicatorView *modalSpinner;
-}
+>
 
 @property(nonatomic, assign, readwrite) NSInteger requestedLaunchComic;
 
