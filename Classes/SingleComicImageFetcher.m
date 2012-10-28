@@ -88,6 +88,11 @@
   return (self.comicsRemainingDuringDownloadAll != nil);
 }
 
+- (void)cancelDownloadAll {
+  self.comicsRemainingDuringDownloadAll = nil;
+  self.keepInMemory = nil;
+}
+
 - (void)didCompleteFetchOperation:(FetchComicImageFromWeb *)fetchOperation {
   Comic *comic = [Comic comicNumbered:fetchOperation.comicNumber];
   comic.loading = @NO;

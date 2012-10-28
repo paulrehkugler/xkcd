@@ -63,7 +63,6 @@ static UIImage *downloadImage = nil;
 @property(nonatomic, strong, readwrite) NSFetchedResultsController *fetchedResultsController;
 @property(nonatomic, strong, readwrite) NSFetchedResultsController *searchFetchedResultsController;
 @property(nonatomic, strong, readwrite) UISearchDisplayController *searchController;
-@property(nonatomic, strong, readwrite) TLModalActivityIndicatorView *modalSpinner;
 
 @end
 
@@ -77,7 +76,6 @@ static UIImage *downloadImage = nil;
 @synthesize searchFetchedResultsController;
 @synthesize searchController;
 @synthesize requestedLaunchComic;
-@synthesize modalSpinner;
 
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
@@ -321,13 +319,16 @@ static UIImage *downloadImage = nil;
                                                                 style:UIBarButtonItemStyleBordered
                                                                target:self
                                                                action:@selector(deleteAll:)];
+  UIBarButtonItem *cancelDownloadAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel download all", @"Button")
+                                                                style:UIBarButtonItemStyleBordered
+                                                               target:self
+                                                               action:@selector(cancelDownloadAll:)];
+  NSArray *toolbarItems = nil;
   if([self.imageFetcher downloadingAll]) {
-    downloadAll.enabled = NO;
-    deleteAll.enabled = NO;
+    toolbarItems = @[[UIBarButtonItem flexibleSpaceBarButtonItem], cancelDownloadAll];
+  } else {
+    toolbarItems = @[deleteAll, [UIBarButtonItem flexibleSpaceBarButtonItem], downloadAll];
   }
-  NSArray *toolbarItems = @[deleteAll,
-                           [UIBarButtonItem flexibleSpaceBarButtonItem],
-                           downloadAll];
   [self setToolbarItems:toolbarItems animated:YES];
   self.navigationItem.leftBarButtonItem.enabled = NO;
 }
@@ -355,7 +356,13 @@ static UIImage *downloadImage = nil;
   [sheet addCancelButton];
   [sheet showFromToolbar:self.navigationController.toolbar];
 }
-   
+
+- (void)cancelDownloadAll:(UIBarButtonItem *)sender {
+  [self.imageFetcher cancelDownloadAll];
+  [self doneEditing:nil];
+  [self reloadAllData];
+}
+
 - (void)deleteAll:(UIBarButtonItem *)sender {
   LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
   [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
@@ -613,28 +620,29 @@ static UIImage *downloadImage = nil;
 
 - (void)deleteAllComicImages {
   [self doneEditing:nil];
-  NSArray *comicsWithImages = [Comic comicsWithImages];
-  self.modalSpinner = [[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Deleting...", @"Modal spinner text")];
-  [self.modalSpinner show];
-  [self performSelectorInBackground:@selector(deleteAllComicImagesBlocking:) withObject:comicsWithImages];
-}
 
-- (void)deleteAllComicImagesBlocking:(NSArray *)comicsWithImages {
-  @autoreleasepool {
-    for(Comic *comic in comicsWithImages) {
-      [comic performSelectorOnMainThread:@selector(deleteImage)
-                              withObject:nil
-                           waitUntilDone:YES]; // wait until done to avoid flooding
+  TLModalActivityIndicatorView *modalSpinner = [[TLModalActivityIndicatorView alloc] initWithText:NSLocalizedString(@"Deleting...", @"Modal spinner text")];
+  [modalSpinner show];
+
+  NSSet *downloadedImages = [Comic downloadedImages];
+
+  dispatch_queue_t deletionQueue = dispatch_queue_create("com.treelinelabs.xkcd.delete_images", NULL);
+  dispatch_async(deletionQueue, ^{
+    // delete each comic, one by one
+    for(NSString *downloadedImage in downloadedImages) {
+      // for each one, yield to the main thread, to keep the ui responsive (don't flood)
+      dispatch_sync(dispatch_get_main_queue(), ^{
+        [Comic deleteDownloadedImage:downloadedImage];
+      });
     }
-    [self performSelectorOnMainThread:@selector(didFinishDeletingImages)
-                           withObject:nil
-                        waitUntilDone:NO];
-  }
-}
 
-- (void)didFinishDeletingImages {
-  [self.modalSpinner dismiss];
-  self.modalSpinner = nil;
+    // done doing work
+    dispatch_async(dispatch_get_main_queue(), ^{
+      // reflect the deletions in the UI
+      [self reloadAllData];
+      [modalSpinner dismiss];
+    });
+  });
 }
    
 #pragma mark -
