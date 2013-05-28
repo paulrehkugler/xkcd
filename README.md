@@ -15,4 +15,5 @@ also not as bad as it could be!
 Contact
 =======
 
-If you have questions, want to contribute, etc., you can reach me for this project at `xkcdapp@treelinelabs.com`
+The best way to discuss, contribute, etc. is via GitHub Issues and Pull Requests. But if you want to reach me
+about this project, I am available at `xkcdapp@treelinelabs.com`.
