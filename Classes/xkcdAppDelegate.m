@@ -11,6 +11,7 @@
 #import "NSString_HTML.h"
 #import "TLMacros.h"
 #import "Comic.h"
+#import "TLNavigationController.h"
 
 #define kUserDefaultsRotateKey @"rotate"
 #define kUserDefaultsOpenZoomedOutKey @"zoomed_out"
@@ -44,7 +45,7 @@ static NSString *applicationDocumentsDirectory = nil;
   BOOL canLaunchApplication = YES;
   if(launchOptions) {
     NSURL *launchURL = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
-    if([launchURL scheme] != @"xkcd") {
+    if(![[launchURL scheme] isEqual: @"xkcd"]) {
       canLaunchApplication = NO;
     }
     NSInteger launchedComic = [[launchURL host] integerValue];
@@ -53,10 +54,10 @@ static NSString *applicationDocumentsDirectory = nil;
     }
   }
   
-  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:listViewController];
+  TLNavigationController *navigationController = [[TLNavigationController alloc] initWithRootViewController:listViewController];
   navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
   navigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
-
+    
   window.rootViewController = navigationController;
   [window addSubview:navigationController.view];
   [window makeKeyAndVisible];
