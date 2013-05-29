@@ -8,16 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FetchComicImageFromWeb : NSOperation {
-@private
-  NSInteger comicNumber;
-  NSURL *comicImageURL;
-  NSData *comicImageData;
-  id __weak target;
-  SEL action;
-  NSError *error;
-  id context;
-}
+@interface FetchComicImageFromWeb : NSOperation
 
 - (id)initWithComicNumber:(NSInteger)number
                  imageURL:(NSURL *)imageURL

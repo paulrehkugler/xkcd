@@ -13,15 +13,7 @@
 
 @class ComicListViewController;
 
-@interface xkcdAppDelegate : NSObject<UIApplicationDelegate> {
-  NSManagedObjectModel *managedObjectModel;
-  NSManagedObjectContext *managedObjectContext;	    
-  NSPersistentStoreCoordinator *persistentStoreCoordinator;
-  
-  NSUserDefaults *userDefaults;
-  
-  UIWindow *window;
-}
+@interface xkcdAppDelegate : NSObject<UIApplicationDelegate>
 
 - (void)save;
 

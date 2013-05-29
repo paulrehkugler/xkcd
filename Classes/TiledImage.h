@@ -6,15 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TiledImage : NSObject {
-@private
-  NSUInteger widthCount;
-  NSUInteger heightCount;
-  NSUInteger tileWidth;
-  NSUInteger tileHeight;
-  UIImage *sourceImage;
-  NSMutableArray *tiles;
-}
+@interface TiledImage : NSObject
 
 - (id)initWithImage:(UIImage *)imageToTile tileWidth:(NSUInteger)width tileHeight:(NSUInteger)height;
 - (UIImage *)imageAtXIndex:(NSUInteger)xIndex YIndex:(NSUInteger)yIndex;

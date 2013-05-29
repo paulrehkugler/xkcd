@@ -8,14 +8,10 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface TLModalActivityIndicatorView : UIView {
-@private
-  UIActivityIndicatorView *spinner;
-}
+@interface TLModalActivityIndicatorView : UIView
 
 - (id)initWithText:(NSString *)text;
 - (void)show;
 - (void)dismiss;
-
 
 @end

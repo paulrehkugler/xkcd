@@ -28,6 +28,10 @@ static NSString *applicationDocumentsDirectory = nil;
 
 @property(nonatomic, strong, readonly) NSUserDefaults *userDefaults;
 
+@property(nonatomic, strong, readwrite) NSManagedObjectModel *managedObjectModel;
+@property(nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
+@property(nonatomic, strong, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
 @end
 
 #pragma mark -
@@ -35,6 +39,10 @@ static NSString *applicationDocumentsDirectory = nil;
 @implementation xkcdAppDelegate
 
 @synthesize window;
+@synthesize userDefaults;
+@synthesize managedObjectModel;
+@synthesize managedObjectContext;
+@synthesize persistentStoreCoordinator;
 
 #pragma mark -
 #pragma mark Application lifecycle

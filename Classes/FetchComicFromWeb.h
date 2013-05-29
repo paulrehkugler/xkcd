@@ -8,18 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FetchComicFromWeb : NSOperation {
-@private
-  NSInteger comicNumber;
-  NSString *comicName;
-  NSString *comicTitleText;
-  NSString *comicImageURL;
-  NSString *comicTranscript;
-  id __weak target;
-  SEL action;
-  NSError *error;
-  BOOL got404;
-}
+@interface FetchComicFromWeb : NSOperation
 
 - (id)initWithComicNumber:(NSInteger)comicNumberToFetch completionTarget:(id)completionTarget action:(SEL)completionAction;
 

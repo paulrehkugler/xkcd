@@ -6,9 +6,13 @@
 
 @interface FAQViewController ()
 
+@property (nonatomic, readwrite) IBOutlet UITextView *textView;
+
 @end
 
 @implementation FAQViewController
+
+@synthesize textView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

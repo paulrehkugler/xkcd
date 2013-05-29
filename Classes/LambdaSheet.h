@@ -4,8 +4,6 @@
 
 @interface LambdaSheet : NSObject
 
-@property(copy) dispatch_block_t dismissAction;
-
 - (id)initWithTitle:(NSString *)title;
 
 - (void)addButtonWithTitle:(NSString *)title block:(dispatch_block_t)block;
@@ -21,5 +19,7 @@
 - (void)showFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated;
 
 - (void)dismissAnimated:(BOOL)animated;
+
+@property(copy) dispatch_block_t dismissAction;
 
 @end

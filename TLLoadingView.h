@@ -14,11 +14,7 @@
 // change label, spinner, view properties as desired; they default to (somewhat) reasonable values
 // call -setNeedsLayout after changing values to get everything re-aligned perfectly
 
-@interface TLLoadingView : UIView {
-@private
-  UILabel *label;
-  UIActivityIndicatorView *spinner;
-}
+@interface TLLoadingView : UIView
 
 @property(nonatomic, strong, readonly) UILabel *label;
 @property(nonatomic, strong, readonly) UIActivityIndicatorView *spinner;

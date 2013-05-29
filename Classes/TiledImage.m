@@ -8,9 +8,20 @@
 
 #define TILE_INDEX(xIndex, yIndex) (xIndex + yIndex * widthCount);
 
+@interface TiledImage( )
+
+@property (nonatomic, assign, readwrite) NSUInteger widthCount;
+@property (nonatomic, assign, readwrite) NSUInteger heightCount;
+@property (nonatomic, assign, readwrite) NSUInteger tileWidth;
+@property (nonatomic, assign, readwrite) NSUInteger tileHeight;
+@property (nonatomic, assign, readwrite) UIImage *sourceImage;
+@property (nonatomic, strong, readwrite) NSMutableArray *tiles;
+
+@end
+
 @implementation TiledImage
 
-@synthesize widthCount, heightCount, tileWidth, tileHeight;
+@synthesize widthCount, heightCount, tileWidth, tileHeight, sourceImage, tiles;
 
 - (id)initWithImage:(UIImage *)imageToTile tileWidth:(NSUInteger)width tileHeight:(NSUInteger)height {
   if(self = [super init]) {
