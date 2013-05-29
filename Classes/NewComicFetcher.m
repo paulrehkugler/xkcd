@@ -93,7 +93,7 @@
     // Got a comic -- store it and keep going
     [self.comicsToInsert addObject:fetchOperation];
     [self fetchComic:(fetchOperation.comicNumber + 1)];
-    if(fetchOperation.comicNumber % 25 == 0) {
+    if(fetchOperation.comicNumber % kInsertChunkSize == 0) {
       [self insertComics];
     }
   } else {
