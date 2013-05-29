@@ -176,12 +176,6 @@ static UIImage *downloadImage = nil;
   [self reloadAllData]; // TODO: Is this necessary?
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
-  return [AppDelegate rotate] ? (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown)
-                              : (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (void)dealloc {
   fetcher.delegate = nil;
   
