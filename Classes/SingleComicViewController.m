@@ -190,12 +190,6 @@
   [self.view addSubview:self.loadingView];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
-  return [AppDelegate rotate] ? (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown)
-  : (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (void)toggleToolbarsAnimated:(BOOL)animated {
   BOOL toolbarIsHidden = self.navigationController.toolbarHidden;
   [self.navigationController setToolbarHidden:!toolbarIsHidden animated:animated];
