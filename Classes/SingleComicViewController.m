@@ -121,7 +121,7 @@
 - (void)displayComicImage {
   // Load up the comic image/view
   UIImage *comicImage = self.comic.image;
-  CGSize contentSize = comicImage.size;
+  CGSize contentSize = comicImage.exifAgnosticSize;
   TiledImage *tiles = [[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight];
   self.contentView = [[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)];
   self.comicImageViews = [NSMutableArray arrayWithCapacity:(tiles.widthCount * tiles.heightCount)];

@@ -5,7 +5,7 @@
 //
 
 #import "TiledImage.h"
-
+#import "UIImage+EXIFCompensation.h"
 #define TILE_INDEX(xIndex, yIndex) (xIndex + yIndex * widthCount);
 
 @interface TiledImage( )
@@ -27,7 +27,7 @@
   if(self = [super init]) {
     tileWidth = width;
     tileHeight = height;
-    CGSize imageSize = imageToTile.size;
+    CGSize imageSize = imageToTile.exifAgnosticSize;
     NSUInteger imageWidth = round(imageSize.width);
     NSUInteger imageHeight = round(imageSize.height);
     widthCount = imageWidth / tileWidth + (imageWidth % tileWidth == 0 ? 0 : 1);

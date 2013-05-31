@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIImage+EXIFCompensation.h"
 
 #define kMinComicNumber 1
 
