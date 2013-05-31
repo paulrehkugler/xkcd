@@ -12,6 +12,7 @@
 #import "TLMacros.h"
 #import "Comic.h"
 #import "TLNavigationController.h"
+#import "NotificationGenerator.h"
 
 #define kUserDefaultsRotateKey @"rotate"
 #define kUserDefaultsOpenZoomedOutKey @"zoomed_out"
@@ -70,6 +71,9 @@ static NSString *applicationDocumentsDirectory = nil;
   [window addSubview:navigationController.view];
   [window makeKeyAndVisible];
 
+  // let's make some notifications
+  [NotificationGenerator generateNotifications];
+  
   return canLaunchApplication;
 }
 
