@@ -17,6 +17,7 @@
 #import "OpenInSafariActivity.h"
 #import "OpenInChromeActivity.h"
 #import "UIAlertView_TLCommon.h"
+#import "UIScrollView+Helper.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -257,13 +258,12 @@
   CGFloat newZoomScale = 1.0f;
   if(self.imageScroller.zoomScale == self.imageScroller.minimumZoomScale) {
     newZoomScale = (self.imageScroller.minimumZoomScale * 2) > self.imageScroller.maximumZoomScale ? self.imageScroller.maximumZoomScale : (self.imageScroller.minimumZoomScale * 2);
+    // zoom towards the user's double tap
+    [self.imageScroller setZoomScale:newZoomScale animated:YES centerOnPoint:[recognizer locationInView:self.imageScroller]];
   } else {
     newZoomScale = self.imageScroller.minimumZoomScale;
+    [self.imageScroller setZoomScale:newZoomScale animated:YES];
   }
-  [self.imageScroller setZoomScale:newZoomScale animated:YES];
-  
-  // TODO: zoom towards the user's double tap
-  // necessary steps: construct a screen-sized rect centered on [recognizer locationInView:self.imageScroller] and scrollRectToVisible
   
 }
 
