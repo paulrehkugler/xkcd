@@ -256,11 +256,15 @@
 - (void)didDetectDoubleTap:(UITapGestureRecognizer *)recognizer {
   CGFloat newZoomScale = 1.0f;
   if(self.imageScroller.zoomScale == self.imageScroller.minimumZoomScale) {
-    newZoomScale = 1.0f;
+    newZoomScale = (self.imageScroller.minimumZoomScale * 2) > self.imageScroller.maximumZoomScale ? self.imageScroller.maximumZoomScale : (self.imageScroller.minimumZoomScale * 2);
   } else {
     newZoomScale = self.imageScroller.minimumZoomScale;
   }
   [self.imageScroller setZoomScale:newZoomScale animated:YES];
+  
+  // TODO: zoom towards the user's double tap
+  // necessary steps: construct a screen-sized rect centered on [recognizer locationInView:self.imageScroller] and scrollRectToVisible
+  
 }
 
 - (void)didDetectSingleTap:(UITapGestureRecognizer *)recognizer {
