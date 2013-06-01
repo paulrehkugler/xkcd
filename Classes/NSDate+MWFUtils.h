@@ -10,8 +10,6 @@
 
 @interface NSDate (MWFUtils)
 
-+ (NSDate *) now;
-
 @property (readonly) NSDate *nextMondayWednesdayOrFriday;
 
 @end

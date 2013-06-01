@@ -19,8 +19,9 @@
   
   UILocalNotification *localNotif = [[UILocalNotification alloc] init];
 
-  localNotif.fireDate = ((NSDate *)[NSDate now]).nextMondayWednesdayOrFriday;
+  localNotif.fireDate = ((NSDate *)[NSDate date]).nextMondayWednesdayOrFriday;
 
+  NSLog(@"%@", localNotif.fireDate);
   // Notification details
   localNotif.alertBody = @"A new xkcd comic is available.";
   localNotif.alertAction = @"View";
