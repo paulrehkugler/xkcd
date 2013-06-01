@@ -27,7 +27,6 @@
 
   localNotif.fireDate = ((NSDate *)[NSDate date]).nextMondayWednesdayOrFriday;
 
-  NSLog(@"%@", localNotif.fireDate);
   // Notification details
   localNotif.alertBody = @"A new comic is available.";
   localNotif.alertAction = @"View";
