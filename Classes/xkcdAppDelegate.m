@@ -71,8 +71,11 @@ static NSString *applicationDocumentsDirectory = nil;
   [window addSubview:navigationController.view];
   [window makeKeyAndVisible];
 
+  // clear the app badge
+  [NotificationGenerator clearAppBadge];
+  
   // let's make some notifications
-  [NotificationGenerator generateNotifications];
+  [NotificationGenerator generateNextNotification];
   
   return canLaunchApplication;
 }

@@ -7,32 +7,31 @@
 //
 
 #import "NotificationGenerator.h"
+#import "NSDate+MWFUtils.h"
 
 @implementation NotificationGenerator
 
-+ (void) generateNotifications {
-  // TODO: notification stuff
-  //  UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-  //
-  //  localNotif.fireDate = itemDate;
-  //  localNotif.timeZone = [NSTimeZone defaultTimeZone];
-  //
-  //	// Notification details
-  //  localNotif.alertBody = [eventText text];
-  //	// Set the action button
-  //  localNotif.alertAction = @"View";
-  //
-  //  localNotif.soundName = UILocalNotificationDefaultSoundName;
-  //  localNotif.applicationIconBadgeNumber = 1;
-  //
-  //	// Specify custom data for the notification
-  //  NSDictionary *infoDict = [NSDictionary dictionaryWithObject:@"someValue" forKey:@"someKey"];
-  //  localNotif.userInfo = infoDict;
-  //
-  //	// Schedule the notification
-  //  [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-  //  
-  //
++ (void) clearAppBadge
+{
+  // TODO: figure out how to do this
+}
+
++ (void) generateNextNotification {
+  
+  UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+
+  localNotif.fireDate = ((NSDate *)[NSDate now]).nextMondayWednesdayOrFriday;
+
+  // Notification details
+  localNotif.alertBody = @"A new xkcd comic is available.";
+  localNotif.alertAction = @"View";
+  
+  localNotif.soundName = UILocalNotificationDefaultSoundName;
+  localNotif.applicationIconBadgeNumber = 1;
+
+  // Schedule the notification
+  [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+  
 }
 
 @end

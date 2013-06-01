@@ -86,6 +86,7 @@
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
 		51C575CF175959D900C8B98D /* NotificationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575CE175959D900C8B98D /* NotificationGenerator.m */; };
 		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
+		51C575D517596F7D00C8B98D /* NSDate+MWFUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D417596F7D00C8B98D /* NSDate+MWFUtils.m */; };
 		B5C7A60F161A6763003C0FC0 /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C7A60B161A6763003C0FC0 /* down@2x.png */; };
 		B5C7A610161A6763003C0FC0 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C7A60C161A6763003C0FC0 /* up.png */; };
 		B5C7A611161A6763003C0FC0 /* up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C7A60D161A6763003C0FC0 /* up@2x.png */; };
@@ -208,6 +209,8 @@
 		51C575CE175959D900C8B98D /* NotificationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationGenerator.m; sourceTree = "<group>"; };
 		51C575D01759610700C8B98D /* UIImage+EXIFCompensation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EXIFCompensation.h"; sourceTree = "<group>"; };
 		51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EXIFCompensation.m"; sourceTree = "<group>"; };
+		51C575D317596F7D00C8B98D /* NSDate+MWFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+MWFUtils.h"; sourceTree = "<group>"; };
+		51C575D417596F7D00C8B98D /* NSDate+MWFUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+MWFUtils.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* xkcd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-Info.plist"; sourceTree = "<group>"; };
 		B5C55A76161E740400B0A2D9 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		B5C7A60B161A6763003C0FC0 /* down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down@2x.png"; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 				031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */,
 				51C575D01759610700C8B98D /* UIImage+EXIFCompensation.h */,
 				51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */,
+				51C575D317596F7D00C8B98D /* NSDate+MWFUtils.h */,
+				51C575D417596F7D00C8B98D /* NSDate+MWFUtils.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -704,6 +709,7 @@
 				5136AE8C175463A100742406 /* TLNavigationController.m in Sources */,
 				51C575CF175959D900C8B98D /* NotificationGenerator.m in Sources */,
 				51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */,
+				51C575D517596F7D00C8B98D /* NSDate+MWFUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

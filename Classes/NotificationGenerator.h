@@ -10,6 +10,7 @@
 
 @interface NotificationGenerator : NSObject
 
-+ (void) generateNotifications;
++ (void) generateNextNotification;
++ (void) clearAppBadge;
 
 @end
