@@ -9,6 +9,12 @@
 #import "NotificationGenerator.h"
 #import "NSDate+MWFUtils.h"
 
+@interface NotificationGenerator(private)
+
++ (BOOL) scheduledLocalNotificationsContainNotification:(UILocalNotification *)aLocalNotif;
+
+@end
+
 @implementation NotificationGenerator
 
 + (void) clearAppBadge {
@@ -16,6 +22,8 @@
 }
 
 + (void) generateNextNotification {
+  
+  // TODO: research whether these notifications will keep piling up
   
   UILocalNotification *localNotif = [[UILocalNotification alloc] init];
 
@@ -29,9 +37,15 @@
   localNotif.soundName = UILocalNotificationDefaultSoundName;
   localNotif.applicationIconBadgeNumber = 1;
 
-  // Schedule the notification
-  [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-  
+  if (![NotificationGenerator scheduledLocalNotificationsContainNotification:localNotif])
+  {
+    // Schedule the notification
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+  }
+}
+
++ (BOOL) scheduledLocalNotificationsContainNotification:(UILocalNotification *)aLocalNotif {
+  return [[[UIApplication sharedApplication] scheduledLocalNotifications] containsObject:aLocalNotif];
 }
 
 @end
