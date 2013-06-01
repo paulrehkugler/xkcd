@@ -71,13 +71,6 @@ static UIImage *downloadImage = nil;
 
 @implementation ComicListViewController
 
-@synthesize fetcher;
-@synthesize imageFetcher;
-@synthesize fetchedResultsController;
-@synthesize searchFetchedResultsController;
-@synthesize searchController;
-@synthesize requestedLaunchComic;
-
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
     if(!downloadImage) {
@@ -178,14 +171,14 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)dealloc {
-  fetcher.delegate = nil;
+  self.fetcher.delegate = nil;
   
-  imageFetcher.delegate = nil;
+  self.imageFetcher.delegate = nil;
   
-  searchController.searchBar.delegate = nil;
-  searchController.delegate = nil;
-  searchController.searchResultsDataSource = nil;
-  searchController.searchResultsDelegate = nil;
+  self.searchController.searchBar.delegate = nil;
+  self.searchController.delegate = nil;
+  self.searchController.searchResultsDataSource = nil;
+  self.searchController.searchResultsDelegate = nil;
 }
 
 - (void)scrollToComicAtIndexPath:(NSIndexPath *)indexPath {
@@ -373,7 +366,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller {
-  return [controller isEqual:searchFetchedResultsController] ? self.searchController.searchResultsTableView : self.tableView;
+  return [controller isEqual:self.searchFetchedResultsController] ? self.searchController.searchResultsTableView : self.tableView;
 }
 
 

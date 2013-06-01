@@ -32,11 +32,6 @@
 
 @implementation SingleComicImageFetcher
 
-@synthesize fetchQueue;
-@synthesize delegate;
-@synthesize comicsRemainingDuringDownloadAll;
-@synthesize keepInMemory;
-
 - (id)init {
   if(self = [super init]) {
     self.fetchQueue = [[NSOperationQueue alloc] init];
@@ -54,7 +49,7 @@
                                                                                           context:context];
     comic.loading = @YES;
     self.keepInMemory = self;
-    [fetchQueue addOperation:fetchOperation];
+    [self.fetchQueue addOperation:fetchOperation];
   } else {
     [self didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
                                                code:kXkcdErrorCodeBlankImageURL
@@ -136,10 +131,10 @@
 }
 
 - (void)dealloc {
-  [fetchQueue cancelAllOperations];
+  [self.fetchQueue cancelAllOperations];
   
 
-  keepInMemory = nil;
+  self.keepInMemory = nil;
   
 }
 

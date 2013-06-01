@@ -12,8 +12,6 @@
 
 @implementation FAQViewController
 
-@synthesize textView;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
@@ -55,7 +53,7 @@
     [display appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
   }
 
-  textView.attributedText = display;
+  self.textView.attributedText = display;
 }
 
 - (void)done {

@@ -12,12 +12,7 @@ static NSArray *characterEntityArray = nil;
 
 #pragma mark -
 
-@interface HTMLStringCleaner : NSObject<NSXMLParserDelegate> {
-@private
-  NSString *snippet;
-  NSMutableString *resultAccumulator;
-  BOOL parseErrorEncountered;
-}
+@interface HTMLStringCleaner : NSObject<NSXMLParserDelegate>
 
 + (NSString *)cleanedStringFromHTMLSnippet:(NSString *)HTMLSnippet;
 
@@ -40,10 +35,6 @@ static NSArray *characterEntityArray = nil;
 #pragma mark -
 
 @implementation HTMLStringCleaner
-
-@synthesize snippet;
-@synthesize resultAccumulator;
-@synthesize parseErrorEncountered;
 
 + (NSString *)cleanedStringFromHTMLSnippet:(NSString *)HTMLSnippet {
   HTMLStringCleaner *cleaner = [[self alloc] initWithHTMLSnippet:HTMLSnippet];
@@ -161,8 +152,8 @@ static NSArray *characterEntityArray = nil;
 }
 
 - (void)dealloc {
-  snippet = nil;
-  resultAccumulator = nil;
+  self.snippet = nil;
+  self.resultAccumulator = nil;
 }
 
 @end

@@ -29,10 +29,6 @@
 
 @implementation NewComicFetcher
 
-@synthesize delegate;
-@synthesize fetchQueue;
-@synthesize comicsToInsert;
-
 - (id)init {
   if(self = [super init]) {
     self.fetchQueue = [[NSOperationQueue alloc] init];
@@ -45,7 +41,7 @@
   FetchComicFromWeb *fetchOperation = [[FetchComicFromWeb alloc] initWithComicNumber:comicNumber
                                                                      completionTarget:self
                                                                                action:@selector(didCompleteFetchOperation:)];
-  [fetchQueue addOperation:fetchOperation];
+  [self.fetchQueue addOperation:fetchOperation];
 }
 
 - (void)fetch {
@@ -59,7 +55,7 @@
     [Comic deleteAllComics];
     [self fetchComic:1];
 #else
-    [delegate newComicFetcher:self
+    [self.delegate newComicFetcher:self
              didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
                                                   code:kXkcdErrorCodeCouldNotFindLastComic
                                               userInfo:nil]];
@@ -75,7 +71,7 @@
     newComic.titleText = fetchOperation.comicTitleText;
     newComic.imageURL = fetchOperation.comicImageURL;
     newComic.transcript = fetchOperation.comicTranscript;
-    [delegate newComicFetcher:self didFetchComic:newComic];
+    [self.delegate newComicFetcher:self didFetchComic:newComic];
   }
   [self.comicsToInsert removeAllObjects];
 }
@@ -84,11 +80,11 @@
   if(fetchOperation.got404) {
     // all done!
     [self insertComics];
-    [delegate newComicFetcherDidFinishFetchingAllComics:self];
+    [self.delegate newComicFetcherDidFinishFetchingAllComics:self];
   } else if(fetchOperation.error) {
     // Network fail? Change in API?
     [self insertComics];
-    [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
+    [self.delegate newComicFetcher:self didFailWithError:fetchOperation.error];
   } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL && fetchOperation.comicTranscript) {
     // Got a comic -- store it and keep going
     [self.comicsToInsert addObject:fetchOperation];

@@ -27,7 +27,7 @@ static NSString *applicationDocumentsDirectory = nil;
 
 @interface xkcdAppDelegate ()
 
-@property(nonatomic, strong, readonly) NSUserDefaults *userDefaults;
+@property(nonatomic, strong, readwrite) NSUserDefaults *userDefaults;
 
 @property(nonatomic, strong, readwrite) NSManagedObjectModel *managedObjectModel;
 @property(nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
@@ -38,12 +38,6 @@ static NSString *applicationDocumentsDirectory = nil;
 #pragma mark -
 
 @implementation xkcdAppDelegate
-
-@synthesize window;
-@synthesize userDefaults;
-@synthesize managedObjectModel;
-@synthesize managedObjectContext;
-@synthesize persistentStoreCoordinator;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -67,9 +61,9 @@ static NSString *applicationDocumentsDirectory = nil;
   navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
   navigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
     
-  window.rootViewController = navigationController;
-  [window addSubview:navigationController.view];
-  [window makeKeyAndVisible];
+  self.window.rootViewController = navigationController;
+  [self.window addSubview:navigationController.view];
+  [self.window makeKeyAndVisible];
 
   [NotificationGenerator clearAppBadge];
   
@@ -92,8 +86,8 @@ static NSString *applicationDocumentsDirectory = nil;
   [[NSUserDefaults standardUserDefaults] synchronize];
 
   NSError *error = nil;
-  if(managedObjectContext) {
-    if([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+  if(self.managedObjectContext) {
+    if([self.managedObjectContext hasChanges] && ![self.managedObjectContext save:&error]) {
 			exit(-1);  // Fail
     } 
   }
@@ -140,11 +134,11 @@ static NSString *applicationDocumentsDirectory = nil;
 }
 
 - (NSUserDefaults *)userDefaults {
-  if(!userDefaults) {
-    userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults synchronize];
+  if(!_userDefaults) {
+    _userDefaults = [NSUserDefaults standardUserDefaults];
+    [_userDefaults synchronize];
   }
-  return userDefaults;
+  return _userDefaults;
 }
 
 #pragma mark -
@@ -170,19 +164,19 @@ static NSString *applicationDocumentsDirectory = nil;
  If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
  */
 - (NSManagedObjectContext *) managedObjectContext {
-  if (managedObjectContext != nil) {
-    return managedObjectContext;
+  if (_managedObjectContext != nil) {
+    return _managedObjectContext;
   }
 	
   NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
   if(coordinator != nil) {
-    managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [managedObjectContext setPersistentStoreCoordinator: coordinator];
+    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    [_managedObjectContext setPersistentStoreCoordinator: coordinator];
   }
   
-  [managedObjectContext setUndoManager:nil];
+  [_managedObjectContext setUndoManager:nil];
   
-  return managedObjectContext;
+  return _managedObjectContext;
 }
 
 
@@ -192,11 +186,11 @@ static NSString *applicationDocumentsDirectory = nil;
  */
 - (NSManagedObjectModel *)managedObjectModel {
 	
-  if (managedObjectModel != nil) {
-    return managedObjectModel;
+  if (_managedObjectModel != nil) {
+    return _managedObjectModel;
   }
-  managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];    
-  return managedObjectModel;
+  _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+  return _managedObjectModel;
 }
 
 
@@ -205,8 +199,8 @@ static NSString *applicationDocumentsDirectory = nil;
  If the coordinator doesn't already exist, it is created and the application's store added to it.
  */
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-  if (persistentStoreCoordinator != nil) {
-    return persistentStoreCoordinator;
+  if (_persistentStoreCoordinator != nil) {
+    return _persistentStoreCoordinator;
   }
 
   NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -233,8 +227,8 @@ static NSString *applicationDocumentsDirectory = nil;
   
   NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
 	NSError *error = nil;
-  persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-  if(![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+  _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+  if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                configuration:nil
                                                          URL:storeUrl
                                                      options:nil
@@ -242,7 +236,7 @@ static NSString *applicationDocumentsDirectory = nil;
     NSLog(@"Error opening store: %@", error);
   }
 	
-  return persistentStoreCoordinator;
+  return _persistentStoreCoordinator;
 }
 
 #pragma mark -

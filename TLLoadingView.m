@@ -25,9 +25,6 @@
 
 @implementation TLLoadingView
 
-@synthesize label;
-@synthesize spinner;
-
 - (id)initWithFrame:(CGRect)frame {
   if(self = [super initWithFrame:frame]) {
     self.label = [[UILabel alloc] initWithFrame:CGRectZero];

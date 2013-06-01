@@ -29,8 +29,6 @@
 
 @implementation TLModalActivityIndicatorView
 
-@synthesize spinner;
-
 - (id)initWithText:(NSString *)text {
   if(self = [super initWithFrame:CGRectZero]) {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;

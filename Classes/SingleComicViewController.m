@@ -33,6 +33,7 @@
 - (void)setupToolbar;
 - (void)displayLoadingView;
 - (void)goToComicNumbered:(NSUInteger)comicNumber;
+- (void)calculateZoomScaleAndAnimate:(BOOL)animate;
 
 @property(nonatomic, strong, readwrite) Comic *comic;
 @property(nonatomic, strong, readwrite) NSMutableArray *comicImageViews;
@@ -46,13 +47,6 @@
 #pragma mark -
 
 @implementation SingleComicViewController
-
-@synthesize comic;
-@synthesize comicImageViews;
-@synthesize contentView;
-@synthesize imageScroller;
-@synthesize loadingView;
-@synthesize imageFetcher;
 
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
@@ -76,6 +70,12 @@
     self.imageFetcher.delegate = self;    
     [self.imageFetcher fetchImageForComic:self.comic context:nil];
   }
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+  [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+  [self calculateZoomScaleAndAnimate:YES];
 }
 
 - (void)setupToolbar {
@@ -146,11 +146,8 @@
   self.imageScroller.scrollsToTop = NO;
   [self.view addSubview:self.imageScroller];
   
-  self.imageScroller.contentSize = contentSize;
-  self.imageScroller.maximumZoomScale = 2;
-  CGFloat xMinZoom = imageScroller.frame.size.width / contentSize.width;
-  CGFloat yMinZoom = imageScroller.frame.size.height / contentSize.height;
-  self.imageScroller.minimumZoomScale = (xMinZoom < yMinZoom) ? xMinZoom : yMinZoom;
+  [self calculateZoomScaleAndAnimate:NO];
+  
   for(UIView *tileView in self.comicImageViews) {
     [self.contentView addSubview:tileView];
   }
@@ -183,6 +180,18 @@
   }
 }
 
+- (void) calculateZoomScaleAndAnimate:(BOOL)animate {
+  CGSize contentSize = self.comic.image.exifAgnosticSize;
+  self.imageScroller.contentSize = contentSize;
+  self.imageScroller.maximumZoomScale = 2;
+  CGFloat xMinZoom = self.imageScroller.frame.size.width / contentSize.width;
+  CGFloat yMinZoom = self.imageScroller.frame.size.height / contentSize.height;
+  self.imageScroller.minimumZoomScale = (xMinZoom < yMinZoom) ? xMinZoom : yMinZoom;
+  if (self.imageScroller.zoomScale < self.imageScroller.minimumZoomScale) {
+    [self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:animate];
+  }
+}
+
 - (void)displayLoadingView {
   self.loadingView = [[TLLoadingView alloc] initWithFrame:self.view.bounds];
   self.loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -201,7 +210,7 @@
   OpenInChromeActivity *chromeActivity = [[OpenInChromeActivity alloc] init];
 
   NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
-  NSURL *comicUrl = [NSURL URLWithString:comic.websiteURL];
+  NSURL *comicUrl = [NSURL URLWithString:self.comic.websiteURL];
   [activityItems addObject:comicUrl];
   if(self.comic.downloaded) {
     [activityItems addObject:self.comic.image];
@@ -283,7 +292,7 @@
 #pragma mark - UIScrollViewDelegate methods
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-  return contentView;
+  return self.contentView;
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
