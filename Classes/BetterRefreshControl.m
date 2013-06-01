@@ -20,8 +20,6 @@
 
 @implementation BetterRefreshControl
 
-@synthesize refreshState;   // non-default setter, so llvm autosynthesis breaks
-
 - (id) init {
   self = [super init];
   if (self) {
@@ -55,7 +53,7 @@
     NSAttributedString *newTitle = [self.titles objectForKey:[BetterRefreshControl keyForState:state]];
     self.attributedTitle = newTitle ? newTitle : self.defaultTitle;
   }
-  refreshState = state;
+  _refreshState = state;
 }
 
 + (id)keyForState:(UIRefreshControlUtilsState)state
