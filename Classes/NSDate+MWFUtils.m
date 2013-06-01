@@ -13,7 +13,7 @@
 #define AllDateComponents (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
 #define kDayTimeInterval 86400
 #define kXkcdUploadBufferTimeInterval 7200  // 2 hour buffer from midnight - is this enough?
-#define kGMTOffsetInterval ( -1 * [[NSTimeZone localTimeZone] secondsFromGMT])
+#define kGMTOffsetInterval 18000
 
 @implementation NSDate (MWFUtils)
 
