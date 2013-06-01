@@ -71,13 +71,14 @@ static NSString *applicationDocumentsDirectory = nil;
   [window addSubview:navigationController.view];
   [window makeKeyAndVisible];
 
-  // clear the app badge
   [NotificationGenerator clearAppBadge];
   
-  // let's make some notifications
-  [NotificationGenerator generateNextNotification];
-  
   return canLaunchApplication;
+}
+
+- (void) applicationWillResignActive:(UIApplication *)application
+{
+  [NotificationGenerator generateNextNotification];
 }
 
 
@@ -85,6 +86,9 @@ static NSString *applicationDocumentsDirectory = nil;
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
+  // schedule the next notification
+  [NotificationGenerator generateNextNotification];
+  
   [[NSUserDefaults standardUserDefaults] synchronize];
 
   NSError *error = nil;
