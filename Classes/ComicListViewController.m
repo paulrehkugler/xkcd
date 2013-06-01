@@ -18,6 +18,7 @@
 #import "FAQViewController.h"
 #import "TLMacros.h"
 #import "UIImage+EXIFCompensation.h"
+#import "BetterRefreshControl.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
 #define kUserDefaultsSavedTopVisibleComicKey @"topVisibleComic"
@@ -98,9 +99,11 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)addRefreshControl {
-  self.refreshControl = [[UIRefreshControl alloc] init];
-  [self.refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
-  self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Check for new comics"];
+  BetterRefreshControl *refreshControl = [[BetterRefreshControl alloc] init];
+  [refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
+  [refreshControl attributedTitle:[[NSAttributedString alloc] initWithString:@"Check for new comics"] forRefreshState:UIRefreshControlUtilsStateInactive];
+  [refreshControl attributedTitle:[[NSAttributedString alloc] initWithString:@"Checking for new comics..."] forRefreshState:UIRefreshControlUtilsStateActive];
+  self.refreshControl = refreshControl;
 }
 
 - (void)addNavigationBarButtons {
