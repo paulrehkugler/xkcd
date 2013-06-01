@@ -13,7 +13,7 @@
 
 + (void) clearAppBadge
 {
-  // TODO: figure out how to do this
+  [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 + (void) generateNextNotification {

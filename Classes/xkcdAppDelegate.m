@@ -97,6 +97,7 @@ static NSString *applicationDocumentsDirectory = nil;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   [Comic synchronizeDownloadedImages];
+  [NotificationGenerator clearAppBadge];
 }
 
 #pragma mark -
