@@ -40,5 +40,6 @@
 @property(nonatomic, strong, readwrite) NSString *titleText;
 @property(nonatomic, strong, readwrite) NSString *transcript;
 @property(nonatomic, strong, readwrite) NSNumber *number;
-
+@property(nonatomic, readwrite) BOOL jumpTo;
+@property(nonatomic, readonly) NSString *displayString;
 @end

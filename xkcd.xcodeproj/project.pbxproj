@@ -86,6 +86,7 @@
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
 		517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D568D175A5199001EECAE /* UIScrollView+Helper.m */; };
 		517D5691175A640D001EECAE /* BetterRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D5690175A640D001EECAE /* BetterRefreshControl.m */; };
+		517D5696175A8544001EECAE /* FetchedAndJumpToResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D5695175A8543001EECAE /* FetchedAndJumpToResultsController.m */; };
 		51C575CF175959D900C8B98D /* NotificationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575CE175959D900C8B98D /* NotificationGenerator.m */; };
 		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
 		51C575D517596F7D00C8B98D /* NSDate+MWFUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D417596F7D00C8B98D /* NSDate+MWFUtils.m */; };
@@ -211,6 +212,8 @@
 		517D568D175A5199001EECAE /* UIScrollView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Helper.m"; sourceTree = "<group>"; };
 		517D568F175A640D001EECAE /* BetterRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterRefreshControl.h; sourceTree = "<group>"; };
 		517D5690175A640D001EECAE /* BetterRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetterRefreshControl.m; sourceTree = "<group>"; };
+		517D5694175A8543001EECAE /* FetchedAndJumpToResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchedAndJumpToResultsController.h; sourceTree = "<group>"; };
+		517D5695175A8543001EECAE /* FetchedAndJumpToResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchedAndJumpToResultsController.m; sourceTree = "<group>"; };
 		51C575CD175959D900C8B98D /* NotificationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationGenerator.h; sourceTree = "<group>"; };
 		51C575CE175959D900C8B98D /* NotificationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationGenerator.m; sourceTree = "<group>"; };
 		51C575D01759610700C8B98D /* UIImage+EXIFCompensation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EXIFCompensation.h"; sourceTree = "<group>"; };
@@ -278,8 +281,6 @@
 				51C575D417596F7D00C8B98D /* NSDate+MWFUtils.m */,
 				517D568C175A5199001EECAE /* UIScrollView+Helper.h */,
 				517D568D175A5199001EECAE /* UIScrollView+Helper.m */,
-				517D568F175A640D001EECAE /* BetterRefreshControl.h */,
-				517D5690175A640D001EECAE /* BetterRefreshControl.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -365,6 +366,10 @@
 				B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */,
 				51C575CD175959D900C8B98D /* NotificationGenerator.h */,
 				51C575CE175959D900C8B98D /* NotificationGenerator.m */,
+				517D568F175A640D001EECAE /* BetterRefreshControl.h */,
+				517D5690175A640D001EECAE /* BetterRefreshControl.m */,
+				517D5694175A8543001EECAE /* FetchedAndJumpToResultsController.h */,
+				517D5695175A8543001EECAE /* FetchedAndJumpToResultsController.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -722,6 +727,7 @@
 				51C575D517596F7D00C8B98D /* NSDate+MWFUtils.m in Sources */,
 				517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */,
 				517D5691175A640D001EECAE /* BetterRefreshControl.m in Sources */,
+				517D5696175A8544001EECAE /* FetchedAndJumpToResultsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

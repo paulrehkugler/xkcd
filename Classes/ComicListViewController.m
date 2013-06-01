@@ -19,6 +19,7 @@
 #import "TLMacros.h"
 #import "UIImage+EXIFCompensation.h"
 #import "BetterRefreshControl.h"
+#import "FetchedAndJumpToResultsController.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
 #define kUserDefaultsSavedTopVisibleComicKey @"topVisibleComic"
@@ -204,7 +205,7 @@ static UIImage *downloadImage = nil;
   }
   fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO]];
   
-  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+  NSFetchedResultsController *aFetchedResultsController = [[FetchedAndJumpToResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:AppDelegate.managedObjectContext
                                                                                                  sectionNameKeyPath:nil
                                                                                                           cacheName:nil];
@@ -437,6 +438,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
   UITableViewCell *cell = nil;
 
   // Comic cell
@@ -451,7 +453,8 @@ static UIImage *downloadImage = nil;
 #endif
   
   Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
-  comicCell.textLabel.text = [NSString stringWithFormat:@"%i. %@", [comic.number integerValue], comic.name];
+    
+  comicCell.textLabel.text = comic.displayString;
   comicCell.textLabel.font = [UIFont systemFontOfSize:16];
   comicCell.textLabel.adjustsFontSizeToFitWidth = YES;
   
@@ -546,6 +549,10 @@ static UIImage *downloadImage = nil;
   if([sections count] > 0) {
     id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
     numberOfRows = [sectionInfo numberOfObjects];
+  }
+  if ([fetchedResults respondsToSelector:@selector(hasJumpTo)] && [((FetchedAndJumpToResultsController *)fetchedResults) hasJumpTo])
+  {
+    return numberOfRows + 1;
   }
   return numberOfRows;
 }

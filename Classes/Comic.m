@@ -37,6 +37,8 @@ static NSMutableSet *downloadedImages = nil;
 
 @implementation Comic
 
+@synthesize jumpTo;
+
 @dynamic name;
 @dynamic titleText;
 @dynamic transcript;
@@ -214,6 +216,16 @@ static NSMutableSet *downloadedImages = nil;
 
 - (BOOL)downloaded {
   return [downloadedImages containsObject:self.imageFilename];
+}
+
+- (NSString *)displayString
+{
+  if (!self.jumpTo) {
+    return [NSString stringWithFormat:@"%i. %@", [self.number integerValue], self.name];
+  }
+  else {
+    return [NSString stringWithFormat:@"Jump to comic %i", [self.number integerValue]];
+  }
 }
 
 @end
