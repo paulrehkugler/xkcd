@@ -11,8 +11,7 @@
 
 @implementation NotificationGenerator
 
-+ (void) clearAppBadge
-{
++ (void) clearAppBadge {
   [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
