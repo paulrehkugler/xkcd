@@ -19,33 +19,31 @@
 
 // this is kindof hacky
 - (id) objectAtIndexPath:(NSIndexPath *)indexPath {
-  if (self.fetchRequest.predicate.predicateFormat.length > 0) {
+  if (self.hasJumpTo) {     // need to add a "jump to"
     
     int comicNumber = [FetchedAndJumpToResultsController numberInString:self.fetchRequest.predicate.predicateFormat];
     
-    if (comicNumber > 0 && ([self.fetchedObjects containsObject:[Comic comicNumbered:comicNumber]])) {  // need to add a "jump to"
-      
-      if (indexPath.row > 0) {  // if this isn't the first search result
-        // return the expected result, shifted down one row
-        Comic *retComic = [super objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section]];
-        retComic.jumpTo = NO;
-        return retComic;
-      }
-      
-      // return a "jump to" here
-      Comic *jumpToComic = [Comic comicNumbered:comicNumber];
-      [jumpToComic setJumpTo:YES];
-      return jumpToComic;
+    if (indexPath.row > 0) {  // if this isn't the first search result
+      // return the expected result, shifted down one row
+      Comic *retComic = [super objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section]];
+      retComic.jumpTo = NO;
+      return retComic;
     }
     
+    // return a "jump to" here
+    Comic *jumpToComic = [Comic comicNumbered:comicNumber];
+    [jumpToComic setJumpTo:YES];
+    return jumpToComic;
+
+    
   }
-  
   // no number in the search string
   return [super objectAtIndexPath:indexPath];
 }
 
 - (BOOL) hasJumpTo {
-  return (BOOL) [FetchedAndJumpToResultsController numberInString:self.fetchRequest.predicate.predicateFormat];
+  int comicNumber = [FetchedAndJumpToResultsController numberInString:self.fetchRequest.predicate.predicateFormat];
+  return (comicNumber > 0 && ([self.fetchedObjects containsObject:[Comic comicNumbered:comicNumber]]));
 }
 
 + (int) numberInString:(NSString *)string {
