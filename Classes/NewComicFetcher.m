@@ -31,8 +31,8 @@
 
 - (id)init {
   if(self = [super init]) {
-    self.fetchQueue = [[NSOperationQueue alloc] init];
-    self.comicsToInsert = [NSMutableArray arrayWithCapacity:25];
+    _fetchQueue = [[NSOperationQueue alloc] init];
+    _comicsToInsert = [NSMutableArray arrayWithCapacity:25];
   }
   return self;
 }

@@ -54,16 +54,16 @@
     label.backgroundColor = [UIColor clearColor];
     label.font = kLabelFont;
     label.textAlignment = NSTextAlignmentCenter;
-    self.spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
-    self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    [self.spinner sizeToFit];
-    [self.spinner startAnimating];
+    _spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
+    _spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    [_spinner sizeToFit];
+    [_spinner startAnimating];
     
-    self.spinner.center = keyWindowCenter;
+    _spinner.center = keyWindowCenter;
     
     [self.layer addSublayer:backgroundLayer];
     [self addSubview:label];
-    [self addSubview:self.spinner];    
+    [self addSubview:_spinner];
 
     self.transform = CGAffineTransformMakeScale(kStartingScale, kStartingScale);
   }

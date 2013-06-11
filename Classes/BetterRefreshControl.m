@@ -23,8 +23,8 @@
 - (id) init {
   self = [super init];
   if (self) {
-    self.refreshState = UIRefreshControlUtilsStateInactive;
-    self.titles = [[NSMutableDictionary alloc] init];
+    _refreshState = UIRefreshControlUtilsStateInactive;
+    _titles = [[NSMutableDictionary alloc] init];
   }
   return self;
 }

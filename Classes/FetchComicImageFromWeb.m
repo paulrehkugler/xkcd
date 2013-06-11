@@ -34,11 +34,11 @@
                    action:(SEL)completionAction
                   context:(id)aContext {
   if(self = [super init]) {
-    self.comicNumber = number;
-    self.comicImageURL = imageURL;
-    self.target = completionTarget;
-    self.action = completionAction;
-    self.context = aContext;
+    _comicNumber = number;
+    _comicImageURL = imageURL;
+    _target = completionTarget;
+    _action = completionAction;
+    _context = aContext;
   }
   return self;
 }

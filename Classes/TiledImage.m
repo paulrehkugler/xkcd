@@ -23,19 +23,19 @@
 
 - (id)initWithImage:(UIImage *)imageToTile tileWidth:(NSUInteger)width tileHeight:(NSUInteger)height {
   if(self = [super init]) {
-    self.tileWidth = width;
-    self.tileHeight = height;
+    _tileWidth = width;
+    _tileHeight = height;
     CGSize imageSize = imageToTile.exifAgnosticSize;
     NSUInteger imageWidth = round(imageSize.width);
     NSUInteger imageHeight = round(imageSize.height);
-    self.widthCount = imageWidth / self.tileWidth + (imageWidth % self.tileWidth == 0 ? 0 : 1);
-    self.heightCount = imageHeight / self.tileHeight + (imageHeight % self.tileHeight == 0 ? 0 : 1);
-    NSUInteger numberOfTiles = self.widthCount * self.heightCount;
-    self.tiles = [[NSMutableArray alloc] initWithCapacity:self.widthCount * self.heightCount];
+    _widthCount = imageWidth / _tileWidth + (imageWidth % _tileWidth == 0 ? 0 : 1);
+    _heightCount = imageHeight / _tileHeight + (imageHeight % _tileHeight == 0 ? 0 : 1);
+    NSUInteger numberOfTiles = _widthCount * _heightCount;
+    _tiles = [[NSMutableArray alloc] initWithCapacity:_widthCount * _heightCount];
     for(NSUInteger i = 0; i < numberOfTiles; ++i) {
-      [self.tiles addObject:[NSNull null]];
+      [_tiles addObject:[NSNull null]];
     }
-    self.sourceImage = imageToTile;
+    _sourceImage = imageToTile;
     // according to the docs, CGImageCreateWithImageInRect retains this anyway...since we're relying on this to do lazy loads of tiles, go ahead and enforce it here as well
   }
   return self;

@@ -34,7 +34,7 @@
 
 - (id)init {
   if(self = [super init]) {
-    self.fetchQueue = [[NSOperationQueue alloc] init];
+    _fetchQueue = [[NSOperationQueue alloc] init];
   }
   return self;
 }

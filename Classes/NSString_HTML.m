@@ -123,7 +123,7 @@ static NSArray *characterEntityArray = nil;
 
 - (id)initWithHTMLSnippet:(NSString *)HTMLSnippet {
   if(self = [super init]) {
-    self.snippet = HTMLSnippet;
+    _snippet = HTMLSnippet;
   }
   return self;
 }

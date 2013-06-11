@@ -16,12 +16,12 @@
 
 - (id)initWithTitle:(NSString *)title {
   if((self = [super init])) {
-    self.sheet = [[UIActionSheet alloc] initWithTitle:title
+    _sheet = [[UIActionSheet alloc] initWithTitle:title
                                         delegate:self
                                cancelButtonTitle:nil
                           destructiveButtonTitle:nil
                                otherButtonTitles:nil];
-    self.blocks = [[NSMutableArray alloc] init];
+    _blocks = [[NSMutableArray alloc] init];
   }
   return self;
 }

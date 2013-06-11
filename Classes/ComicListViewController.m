@@ -174,14 +174,14 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)dealloc {
-  self.fetcher.delegate = nil;
+  _fetcher.delegate = nil;
   
-  self.imageFetcher.delegate = nil;
+  _imageFetcher.delegate = nil;
   
-  self.searchController.searchBar.delegate = nil;
-  self.searchController.delegate = nil;
-  self.searchController.searchResultsDataSource = nil;
-  self.searchController.searchResultsDelegate = nil;
+  _searchController.searchBar.delegate = nil;
+  _searchController.delegate = nil;
+  _searchController.searchResultsDataSource = nil;
+  _searchController.searchResultsDelegate = nil;
 }
 
 - (void)scrollToComicAtIndexPath:(NSIndexPath *)indexPath {

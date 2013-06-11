@@ -51,8 +51,8 @@
 
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
-    self.comic = comicToView;
-    self.title = self.comic.name;
+    _comic = comicToView;
+    self.title = _comic.name;
   }
   return self;
 }
