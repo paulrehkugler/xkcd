@@ -11,12 +11,16 @@
 @implementation UIScrollView (Helper)
 
 - (void)setZoomScale:(float)scale animated:(BOOL)animated centerOnPoint:(CGPoint)point {
+  // convert scroll view point to content point
+  UIView *contentView = [self hitTest:point withEvent:nil];
+  CGPoint contentCenter = [self convertPoint:point toView:contentView];
 
-  // this works fairly well - centers are off a bit when point is far from (0,0)
   CGFloat visibleWidth = self.frame.size.width / scale;
   CGFloat visibleHeight = self.frame.size.height / scale;
-  CGFloat leftX = (point.x - (visibleWidth / 2));
-  CGFloat topY = (point.y - (visibleHeight / 2));
+
+  // make the target content point the center of the resulting view
+  CGFloat leftX = (contentCenter.x - (visibleWidth / 2));
+  CGFloat topY = (contentCenter.y - (visibleHeight / 2));
 
   [self zoomToRect:CGRectMake(leftX, topY, visibleWidth, visibleHeight) animated:animated];
 }
