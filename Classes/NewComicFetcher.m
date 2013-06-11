@@ -8,6 +8,11 @@
 
 #define RECREATE_FROM_SCRATCH 0
 
+// When [comicsToInsert count] reaches kInsertChunkSize,
+// comics will be inserted in bulk.
+// Inserting one at a time creates a crappy ux.
+#define kInsertChunkSize 25
+
 #import "NewComicFetcher.h"
 #import "FetchComicFromWeb.h"
 #import "Comic.h"
@@ -32,7 +37,7 @@
 - (id)init {
   if(self = [super init]) {
     _fetchQueue = [[NSOperationQueue alloc] init];
-    _comicsToInsert = [NSMutableArray arrayWithCapacity:25];
+    _comicsToInsert = [NSMutableArray arrayWithCapacity:kInsertChunkSize];
   }
   return self;
 }
