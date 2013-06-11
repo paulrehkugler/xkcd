@@ -6,8 +6,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface TestNSString_HTML : SenTestCase {
-
-}
+@interface TestNSString_HTML : SenTestCase
 
 @end

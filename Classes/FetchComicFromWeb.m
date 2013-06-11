@@ -29,21 +29,11 @@
 
 @implementation FetchComicFromWeb
 
-@synthesize comicNumber;
-@synthesize comicName;
-@synthesize comicTitleText;
-@synthesize comicImageURL;
-@synthesize comicTranscript;
-@synthesize target;
-@synthesize action;
-@synthesize error;
-@synthesize got404;
-
 - (id)initWithComicNumber:(NSInteger)comicNumberToFetch completionTarget:(id)completionTarget action:(SEL)completionAction {
   if(self = [super init]) {
-    self.comicNumber = comicNumberToFetch;
-    self.target = completionTarget;
-    self.action = completionAction;
+    _comicNumber = comicNumberToFetch;
+    _target = completionTarget;
+    _action = completionAction;
   }
   return self;
 }

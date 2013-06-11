@@ -6,6 +6,8 @@
 
 @interface FAQViewController ()
 
+@property (nonatomic, readwrite) IBOutlet UITextView *textView;
+
 @end
 
 @implementation FAQViewController
@@ -51,7 +53,7 @@
     [display appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
   }
 
-  textView.attributedText = display;
+  self.textView.attributedText = display;
 }
 
 - (void)done {

@@ -9,12 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SingleComicImageFetcherDelegate.h"
 
-@interface SingleComicImageFetcher : NSObject {
-@private
-  id<SingleComicImageFetcherDelegate> __weak delegate;
-  NSOperationQueue *fetchQueue;
-  NSMutableArray *comicsRemainingDuringDownloadAll;
-}
+@interface SingleComicImageFetcher : NSObject
 
 - (void)fetchImageForComic:(Comic *)comic context:(id)context;
 - (void)fetchImagesForAllComics;

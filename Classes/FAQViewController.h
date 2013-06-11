@@ -4,8 +4,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FAQViewController : UIViewController {
-  IBOutlet UITextView *textView;
-}
+@interface FAQViewController : UIViewController
 
 @end

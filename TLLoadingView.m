@@ -25,16 +25,13 @@
 
 @implementation TLLoadingView
 
-@synthesize label;
-@synthesize spinner;
-
 - (id)initWithFrame:(CGRect)frame {
   if(self = [super initWithFrame:frame]) {
-    self.label = [[UILabel alloc] initWithFrame:CGRectZero];
-    self.label.text = kDefaultLoadingText;
-    self.spinner = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleGray];
-    [self addSubview:self.label];
-    [self addSubview:self.spinner];
+    _label = [[UILabel alloc] initWithFrame:CGRectZero];
+    _label.text = kDefaultLoadingText;
+    _spinner = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleGray];
+    [self addSubview:_label];
+    [self addSubview:_spinner];
     [self setNeedsLayout];
   }
   return self;

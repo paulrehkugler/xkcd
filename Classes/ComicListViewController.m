@@ -17,6 +17,8 @@
 #import "UIAlertView_TLCommon.h"
 #import "FAQViewController.h"
 #import "TLMacros.h"
+#import "UIImage+EXIFCompensation.h"
+#import "BetterRefreshControl.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
 #define kUserDefaultsSavedTopVisibleComicKey @"topVisibleComic"
@@ -70,13 +72,6 @@ static UIImage *downloadImage = nil;
 
 @implementation ComicListViewController
 
-@synthesize fetcher;
-@synthesize imageFetcher;
-@synthesize fetchedResultsController;
-@synthesize searchFetchedResultsController;
-@synthesize searchController;
-@synthesize requestedLaunchComic;
-
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
     if(!downloadImage) {
@@ -104,9 +99,11 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)addRefreshControl {
-  self.refreshControl = [[UIRefreshControl alloc] init];
-  [self.refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
-  self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Check for new comics"];
+  BetterRefreshControl *refreshControl = [[BetterRefreshControl alloc] init];
+  [refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
+  [refreshControl attributedTitle:[[NSAttributedString alloc] initWithString:@"Check for new comics"] forRefreshState:UIRefreshControlUtilsStateInactive];
+  [refreshControl attributedTitle:[[NSAttributedString alloc] initWithString:@"Checking for new comics..."] forRefreshState:UIRefreshControlUtilsStateActive];
+  self.refreshControl = refreshControl;
 }
 
 - (void)addNavigationBarButtons {
@@ -177,14 +174,14 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)dealloc {
-  fetcher.delegate = nil;
+  _fetcher.delegate = nil;
   
-  imageFetcher.delegate = nil;
+  _imageFetcher.delegate = nil;
   
-  searchController.searchBar.delegate = nil;
-  searchController.delegate = nil;
-  searchController.searchResultsDataSource = nil;
-  searchController.searchResultsDelegate = nil;
+  _searchController.searchBar.delegate = nil;
+  _searchController.delegate = nil;
+  _searchController.searchResultsDataSource = nil;
+  _searchController.searchResultsDelegate = nil;
 }
 
 - (void)scrollToComicAtIndexPath:(NSIndexPath *)indexPath {
@@ -372,7 +369,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller {
-  return [controller isEqual:searchFetchedResultsController] ? self.searchController.searchResultsTableView : self.tableView;
+  return [controller isEqual:self.searchFetchedResultsController] ? self.searchController.searchResultsTableView : self.tableView;
 }
 
 

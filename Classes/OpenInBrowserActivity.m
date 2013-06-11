@@ -8,8 +8,6 @@
 
 @implementation OpenInBrowserActivity
 
-@synthesize urlToOpen;
-
 - (UIImage *)activityImage {
   return [UIImage imageNamed:@"globe_43.png"];
 }

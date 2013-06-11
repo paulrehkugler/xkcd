@@ -28,25 +28,17 @@
 
 @implementation FetchComicImageFromWeb
 
-@synthesize comicNumber;
-@synthesize comicImageURL;
-@synthesize comicImageData;
-@synthesize target;
-@synthesize action;
-@synthesize error;
-@synthesize context;
-
 - (id)initWithComicNumber:(NSInteger)number
                  imageURL:(NSURL *)imageURL
          completionTarget:(id)completionTarget
                    action:(SEL)completionAction
                   context:(id)aContext {
   if(self = [super init]) {
-    self.comicNumber = number;
-    self.comicImageURL = imageURL;
-    self.target = completionTarget;
-    self.action = completionAction;
-    self.context = aContext;
+    _comicNumber = number;
+    _comicImageURL = imageURL;
+    _target = completionTarget;
+    _action = completionAction;
+    _context = aContext;
   }
   return self;
 }
@@ -69,17 +61,6 @@
                                   withObject:self
                                waitUntilDone:NO];
   }
-}
-
-- (void)dealloc {
-  comicImageURL = nil;
-  comicImageData = nil;
-  context = nil;
-  error = nil;
-  
-  target = nil;
-  action = NULL;
-  
 }
 
 @end

@@ -17,6 +17,7 @@
 #import "OpenInSafariActivity.h"
 #import "OpenInChromeActivity.h"
 #import "UIAlertView_TLCommon.h"
+#import "UIScrollView+Helper.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -33,6 +34,7 @@
 - (void)setupToolbar;
 - (void)displayLoadingView;
 - (void)goToComicNumbered:(NSUInteger)comicNumber;
+- (void)calculateZoomScaleAndAnimate:(BOOL)animate;
 
 @property(nonatomic, strong, readwrite) Comic *comic;
 @property(nonatomic, strong, readwrite) NSMutableArray *comicImageViews;
@@ -47,17 +49,10 @@
 
 @implementation SingleComicViewController
 
-@synthesize comic;
-@synthesize comicImageViews;
-@synthesize contentView;
-@synthesize imageScroller;
-@synthesize loadingView;
-@synthesize imageFetcher;
-
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
-    self.comic = comicToView;
-    self.title = self.comic.name;
+    _comic = comicToView;
+    self.title = _comic.name;
   }
   return self;
 }
@@ -76,6 +71,12 @@
     self.imageFetcher.delegate = self;    
     [self.imageFetcher fetchImageForComic:self.comic context:nil];
   }
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+  [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+  [self calculateZoomScaleAndAnimate:YES];
 }
 
 - (void)setupToolbar {
@@ -121,7 +122,7 @@
 - (void)displayComicImage {
   // Load up the comic image/view
   UIImage *comicImage = self.comic.image;
-  CGSize contentSize = comicImage.size;
+  CGSize contentSize = comicImage.exifAgnosticSize;
   TiledImage *tiles = [[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight];
   self.contentView = [[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)];
   self.comicImageViews = [NSMutableArray arrayWithCapacity:(tiles.widthCount * tiles.heightCount)];
@@ -146,11 +147,8 @@
   self.imageScroller.scrollsToTop = NO;
   [self.view addSubview:self.imageScroller];
   
-  self.imageScroller.contentSize = contentSize;
-  self.imageScroller.maximumZoomScale = 2;
-  CGFloat xMinZoom = imageScroller.frame.size.width / contentSize.width;
-  CGFloat yMinZoom = imageScroller.frame.size.height / contentSize.height;
-  self.imageScroller.minimumZoomScale = (xMinZoom < yMinZoom) ? xMinZoom : yMinZoom;
+  [self calculateZoomScaleAndAnimate:NO];
+  
   for(UIView *tileView in self.comicImageViews) {
     [self.contentView addSubview:tileView];
   }
@@ -183,6 +181,18 @@
   }
 }
 
+- (void) calculateZoomScaleAndAnimate:(BOOL)animate {
+  CGSize contentSize = self.comic.image.exifAgnosticSize;
+  self.imageScroller.contentSize = contentSize;
+  self.imageScroller.maximumZoomScale = 2;
+  CGFloat xMinZoom = self.imageScroller.frame.size.width / contentSize.width;
+  CGFloat yMinZoom = (self.imageScroller.frame.size.height - (self.navigationController.navigationBar.frame.size.height + self.navigationController.toolbar.frame.size.height)) / contentSize.height;
+  self.imageScroller.minimumZoomScale = (xMinZoom < yMinZoom) ? xMinZoom : yMinZoom;
+  if (self.imageScroller.zoomScale < self.imageScroller.minimumZoomScale) {
+    [self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:animate];
+  }
+}
+
 - (void)displayLoadingView {
   self.loadingView = [[TLLoadingView alloc] initWithFrame:self.view.bounds];
   self.loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -201,7 +211,7 @@
   OpenInChromeActivity *chromeActivity = [[OpenInChromeActivity alloc] init];
 
   NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
-  NSURL *comicUrl = [NSURL URLWithString:comic.websiteURL];
+  NSURL *comicUrl = [NSURL URLWithString:self.comic.websiteURL];
   [activityItems addObject:comicUrl];
   if(self.comic.downloaded) {
     [activityItems addObject:self.comic.image];
@@ -247,11 +257,14 @@
 - (void)didDetectDoubleTap:(UITapGestureRecognizer *)recognizer {
   CGFloat newZoomScale = 1.0f;
   if(self.imageScroller.zoomScale == self.imageScroller.minimumZoomScale) {
-    newZoomScale = 1.0f;
+    newZoomScale = (self.imageScroller.minimumZoomScale * 2) > self.imageScroller.maximumZoomScale ? self.imageScroller.maximumZoomScale : (self.imageScroller.minimumZoomScale * 2);
+    // zoom towards the user's double tap
+    [self.imageScroller setZoomScale:newZoomScale animated:YES centerOnPoint:[recognizer locationInView:self.imageScroller]];
   } else {
     newZoomScale = self.imageScroller.minimumZoomScale;
+    [self.imageScroller setZoomScale:newZoomScale animated:YES];
   }
-  [self.imageScroller setZoomScale:newZoomScale animated:YES];
+  
 }
 
 - (void)didDetectSingleTap:(UITapGestureRecognizer *)recognizer {
@@ -283,7 +296,7 @@
 #pragma mark - UIScrollViewDelegate methods
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-  return contentView;
+  return self.contentView;
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {

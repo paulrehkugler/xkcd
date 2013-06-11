@@ -8,6 +8,11 @@
 
 #define RECREATE_FROM_SCRATCH 0
 
+// When [comicsToInsert count] reaches kInsertChunkSize,
+// comics will be inserted in bulk.
+// Inserting one at a time creates a crappy ux.
+#define kInsertChunkSize 25
+
 #import "NewComicFetcher.h"
 #import "FetchComicFromWeb.h"
 #import "Comic.h"
@@ -29,14 +34,10 @@
 
 @implementation NewComicFetcher
 
-@synthesize delegate;
-@synthesize fetchQueue;
-@synthesize comicsToInsert;
-
 - (id)init {
   if(self = [super init]) {
-    self.fetchQueue = [[NSOperationQueue alloc] init];
-    self.comicsToInsert = [NSMutableArray arrayWithCapacity:25];
+    _fetchQueue = [[NSOperationQueue alloc] init];
+    _comicsToInsert = [NSMutableArray arrayWithCapacity:kInsertChunkSize];
   }
   return self;
 }
@@ -45,7 +46,7 @@
   FetchComicFromWeb *fetchOperation = [[FetchComicFromWeb alloc] initWithComicNumber:comicNumber
                                                                      completionTarget:self
                                                                                action:@selector(didCompleteFetchOperation:)];
-  [fetchQueue addOperation:fetchOperation];
+  [self.fetchQueue addOperation:fetchOperation];
 }
 
 - (void)fetch {
@@ -59,7 +60,7 @@
     [Comic deleteAllComics];
     [self fetchComic:1];
 #else
-    [delegate newComicFetcher:self
+    [self.delegate newComicFetcher:self
              didFailWithError:[NSError errorWithDomain:kXkcdErrorDomain
                                                   code:kXkcdErrorCodeCouldNotFindLastComic
                                               userInfo:nil]];
@@ -75,7 +76,7 @@
     newComic.titleText = fetchOperation.comicTitleText;
     newComic.imageURL = fetchOperation.comicImageURL;
     newComic.transcript = fetchOperation.comicTranscript;
-    [delegate newComicFetcher:self didFetchComic:newComic];
+    [self.delegate newComicFetcher:self didFetchComic:newComic];
   }
   [self.comicsToInsert removeAllObjects];
 }
@@ -84,16 +85,16 @@
   if(fetchOperation.got404) {
     // all done!
     [self insertComics];
-    [delegate newComicFetcherDidFinishFetchingAllComics:self];
+    [self.delegate newComicFetcherDidFinishFetchingAllComics:self];
   } else if(fetchOperation.error) {
     // Network fail? Change in API?
     [self insertComics];
-    [delegate newComicFetcher:self didFailWithError:fetchOperation.error];
+    [self.delegate newComicFetcher:self didFailWithError:fetchOperation.error];
   } else if(fetchOperation.comicName && fetchOperation.comicTitleText && fetchOperation.comicImageURL && fetchOperation.comicTranscript) {
     // Got a comic -- store it and keep going
     [self.comicsToInsert addObject:fetchOperation];
     [self fetchComic:(fetchOperation.comicNumber + 1)];
-    if(fetchOperation.comicNumber % 25 == 0) {
+    if(fetchOperation.comicNumber % kInsertChunkSize == 0) {
       [self insertComics];
     }
   } else {

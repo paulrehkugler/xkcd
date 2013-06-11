@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIImage+EXIFCompensation.h"
 
 #define kMinComicNumber 1
 
-@interface Comic : NSManagedObject {
-}
+@interface Comic : NSManagedObject
 
 + (Comic *)comic; // use this, not init/etc.
 

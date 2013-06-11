@@ -10,10 +10,6 @@
 #import "xkcdAppDelegate.h"
 
 
-@interface TLNavigationController ()
-
-@end
-
 @implementation TLNavigationController
 
 - (NSUInteger)supportedInterfaceOrientations {
