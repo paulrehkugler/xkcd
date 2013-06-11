@@ -11,8 +11,8 @@
 @implementation UIImage (EXIFCompensation)
 
 - (CGSize) exifAgnosticSize {
-  int bitmapWidth = CGImageGetWidth(self.CGImage);
-  int bitmapHeight = CGImageGetHeight(self.CGImage);
+  size_t bitmapWidth = CGImageGetWidth(self.CGImage);
+  size_t bitmapHeight = CGImageGetHeight(self.CGImage);
   
   return CGSizeMake(bitmapWidth, bitmapHeight);
 }
