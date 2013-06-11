@@ -132,10 +132,7 @@
 
 - (void)dealloc {
   [self.fetchQueue cancelAllOperations];
-  
-
   self.keepInMemory = nil;
-  
 }
 
 @end

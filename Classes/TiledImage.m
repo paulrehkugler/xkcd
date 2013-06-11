@@ -72,11 +72,4 @@
   return self.tiles;
 }
 
-- (void)dealloc {
-  self.tiles = nil;
-
-  self.sourceImage = nil;
-  
-}
-
 @end

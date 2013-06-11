@@ -151,11 +151,6 @@ static NSArray *characterEntityArray = nil;
   self.parseErrorEncountered = YES;
 }
 
-- (void)dealloc {
-  self.snippet = nil;
-  self.resultAccumulator = nil;
-}
-
 @end
 
 

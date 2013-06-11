@@ -63,15 +63,4 @@
   }
 }
 
-- (void)dealloc {
-  self.comicImageURL = nil;
-  self.comicImageData = nil;
-  self.context = nil;
-  self.error = nil;
-  
-  self.target = nil;
-  self.action = NULL;
-  
-}
-
 @end
