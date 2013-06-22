@@ -27,6 +27,8 @@
 
 @property(nonatomic, weak, readwrite) id<ExplainXkcdContentFetcherDelegate> delegate;
 
+-(void)fetchExplanationForComic:(Comic *)comic;
+
 @end
 
 

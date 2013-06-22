@@ -7,11 +7,15 @@
 //
 
 #import "ExplainComicViewController.h"
+#import "ExplainXkcdContentFetcher.h"
 #import "Comic.h"
+#import "TLLoadingView.h"
 
-@interface ExplainComicViewController ()
+@interface ExplainComicViewController () <ExplainXkcdContentFetcherDelegate>
 
 @property (nonatomic) Comic *comic;
+@property(nonatomic, strong, readwrite) ExplainXkcdContentFetcher *explanationFetcher;
+@property(nonatomic, strong, readwrite) TLLoadingView *loadingView;
 
 @end
 
@@ -30,12 +34,38 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    if (self.comic.explanation) {
+        [self displayExplanation];
+    } else {
+        [self displayLoadingView];
+        self.explanationFetcher = [[ExplainXkcdContentFetcher alloc] init];
+        self.explanationFetcher.delegate = self;
+        [self.explanationFetcher fetchExplanationForComic:self.comic];
+    }
+
 }
 
-- (void)didReceiveMemoryWarning
+- (void)displayExplanation
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#warning Unimplemented
+}
+
+- (void)displayLoadingView
+{
+    self.loadingView = [[TLLoadingView alloc] initWithFrame:self.view.bounds];
+    self.loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.loadingView setNeedsLayout];
+    [self.view addSubview:self.loadingView];
+}
+
+- (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFetchExplanationForComic:(Comic *)comic
+{
+#warning Unimplemented
+}
+
+- (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFailWithError:(NSError *)error onComic:(Comic *)comic
+{
+#warning Unimplemented
 }
 
 @end

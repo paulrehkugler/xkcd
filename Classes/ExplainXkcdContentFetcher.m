@@ -80,10 +80,11 @@
         }
         
         // We have some proper content so let's get the bit we want!
-        // The content is under the key path query.pages.pageID.revisions.* but we don't know what pageID is yet
+        // The content is under the key path query.pages.pageID.revisions[0].* but we don't know what pageID is yet
         // We assume there's only one page in the returned JSON
         NSDictionary *page = [[[jsonContent valueForKeyPath:@"query.pages"] allValues] lastObject];
-        NSString *revisionContent = [page valueForKeyPath:@"revisions.*"];
+        NSArray *revisions = [page objectForKey:@"revisions"];
+        NSString *revisionContent = [[revisions lastObject] objectForKey:@"*"];
         self.explainXkcdExplanation = [self parseRevisionContent:revisionContent];
     
         [self notifyDoneGettingContent];
