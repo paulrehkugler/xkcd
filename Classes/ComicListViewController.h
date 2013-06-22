@@ -26,4 +26,6 @@
 
 @property(nonatomic, assign, readwrite) NSInteger requestedLaunchComic;
 
+- (NSIndexPath *)indexPathForComicNumbered:(NSInteger)comicNumber;
+
 @end

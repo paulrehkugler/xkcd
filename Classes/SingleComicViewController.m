@@ -229,7 +229,6 @@
 }
 
 - (void)goToComicNumbered:(NSUInteger)comicNumber {
-  // UGLY
   NSMutableArray *viewControllerStack = [self.navigationController.viewControllers mutableCopy];
   Comic *newComic = [Comic comicNumbered:comicNumber];
   SingleComicViewController *newSingleComicViewController = [[SingleComicViewController alloc] initWithComic:newComic]; 
@@ -237,9 +236,10 @@
                                  withObject:newSingleComicViewController];
   [self.navigationController setViewControllers:viewControllerStack animated:NO];
 
-  // deselect any selected rows, to avoid ugliness (still kinda ugly, but it'll have to be good enough for now, need to release)
   ComicListViewController *comicList = [viewControllerStack objectAtIndex:0];
-  [comicList.tableView deselectRowAtIndexPath:[comicList.tableView indexPathForSelectedRow] animated:NO];
+  [comicList.tableView selectRowAtIndexPath:[comicList indexPathForComicNumbered:[newComic.number integerValue]]
+                                   animated:NO
+                             scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 #pragma mark - Gesture recognizer callbacks
