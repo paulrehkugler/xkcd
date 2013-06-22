@@ -1,0 +1,128 @@
+//
+//  ExplainXkcdContentFetcher.m
+//  xkcd
+//
+//  Created by Stuart McHattie on 22/06/2013.
+//
+//
+
+#import "ExplainXkcdContentFetcher.h"
+#import "xkcdAppDelegate.h"
+#import "TLMacros.h"
+
+
+#pragma mark - Private NSOperation subclass
+
+@interface FetchExplainXkcdFromWeb : NSOperation
+
+- (id)initWithComicNumber:(NSInteger)number
+         completionTarget:(id)completionTarget
+                   action:(SEL)completionAction;
+
+@property(nonatomic, strong) NSURL *contentURL;
+@property(nonatomic, strong) NSString *explainXkcdExplanation;
+@property(nonatomic, weak) id target;
+@property(nonatomic, assign) SEL action;
+@property(nonatomic, strong) NSError *requestError;
+@property(nonatomic, strong) NSError *jsonError;
+
+@end
+
+
+@implementation FetchExplainXkcdFromWeb
+
+- (id)initWithComicNumber:(NSInteger)number
+         completionTarget:(id)completionTarget
+                   action:(SEL)completionAction
+{
+    if(self = [super init]) {
+        self.target = completionTarget;
+        self.action = completionAction;
+        
+        self.contentURL = [NSURL URLWithString:
+            [NSString stringWithFormat:
+                @"http://www.explainxkcd.com/wiki/api.php?format=json&action=query&prop=revisions&rvprop=content&redirects&titles=%d", number]];
+    }
+    return self;
+}
+
+- (void)main
+{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.contentURL
+                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                            timeoutInterval:180.0f];
+    [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
+    NSURLResponse *response = nil;
+    NSError *requestError = nil;
+    TLDebugLog(@"Fetching Explain XKCD content at %@", self.contentURL);
+    NSData *requestData = [NSURLConnection sendSynchronousRequest:request
+                                                returningResponse:&response
+                                                            error:&requestError];
+    
+    if (requestError) {
+        self.requestError = requestError;
+        TLDebugLog(@"Explain XKCD content fetch request failed with error: %@", self.requestError);
+        [self notifyDoneGettingContent];
+    }
+    
+    if(![self isCancelled] && !self.requestError) {
+        // Try to parse the returned data as JSON
+        NSError *jsonError = nil;
+        NSDictionary *jsonContent = [NSJSONSerialization JSONObjectWithData:requestData
+                                                               options:0
+                                                                 error:&jsonError];
+        
+        if (jsonError) {
+            self.jsonError = jsonError;
+            TLDebugLog(@"Explain XKCD content fetch JSON data was invalid: %@", self.jsonError);
+            [self notifyDoneGettingContent];
+        }
+        
+        // We have some proper content so let's get the bit we want!
+        // The content is under the key path query.pages.pageID.revisions.* but we don't know what pageID is yet
+        // We assume there's only one page in the returned JSON
+        NSDictionary *page = [[[jsonContent valueForKeyPath:@"query.pages"] allValues] lastObject];
+        NSString *revisionContent = [page valueForKeyPath:@"revisions.*"];
+        self.explainXkcdExplanation = [self parseRevisionContent:revisionContent];
+    
+        [self notifyDoneGettingContent];
+    }
+}
+
+- (NSString*)parseRevisionContent:(NSString*)content
+{
+    NSRange startOfExplanation = [content rangeOfString:@"==Explanation==\n" options:NSCaseInsensitiveSearch];
+    NSRange endOfExplanation = [content rangeOfString:@"\n\n==Transcript==" options:NSCaseInsensitiveSearch];
+    return [content substringWithRange:NSMakeRange(startOfExplanation.location + startOfExplanation.length,
+                                                   endOfExplanation.location - (startOfExplanation.location + startOfExplanation.length))];
+}
+
+- (void)notifyDoneGettingContent
+{
+    [self.target performSelectorOnMainThread:self.action
+                                  withObject:self
+                               waitUntilDone:NO];
+}
+
+- (void)dealloc
+{
+    self.contentURL = nil;
+    self.explainXkcdExplanation = nil;
+    self.requestError = nil;
+    self.jsonError = nil;
+    self.target = nil;
+    self.action = NULL;
+}
+
+@end
+
+
+# pragma mark - Interface and implementation for fetcher class
+
+@interface ExplainXkcdContentFetcher ()
+
+@end
+
+@implementation ExplainXkcdContentFetcher
+
+@end
