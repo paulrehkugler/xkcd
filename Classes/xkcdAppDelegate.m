@@ -175,8 +175,11 @@ static NSString *applicationDocumentsDirectory = nil;
   if (managedObjectModel != nil) {
     return managedObjectModel;
   }
-  managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];    
-  return managedObjectModel;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"xkcd" ofType:@"momd"];
+    NSURL *momURL = [NSURL fileURLWithPath:path];
+    managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:momURL];
+    
+    return managedObjectModel;
 }
 
 
@@ -212,12 +215,15 @@ static NSString *applicationDocumentsDirectory = nil;
   }
   
   NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
-	NSError *error = nil;
+  NSError *error = nil;
   persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+  NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                            [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,nil];
   if(![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                configuration:nil
                                                          URL:storeUrl
-                                                     options:nil
+                                                     options:options
                                                        error:&error]) {
     NSLog(@"Error opening store: %@", error);
   }

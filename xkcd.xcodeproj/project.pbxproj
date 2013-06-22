@@ -76,6 +76,7 @@
 		03F702361464C5550091BF49 /* UITableView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702341464C5550091BF49 /* UITableView_TLCommon.m */; };
 		03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
 		03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
+		1709DE161776621600DA349E /* xkcd.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1709DE131776621600DA349E /* xkcd.xcdatamodeld */; };
 		17D012081776145D00CF4A1B /* ExplainXkcdContentFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D012071776145D00CF4A1B /* ExplainXkcdContentFetcher.m */; };
 		17D0120B17763CA100CF4A1B /* explain.png in Resources */ = {isa = PBXBuildFile; fileRef = 17D0120917763CA100CF4A1B /* explain.png */; };
 		17D0120C17763CA100CF4A1B /* explain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17D0120A17763CA100CF4A1B /* explain@2x.png */; };
@@ -85,7 +86,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28C3AD8A0F43EF2300507BA6 /* xkcd.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
 		B5C7A60F161A6763003C0FC0 /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C7A60B161A6763003C0FC0 /* down@2x.png */; };
@@ -194,6 +194,8 @@
 		03F702341464C5550091BF49 /* UITableView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableView_TLCommon.m; sourceTree = "<group>"; };
 		03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMersenneTwister.h; sourceTree = "<group>"; };
 		03F702401464C5B10091BF49 /* TLMersenneTwister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLMersenneTwister.m; sourceTree = "<group>"; };
+		1709DE141776621600DA349E /* xkcd 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "xkcd 2.xcdatamodel"; sourceTree = "<group>"; };
+		1709DE151776621600DA349E /* xkcd.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = xkcd.xcdatamodel; sourceTree = "<group>"; };
 		17D012061776145D00CF4A1B /* ExplainXkcdContentFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplainXkcdContentFetcher.h; sourceTree = "<group>"; };
 		17D012071776145D00CF4A1B /* ExplainXkcdContentFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplainXkcdContentFetcher.m; sourceTree = "<group>"; };
 		17D0120917763CA100CF4A1B /* explain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explain.png; sourceTree = "<group>"; };
@@ -206,7 +208,6 @@
 		1D6058910D05DD3D006BFB54 /* xkcd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xkcd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = xkcd.xcdatamodel; sourceTree = "<group>"; };
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* xkcd_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkcd_Prefix.pch; sourceTree = "<group>"; };
@@ -302,7 +303,7 @@
 		03DA9D751097B4C1005A34B2 /* Core data */ = {
 			isa = PBXGroup;
 			children = (
-				28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */,
+				1709DE131776621600DA349E /* xkcd.xcdatamodeld */,
 				03870FCE1595525D00436B99 /* comics.sqlite */,
 			);
 			name = "Core data";
@@ -684,7 +685,6 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */,
-				28C3AD8A0F43EF2300507BA6 /* xkcd.xcdatamodel in Sources */,
 				0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */,
 				03F10D37104D6DDE0045AEFC /* Comic.m in Sources */,
 				03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */,
@@ -712,6 +712,7 @@
 				5136AE8C175463A100742406 /* TLNavigationController.m in Sources */,
 				17D012081776145D00CF4A1B /* ExplainXkcdContentFetcher.m in Sources */,
 				17D0120F17763FF800CF4A1B /* ExplainComicViewController.m in Sources */,
+				1709DE161776621600DA349E /* xkcd.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1054,6 +1055,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1709DE131776621600DA349E /* xkcd.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1709DE141776621600DA349E /* xkcd 2.xcdatamodel */,
+				1709DE151776621600DA349E /* xkcd.xcdatamodel */,
+			);
+			currentVersion = 1709DE141776621600DA349E /* xkcd 2.xcdatamodel */;
+			path = xkcd.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }
