@@ -8,6 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ExplainXkcdContentFetcher : NSObject
+
+@class ExplainXkcdContentFetcher;
+@class Comic;
+
+
+@protocol ExplainXkcdContentFetcherDelegate <NSObject>
+
+@required
+
+- (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFetchExplanationForComic:(Comic *)comic;
+- (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFailWithError:(NSError *)error onComic:(Comic *)comic;
 
 @end
+
+
+@interface ExplainXkcdContentFetcher : NSObject
+
+@property(nonatomic, weak, readwrite) id<ExplainXkcdContentFetcherDelegate> delegate;
+
+@end
+
+

@@ -9,16 +9,16 @@
 #import "ExplainXkcdContentFetcher.h"
 #import "xkcdAppDelegate.h"
 #import "TLMacros.h"
+#import "UIAlertView_TLCommon.h"
+#import "Comic.h"
 
+#define kExplanationDownloadFailAlertTitle NSLocalizedString(@"Whoops", @"Title of explanation download fail alert")
 
 #pragma mark - Private NSOperation subclass
 
 @interface FetchExplainXkcdFromWeb : NSOperation
 
-- (id)initWithComicNumber:(NSInteger)number
-         completionTarget:(id)completionTarget
-                   action:(SEL)completionAction;
-
+@property(nonatomic, assign) NSInteger comicNumber;
 @property(nonatomic, strong) NSURL *contentURL;
 @property(nonatomic, strong) NSString *explainXkcdExplanation;
 @property(nonatomic, weak) id target;
@@ -36,6 +36,7 @@
                    action:(SEL)completionAction
 {
     if(self = [super init]) {
+        self.comicNumber = number;
         self.target = completionTarget;
         self.action = completionAction;
         
@@ -89,7 +90,7 @@
     }
 }
 
-- (NSString*)parseRevisionContent:(NSString*)content
+- (NSString *)parseRevisionContent:(NSString *)content
 {
     NSRange startOfExplanation = [content rangeOfString:@"==Explanation==\n" options:NSCaseInsensitiveSearch];
     NSRange endOfExplanation = [content rangeOfString:@"\n\n==Transcript==" options:NSCaseInsensitiveSearch];
@@ -121,8 +122,49 @@
 
 @interface ExplainXkcdContentFetcher ()
 
+
+@property(nonatomic, strong, readwrite) NSOperationQueue *fetchQueue;
+
 @end
 
+
 @implementation ExplainXkcdContentFetcher
+
+-(id)init
+{
+    if(self = [super init]) {
+        self.fetchQueue = [[NSOperationQueue alloc] init];
+    }
+    return self;
+}
+
+-(void)dealloc
+{
+    [self.fetchQueue cancelAllOperations];
+}
+
+-(void)fetchExplanationForComic:(Comic *)comic
+{
+    FetchExplainXkcdFromWeb *fetchOperation = [[FetchExplainXkcdFromWeb alloc] initWithComicNumber:[comic.number integerValue]
+                                                                                  completionTarget:self
+                                                                                            action:@selector(didCompleteFetchOperation:)];
+    [self.fetchQueue addOperation:fetchOperation];
+}
+
+-(void)didCompleteFetchOperation:(FetchExplainXkcdFromWeb *)fetchOperation
+{
+    Comic *comic = [Comic comicNumbered:fetchOperation.comicNumber];
+    if(!fetchOperation.requestError && !fetchOperation.jsonError && fetchOperation.explainXkcdExplanation) {
+        comic.explanation = fetchOperation.explainXkcdExplanation;
+        [self.delegate explainXkcdContentFetcher:self
+                     didFetchExplanationForComic:comic];
+    } else {
+        // Some kind of error occurred
+        NSString *failAlertMessage = NSLocalizedString(@"Could not download xkcd explanation",
+                                                       @"Text of error when getting xkcd explanation");
+        [UIAlertView showAlertWithTitle:kExplanationDownloadFailAlertTitle
+                                message:failAlertMessage];
+    }
+}
 
 @end

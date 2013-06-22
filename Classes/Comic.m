@@ -43,6 +43,7 @@ static NSMutableSet *downloadedImages = nil;
 @dynamic imageURL;
 @dynamic number;
 @dynamic loading;
+@dynamic explanation;
 
 + (void)initialize {
   if([self class] == [Comic class]) {
