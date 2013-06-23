@@ -11,7 +11,7 @@
 #import "Comic.h"
 #import "TLLoadingView.h"
 
-@interface ExplainComicViewController () <ExplainXkcdContentFetcherDelegate>
+@interface ExplainComicViewController () <ExplainXkcdContentFetcherDelegate, UIWebViewDelegate>
 
 @property (nonatomic) Comic *comic;
 @property (nonatomic, strong) ExplainXkcdContentFetcher *explanationFetcher;
@@ -49,10 +49,15 @@
 
 - (void)displayExplanation
 {
+    NSString *headerImage = @"<p style=\"text-align: center;\"><a href=\"/wiki/index.php?title=Main_Page\" title=\"Visit the main page\"><img style=\"border: none;\" src=\"/wiki/skins/common/images/explainxkcd.png\"></a></p>";
+    NSString *explanationHTML = [headerImage stringByAppendingString:self.comic.explanation];
+    
+    
     self.explanationView = [[UIWebView alloc] initWithFrame:self.view.frame];
     self.explanationView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.explanationView.backgroundColor = [UIColor whiteColor];
-    [self.explanationView loadHTMLString:self.comic.explanation baseURL:[NSURL URLWithString:@"http://www.explainxkcd.com"]];
+    self.explanationView.delegate = self;
+    [self.explanationView loadHTMLString:explanationHTML baseURL:[NSURL URLWithString:@"http://www.explainxkcd.com"]];
     [self.view addSubview:self.explanationView];
 }
 
@@ -74,6 +79,17 @@
 - (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFailOnComic:(Comic *)comic
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark - UIWebView delegate methods
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        [[UIApplication sharedApplication] openURL:[request URL]];
+        return NO;
+    }
+    return YES;
 }
 
 @end
