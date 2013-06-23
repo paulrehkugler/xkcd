@@ -10,7 +10,6 @@
 #import "xkcdAppDelegate.h"
 #import "SingleComicImageFetcher.h"
 #import "ComicListViewController.h"
-#import "TLLoadingView.h"
 #import "UIBarButtonItem_TLCommon.h"
 #import "TLMersenneTwister.h"
 #import "LambdaSheet.h"
@@ -40,7 +39,7 @@
 @property(nonatomic, strong, readwrite) NSMutableArray *comicImageViews;
 @property(nonatomic, strong, readwrite) UIView *contentView;
 @property(nonatomic, strong, readwrite) UIScrollView *imageScroller;
-@property(nonatomic, strong, readwrite) TLLoadingView *loadingView;
+@property(nonatomic, strong, readwrite) UIActivityIndicatorView *loadingView;
 @property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
 
 @end
@@ -194,10 +193,26 @@
 }
 
 - (void)displayLoadingView {
-  self.loadingView = [[TLLoadingView alloc] initWithFrame:self.view.bounds];
-  self.loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  [self.loadingView setNeedsLayout];
+  self.loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
   [self.view addSubview:self.loadingView];
+  [self.loadingView startAnimating];
+  self.loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+  NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.loadingView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.view
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1.0
+                                                         constant:0];
+  NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.loadingView
+                                                             attribute:NSLayoutAttributeCenterY
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.view
+                                                             attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0
+                                                              constant:0];
+  [self.view addConstraint:centerX];
+  [self.view addConstraint:centerY];
 }
 
 - (void)toggleToolbarsAnimated:(BOOL)animated {

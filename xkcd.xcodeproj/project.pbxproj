@@ -66,8 +66,6 @@
 		03F702121464C3B30091BF49 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
 		03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */; };
 		03F7021A1464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */; };
-		03F7021D1464C4330091BF49 /* TLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7021C1464C4330091BF49 /* TLLoadingView.m */; };
-		03F7021E1464C4330091BF49 /* TLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7021C1464C4330091BF49 /* TLLoadingView.m */; };
 		03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */; };
 		03F702221464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */; };
 		03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */; };
@@ -185,8 +183,6 @@
 		03F7020F1464C3270091BF49 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		03F702171464C3FA0091BF49 /* UIAlertView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlertView_TLCommon.h; sourceTree = "<group>"; };
 		03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertView_TLCommon.m; sourceTree = "<group>"; };
-		03F7021B1464C4330091BF49 /* TLLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLLoadingView.h; sourceTree = "<group>"; };
-		03F7021C1464C4330091BF49 /* TLLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLLoadingView.m; sourceTree = "<group>"; };
 		03F7021F1464C4450091BF49 /* UIActivityIndicatorView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActivityIndicatorView_TLCommon.h; sourceTree = "<group>"; };
 		03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIActivityIndicatorView_TLCommon.m; sourceTree = "<group>"; };
 		03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBarButtonItem_TLCommon.h; sourceTree = "<group>"; };
@@ -423,8 +419,6 @@
 				03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */,
 				03F702171464C3FA0091BF49 /* UIAlertView_TLCommon.h */,
 				03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */,
-				03F7021B1464C4330091BF49 /* TLLoadingView.h */,
-				03F7021C1464C4330091BF49 /* TLLoadingView.m */,
 				03F7021F1464C4450091BF49 /* UIActivityIndicatorView_TLCommon.h */,
 				03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */,
 				03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */,
@@ -672,7 +666,6 @@
 				03F702091464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020D1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
 				03F7021A1464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
-				03F7021E1464C4330091BF49 /* TLLoadingView.m in Sources */,
 				03F702221464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
 				03F7022A1464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
 				03F702361464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
@@ -704,7 +697,6 @@
 				03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
 				03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
-				03F7021D1464C4330091BF49 /* TLLoadingView.m in Sources */,
 				03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
 				03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
 				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
