@@ -10,12 +10,14 @@
 #import "ExplainXkcdContentFetcher.h"
 #import "Comic.h"
 #import "TLLoadingView.h"
+#import "NSString+WikimediaContent.h"
 
 @interface ExplainComicViewController () <ExplainXkcdContentFetcherDelegate>
 
 @property (nonatomic) Comic *comic;
-@property(nonatomic, strong, readwrite) ExplainXkcdContentFetcher *explanationFetcher;
-@property(nonatomic, strong, readwrite) TLLoadingView *loadingView;
+@property (nonatomic, strong) ExplainXkcdContentFetcher *explanationFetcher;
+@property (nonatomic, strong) TLLoadingView *loadingView;
+@property (nonatomic, strong) UIWebView *explanationView;
 
 @end
 
@@ -26,6 +28,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _comic = comic;
+        self.title = NSLocalizedString(@"Explanation", @"Title of the view for Explain XKCD content");
     }
     return self;
 }
@@ -47,7 +50,11 @@
 
 - (void)displayExplanation
 {
-#warning Unimplemented
+    self.explanationView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    self.explanationView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.explanationView.backgroundColor = [UIColor whiteColor];
+    [self.explanationView loadHTMLString:[self.comic.explanation htmlStringByEncodingWikimediaContent] baseURL:nil];
+    [self.view addSubview:self.explanationView];
 }
 
 - (void)displayLoadingView
@@ -60,12 +67,14 @@
 
 - (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFetchExplanationForComic:(Comic *)comic
 {
-#warning Unimplemented
+    self.explanationFetcher = nil;
+    [self.loadingView removeFromSuperview];
+    [self displayExplanation];
 }
 
 - (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFailWithError:(NSError *)error onComic:(Comic *)comic
 {
-#warning Unimplemented
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
