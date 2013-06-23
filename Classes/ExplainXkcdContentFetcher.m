@@ -7,11 +7,11 @@
 //
 
 #import "ExplainXkcdContentFetcher.h"
-#import "xkcdAppDelegate.h"
 #import "TLMacros.h"
 #import "UIAlertView_TLCommon.h"
 #import "Comic.h"
 
+#define kUserAgent @"xkcd iPhone app by Josh Snyder"
 #define kExplanationDownloadFailAlertTitle NSLocalizedString(@"Whoops", @"Title of explanation download fail alert")
 
 #pragma mark - Private NSOperation subclass
@@ -24,7 +24,6 @@
 @property(nonatomic, weak) id target;
 @property(nonatomic, assign) SEL action;
 @property(nonatomic, strong) NSError *requestError;
-@property(nonatomic, strong) NSError *jsonError;
 
 @end
 
@@ -42,7 +41,7 @@
         
         self.contentURL = [NSURL URLWithString:
             [NSString stringWithFormat:
-                @"http://www.explainxkcd.com/wiki/api.php?format=json&action=query&prop=revisions&rvprop=content&redirects&titles=%d", number]];
+                @"http://www.explainxkcd.com/wiki/index.php?title=%d", number]];
     }
     return self;
 }
@@ -52,7 +51,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.contentURL
                                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                             timeoutInterval:180.0f];
-    [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
+    [request setValue:kUserAgent forHTTPHeaderField:@"User-Agent"];
     NSURLResponse *response = nil;
     NSError *requestError = nil;
     TLDebugLog(@"Fetching Explain XKCD content at %@", self.contentURL);
@@ -67,36 +66,18 @@
     }
     
     if(![self isCancelled] && !self.requestError) {
-        // Try to parse the returned data as JSON
-        NSError *jsonError = nil;
-        NSDictionary *jsonContent = [NSJSONSerialization JSONObjectWithData:requestData
-                                                               options:0
-                                                                 error:&jsonError];
+        // We got some data back, so let's get the explanation out of the HTML
         
-        if (jsonError) {
-            self.jsonError = jsonError;
-            TLDebugLog(@"Explain XKCD content fetch JSON data was invalid: %@", self.jsonError);
-            [self notifyDoneGettingContent];
-        }
-        
-        // We have some proper content so let's get the bit we want!
-        // The content is under the key path query.pages.pageID.revisions[0].* but we don't know what pageID is yet
-        // We assume there's only one page in the returned JSON
-        NSDictionary *page = [[[jsonContent valueForKeyPath:@"query.pages"] allValues] lastObject];
-        NSArray *revisions = [page objectForKey:@"revisions"];
-        NSString *revisionContent = [[revisions lastObject] objectForKey:@"*"];
-        self.explainXkcdExplanation = [self parseRevisionContent:revisionContent];
+        NSString *html = [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding];
+        self.explainXkcdExplanation = [self getExplanationFromHTML:html];
     
         [self notifyDoneGettingContent];
     }
 }
 
-- (NSString *)parseRevisionContent:(NSString *)content
+- (NSString *)getExplanationFromHTML:(NSString *)html
 {
-    NSRange startOfExplanation = [content rangeOfString:@"==Explanation==\n" options:NSCaseInsensitiveSearch];
-    NSRange endOfExplanation = [content rangeOfString:@"\n\n==Transcript==" options:NSCaseInsensitiveSearch];
-    return [content substringWithRange:NSMakeRange(startOfExplanation.location + startOfExplanation.length,
-                                                   endOfExplanation.location - (startOfExplanation.location + startOfExplanation.length))];
+    return html;
 }
 
 - (void)notifyDoneGettingContent
@@ -111,7 +92,6 @@
     self.contentURL = nil;
     self.explainXkcdExplanation = nil;
     self.requestError = nil;
-    self.jsonError = nil;
     self.target = nil;
     self.action = NULL;
 }
@@ -155,7 +135,7 @@
 -(void)didCompleteFetchOperation:(FetchExplainXkcdFromWeb *)fetchOperation
 {
     Comic *comic = [Comic comicNumbered:fetchOperation.comicNumber];
-    if(!fetchOperation.requestError && !fetchOperation.jsonError && fetchOperation.explainXkcdExplanation) {
+    if(!fetchOperation.requestError && fetchOperation.explainXkcdExplanation) {
         comic.explanation = fetchOperation.explainXkcdExplanation;
         [self.delegate explainXkcdContentFetcher:self
                      didFetchExplanationForComic:comic];
@@ -165,6 +145,8 @@
                                                        @"Text of error when getting xkcd explanation");
         [UIAlertView showAlertWithTitle:kExplanationDownloadFailAlertTitle
                                 message:failAlertMessage];
+        [self.delegate explainXkcdContentFetcher:self
+                                  didFailOnComic:comic];
     }
 }
 

@@ -10,7 +10,6 @@
 #import "ExplainXkcdContentFetcher.h"
 #import "Comic.h"
 #import "TLLoadingView.h"
-#import "NSString+WikimediaContent.h"
 
 @interface ExplainComicViewController () <ExplainXkcdContentFetcherDelegate>
 
@@ -53,7 +52,7 @@
     self.explanationView = [[UIWebView alloc] initWithFrame:self.view.frame];
     self.explanationView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.explanationView.backgroundColor = [UIColor whiteColor];
-    [self.explanationView loadHTMLString:[self.comic.explanation htmlStringByEncodingWikimediaContent] baseURL:nil];
+    [self.explanationView loadHTMLString:self.comic.explanation baseURL:[NSURL URLWithString:@"http://www.explainxkcd.com"]];
     [self.view addSubview:self.explanationView];
 }
 
@@ -72,7 +71,7 @@
     [self displayExplanation];
 }
 
-- (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFailWithError:(NSError *)error onComic:(Comic *)comic
+- (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFailOnComic:(Comic *)comic
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
