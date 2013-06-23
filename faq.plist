@@ -68,5 +68,11 @@
 		<key>A</key>
 		<string>Nope. This app is a labor of love (free, no ads), and I don&apos;t love any other webcomics.</string>
 	</dict>
+	<dict>
+		<key>Q</key>
+		<string>Who do I have to thank for this app?</string>
+		<key>A</key>
+		<string>So nice of you to ask! Contributors include: Chris Anthony, Josh Bleecher Snyder, Stuart McHattie, Paul Rehkugler.</string>
+	</dict>
 </array>
 </plist>
