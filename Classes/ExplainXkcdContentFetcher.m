@@ -77,7 +77,14 @@
 
 - (NSString *)getExplanationFromHTML:(NSString *)html
 {
-    return html;
+    NSRange explanationLoc = [html rangeOfString:@"id=\"Explanation\"" options:NSCaseInsensitiveSearch];
+    NSRange afterExplanationLoc = NSMakeRange(explanationLoc.location, [html length] - explanationLoc.location);
+    NSRange explanationStart = [html rangeOfString:@"<p>" options:NSCaseInsensitiveSearch range:afterExplanationLoc];
+    NSRange afterExplanationStart = NSMakeRange(explanationStart.location, [html length] - explanationStart.location);
+    NSRange explanationEnd = [html rangeOfString:@"<h2><span class=\"editsection\">" options:NSCaseInsensitiveSearch range:afterExplanationStart];
+    
+    NSRange explanationRange = NSMakeRange(explanationStart.location, explanationEnd.location - explanationStart.location);
+    return [html substringWithRange:explanationRange];
 }
 
 - (void)notifyDoneGettingContent
