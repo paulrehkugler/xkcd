@@ -35,38 +35,38 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Add refresh bar button item
+    UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh_icon.png"]
+                                                                style:UIBarButtonItemStyleBordered
+                                                               target:self
+                                                               action:@selector(requestExplanation)];
+    self.navigationItem.rightBarButtonItem = refresh;
+    
 	// Do any additional setup after loading the view.
     if (self.comic.explanation) {
         [self displayExplanation];
     } else {
-        [self displayLoadingView];
-        self.explanationFetcher = [[ExplainXkcdContentFetcher alloc] init];
-        self.explanationFetcher.delegate = self;
-        [self.explanationFetcher fetchExplanationForComic:self.comic];
+        [self requestExplanation];
     }
 
+}
+
+- (void)requestExplanation
+{
+    [self.explanationView removeFromSuperview];
+    [self.view addSubview:self.loadingView];
+    [self.explanationFetcher fetchExplanationForComic:self.comic];
 }
 
 - (void)displayExplanation
 {
     NSString *headerImage = @"<p style=\"text-align: center;\"><a href=\"/wiki/index.php?title=Main_Page\" title=\"Visit the main page\"><img style=\"border: none;\" src=\"/wiki/skins/common/images/explainxkcd.png\"></a></p>";
     NSString *explanationHTML = [headerImage stringByAppendingString:self.comic.explanation];
-    
-    
-    self.explanationView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    self.explanationView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.explanationView.backgroundColor = [UIColor whiteColor];
-    self.explanationView.delegate = self;
+        
     [self.explanationView loadHTMLString:explanationHTML baseURL:[NSURL URLWithString:@"http://www.explainxkcd.com"]];
+    [self.explanationView setFrame:self.view.frame];
     [self.view addSubview:self.explanationView];
-}
-
-- (void)displayLoadingView
-{
-    self.loadingView = [[TLLoadingView alloc] initWithFrame:self.view.bounds];
-    self.loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.loadingView setNeedsLayout];
-    [self.view addSubview:self.loadingView];
 }
 
 - (void)explainXkcdContentFetcher:(ExplainXkcdContentFetcher *)fetcher didFetchExplanationForComic:(Comic *)comic
@@ -80,6 +80,43 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (ExplainXkcdContentFetcher *)explanationFetcher
+{
+    if (!_explanationFetcher) {
+        _explanationFetcher = [[ExplainXkcdContentFetcher alloc] init];
+        _explanationFetcher.delegate = self;
+    }
+    
+    return _explanationFetcher;
+}
+
+
+#pragma mark - Property getters
+
+- (UIWebView *) explanationView
+{
+    if (!_explanationView) {
+        _explanationView = [[UIWebView alloc] initWithFrame:self.view.frame];
+        _explanationView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _explanationView.backgroundColor = [UIColor whiteColor];
+        _explanationView.delegate = self;
+    }
+    
+    return _explanationView;
+}
+
+- (TLLoadingView *)loadingView
+{
+    if (!_loadingView) {
+        _loadingView = [[TLLoadingView alloc] initWithFrame:self.view.bounds];
+        _loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [_loadingView setNeedsLayout];
+    }
+    
+    return _loadingView;
+}
+
 
 
 #pragma mark - UIWebView delegate methods
