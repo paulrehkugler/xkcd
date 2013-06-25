@@ -77,14 +77,21 @@
 
 - (NSString *)getExplanationFromHTML:(NSString *)html
 {
-    NSRange explanationLoc = [html rangeOfString:@"id=\"Explanation\"" options:NSCaseInsensitiveSearch];
-    NSRange afterExplanationLoc = NSMakeRange(explanationLoc.location, [html length] - explanationLoc.location);
-    NSRange explanationStart = [html rangeOfString:@"<p>" options:NSCaseInsensitiveSearch range:afterExplanationLoc];
-    NSRange afterExplanationStart = NSMakeRange(explanationStart.location, [html length] - explanationStart.location);
-    NSRange explanationEnd = [html rangeOfString:@"<h2><span class=\"editsection\">" options:NSCaseInsensitiveSearch range:afterExplanationStart];
+    // Cut off all the HTML before the explanation start
+    NSRange titleRange = [html rangeOfString:@"Explanation</span></h2>\n" options:NSCaseInsensitiveSearch];
+    html = [html substringFromIndex:titleRange.location + titleRange.length];
     
-    NSRange explanationRange = NSMakeRange(explanationStart.location, explanationEnd.location - explanationStart.location);
-    return [html substringWithRange:explanationRange];
+    // Remove tables from start of html
+    while ([html hasPrefix:@"<table"]) {
+        NSRange tableEnd = [html rangeOfString:@"</table>" options:NSCaseInsensitiveSearch];
+        html = [html substringFromIndex:tableEnd.location + tableEnd.length];
+    }
+    
+    // Remove HTML from after the explanation
+    NSRange explainEnd = [html rangeOfString:@"\n<h2><span class=\"editsection\">" options:NSCaseInsensitiveSearch];
+    html = [html substringToIndex:explainEnd.location];
+    
+    return html;
 }
 
 - (void)notifyDoneGettingContent
