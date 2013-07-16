@@ -18,6 +18,7 @@
 #define kAttributeLoading @"loading"
 #define kAttributeName @"name"
 #define kAttributeTitleText @"titleText"
+#define kAttributeExplanation @"explanation"
 
 #pragma mark -
 
