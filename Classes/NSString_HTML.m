@@ -66,8 +66,8 @@ static NSArray *characterEntityArray = nil;
                             @"&uacute;", @"&ucirc;", @"&uuml;", @"&yacute;", @"&thorn;", @"&yuml;"];
   }
   
-  int i;
-  int count = [characterEntityArray count];
+  NSUInteger i;
+  NSUInteger count = [characterEntityArray count];
   
   // Html
   for(i = 0; i < count; i++) {
@@ -104,7 +104,7 @@ static NSArray *characterEntityArray = nil;
       [escaped deleteCharactersInRange:entityRange];
       
       if([value hasPrefix: @"x"]) {
-        NSUInteger tempInt = 0;
+        unsigned int tempInt = 0;
         NSScanner *scanner = [NSScanner scannerWithString:[value substringFromIndex:1]];
         [scanner scanHexInt:&tempInt];
         [escaped insertString: [NSString stringWithFormat:@"%C", (unsigned short)tempInt] atIndex: entityRange.location];

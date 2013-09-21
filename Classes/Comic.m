@@ -63,7 +63,7 @@ static NSMutableSet *downloadedImages = nil;
       return [path hasSuffix:@".imagedata"];
     }];
     downloadedImages = [NSMutableSet setWithArray:imageDataPaths];
-    TLDebugLog(@"Synchronized downloaded images: %i images", downloadedImages.count);
+    TLDebugLog(@"Synchronized downloaded images: %lu images", downloadedImages.count);
   }
 }
 
@@ -102,7 +102,7 @@ static NSMutableSet *downloadedImages = nil;
   
   Comic *comic = nil;
   if(error || array.count == 0) {
-    NSLog(@"Couldn't find comic numbered %i, error: %@", comicNumber, error);
+    NSLog(@"Couldn't find comic numbered %li, error: %@", (long)comicNumber, error);
   } else {
     comic = array[0];
   }
@@ -172,7 +172,7 @@ static NSMutableSet *downloadedImages = nil;
 }
 
 - (NSString *)websiteURL {
-  return [NSString stringWithFormat:@"http://xkcd.com/%i", [self.number integerValue]];
+  return [NSString stringWithFormat:@"http://xkcd.com/%li", (long)[self.number integerValue]];
 }
 
 + (NSSet *)downloadedImages {
@@ -209,11 +209,15 @@ static NSMutableSet *downloadedImages = nil;
 
 - (NSString *)imageFilename {
   NSInteger comicNumber = [[self valueForKey:kAttributeNumber] integerValue];
-  return [NSString stringWithFormat:@"%i.imagedata", comicNumber];
+  return [NSString stringWithFormat:@"%li.imagedata", (long)comicNumber];
 }
 
 - (BOOL)downloaded {
   return [downloadedImages containsObject:self.imageFilename];
+}
+
+- (NSString *)displayString {
+  return [NSString stringWithFormat:@"%li. %@", (long)[self.number integerValue], self.name];
 }
 
 @end

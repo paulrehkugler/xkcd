@@ -46,7 +46,7 @@
     self.comicImageURL = @"http://imgs.xkcd.com/static/xkcdLogo.png"; // anything...
     self.comicTranscript = @"";
   } else {
-    NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%i/info.0.json", self.comicNumber]];
+    NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%li/info.0.json", (long)self.comicNumber]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:comicURL];
     [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
     NSHTTPURLResponse *response = nil;
