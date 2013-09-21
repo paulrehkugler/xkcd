@@ -71,9 +71,9 @@ static NSArray *characterEntityArray = nil;
   
   // Html
   for(i = 0; i < count; i++) {
-    NSRange range = [source rangeOfString:[characterEntityArray objectAtIndex: i]];
+    NSRange range = [source rangeOfString:characterEntityArray[i]];
     if(range.location != NSNotFound) {
-      [escaped replaceOccurrencesOfString:[characterEntityArray objectAtIndex: i] 
+      [escaped replaceOccurrencesOfString:characterEntityArray[i] 
                                withString:[NSString stringWithFormat:@"%C", (unsigned short)(160 + i)]
                                   options:NSLiteralSearch 
                                     range:NSMakeRange(0, [escaped length])];

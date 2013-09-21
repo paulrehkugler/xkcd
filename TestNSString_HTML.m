@@ -23,7 +23,7 @@
   };
 
   for(NSString *snippet in htmlAndCleanedStrings) {
-    NSString *cleaned = [htmlAndCleanedStrings objectForKey:snippet];
+    NSString *cleaned = htmlAndCleanedStrings[snippet];
     STAssertEqualObjects([NSString stringByCleaningHTML:snippet], cleaned, @"Snippet '%@' should result in clean string '%@'.", snippet, cleaned);
   }
 }

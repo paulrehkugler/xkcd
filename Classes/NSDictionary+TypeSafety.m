@@ -15,7 +15,7 @@
 }
 
 - (id)objectForKey:(id)aKey ofKindOfClass:(Class)requiredClass {
-  id obj = [self objectForKey:aKey];
+  id obj = self[aKey];
   return [obj isKindOfClass:requiredClass] ? obj : nil;
 }
 

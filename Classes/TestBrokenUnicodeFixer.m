@@ -11,7 +11,7 @@
 
 - (void)assertDictionaryEntriesAreFixedCorrectly:(NSDictionary *)testCases {
   for(NSData *inputData in testCases) {
-    NSData *expectedOutput = [testCases objectForKey:inputData];
+    NSData *expectedOutput = testCases[inputData];
     STAssertTrue([expectedOutput isKindOfClass:[NSData class]], @"Expected to get NSData object");
     STAssertEqualObjects([inputData dataByFixingFuckedUpUnicodeInJSON], expectedOutput,
                          @"Input '%@' should result in output '%@'.",

@@ -93,7 +93,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
   NSParameterAssert(actionSheet == self.sheet);
   if (buttonIndex >= 0 && buttonIndex < [self.blocks count]) {
-    dispatch_block_t block = [self.blocks objectAtIndex:buttonIndex];
+    dispatch_block_t block = (self.blocks)[buttonIndex];
     block();
   }
   if(self.dismissAction != NULL) {

@@ -543,7 +543,7 @@ static UIImage *downloadImage = nil;
   NSArray *sections = [fetchedResults sections];
   NSUInteger numberOfRows = 0;
   if([sections count] > 0) {
-    id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+    id<NSFetchedResultsSectionInfo> sectionInfo = sections[section];
     numberOfRows = [sectionInfo numberOfObjects];
   }
   return numberOfRows;

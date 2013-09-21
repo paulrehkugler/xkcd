@@ -257,11 +257,10 @@
   NSMutableArray *viewControllerStack = [self.navigationController.viewControllers mutableCopy];
   Comic *newComic = [Comic comicNumbered:comicNumber];
   SingleComicViewController *newSingleComicViewController = [[SingleComicViewController alloc] initWithComic:newComic]; 
-  [viewControllerStack replaceObjectAtIndex:[viewControllerStack count] - 1
-                                 withObject:newSingleComicViewController];
+  viewControllerStack[[viewControllerStack count] - 1] = newSingleComicViewController;
   [self.navigationController setViewControllers:viewControllerStack animated:NO];
 
-  ComicListViewController *comicList = [viewControllerStack objectAtIndex:0];
+  ComicListViewController *comicList = viewControllerStack[0];
   [comicList.tableView selectRowAtIndexPath:[comicList indexPathForComicNumbered:[newComic.number integerValue]]
                                    animated:NO
                              scrollPosition:UITableViewScrollPositionMiddle];

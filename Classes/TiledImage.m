@@ -47,7 +47,7 @@
     return nil;
   }
   NSUInteger tileIndex = TILE_INDEX(xIndex, yIndex);
-  id currentTile = [self.tiles objectAtIndex:tileIndex];
+  id currentTile = (self.tiles)[tileIndex];
   if(currentTile != [NSNull null]) {
     // Been loaded already, return it
     return currentTile;
@@ -57,7 +57,7 @@
     CGImageRef tileCGImage = CGImageCreateWithImageInRect(self.sourceImage.CGImage, tileRect);
     UIImage *newTile = [UIImage imageWithCGImage:tileCGImage];
     CFRelease(tileCGImage);
-    [self.tiles replaceObjectAtIndex:tileIndex withObject:newTile];
+    (self.tiles)[tileIndex] = newTile;
     return newTile;
   }
 }
