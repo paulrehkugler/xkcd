@@ -9,3 +9,5 @@ build/
 .DS_Store
 **/*.pbxuser
 **/*.perspectivev*
+
+xkcd.xcodeproj/project.xcworkspace/xcshareddata/xkcd.xccheckout
