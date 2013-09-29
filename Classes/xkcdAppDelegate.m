@@ -12,7 +12,6 @@
 #import "TLMacros.h"
 #import "Comic.h"
 #import "TLNavigationController.h"
-#import "NotificationGenerator.h"
 
 #define kUserDefaultsRotateKey @"rotate"
 #define kUserDefaultsOpenZoomedOutKey @"zoomed_out"
@@ -64,15 +63,8 @@ static NSString *applicationDocumentsDirectory = nil;
   self.window.rootViewController = navigationController;
   [self.window addSubview:navigationController.view];
   [self.window makeKeyAndVisible];
-
-  [NotificationGenerator clearAppBadge];
   
   return canLaunchApplication;
-}
-
-- (void) applicationWillResignActive:(UIApplication *)application
-{
-  [NotificationGenerator generateNextNotification];
 }
 
 
@@ -80,9 +72,6 @@ static NSString *applicationDocumentsDirectory = nil;
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
-  // schedule the next notification
-  [NotificationGenerator generateNextNotification];
-  
   [[NSUserDefaults standardUserDefaults] synchronize];
 
   NSError *error = nil;
@@ -95,7 +84,6 @@ static NSString *applicationDocumentsDirectory = nil;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   [Comic synchronizeDownloadedImages];
-  [NotificationGenerator clearAppBadge];
 }
 
 #pragma mark -

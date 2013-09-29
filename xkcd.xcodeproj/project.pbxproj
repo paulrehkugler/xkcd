@@ -84,7 +84,6 @@
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
 		517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D568D175A5199001EECAE /* UIScrollView+Helper.m */; };
 		517D5691175A640D001EECAE /* BetterRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D5690175A640D001EECAE /* BetterRefreshControl.m */; };
-		51C575CF175959D900C8B98D /* NotificationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575CE175959D900C8B98D /* NotificationGenerator.m */; };
 		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
 		51C575D517596F7D00C8B98D /* NSDate+MWFUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D417596F7D00C8B98D /* NSDate+MWFUtils.m */; };
 		B5C7A60F161A6763003C0FC0 /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C7A60B161A6763003C0FC0 /* down@2x.png */; };
@@ -207,8 +206,6 @@
 		517D568D175A5199001EECAE /* UIScrollView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Helper.m"; sourceTree = "<group>"; };
 		517D568F175A640D001EECAE /* BetterRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterRefreshControl.h; sourceTree = "<group>"; };
 		517D5690175A640D001EECAE /* BetterRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetterRefreshControl.m; sourceTree = "<group>"; };
-		51C575CD175959D900C8B98D /* NotificationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationGenerator.h; sourceTree = "<group>"; };
-		51C575CE175959D900C8B98D /* NotificationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationGenerator.m; sourceTree = "<group>"; };
 		51C575D01759610700C8B98D /* UIImage+EXIFCompensation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EXIFCompensation.h"; sourceTree = "<group>"; };
 		51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EXIFCompensation.m"; sourceTree = "<group>"; };
 		51C575D317596F7D00C8B98D /* NSDate+MWFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+MWFUtils.h"; sourceTree = "<group>"; };
@@ -359,8 +356,6 @@
 				03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */,
 				B5C7A617161A6907003C0FC0 /* OpenInChromeActivity.h */,
 				B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */,
-				51C575CD175959D900C8B98D /* NotificationGenerator.h */,
-				51C575CE175959D900C8B98D /* NotificationGenerator.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -571,7 +566,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "xkcd" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -709,7 +704,6 @@
 				B5C7A615161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */,
 				B5C7A619161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */,
 				5136AE8C175463A100742406 /* TLNavigationController.m in Sources */,
-				51C575CF175959D900C8B98D /* NotificationGenerator.m in Sources */,
 				51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */,
 				51C575D517596F7D00C8B98D /* NSDate+MWFUtils.m in Sources */,
 				517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */,
@@ -731,16 +725,20 @@
 		034042D21056B450004B4909 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joshua Snyder";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -781,16 +779,20 @@
 		039387E410508CBC001EFE4E /* Ad hoc distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joshua Snyder";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -969,8 +971,9 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -978,11 +981,15 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "TL_DEBUG=1";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -996,16 +1003,20 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
