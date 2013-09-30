@@ -216,8 +216,4 @@ static NSMutableSet *downloadedImages = nil;
   return [downloadedImages containsObject:self.imageFilename];
 }
 
-- (NSString *)displayString {
-  return [NSString stringWithFormat:@"%li. %@", (long)[self.number integerValue], self.name];
-}
-
 @end
