@@ -263,8 +263,6 @@
 				51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */,
 				517D568C175A5199001EECAE /* UIScrollView+Helper.h */,
 				517D568D175A5199001EECAE /* UIScrollView+Helper.m */,
-				517D568F175A640D001EECAE /* BetterRefreshControl.h */,
-				517D5690175A640D001EECAE /* BetterRefreshControl.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
