@@ -18,6 +18,7 @@
 #define kAttributeLoading @"loading"
 #define kAttributeName @"name"
 #define kAttributeTitleText @"titleText"
+#define kAttributeExplanation @"explanation"
 
 #pragma mark -
 
@@ -43,6 +44,7 @@ static NSMutableSet *downloadedImages = nil;
 @dynamic imageURL;
 @dynamic number;
 @dynamic loading;
+@dynamic explanation;
 
 + (void)initialize {
   if([self class] == [Comic class]) {
@@ -63,7 +65,7 @@ static NSMutableSet *downloadedImages = nil;
       return [path hasSuffix:@".imagedata"];
     }];
     downloadedImages = [NSMutableSet setWithArray:imageDataPaths];
-    TLDebugLog(@"Synchronized downloaded images: %lu images", downloadedImages.count);
+    TLDebugLog(@"Synchronized downloaded images: %lu images", (unsigned long)downloadedImages.count);
   }
 }
 

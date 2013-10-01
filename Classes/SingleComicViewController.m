@@ -17,6 +17,7 @@
 #import "OpenInChromeActivity.h"
 #import "UIAlertView_TLCommon.h"
 #import "UIScrollView+Helper.h"
+#import "ExplainComicViewController.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -51,7 +52,14 @@
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
     _comic = comicToView;
+    self.comic = comicToView;
     self.title = [NSString stringWithFormat:@"%i. %@", _comic.number.integerValue, _comic.name];
+    
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Comic", @"Back button label for comics")
+                                                                       style:UIBarButtonItemStyleBordered
+                                                                      target:nil
+                                                                      action:nil];
+    [self.navigationItem setBackBarButtonItem:backButtonItem];
   }
   return self;
 }
@@ -82,6 +90,12 @@
   UIBarButtonItem *systemActionItem = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemAction
                                                                     target:self
                                                                     action:@selector(systemAction:)];
+    
+  UIBarButtonItem *explainXkcdItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"explain"]
+                                                                      style:UIBarButtonItemStylePlain
+                                                                     target:self
+                                                                     action:@selector(explainComic)];
+    explainXkcdItem.accessibilityLabel = NSLocalizedString(@"Explain comic", @"explain_comic_accessibility_label");
   
   UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
                                                                     style:UIBarButtonItemStylePlain
@@ -105,6 +119,7 @@
   
   NSArray *toolbarItems = @[systemActionItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
+                           explainXkcdItem,
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
                            [UIBarButtonItem flexibleSpaceBarButtonItem],
@@ -236,6 +251,11 @@
                                                                                        applicationActivities:@[safariActivity, chromeActivity]];
   activityViewController.excludedActivityTypes = @[UIActivityTypeAssignToContact];
   [self presentViewController:activityViewController animated:YES completion:^{}];
+}
+
+- (void)explainComic {
+    ExplainComicViewController *explainComicViewController = [[ExplainComicViewController alloc] initWithComic:self.comic];
+    [self.navigationController pushViewController:explainComicViewController animated:YES];
 }
 
 - (void)goToPreviousComic {

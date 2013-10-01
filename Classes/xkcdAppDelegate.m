@@ -175,11 +175,14 @@ static NSString *applicationDocumentsDirectory = nil;
  If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
  */
 - (NSManagedObjectModel *)managedObjectModel {
-	
   if (_managedObjectModel != nil) {
     return _managedObjectModel;
   }
-  _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+
+  NSString *path = [[NSBundle mainBundle] pathForResource:@"xkcd" ofType:@"momd"];
+  NSURL *momURL = [NSURL fileURLWithPath:path];
+  _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:momURL];
+    
   return _managedObjectModel;
 }
 
@@ -214,18 +217,20 @@ static NSString *applicationDocumentsDirectory = nil;
       [fileManager copyItemAtPath:bundledPath toPath:storePath error:NULL];
     }
   }
-  
+
   NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
-	NSError *error = nil;
+  NSError *error = nil;
   _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+  NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @(YES),
+                            NSInferMappingModelAutomaticallyOption: @(YES)};
   if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                               configuration:nil
-                                                         URL:storeUrl
-                                                     options:nil
-                                                       error:&error]) {
-    NSLog(@"Error opening store: %@", error);
+                                                configuration:nil
+                                                          URL:storeUrl
+                                                      options:options
+                                                        error:&error]) {
+      NSLog(@"Error opening store: %@", error);
   }
-	
+
   return _persistentStoreCoordinator;
 }
 
