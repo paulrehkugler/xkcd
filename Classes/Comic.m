@@ -63,7 +63,7 @@ static NSMutableSet *downloadedImages = nil;
             return [path hasSuffix:@".imagedata"];
         }];
         downloadedImages = [NSMutableSet setWithArray:imageDataPaths];
-        TLDebugLog(@"Synchronized downloaded images: %lu images", downloadedImages.count);
+        TLDebugLog(@"Synchronized downloaded images: %lu images", (unsigned long)downloadedImages.count);
     }
 }
 
