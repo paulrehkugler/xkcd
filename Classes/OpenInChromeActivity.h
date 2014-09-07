@@ -3,7 +3,7 @@
 //  xkcd
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "OpenInBrowserActivity.h"
 
 @interface OpenInChromeActivity : OpenInBrowserActivity

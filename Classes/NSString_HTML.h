@@ -5,8 +5,7 @@
 //  Created by Joshua Bleecher Snyder on 2/17/10.
 //
 
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 
 @interface NSString (HTML)
 

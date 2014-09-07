@@ -28,8 +28,8 @@ static NSMutableSet *downloadedImages = nil;
 
 @interface Comic ()
 
-@property(nonatomic, strong, readonly) NSString *imagePath;
-@property(nonatomic, strong, readonly) NSString *imageFilename;
+@property (nonatomic, readonly) NSString *imagePath;
+@property (nonatomic, readonly) NSString *imageFilename;
 
 @end
 
@@ -45,175 +45,177 @@ static NSMutableSet *downloadedImages = nil;
 @dynamic loading;
 
 + (void)initialize {
-  if([self class] == [Comic class]) {
-    if(!comicEntityDescription) {
-      comicEntityDescription = [NSEntityDescription entityForName:@"Comic" inManagedObjectContext:AppDelegate.managedObjectContext];
+    if ([self class] == [Comic class]) {
+        if (!comicEntityDescription) {
+            comicEntityDescription = [NSEntityDescription entityForName:@"Comic" inManagedObjectContext:AppDelegate.managedObjectContext];
+        }
     }
-  }
 }
 
 + (void)synchronizeDownloadedImages {
-  NSFileManager *fileManager = [NSFileManager defaultManager];
-  NSError *error = nil;
-  TLDebugLog(@"Starting synchronization of downloaded images");
-  NSArray *allDocuments = [fileManager contentsOfDirectoryAtPath:AppDelegate.applicationDocumentsDirectory error:&error];
-  if(!error) {
-    NSArray *imageDataPaths = [allDocuments objectsPassingTest:^BOOL (id obj) {
-      NSString *path = (NSString *)obj;
-      return [path hasSuffix:@".imagedata"];
-    }];
-    downloadedImages = [NSMutableSet setWithArray:imageDataPaths];
-    TLDebugLog(@"Synchronized downloaded images: %lu images", downloadedImages.count);
-  }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    TLDebugLog(@"Starting synchronization of downloaded images");
+    NSArray *allDocuments = [fileManager contentsOfDirectoryAtPath:AppDelegate.applicationDocumentsDirectory error:&error];
+    if (!error) {
+        NSArray *imageDataPaths = [allDocuments objectsPassingTest:^BOOL (id obj) {
+            NSString *path = (NSString *)obj;
+            return [path hasSuffix:@".imagedata"];
+        }];
+        downloadedImages = [NSMutableSet setWithArray:imageDataPaths];
+        TLDebugLog(@"Synchronized downloaded images: %lu images", (unsigned long)downloadedImages.count);
+    }
 }
 
 + (Comic *)comic {
-  Comic *comic = [[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:AppDelegate.managedObjectContext];
-  return comic;
+    Comic *comic = [[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:AppDelegate.managedObjectContext];
+    return comic;
 }
 
 + (Comic *)lastKnownComic {
-  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  request.entity = comicEntityDescription;
-  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO]];
-  request.fetchLimit = 1;
-  
-  NSError *error = nil;
-  NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
-  
-  Comic *lastKnownComic = nil;
-  if(error || !array || array.count == 0) {
-    NSLog(@"Couldn't find last comic, error: %@", error);
-  } else {
-    lastKnownComic = array[0];
-  }
-  return lastKnownComic;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    request.entity = comicEntityDescription;
+    request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO]];
+    request.fetchLimit = 1;
+    
+    NSError *error = nil;
+    NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+    
+    Comic *lastKnownComic = nil;
+    if (error || !array || array.count == 0) {
+        NSLog(@"Couldn't find last comic, error: %@", error);
+    }
+    else {
+        lastKnownComic = array[0];
+    }
+    return lastKnownComic;
 }
 
 + (Comic *)comicNumbered:(NSInteger)comicNumber {
-  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  request.entity = comicEntityDescription;
-  
-  request.predicate = [NSPredicate predicateWithFormat:kAttributeNumber @" = %@", @(comicNumber)];
-  request.fetchLimit = 1;
-  
-  NSError *error = nil;
-  NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
-  
-  Comic *comic = nil;
-  if(error || array.count == 0) {
-    NSLog(@"Couldn't find comic numbered %li, error: %@", (long)comicNumber, error);
-  } else {
-    comic = array[0];
-  }
-  return comic;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    request.entity = comicEntityDescription;
+    
+    request.predicate = [NSPredicate predicateWithFormat:kAttributeNumber @" = %@", @(comicNumber)];
+    request.fetchLimit = 1;
+    
+    NSError *error = nil;
+    NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+    
+    Comic *comic = nil;
+    if (error || array.count == 0) {
+        NSLog(@"Couldn't find comic numbered %li, error: %@", (long)comicNumber, error);
+    }
+    else {
+        comic = array[0];
+    }
+    return comic;
 }
 
 + (NSArray *)allComics {
-  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  request.entity = comicEntityDescription;
-  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO]];
-  
-  NSError *error = nil;
-  NSArray *allComics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
-  return allComics;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    request.entity = comicEntityDescription;
+    request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO]];
+    
+    NSError *error = nil;
+    NSArray *allComics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+    return allComics;
 }
 
 + (NSArray *)comicsWithoutImages {
-  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  request.entity = comicEntityDescription;
-
-  // This is pretty lame, but for now, it gets the job down. Someday, fix this ugly hack.
-  NSMutableSet *downloadedImageNumbers = [NSMutableSet setWithCapacity:downloadedImages.count];
-  for(NSString *downloadedImageFilename in downloadedImages) {
-    NSNumber *downloadedImageNumber = @([downloadedImageFilename integerValue]);
-    [downloadedImageNumbers addObject:downloadedImageNumber];
-  }
-  
-  request.predicate = [NSPredicate predicateWithFormat:@"NOT (" kAttributeNumber " IN %@)", downloadedImageNumbers];
-  request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES]];
-  
-  NSError *error = nil;
-  NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
-  return comics;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    request.entity = comicEntityDescription;
+    
+    // This is pretty lame, but for now, it gets the job down. Someday, fix this ugly hack.
+    NSMutableSet *downloadedImageNumbers = [NSMutableSet setWithCapacity:downloadedImages.count];
+    for (NSString *downloadedImageFilename in downloadedImages) {
+        NSNumber *downloadedImageNumber = @([downloadedImageFilename integerValue]);
+        [downloadedImageNumbers addObject:downloadedImageNumber];
+    }
+    
+    request.predicate = [NSPredicate predicateWithFormat:@"NOT (" kAttributeNumber " IN %@)", downloadedImageNumbers];
+    request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES]];
+    
+    NSError *error = nil;
+    NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+    return comics;
 }
 
 - (void)deleteImage {
-  [[self class] deleteDownloadedImage:self.imageFilename];
+    [[self class] deleteDownloadedImage:self.imageFilename];
 }
 
 + (void)deleteAllComics {
-  // No need to be efficient, this is only done during development
-  for(Comic *comic in [self allComics]) {
-    [AppDelegate.managedObjectContext delete:comic];
-  }
-  [AppDelegate save];
+    // No need to be efficient, this is only done during development
+    for (Comic *comic in [self allComics]) {
+        [AppDelegate.managedObjectContext delete:comic];
+    }
+    [AppDelegate save];
 }
 
 - (void)saveImageData:(NSData *)imageData {
-  NSString *path = self.imagePath;
-
-  [imageData writeToFile:path atomically:YES];
-  [downloadedImages addObject:self.imageFilename];
-
-  // mark as iCloud do-not-backup (since it can be redownloaded as needed)
-  NSURL *fileURL = [NSURL fileURLWithPath:path];
-  NSError *error = nil;
-  [fileURL setResourceValue:@YES
-                     forKey:NSURLIsExcludedFromBackupKey
-                      error:&error];
-  if(error) {
-    TLDebugLog(@"Error setting do-not-backup for %@: %@", path, error);
-  }
+    NSString *path = self.imagePath;
+    
+    [imageData writeToFile:path atomically:YES];
+    [downloadedImages addObject:self.imageFilename];
+    
+    // mark as iCloud do-not-backup (since it can be redownloaded as needed)
+    NSURL *fileURL = [NSURL fileURLWithPath:path];
+    NSError *error = nil;
+    [fileURL setResourceValue:@YES
+                       forKey:NSURLIsExcludedFromBackupKey
+                        error:&error];
+    if (error) {
+        TLDebugLog(@"Error setting do-not-backup for %@: %@", path, error);
+    }
 }
 
 + (NSEntityDescription *)entityDescription {
-  return comicEntityDescription;
+    return comicEntityDescription;
 }
 
 - (NSString *)websiteURL {
-  return [NSString stringWithFormat:@"http://xkcd.com/%li", (long)[self.number integerValue]];
+    return [NSString stringWithFormat:@"http://xkcd.com/%li", (long)[self.number integerValue]];
 }
 
 + (NSSet *)downloadedImages {
-  return [downloadedImages copy];
+    return [downloadedImages copy];
 }
 
 + (void)deleteDownloadedImage:(NSString *)imageFilename {
-  NSString *imagePath = [self imagePathForImageFilename:imageFilename];
-  NSLog(@"Deleting %@ (at %@)", imageFilename, imagePath);
-  NSError *deleteError = nil;
-  [[NSFileManager defaultManager] removeItemAtPath:imagePath error:&deleteError];
-  if(!deleteError) {
-    [downloadedImages removeObject:imageFilename];
-  }
-  if(deleteError && ([deleteError code] != NSFileNoSuchFileError)) {
-    NSLog(@"Delete fail %@: %@", deleteError, deleteError.userInfo);
-  }
+    NSString *imagePath = [self imagePathForImageFilename:imageFilename];
+    NSLog(@"Deleting %@ (at %@)", imageFilename, imagePath);
+    NSError *deleteError = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:imagePath error:&deleteError];
+    if (!deleteError) {
+        [downloadedImages removeObject:imageFilename];
+    }
+    if (deleteError && ([deleteError code] != NSFileNoSuchFileError)) {
+        NSLog(@"Delete fail %@: %@", deleteError, deleteError.userInfo);
+    }
 }
 
 + (NSString *)imagePathForImageFilename:(NSString *)imageFilename {
-  return [AppDelegate.applicationDocumentsDirectory stringByAppendingPathComponent:imageFilename];
+    return [AppDelegate.applicationDocumentsDirectory stringByAppendingPathComponent:imageFilename];
 }
 
 #pragma mark -
 #pragma mark Properties
 
 - (NSString *)imagePath {
-  return [[self class] imagePathForImageFilename:self.imageFilename];
+    return [[self class] imagePathForImageFilename:self.imageFilename];
 }
 
 - (UIImage *)image {
-  return [UIImage imageWithContentsOfFile:self.imagePath];
+    return [UIImage imageWithContentsOfFile:self.imagePath];
 }
 
 - (NSString *)imageFilename {
-  NSInteger comicNumber = [[self valueForKey:kAttributeNumber] integerValue];
-  return [NSString stringWithFormat:@"%li.imagedata", (long)comicNumber];
+    NSInteger comicNumber = [[self valueForKey:kAttributeNumber] integerValue];
+    return [NSString stringWithFormat:@"%li.imagedata", (long)comicNumber];
 }
 
 - (BOOL)downloaded {
-  return [downloadedImages containsObject:self.imageFilename];
+    return [downloadedImages containsObject:self.imageFilename];
 }
 
 @end

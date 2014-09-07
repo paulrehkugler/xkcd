@@ -6,7 +6,8 @@
 //  Copyright 2009 Treeline Labs. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 #import "NewComicFetcherDelegate.h"
 #import "SingleComicImageFetcherDelegate.h"
 #import "TLModalActivityIndicatorView.h"
@@ -14,17 +15,9 @@
 @class NewComicFetcher;
 @class SingleComicImageFetcher;
 
-@interface ComicListViewController : UITableViewController <
-  NewComicFetcherDelegate,
-  NSFetchedResultsControllerDelegate,
-  UISearchBarDelegate,
-  UISearchDisplayDelegate,
-  SingleComicImageFetcherDelegate,
-  MFMailComposeViewControllerDelegate,
-  UIScrollViewDelegate
->
+@interface ComicListViewController : UITableViewController <NewComicFetcherDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, SingleComicImageFetcherDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
 
-@property(nonatomic, assign, readwrite) NSInteger requestedLaunchComic;
+@property (nonatomic) NSInteger requestedLaunchComic;
 
 - (NSIndexPath *)indexPathForComicNumbered:(NSInteger)comicNumber;
 

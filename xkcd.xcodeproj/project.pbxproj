@@ -15,7 +15,6 @@
 		0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0372FF7C10447552004CD031 /* ComicListViewController.m */; };
 		037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
 		037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
-		037C49E81589648A0026DE43 /* TestBrokenUnicodeFixer.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */; };
 		037CC6DC122B183C002E4738 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DB122B183C002E4738 /* Security.framework */; };
 		037CC6E0122B1846002E4738 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
 		0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0384E76210500E0F0096D4E7 /* Settings.bundle */; };
@@ -29,7 +28,6 @@
 		039A966A161D44B700C95AAB /* globe_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 039A9668161D44B700C95AAB /* globe_43.png */; };
 		039A966B161D44B700C95AAB /* globe_43@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 039A9669161D44B700C95AAB /* globe_43@2x.png */; };
 		03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
-		03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		03C1852C152BDC02005EF7D0 /* xkcd114.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E4A122AA87800A35F44 /* xkcd114.png */; };
 		03C1852D152BDC08005EF7D0 /* xkcd57.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E48122AA87800A35F44 /* xkcd57.png */; };
@@ -92,6 +90,8 @@
 		B5C7A616161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7A614161A68F5003C0FC0 /* OpenInBrowserActivity.m */; };
 		B5C7A619161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */; };
 		B5C7A61A161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */; };
+		DACE9FC919BD19FC00A57446 /* TestNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE9FC819BD19FC00A57446 /* TestNSString+HTML.m */; };
+		DACE9FCB19BD1A0C00A57446 /* TestBrokenUnicodeFixer.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE9FCA19BD1A0C00A57446 /* TestBrokenUnicodeFixer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,8 +119,6 @@
 		03798E72146C9FD8006AD9B1 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		037C49E115895B7E0026DE43 /* NSData+BrokenUnicodeJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+BrokenUnicodeJSON.h"; sourceTree = "<group>"; };
 		037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+BrokenUnicodeJSON.m"; sourceTree = "<group>"; };
-		037C49E61589648A0026DE43 /* TestBrokenUnicodeFixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestBrokenUnicodeFixer.h; path = Classes/TestBrokenUnicodeFixer.h; sourceTree = "<group>"; };
-		037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestBrokenUnicodeFixer.m; path = Classes/TestBrokenUnicodeFixer.m; sourceTree = "<group>"; };
 		037CC6DB122B183C002E4738 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		037CC6DD122B183C002E4738 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		037CC6DF122B1846002E4738 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -141,8 +139,6 @@
 		03B6BC05112CB3A200C32C21 /* NSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_HTML.m; sourceTree = "<group>"; };
 		03B6BC1A112D9D9B00C32C21 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		03B6BC6B112DA07D00C32C21 /* TestNSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNSString_HTML.h; sourceTree = "<group>"; };
-		03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSString_HTML.m; sourceTree = "<group>"; };
 		03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		03E905D910AA366D00D74902 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		03F10D35104D6DDE0045AEFC /* Comic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comic.h; sourceTree = "<group>"; };
@@ -214,6 +210,8 @@
 		B5C7A614161A68F5003C0FC0 /* OpenInBrowserActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInBrowserActivity.m; sourceTree = "<group>"; };
 		B5C7A617161A6907003C0FC0 /* OpenInChromeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInChromeActivity.h; sourceTree = "<group>"; };
 		B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInChromeActivity.m; sourceTree = "<group>"; };
+		DACE9FC819BD19FC00A57446 /* TestNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TestNSString+HTML.m"; sourceTree = "<group>"; };
+		DACE9FCA19BD1A0C00A57446 /* TestBrokenUnicodeFixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestBrokenUnicodeFixer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,10 +268,8 @@
 		03B6BC2D112D9F5A00C32C21 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				03B6BC6B112DA07D00C32C21 /* TestNSString_HTML.h */,
-				03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */,
-				037C49E61589648A0026DE43 /* TestBrokenUnicodeFixer.h */,
-				037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */,
+				DACE9FC819BD19FC00A57446 /* TestNSString+HTML.m */,
+				DACE9FCA19BD1A0C00A57446 /* TestBrokenUnicodeFixer.m */,
 			);
 			name = UnitTests;
 			sourceTree = "<group>";
@@ -530,7 +526,7 @@
 			name = UnitTests;
 			productName = UnitTests;
 			productReference = 03B6BC1A112D9D9B00C32C21 /* UnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		1D6058900D05DD3D006BFB54 /* xkcd */ = {
 			isa = PBXNativeTarget;
@@ -556,7 +552,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = GSH6YUE5F3;
@@ -651,17 +647,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */,
 				03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */,
 				03F702091464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020D1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
 				03F7021A1464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
 				03F702221464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
 				03F7022A1464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
+				DACE9FC919BD19FC00A57446 /* TestNSString+HTML.m in Sources */,
 				03F702361464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
+				DACE9FCB19BD1A0C00A57446 /* TestBrokenUnicodeFixer.m in Sources */,
 				03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
-				037C49E81589648A0026DE43 /* TestBrokenUnicodeFixer.m in Sources */,
 				031FE8F2159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
 				B5C7A616161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */,
 				B5C7A61A161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */,
@@ -718,14 +714,17 @@
 		034042D21056B450004B4909 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joshua Snyder";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -735,7 +734,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -760,7 +759,7 @@
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "xkcd-distro-info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -769,20 +768,24 @@
 				PRODUCT_NAME = xkcd;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Distribution;
 		};
 		039387E410508CBC001EFE4E /* Ad hoc distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joshua Snyder";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -792,7 +795,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -817,11 +820,12 @@
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "xkcd-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = xkcd;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Ad hoc distribution";
 		};
@@ -830,10 +834,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -857,11 +863,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "UnitTests-Info.plist";
@@ -884,10 +892,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "UnitTests-Info.plist";
@@ -910,9 +920,11 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "UnitTests-Info.plist";
@@ -946,10 +958,11 @@
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "xkcd-dev-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = xkcd;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -966,24 +979,28 @@
 				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "xkcd-dev-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = xkcd;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "TL_DEBUG=1";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -994,7 +1011,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1009,14 +1026,17 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1026,7 +1046,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",

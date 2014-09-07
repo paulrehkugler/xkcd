@@ -5,7 +5,7 @@
 //  Created by Joshua Bleecher Snyder on 9/11/09.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface TLMersenneTwister : NSObject
 
