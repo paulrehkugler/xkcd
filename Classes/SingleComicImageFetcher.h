@@ -6,7 +6,8 @@
 //  Copyright 2009 Treeline Labs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
 #import "SingleComicImageFetcherDelegate.h"
 
 @interface SingleComicImageFetcher : NSObject
@@ -16,6 +17,6 @@
 - (BOOL)downloadingAll;
 - (void)cancelDownloadAll;
 
-@property(nonatomic, weak, readwrite) id<SingleComicImageFetcherDelegate> delegate;
+@property (nonatomic, weak) id<SingleComicImageFetcherDelegate> delegate;
 
 @end

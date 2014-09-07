@@ -6,18 +6,18 @@
 //  Copyright 2009 Treeline Labs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface FetchComicFromWeb : NSOperation
 
-- (id)initWithComicNumber:(NSInteger)comicNumberToFetch completionTarget:(id)completionTarget action:(SEL)completionAction;
+- (instancetype)initWithComicNumber:(NSInteger)comicNumberToFetch completionTarget:(id)completionTarget action:(SEL)completionAction;
 
-@property(nonatomic, assign, readonly) NSInteger comicNumber;
-@property(nonatomic, strong, readonly) NSString *comicName;
-@property(nonatomic, strong, readonly) NSString *comicTitleText;
-@property(nonatomic, strong, readonly) NSString *comicImageURL;
-@property(nonatomic, strong, readonly) NSString *comicTranscript;
-@property(nonatomic, strong, readonly) NSError *error;
-@property(nonatomic, assign, readonly) BOOL got404;
+@property (nonatomic, readonly) NSInteger comicNumber;
+@property (nonatomic, readonly) NSString *comicName;
+@property (nonatomic, readonly) NSString *comicTitleText;
+@property (nonatomic, readonly) NSString *comicImageURL;
+@property (nonatomic, readonly) NSString *comicTranscript;
+@property (nonatomic, readonly) NSError *error;
+@property (nonatomic, readonly) BOOL got404;
 
 @end

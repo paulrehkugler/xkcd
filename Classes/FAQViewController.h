@@ -2,7 +2,7 @@
 //  FAQViewController.h
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface FAQViewController : UIViewController
 

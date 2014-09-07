@@ -5,8 +5,8 @@
 //  Created by Joshua Bleecher Snyder on 9/10/09.
 //
 
-#import <Foundation/Foundation.h>
-
+@import Foundation;
+@import UIKit;
 
 @interface UIBarButtonItem (TLCommon)
 

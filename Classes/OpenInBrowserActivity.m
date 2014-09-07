@@ -9,31 +9,31 @@
 @implementation OpenInBrowserActivity
 
 - (UIImage *)activityImage {
-  return [UIImage imageNamed:@"globe_43.png"];
+    return [UIImage imageNamed:@"globe_43.png"];
 }
 
 + (BOOL)canPerformWithObject:(id)obj {
-  if(![obj isKindOfClass:[NSURL class]]) {
-    return NO;
-  }
-
-  // can't (or anyway shouldn't) open mailto: or sms: in an external browser
-  NSURL *url = (NSURL *)obj;
-  return [url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"];
+    if (![obj isKindOfClass:[NSURL class]]) {
+        return NO;
+    }
+    
+    // can't (or anyway shouldn't) open mailto: or sms: in an external browser
+    NSURL *url = (NSURL *)obj;
+    return [url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-  return [activityItems containsObjectPassingTest:^BOOL(id obj) {
-    return [[self class] canPerformWithObject:obj];
-  }];
+    return [activityItems containsObjectPassingTest:^BOOL(id obj) {
+        return [[self class] canPerformWithObject:obj];
+    }];
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
-  NSArray *openableUrls = [activityItems objectsPassingTest:^BOOL(id obj) {
-    return [[self class] canPerformWithObject:obj];
-  }];
-
-  self.urlToOpen = openableUrls[0];
+    NSArray *openableUrls = [activityItems objectsPassingTest:^BOOL(id obj) {
+        return [[self class] canPerformWithObject:obj];
+    }];
+    
+    self.urlToOpen = openableUrls[0];
 }
 
 @end

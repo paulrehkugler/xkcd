@@ -10,16 +10,16 @@
 @implementation OpenInSafariActivity
 
 - (NSString *)activityType {
-  return @"com.treelinelabs.xkcdapp.open_in_safari";
+    return @"com.treelinelabs.xkcdapp.open_in_safari";
 }
 
 - (NSString *)activityTitle {
-  return @"Open in Safari";
+    return @"Open in Safari";
 }
 
 - (void)performActivity {
-  [[UIApplication sharedApplication] openURL:self.urlToOpen];
-  [self activityDidFinish:YES];
+    [[UIApplication sharedApplication] openURL:self.urlToOpen];
+    [self activityDidFinish:YES];
 }
 
 @end

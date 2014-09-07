@@ -3,10 +3,10 @@
 //  xkcd
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface OpenInBrowserActivity : UIActivity
 
-@property(nonatomic, strong) NSURL *urlToOpen;
+@property (nonatomic) NSURL *urlToOpen;
 
 @end

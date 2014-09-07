@@ -1,10 +1,10 @@
 // Extracted and adapted from https://github.com/zoul/Lambda-Alert (MIT license)
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface LambdaSheet : NSObject
 
-- (id)initWithTitle:(NSString *)title;
+- (instancetype)initWithTitle:(NSString *)title;
 
 - (void)addButtonWithTitle:(NSString *)title block:(dispatch_block_t)block;
 - (void)addDestructiveButtonWithTitle:(NSString *)title block:(dispatch_block_t)block;
@@ -20,6 +20,6 @@
 
 - (void)dismissAnimated:(BOOL)animated;
 
-@property(copy) dispatch_block_t dismissAction;
+@property (copy) dispatch_block_t dismissAction;
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright Treeline Labs 2009. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 int main(int argc, char *argv[]) {
     

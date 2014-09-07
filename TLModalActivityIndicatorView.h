@@ -5,12 +5,12 @@
 //  Created by Joshua Bleecher Snyder on 9/10/09.
 //
 
-#import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
+@import UIKit;
+@import QuartzCore;
 
 @interface TLModalActivityIndicatorView : UIView
 
-- (id)initWithText:(NSString *)text;
+- (instancetype)initWithText:(NSString *)text;
 - (void)show;
 - (void)dismiss;
 

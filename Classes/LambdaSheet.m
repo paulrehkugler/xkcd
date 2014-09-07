@@ -4,9 +4,9 @@
 
 @interface LambdaSheet () <UIActionSheetDelegate>
 
-@property(strong) UIActionSheet *sheet;
-@property(strong) NSMutableArray *blocks;
-@property(strong) id keepInMemory;
+@property UIActionSheet *sheet;
+@property NSMutableArray *blocks;
+@property id keepInMemory;
 
 @end
 
@@ -14,92 +14,92 @@
 
 @implementation LambdaSheet
 
-- (id)initWithTitle:(NSString *)title {
-  if((self = [super init])) {
-    _sheet = [[UIActionSheet alloc] initWithTitle:title
-                                        delegate:self
-                               cancelButtonTitle:nil
-                          destructiveButtonTitle:nil
-                               otherButtonTitles:nil];
-    _blocks = [[NSMutableArray alloc] init];
-  }
-  return self;
+- (instancetype)initWithTitle:(NSString *)title {
+    if ((self = [super init])) {
+        _sheet = [[UIActionSheet alloc] initWithTitle:title
+                                             delegate:self
+                                    cancelButtonTitle:nil
+                               destructiveButtonTitle:nil
+                                    otherButtonTitles:nil];
+        _blocks = [[NSMutableArray alloc] init];
+    }
+    return self;
 }
 
 
 #pragma mark - Button management
 
 - (void)addButtonWithTitle:(NSString *)title block:(dispatch_block_t)block {
-  if(!block) {
-    block = ^{};
-  }
-
-  [self.sheet addButtonWithTitle:title];
-  dispatch_block_t block_copy = [block copy];
-  [self.blocks addObject:block_copy];
+    if (!block) {
+        block = ^{};
+    }
+    
+    [self.sheet addButtonWithTitle:title];
+    dispatch_block_t block_copy = [block copy];
+    [self.blocks addObject:block_copy];
 }
 
 - (void)addDestructiveButtonWithTitle:(NSString *)title block:(dispatch_block_t) block {
-  [self addButtonWithTitle:title block:block];
-  [self.sheet setDestructiveButtonIndex:self.sheet.numberOfButtons-1];
+    [self addButtonWithTitle:title block:block];
+    [self.sheet setDestructiveButtonIndex:self.sheet.numberOfButtons-1];
 }
 
 - (void)addCancelButton {
-  [self addCancelButtonWithTitle:NSLocalizedString(@"Cancel", @"Action sheet cancel button")];
+    [self addCancelButtonWithTitle:NSLocalizedString(@"Cancel", @"Action sheet cancel button")];
 }
 
 - (void)addCancelButtonWithTitle:(NSString *)title block:(dispatch_block_t) block {
-  [self addButtonWithTitle:title block:block];
-  [self.sheet setCancelButtonIndex:self.sheet.numberOfButtons-1];
+    [self addButtonWithTitle:title block:block];
+    [self.sheet setCancelButtonIndex:self.sheet.numberOfButtons-1];
 }
 
 - (void)addCancelButtonWithTitle:(NSString *)title {
-  [self addCancelButtonWithTitle:title block:NULL];
+    [self addCancelButtonWithTitle:title block:NULL];
 }
 
 #pragma mark - Display
 
 - (void)showInView:(UIView *)view {
-  [self.sheet showInView:view];
-  [self setKeepInMemory:self];
+    [self.sheet showInView:view];
+    [self setKeepInMemory:self];
 }
 
 - (void)showFromTabBar:(UITabBar *)view {
-  [self.sheet showFromTabBar:view];
-  [self setKeepInMemory:self];
+    [self.sheet showFromTabBar:view];
+    [self setKeepInMemory:self];
 }
 
 - (void)showFromToolbar:(UIToolbar *)view {
-  [self.sheet showFromToolbar:view];
-  [self setKeepInMemory:self];
+    [self.sheet showFromToolbar:view];
+    [self setKeepInMemory:self];
 }
 
 - (void)showFromBarButtonItem:(UIBarButtonItem *)item {
-  [self.sheet showFromBarButtonItem:item animated:YES];
-  [self setKeepInMemory:self];
+    [self.sheet showFromBarButtonItem:item animated:YES];
+    [self setKeepInMemory:self];
 }
 
 - (void)showFromRect:(CGRect) rect inView:(UIView *)view animated:(BOOL) animated {
-  [self.sheet showFromRect:rect inView:view animated:animated];
-  [self setKeepInMemory:self];
+    [self.sheet showFromRect:rect inView:view animated:animated];
+    [self setKeepInMemory:self];
 }
 
 - (void)dismissAnimated:(BOOL) animated {
-  [self.sheet dismissWithClickedButtonIndex:-1 animated:animated];
+    [self.sheet dismissWithClickedButtonIndex:-1 animated:animated];
 }
 
 #pragma mark - UIActionSheetDelegate methods
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-  NSParameterAssert(actionSheet == self.sheet);
-  if (buttonIndex >= 0 && buttonIndex < [self.blocks count]) {
-    dispatch_block_t block = (self.blocks)[buttonIndex];
-    block();
-  }
-  if(self.dismissAction != NULL) {
-    self.dismissAction();
-  }
-  [self setKeepInMemory:nil];
+    NSParameterAssert(actionSheet == self.sheet);
+    if (buttonIndex >= 0 && buttonIndex < [self.blocks count]) {
+        dispatch_block_t block = (self.blocks)[buttonIndex];
+        block();
+    }
+    if (self.dismissAction != NULL) {
+        self.dismissAction();
+    }
+    [self setKeepInMemory:nil];
 }
 
 @end

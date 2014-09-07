@@ -2,7 +2,7 @@
 //  NSData+BrokenUnicodeJSON.h
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSData (BrokenUnicodeJSON)
 
