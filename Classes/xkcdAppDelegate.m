@@ -60,12 +60,11 @@ static NSString *applicationDocumentsDirectory = nil;
         }
     }
     
-    TLNavigationController *navigationController = [[TLNavigationController alloc] initWithRootViewController:listViewController];
-    navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
-    navigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
+    UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
+    splitViewController.viewControllers = @[listViewController];
     
-    self.window.rootViewController = navigationController;
-    [self.window addSubview:navigationController.view];
+    self.window.rootViewController = splitViewController;
+    [self.window addSubview:splitViewController.view];
     [self.window makeKeyAndVisible];
     
     return canLaunchApplication;

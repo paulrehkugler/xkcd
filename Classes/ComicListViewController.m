@@ -235,7 +235,7 @@ static UIImage *downloadImage = nil;
 
 - (void)viewComic:(Comic *)comic {
     SingleComicViewController *singleComicViewController = [[SingleComicViewController alloc] initWithComic:comic];
-    [self.navigationController pushViewController:singleComicViewController animated:YES];
+    [self.splitViewController showDetailViewController:singleComicViewController sender:self];
 }
 
 - (void)checkForNewComics {
