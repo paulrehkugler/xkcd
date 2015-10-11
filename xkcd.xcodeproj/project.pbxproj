@@ -111,7 +111,6 @@
 		032FA24B1592928D00C39198 /* FAQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAQViewController.m; sourceTree = "<group>"; };
 		032FA24C1592928D00C39198 /* FAQViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FAQViewController.xib; sourceTree = "<group>"; };
 		032FA24F159294B900C39198 /* faq.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = faq.plist; sourceTree = "<group>"; };
-		034042DB1056B4F6004B4909 /* xkcd-distro-info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; fileEncoding = 4; path = "xkcd-distro-info.plist"; sourceTree = "<group>"; };
 		034E0E9A10A9ED8F0021D494 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		034E0E9E10A9EDA00021D494 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		0372FF7B10447552004CD031 /* ComicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicListViewController.h; sourceTree = "<group>"; };
@@ -129,7 +128,6 @@
 		0384ECA01608D181008FE145 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		03870FCE1595525D00436B99 /* comics.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = comics.sqlite; sourceTree = "<group>"; };
 		03870FD11595540E00436B99 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		039387E910508D86001EFE4E /* xkcd-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-dev-Info.plist"; sourceTree = "<group>"; };
 		039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ad-hoc-entitlements.plist"; sourceTree = "<group>"; };
 		03941EDA1591613E00ADBED9 /* OpenInSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInSafariActivity.h; sourceTree = "<group>"; };
 		03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInSafariActivity.m; sourceTree = "<group>"; };
@@ -281,10 +279,8 @@
 		03DA9D721097B497005A34B2 /* System */ = {
 			isa = PBXGroup;
 			children = (
-				034042DB1056B4F6004B4909 /* xkcd-distro-info.plist */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* xkcd-Info.plist */,
-				039387E910508D86001EFE4E /* xkcd-dev-Info.plist */,
 				03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */,
 				0384E76210500E0F0096D4E7 /* Settings.bundle */,
 				039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */,
@@ -775,7 +771,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "xkcd-distro-info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
@@ -849,7 +845,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "xkcd-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshapp.xkcd;
@@ -968,7 +964,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "xkcd-dev-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.treelinelabs.xkcd;
@@ -998,7 +994,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "xkcd-dev-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.treelinelabs.xkcd;
