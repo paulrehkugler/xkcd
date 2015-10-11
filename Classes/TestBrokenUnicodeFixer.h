@@ -2,8 +2,8 @@
 //  TestBrokenUnicodeFixer.h
 //
 
-#import <SenTestingKit/SenTestingKit.h>
-
-@interface TestBrokenUnicodeFixer : SenTestCase
-
-@end
+//#import <SenTestingKit/SenTestingKit.h>
+//
+//@interface TestBrokenUnicodeFixer : SenTestCase
+//
+//@end
