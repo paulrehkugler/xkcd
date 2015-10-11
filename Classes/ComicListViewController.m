@@ -74,7 +74,7 @@ static UIImage *downloadImage = nil;
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
     if(!downloadImage) {
-      downloadImage = [UIImage imageNamed:@"download"];
+      downloadImage = [[UIImage imageNamed:@"download"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
   }
 }
