@@ -51,7 +51,7 @@
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
     _comic = comicToView;
-    self.title = [NSString stringWithFormat:@"%i. %@", _comic.number.integerValue, _comic.name];
+    self.title = [NSString stringWithFormat:@"%li. %@", (long)_comic.number.integerValue, _comic.name];
   }
   return self;
 }

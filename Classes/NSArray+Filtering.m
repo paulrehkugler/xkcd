@@ -12,7 +12,7 @@
 
 
 - (BOOL)containsObjectPassingTest:(ObjectTestBlock)test {
-  NSUInteger index = [self indexOfObjectPassingTest:^(id obj, NSUInteger index, BOOL *stop) {
+  NSUInteger index = [self indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
     BOOL passesTest = test(obj);
     if(passesTest) {
       *stop = YES;
