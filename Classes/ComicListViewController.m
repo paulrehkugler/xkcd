@@ -74,7 +74,7 @@ static UIImage *downloadImage = nil;
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
     if(!downloadImage) {
-      downloadImage = [UIImage imageNamed:@"glyphish_download.png"];
+      downloadImage = [UIImage imageNamed:@"download"];
     }
   }
 }

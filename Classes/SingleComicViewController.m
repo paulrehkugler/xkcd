@@ -83,20 +83,20 @@
                                                                     target:self
                                                                     action:@selector(systemAction:)];
   
-  UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
+  UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"previous"]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(goToPreviousComic)];
   previousItem.accessibilityLabel = NSLocalizedString(@"Older comic", @"older_comic_accessibility_label");
   previousItem.enabled = (self.comic.number.unsignedIntegerValue != kMinComicNumber);
 
-  UIBarButtonItem *randomItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_shuffle"]
+  UIBarButtonItem *randomItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"random"]
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(goToRandomComic)];
   randomItem.accessibilityLabel = NSLocalizedString(@"Random comic", @"random_comic_accessibility_label");
 
-  UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up"]
+  UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goToNextComic)];
