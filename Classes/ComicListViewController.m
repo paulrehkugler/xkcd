@@ -93,13 +93,12 @@ static UIImage *downloadImage = nil;
   searchBar.placeholder = NSLocalizedString(@"Search xkcd", @"Search bar placeholder text");
   searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
   searchBar.delegate = self;
-  self.tableView.tableHeaderView = searchBar;  
+  self.tableView.tableHeaderView = searchBar;
 }
 
 - (void)addRefreshControl {
   UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
   [refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
-  [refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Check for new comics"]];
   
   self.refreshControl = refreshControl;
 }
