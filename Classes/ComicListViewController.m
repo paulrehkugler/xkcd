@@ -591,7 +591,7 @@ static UIImage *downloadImage = nil;
   emailViewController.mailComposeDelegate = self;
   emailViewController.subject = [NSString stringWithFormat:NSLocalizedString(@"Feedback on xkcd app (version %@)", @"Subject of feedback email"),
                                  [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"]];
-  emailViewController.toRecipients = @[@"xkcdapp@treelinelabs.com"];
+  emailViewController.toRecipients = @[@"feedback@xkcdapp.com"];
 
   [self presentViewController:emailViewController animated:YES completion:^{}];
 
