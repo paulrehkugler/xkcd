@@ -20,9 +20,7 @@
 		037CC6E0122B1846002E4738 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
 		0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0384E76210500E0F0096D4E7 /* Settings.bundle */; };
 		0384E8C4105036D40096D4E7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0384E8C3105036D40096D4E7 /* MessageUI.framework */; };
-		0384ECA11608D181008FE145 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0384ECA01608D181008FE145 /* Default-568h@2x.png */; };
 		03870FCF1595525D00436B99 /* comics.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 03870FCE1595525D00436B99 /* comics.sqlite */; };
-		03870FD21595540E00436B99 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03870FD11595540E00436B99 /* Default@2x.png */; };
 		039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */; };
 		03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */; };
 		03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */; };
@@ -31,7 +29,6 @@
 		03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
-		03E905DA10AA366D00D74902 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E905D910AA366D00D74902 /* Default.png */; };
 		03F10D37104D6DDE0045AEFC /* Comic.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10D36104D6DDE0045AEFC /* Comic.m */; };
 		03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10DB0104D77030045AEFC /* NewComicFetcher.m */; };
 		03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F10DBB104D78450045AEFC /* FetchComicFromWeb.m */; };
@@ -67,6 +64,7 @@
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
 		517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D568D175A5199001EECAE /* UIScrollView+Helper.m */; };
+		5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */; settings = {ASSET_TAGS = (); }; };
 		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
 		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
 		B5C7A615161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7A614161A68F5003C0FC0 /* OpenInBrowserActivity.m */; };
@@ -106,9 +104,7 @@
 		037CC6DF122B1846002E4738 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0384E76210500E0F0096D4E7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		0384E8C3105036D40096D4E7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		0384ECA01608D181008FE145 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		03870FCE1595525D00436B99 /* comics.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = comics.sqlite; sourceTree = "<group>"; };
-		03870FD11595540E00436B99 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ad-hoc-entitlements.plist"; sourceTree = "<group>"; };
 		03941EDA1591613E00ADBED9 /* OpenInSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInSafariActivity.h; sourceTree = "<group>"; };
 		03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInSafariActivity.m; sourceTree = "<group>"; };
@@ -123,7 +119,6 @@
 		03B6BC6B112DA07D00C32C21 /* TestNSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNSString_HTML.h; sourceTree = "<group>"; };
 		03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSString_HTML.m; sourceTree = "<group>"; };
 		03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		03E905D910AA366D00D74902 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		03F10D35104D6DDE0045AEFC /* Comic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comic.h; sourceTree = "<group>"; };
 		03F10D36104D6DDE0045AEFC /* Comic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comic.m; sourceTree = "<group>"; };
 		03F10DAF104D77030045AEFC /* NewComicFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewComicFetcher.h; sourceTree = "<group>"; };
@@ -173,6 +168,7 @@
 		5136AE8B175463A100742406 /* TLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLNavigationController.m; sourceTree = "<group>"; };
 		517D568C175A5199001EECAE /* UIScrollView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Helper.h"; sourceTree = "<group>"; };
 		517D568D175A5199001EECAE /* UIScrollView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Helper.m"; sourceTree = "<group>"; };
+		5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
 		51AB8A261BCAD05100BB58A7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		51C575D01759610700C8B98D /* UIImage+EXIFCompensation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EXIFCompensation.h"; sourceTree = "<group>"; };
 		51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EXIFCompensation.m"; sourceTree = "<group>"; };
@@ -254,9 +250,6 @@
 				03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */,
 				0384E76210500E0F0096D4E7 /* Settings.bundle */,
 				039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */,
-				03E905D910AA366D00D74902 /* Default.png */,
-				03870FD11595540E00436B99 /* Default@2x.png */,
-				0384ECA01608D181008FE145 /* Default-568h@2x.png */,
 			);
 			name = System;
 			sourceTree = "<group>";
@@ -437,6 +430,7 @@
 				03DA9D721097B497005A34B2 /* System */,
 				03DA9D751097B4C1005A34B2 /* Core data */,
 				032FA24F159294B900C39198 /* faq.plist */,
+				5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -543,14 +537,12 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */,
 				039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */,
-				03E905DA10AA366D00D74902 /* Default.png in Resources */,
 				03F40E44122AA58600A35F44 /* iTunesArtwork.png in Resources */,
 				51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */,
 				032FA24E1592928D00C39198 /* FAQViewController.xib in Resources */,
 				032FA250159294B900C39198 /* faq.plist in Resources */,
+				5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */,
 				03870FCF1595525D00436B99 /* comics.sqlite in Resources */,
-				03870FD21595540E00436B99 /* Default@2x.png in Resources */,
-				0384ECA11608D181008FE145 /* Default-568h@2x.png in Resources */,
 				039A966A161D44B700C95AAB /* globe_43.png in Resources */,
 				039A966B161D44B700C95AAB /* globe_43@2x.png in Resources */,
 			);
@@ -686,6 +678,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
@@ -760,6 +753,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
@@ -877,6 +871,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
@@ -909,6 +904,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
