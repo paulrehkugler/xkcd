@@ -6,34 +6,20 @@
 #import "SingleComicViewController.h"
 #import "Comic.h"
 #import "TiledImage.h"
-#import "CGGeometry_TLCommon.h"
 #import "xkcdAppDelegate.h"
 #import "SingleComicImageFetcher.h"
 #import "ComicListViewController.h"
-#import "UIBarButtonItem_TLCommon.h"
-#import "TLMersenneTwister.h"
 #import "LambdaSheet.h"
 #import "OpenInSafariActivity.h"
 #import "OpenInChromeActivity.h"
-#import "UIAlertView_TLCommon.h"
 #import "UIScrollView+Helper.h"
 
-#define kTileWidth 1024.0f
-#define kTileHeight 1024.0f
+static CGFloat const kTileWidth = 1024.0;
+static CGFloat const kTileHeight = 1024.0;
 
 #pragma mark -
 
 @interface SingleComicViewController ()
-
-- (void)toggleToolbarsAnimated:(BOOL)animated;
-- (void)goToPreviousComic;
-- (void)goToRandomComic;
-- (void)goToNextComic;
-- (void)displayComicImage;
-- (void)setupToolbar;
-- (void)displayLoadingView;
-- (void)goToComicNumbered:(NSUInteger)comicNumber;
-- (void)calculateZoomScaleAndAnimate:(BOOL)animate;
 
 @property (nonatomic) Comic *comic;
 @property (nonatomic) NSMutableArray *comicImageViews;
@@ -81,9 +67,9 @@
 }
 
 - (void)setupToolbar {
-    UIBarButtonItem *systemActionItem = [UIBarButtonItem barButtonSystemItem:UIBarButtonSystemItemAction
-                                                                      target:self
-                                                                      action:@selector(systemAction:)];
+    UIBarButtonItem *systemActionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+																					  target:self
+																					  action:@selector(systemAction:)];
     
     UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
                                                                      style:UIBarButtonItemStylePlain
@@ -105,17 +91,19 @@
     nextItem.accessibilityLabel = NSLocalizedString(@"Newer comic", @"newer_comic_accessibility_label");
     nextItem.enabled = (self.comic.number.unsignedIntegerValue != [Comic lastKnownComic].number.unsignedIntegerValue);
     
-    NSArray *toolbarItems = @[systemActionItem,
-                              [UIBarButtonItem flexibleSpaceBarButtonItem],
-                              [UIBarButtonItem flexibleSpaceBarButtonItem],
-                              [UIBarButtonItem flexibleSpaceBarButtonItem],
-                              [UIBarButtonItem flexibleSpaceBarButtonItem],
-                              previousItem,
-                              [UIBarButtonItem flexibleSpaceBarButtonItem],
-                              randomItem,
-                              [UIBarButtonItem flexibleSpaceBarButtonItem],
-                              nextItem];
-    
+    NSArray *toolbarItems = @[
+		systemActionItem,
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+		previousItem,
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+		randomItem,
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+		nextItem
+	];
+	
     [self setToolbarItems:toolbarItems animated:NO];
     [self.navigationController setToolbarHidden:NO animated:NO];
 }
@@ -125,12 +113,18 @@
     UIImage *comicImage = self.comic.image;
     CGSize contentSize = comicImage.exifAgnosticSize;
     TiledImage *tiles = [[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight];
-    self.contentView = [[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)];
+	
+	CGRect contentViewRect = CGRectMake(0, 0, contentSize.width, contentSize.height);
+	
+    self.contentView = [[UIView alloc] initWithFrame:contentViewRect];
     self.comicImageViews = [NSMutableArray arrayWithCapacity:(tiles.widthCount * tiles.heightCount)];
     for (NSUInteger x = 0; x < tiles.widthCount; ++x) {
         for (NSUInteger y = 0; y < tiles.heightCount; ++y) {
             UIImageView *comicImageView = [[UIImageView alloc] initWithImage:[tiles imageAtXIndex:x YIndex:y]];
-            comicImageView.frame = CGRectWithXYAndSize(x * kTileWidth, y * kTileHeight, comicImageView.frame.size); // adjust origin appropriately
+			
+			// adjust origin appropriately
+			CGRect contentImageViewFrame = CGRectMake(x * kTileWidth, y * kTileHeight, CGRectGetWidth(comicImageView.frame), CGRectGetHeight(comicImageView.frame));
+			comicImageView.frame = contentImageViewFrame;
             [self.comicImageViews addObject:comicImageView];
         }
     }
@@ -247,8 +241,7 @@
 
 - (void)goToRandomComic {
     NSUInteger maxComicNumber = [[Comic lastKnownComic].number unsignedIntegerValue];
-    long randNumber = [TLMersenneTwister randInt31];
-    NSUInteger randomComicNumber = randNumber % (maxComicNumber - kMinComicNumber) + kMinComicNumber;
+	uint32_t randomComicNumber = arc4random_uniform((uint32_t) maxComicNumber);
     [self goToComicNumbered:randomComicNumber];
 }
 
@@ -290,8 +283,10 @@
 }
 
 - (void)showTitleText:(UILongPressGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        [UIAlertView showAlertWithTitle:nil message:self.comic.titleText];
+    if (recognizer.state == UIGestureRecognizerStateRecognized) {
+		
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:self.comic.titleText preferredStyle:UIAlertControllerStyleAlert];
+		[self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
@@ -315,9 +310,6 @@
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return self.contentView;
-}
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
 }
 
 @end

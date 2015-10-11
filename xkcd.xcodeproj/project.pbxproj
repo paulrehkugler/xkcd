@@ -57,21 +57,9 @@
 		03F40E81122AC9ED00A35F44 /* glyphish_download.png in Resources */ = {isa = PBXBuildFile; fileRef = 03F40E7D122AC9ED00A35F44 /* glyphish_download.png */; };
 		03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702071464C0ED0091BF49 /* LambdaSheet.m */; };
 		03F702091464C0ED0091BF49 /* LambdaSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702071464C0ED0091BF49 /* LambdaSheet.m */; };
-		03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */; };
-		03F7020D1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */; };
 		03F702101464C3270091BF49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F7020F1464C3270091BF49 /* CoreGraphics.framework */; };
 		03F702111464C3A90091BF49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F7020F1464C3270091BF49 /* CoreGraphics.framework */; };
 		03F702121464C3B30091BF49 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
-		03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */; };
-		03F7021A1464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */; };
-		03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */; };
-		03F702221464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */; };
-		03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */; };
-		03F7022A1464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */; };
-		03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702341464C5550091BF49 /* UITableView_TLCommon.m */; };
-		03F702361464C5550091BF49 /* UITableView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702341464C5550091BF49 /* UITableView_TLCommon.m */; };
-		03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
-		03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
 		1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* xkcdAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -79,7 +67,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* xkcd.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
-		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
+		51222E261A0E6B100084556A /* XkcdErrorCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 51222E251A0E6B100084556A /* XkcdErrorCodes.m */; };
 		517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D568D175A5199001EECAE /* UIScrollView+Helper.m */; };
 		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
 		B5C7A60F161A6763003C0FC0 /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C7A60B161A6763003C0FC0 /* down@2x.png */; };
@@ -148,7 +136,6 @@
 		03F10DBA104D78450045AEFC /* FetchComicFromWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchComicFromWeb.h; sourceTree = "<group>"; };
 		03F10DBB104D78450045AEFC /* FetchComicFromWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchComicFromWeb.m; sourceTree = "<group>"; };
 		03F10F0B104D8F1C0045AEFC /* NewComicFetcherDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewComicFetcherDelegate.h; sourceTree = "<group>"; };
-		03F11404104F21110045AEFC /* XkcdErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XkcdErrorCodes.h; sourceTree = "<group>"; };
 		03F1149B104F2A7C0045AEFC /* SingleComicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleComicViewController.h; sourceTree = "<group>"; };
 		03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleComicViewController.m; sourceTree = "<group>"; };
 		03F114A7104F2B2B0045AEFC /* TiledImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiledImage.h; path = Classes/TiledImage.h; sourceTree = SOURCE_ROOT; };
@@ -170,20 +157,7 @@
 		03F701FD1464BEDF0091BF49 /* TLMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMacros.h; sourceTree = "<group>"; };
 		03F702061464C0ED0091BF49 /* LambdaSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaSheet.h; sourceTree = "<group>"; };
 		03F702071464C0ED0091BF49 /* LambdaSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LambdaSheet.m; sourceTree = "<group>"; };
-		03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLModalActivityIndicatorView.h; sourceTree = "<group>"; };
-		03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLModalActivityIndicatorView.m; sourceTree = "<group>"; };
-		03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGGeometry_TLCommon.h; sourceTree = "<group>"; };
 		03F7020F1464C3270091BF49 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		03F702171464C3FA0091BF49 /* UIAlertView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlertView_TLCommon.h; sourceTree = "<group>"; };
-		03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertView_TLCommon.m; sourceTree = "<group>"; };
-		03F7021F1464C4450091BF49 /* UIActivityIndicatorView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActivityIndicatorView_TLCommon.h; sourceTree = "<group>"; };
-		03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIActivityIndicatorView_TLCommon.m; sourceTree = "<group>"; };
-		03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBarButtonItem_TLCommon.h; sourceTree = "<group>"; };
-		03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBarButtonItem_TLCommon.m; sourceTree = "<group>"; };
-		03F702331464C5550091BF49 /* UITableView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableView_TLCommon.h; sourceTree = "<group>"; };
-		03F702341464C5550091BF49 /* UITableView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableView_TLCommon.m; sourceTree = "<group>"; };
-		03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMersenneTwister.h; sourceTree = "<group>"; };
-		03F702401464C5B10091BF49 /* TLMersenneTwister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLMersenneTwister.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* xkcdAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkcdAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* xkcdAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xkcdAppDelegate.m; sourceTree = "<group>"; };
@@ -194,8 +168,8 @@
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* xkcd_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkcd_Prefix.pch; sourceTree = "<group>"; };
-		5136AE8A175463A100742406 /* TLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLNavigationController.h; sourceTree = "<group>"; };
-		5136AE8B175463A100742406 /* TLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLNavigationController.m; sourceTree = "<group>"; };
+		51222E241A0E6B100084556A /* XkcdErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XkcdErrorCodes.h; sourceTree = "<group>"; };
+		51222E251A0E6B100084556A /* XkcdErrorCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XkcdErrorCodes.m; sourceTree = "<group>"; };
 		517D568C175A5199001EECAE /* UIScrollView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Helper.h"; sourceTree = "<group>"; };
 		517D568D175A5199001EECAE /* UIScrollView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Helper.m"; sourceTree = "<group>"; };
 		51C575D01759610700C8B98D /* UIImage+EXIFCompensation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EXIFCompensation.h"; sourceTree = "<group>"; };
@@ -395,21 +369,6 @@
 			isa = PBXGroup;
 			children = (
 				03F701FD1464BEDF0091BF49 /* TLMacros.h */,
-				03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */,
-				03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */,
-				03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */,
-				03F702171464C3FA0091BF49 /* UIAlertView_TLCommon.h */,
-				03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */,
-				03F7021F1464C4450091BF49 /* UIActivityIndicatorView_TLCommon.h */,
-				03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */,
-				03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */,
-				03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */,
-				03F702331464C5550091BF49 /* UITableView_TLCommon.h */,
-				03F702341464C5550091BF49 /* UITableView_TLCommon.m */,
-				03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */,
-				03F702401464C5B10091BF49 /* TLMersenneTwister.m */,
-				5136AE8A175463A100742406 /* TLNavigationController.h */,
-				5136AE8B175463A100742406 /* TLNavigationController.m */,
 			);
 			name = TLCommon;
 			sourceTree = "<group>";
@@ -439,7 +398,8 @@
 				03F10F03104D8ECB0045AEFC /* Controllers */,
 				1D3623240D0F684500981E51 /* xkcdAppDelegate.h */,
 				1D3623250D0F684500981E51 /* xkcdAppDelegate.m */,
-				03F11404104F21110045AEFC /* XkcdErrorCodes.h */,
+				51222E241A0E6B100084556A /* XkcdErrorCodes.h */,
+				51222E251A0E6B100084556A /* XkcdErrorCodes.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -649,14 +609,8 @@
 			files = (
 				03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */,
 				03F702091464C0ED0091BF49 /* LambdaSheet.m in Sources */,
-				03F7020D1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
-				03F7021A1464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
-				03F702221464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
-				03F7022A1464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
 				DACE9FC919BD19FC00A57446 /* TestNSString+HTML.m in Sources */,
-				03F702361464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				DACE9FCB19BD1A0C00A57446 /* TestBrokenUnicodeFixer.m in Sources */,
-				03F702421464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				031FE8F2159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
 				B5C7A616161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */,
@@ -671,6 +625,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */,
 				28C3AD8A0F43EF2300507BA6 /* xkcd.xcdatamodel in Sources */,
+				51222E261A0E6B100084556A /* XkcdErrorCodes.m in Sources */,
 				0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */,
 				03F10D37104D6DDE0045AEFC /* Comic.m in Sources */,
 				03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */,
@@ -681,12 +636,6 @@
 				03F114F3104F30140045AEFC /* FetchComicImageFromWeb.m in Sources */,
 				03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */,
 				03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */,
-				03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
-				03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
-				03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
-				03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
-				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
-				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */,
 				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
@@ -694,7 +643,6 @@
 				031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
 				B5C7A615161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */,
 				B5C7A619161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */,
-				5136AE8C175463A100742406 /* TLNavigationController.m in Sources */,
 				51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */,
 				517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */,
 			);

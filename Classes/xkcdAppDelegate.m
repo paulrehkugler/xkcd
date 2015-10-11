@@ -11,7 +11,6 @@
 #import "NSString_HTML.h"
 #import "TLMacros.h"
 #import "Comic.h"
-#import "TLNavigationController.h"
 
 NSString * const UserAgent = @"xkcd iPhone app (paul@xkcdapp.com; http://bit.ly/xkcdapp). Thank you for the API!";
 

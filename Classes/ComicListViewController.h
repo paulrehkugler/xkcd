@@ -10,7 +10,6 @@
 
 #import "NewComicFetcherDelegate.h"
 #import "SingleComicImageFetcherDelegate.h"
-#import "TLModalActivityIndicatorView.h"
 
 @class NewComicFetcher;
 @class SingleComicImageFetcher;

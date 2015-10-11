@@ -11,7 +11,7 @@
 // When [comicsToInsert count] reaches kInsertChunkSize,
 // comics will be inserted in bulk.
 // Inserting one at a time creates a crappy ux.
-#define kInsertChunkSize 25
+static NSUInteger const kInsertChunkSize = 25;
 
 #import "NewComicFetcher.h"
 #import "FetchComicFromWeb.h"
@@ -22,8 +22,6 @@
 #pragma mark -
 
 @interface NewComicFetcher ()
-
-- (void)fetchComic:(NSInteger)comicNumber;
 
 @property (nonatomic) NSOperationQueue *fetchQueue;
 @property (nonatomic) NSMutableArray *comicsToInsert;

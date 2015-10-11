@@ -9,12 +9,7 @@
 #import "XkcdErrorCodes.h"
 #import "SingleComicViewController.h"
 #import "SingleComicImageFetcher.h"
-#import "CGGeometry_TLCommon.h"
 #import "LambdaSheet.h"
-#import "UIBarButtonItem_TLCommon.h"
-#import "UIActivityIndicatorView_TLCommon.h"
-#import "UITableView_TLCommon.h"
-#import "UIAlertView_TLCommon.h"
 #import "FAQViewController.h"
 #import "TLMacros.h"
 #import "UIImage+EXIFCompensation.h"
@@ -22,42 +17,9 @@
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
 #define kUserDefaultsSavedTopVisibleComicKey @"topVisibleComic"
 
-#pragma mark -
-
 static UIImage *downloadImage = nil;
 
-#pragma mark -
-
 @interface ComicListViewController ()
-
-- (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString;
-- (void)setFetchedResultsController;
-- (void)setSearchFetchedResultsControllerWithSearchString:(NSString *)searchString;
-- (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView;
-- (void)viewComic:(Comic *)comic;
-- (void)reloadAllData;
-- (void)fetchImageForComic:(Comic *)comic;
-- (void)checkForNewComics;
-- (void)downloadAll:(UIBarButtonItem *)sender;
-- (void)deleteAll:(UIBarButtonItem *)sender;
-- (void)edit:(UIBarButtonItem *)sender;
-- (void)doneEditing:(UIBarButtonItem *)sender;
-- (void)addSearchBarTableHeader;
-- (void)addRefreshControl;
-- (void)addNavigationBarButtons;
-- (void)scrollToComicAtIndexPath:(NSIndexPath *)indexPath;
-- (void)deleteAllComicImages;
-- (void)downloadAllComicImages;
-- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
-- (void)didStartRefreshing;
-- (void)didFinishRefreshing;
-- (UITableView *)activeTableView;
-- (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller;
-- (void)saveScrollPosition;
-- (void)restoreScrollPosition;
-
-// Action sheet actions
-- (void)emailDeveloper;
 
 @property (nonatomic) NewComicFetcher *fetcher;
 @property (nonatomic) SingleComicImageFetcher *imageFetcher;
@@ -297,30 +259,30 @@ static UIImage *downloadImage = nil;
     [self.tableView setEditing:YES animated:YES];
     
     CGFloat searchBarHeight = self.tableView.tableHeaderView.bounds.size.height;
-    [self.tableView setContentOffset:CGPointByAddingYOffset(self.tableView.contentOffset, -searchBarHeight)];
+	[self.tableView setContentOffset:CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y - searchBarHeight)];
     self.tableView.tableHeaderView = nil;
     self.refreshControl = nil;
     
     self.navigationItem.rightBarButtonItem.action = @selector(doneEditing:);
     [self.navigationController setToolbarHidden:NO animated:YES];
     UIBarButtonItem *downloadAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Download all", @"Button")
-                                                                    style:UIBarButtonItemStyleBordered
+                                                                    style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(downloadAll:)];
     UIBarButtonItem *deleteAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Delete all", @"Button")
-                                                                  style:UIBarButtonItemStyleBordered
+                                                                  style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(deleteAll:)];
     UIBarButtonItem *cancelDownloadAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel download all", @"Button")
-                                                                          style:UIBarButtonItemStyleBordered
+                                                                          style:UIBarButtonItemStylePlain
                                                                          target:self
                                                                          action:@selector(cancelDownloadAll:)];
     NSArray *toolbarItems = nil;
     if ([self.imageFetcher downloadingAll]) {
-        toolbarItems = @[[UIBarButtonItem flexibleSpaceBarButtonItem], cancelDownloadAll];
+        toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], cancelDownloadAll];
     }
     else {
-        toolbarItems = @[deleteAll, [UIBarButtonItem flexibleSpaceBarButtonItem], downloadAll];
+        toolbarItems = @[deleteAll, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], downloadAll];
     }
     [self setToolbarItems:toolbarItems animated:YES];
     self.navigationItem.leftBarButtonItem.enabled = NO;
@@ -329,11 +291,14 @@ static UIImage *downloadImage = nil;
 - (void)doneEditing:(UIBarButtonItem *)sender {
     [self setEditing:NO animated:YES];
     [self.tableView setEditing:NO animated:YES];
+	
     [self addRefreshControl];
     [self addSearchBarTableHeader];
-    [self.tableView setContentOffset:
-     CGPointByAddingYOffset(self.tableView.contentOffset, self.tableView.tableHeaderView.bounds.size.height)];
-    self.navigationItem.rightBarButtonItem.action = @selector(edit:);
+	
+	[self.tableView setContentOffset:
+	 CGPointByAddingYOffset(self.tableView.contentOffset, self.tableView.tableHeaderView.bounds.size.height)];
+	
+	self.navigationItem.rightBarButtonItem.action = @selector(edit:);
     [self.navigationController setToolbarHidden:YES animated:YES];
     
     self.navigationItem.leftBarButtonItem.enabled = YES;
@@ -752,8 +717,7 @@ static UIImage *downloadImage = nil;
 }
 
 
-#pragma mark -
-#pragma mark UIScrollViewDelegate methods
+#pragma mark UIScrollViewDelegate
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if ([self.activeTableView isEqual:self.tableView]) {
