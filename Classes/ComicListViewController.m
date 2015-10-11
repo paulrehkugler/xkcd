@@ -268,7 +268,6 @@ static UIImage *downloadImage = nil;
                       block:^ {
                         FAQViewController *faq = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
                         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faq];
-                        nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
                         [self presentViewController:nav animated:YES completion:^{}];
                       }];
   [sheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")

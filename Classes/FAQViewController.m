@@ -29,16 +29,21 @@
   NSString *faqPath = [[NSBundle mainBundle] pathForResource:@"faq" ofType:@"plist"];
   NSArray *faqArray = [NSArray arrayWithContentsOfFile:faqPath];
 
+	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+	paragraphStyle.firstLineHeadIndent = 8.0;
+	paragraphStyle.headIndent = 8.0;
+	paragraphStyle.tailIndent = -8.0;
+	
   NSMutableAttributedString *display = [[NSMutableAttributedString alloc] init];
 
   UIFont *boldFont = [UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
-  NSDictionary *qAttributes = @{NSFontAttributeName: boldFont};
+	NSDictionary *qAttributes = @{NSFontAttributeName: boldFont, NSParagraphStyleAttributeName: paragraphStyle};
 
   UIFont *regularFont = [UIFont fontWithName:@"Helvetica" size:14.0f];
-  NSDictionary *aAttributes = @{NSFontAttributeName: regularFont};
+	NSDictionary *aAttributes = @{NSFontAttributeName: regularFont, NSParagraphStyleAttributeName: paragraphStyle};
 
   for(NSDictionary *faqEntry in faqArray) {
-    NSString *q = [NSString stringWithFormat:@"\u2022 %@", faqEntry[@"Q"]];
+    NSString *q = faqEntry[@"Q"];
     NSString *a = faqEntry[@"A"];
 
     NSAttributedString *attributedQ = [[NSAttributedString alloc] initWithString:q attributes:qAttributes];
