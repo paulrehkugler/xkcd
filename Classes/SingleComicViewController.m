@@ -224,7 +224,8 @@
 }
 
 - (BOOL)prefersStatusBarHidden {
-	return self.hidingToolbars;
+	return self.hidingToolbars
+		|| self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact;
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
