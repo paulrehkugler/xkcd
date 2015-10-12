@@ -41,6 +41,7 @@
 @property(nonatomic, strong, readwrite) UIScrollView *imageScroller;
 @property(nonatomic, strong, readwrite) UIActivityIndicatorView *loadingView;
 @property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
+@property (nonatomic) BOOL hidingToolbars;
 
 @end
 
@@ -216,9 +217,14 @@
 }
 
 - (void)toggleToolbarsAnimated:(BOOL)animated {
-  BOOL toolbarIsHidden = self.navigationController.toolbarHidden;
-  [self.navigationController setToolbarHidden:!toolbarIsHidden animated:animated];
-  [self.navigationController setNavigationBarHidden:!toolbarIsHidden animated:animated];  
+  self.hidingToolbars = !self.navigationController.toolbarHidden;
+  [self.navigationController setToolbarHidden:self.hidingToolbars animated:animated];
+  [self.navigationController setNavigationBarHidden:self.hidingToolbars animated:animated];
+	[self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (BOOL)prefersStatusBarHidden {
+	return self.hidingToolbars;
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
