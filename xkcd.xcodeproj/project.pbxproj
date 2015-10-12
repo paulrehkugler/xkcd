@@ -22,10 +22,7 @@
 		0384E8C4105036D40096D4E7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0384E8C3105036D40096D4E7 /* MessageUI.framework */; };
 		03870FCF1595525D00436B99 /* comics.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 03870FCE1595525D00436B99 /* comics.sqlite */; };
 		039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */; };
-		03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */; };
 		03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */; };
-		039A966A161D44B700C95AAB /* globe_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 039A9668161D44B700C95AAB /* globe_43.png */; };
-		039A966B161D44B700C95AAB /* globe_43@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 039A9669161D44B700C95AAB /* globe_43@2x.png */; };
 		03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		03B6BC99112DA37100C32C21 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		03B6BC9A112DA37100C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
@@ -61,14 +58,12 @@
 		28C3AD8A0F43EF2300507BA6 /* xkcd.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
+		516356E71BCBE12600BF7D91 /* FCOpenInChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */; settings = {ASSET_TAGS = (); }; };
+		516356E81BCBE12600BF7D91 /* FCOpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */; settings = {ASSET_TAGS = (); }; };
 		517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D568D175A5199001EECAE /* UIScrollView+Helper.m */; };
 		5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */; settings = {ASSET_TAGS = (); }; };
 		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
 		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
-		B5C7A615161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7A614161A68F5003C0FC0 /* OpenInBrowserActivity.m */; };
-		B5C7A616161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7A614161A68F5003C0FC0 /* OpenInBrowserActivity.m */; };
-		B5C7A619161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */; };
-		B5C7A61A161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,12 +99,8 @@
 		0384E8C3105036D40096D4E7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		03870FCE1595525D00436B99 /* comics.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = comics.sqlite; sourceTree = "<group>"; };
 		039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ad-hoc-entitlements.plist"; sourceTree = "<group>"; };
-		03941EDA1591613E00ADBED9 /* OpenInSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInSafariActivity.h; sourceTree = "<group>"; };
-		03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInSafariActivity.m; sourceTree = "<group>"; };
 		03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Filtering.h"; sourceTree = "<group>"; };
 		03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Filtering.m"; sourceTree = "<group>"; };
-		039A9668161D44B700C95AAB /* globe_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe_43.png; sourceTree = "<group>"; };
-		039A9669161D44B700C95AAB /* globe_43@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "globe_43@2x.png"; sourceTree = "<group>"; };
 		03B6BC04112CB3A100C32C21 /* NSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_HTML.h; sourceTree = "<group>"; };
 		03B6BC05112CB3A200C32C21 /* NSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_HTML.m; sourceTree = "<group>"; };
 		03B6BC1A112D9D9B00C32C21 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +155,10 @@
 		32CA4F630368D1EE00C91783 /* xkcd_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkcd_Prefix.pch; sourceTree = "<group>"; };
 		5136AE8A175463A100742406 /* TLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLNavigationController.h; sourceTree = "<group>"; };
 		5136AE8B175463A100742406 /* TLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLNavigationController.m; sourceTree = "<group>"; };
+		516356E31BCBE12600BF7D91 /* FCOpenInChromeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCOpenInChromeActivity.h; sourceTree = "<group>"; };
+		516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCOpenInChromeActivity.m; sourceTree = "<group>"; };
+		516356E51BCBE12600BF7D91 /* FCOpenInSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCOpenInSafariActivity.h; sourceTree = "<group>"; };
+		516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCOpenInSafariActivity.m; sourceTree = "<group>"; };
 		517D568C175A5199001EECAE /* UIScrollView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Helper.h"; sourceTree = "<group>"; };
 		517D568D175A5199001EECAE /* UIScrollView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Helper.m"; sourceTree = "<group>"; };
 		5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
@@ -172,10 +167,6 @@
 		51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EXIFCompensation.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* xkcd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-Info.plist"; sourceTree = "<group>"; };
 		B5C55A76161E740400B0A2D9 /* iTunesArtwork@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iTunesArtwork@2x.jpg"; sourceTree = "<group>"; };
-		B5C7A613161A68F5003C0FC0 /* OpenInBrowserActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInBrowserActivity.h; sourceTree = "<group>"; };
-		B5C7A614161A68F5003C0FC0 /* OpenInBrowserActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInBrowserActivity.m; sourceTree = "<group>"; };
-		B5C7A617161A6907003C0FC0 /* OpenInChromeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInChromeActivity.h; sourceTree = "<group>"; };
-		B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInChromeActivity.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,12 +279,10 @@
 				03B6BC05112CB3A200C32C21 /* NSString_HTML.m */,
 				037C49E115895B7E0026DE43 /* NSData+BrokenUnicodeJSON.h */,
 				037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */,
-				B5C7A613161A68F5003C0FC0 /* OpenInBrowserActivity.h */,
-				B5C7A614161A68F5003C0FC0 /* OpenInBrowserActivity.m */,
-				03941EDA1591613E00ADBED9 /* OpenInSafariActivity.h */,
-				03941EDB1591613E00ADBED9 /* OpenInSafariActivity.m */,
-				B5C7A617161A6907003C0FC0 /* OpenInChromeActivity.h */,
-				B5C7A618161A6907003C0FC0 /* OpenInChromeActivity.m */,
+				516356E31BCBE12600BF7D91 /* FCOpenInChromeActivity.h */,
+				516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */,
+				516356E51BCBE12600BF7D91 /* FCOpenInSafariActivity.h */,
+				516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -362,15 +351,6 @@
 			name = TLCommon;
 			sourceTree = "<group>";
 		};
-		03F8FBCA113DC1E300E717A6 /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-				039A9668161D44B700C95AAB /* globe_43.png */,
-				039A9669161D44B700C95AAB /* globe_43@2x.png */,
-			);
-			name = Icons;
-			sourceTree = "<group>";
-		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,7 +403,6 @@
 			children = (
 				51AB8A261BCAD05100BB58A7 /* Media.xcassets */,
 				03F40E3C122AA54000A35F44 /* Application icons */,
-				03F8FBCA113DC1E300E717A6 /* Icons */,
 				034E0E9910A9ED7C0021D494 /* Meta */,
 				03DA9D721097B497005A34B2 /* System */,
 				03DA9D751097B4C1005A34B2 /* Core data */,
@@ -539,8 +518,6 @@
 				032FA250159294B900C39198 /* faq.plist in Resources */,
 				5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */,
 				03870FCF1595525D00436B99 /* comics.sqlite in Resources */,
-				039A966A161D44B700C95AAB /* globe_43.png in Resources */,
-				039A966B161D44B700C95AAB /* globe_43@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,8 +556,6 @@
 				037C49E415895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				037C49E81589648A0026DE43 /* TestBrokenUnicodeFixer.m in Sources */,
 				031FE8F2159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
-				B5C7A616161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */,
-				B5C7A61A161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +575,8 @@
 				03F114EF104F2EF30045AEFC /* SingleComicImageFetcher.m in Sources */,
 				03F114F3104F30140045AEFC /* FetchComicImageFromWeb.m in Sources */,
 				03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */,
+				516356E81BCBE12600BF7D91 /* FCOpenInSafariActivity.m in Sources */,
+				516356E71BCBE12600BF7D91 /* FCOpenInChromeActivity.m in Sources */,
 				03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
 				03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
@@ -608,12 +585,9 @@
 				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
-				03941EDC1591613E00ADBED9 /* OpenInSafariActivity.m in Sources */,
 				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
 				032FA24D1592928D00C39198 /* FAQViewController.m in Sources */,
 				031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
-				B5C7A615161A68F5003C0FC0 /* OpenInBrowserActivity.m in Sources */,
-				B5C7A619161A6907003C0FC0 /* OpenInChromeActivity.m in Sources */,
 				5136AE8C175463A100742406 /* TLNavigationController.m in Sources */,
 				51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */,
 				517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */,

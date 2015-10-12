@@ -4,6 +4,7 @@
 <dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>googlechrome-x-callback</string>
 		<string>googlechrome</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>

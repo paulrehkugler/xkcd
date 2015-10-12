@@ -13,8 +13,8 @@
 #import "UIBarButtonItem_TLCommon.h"
 #import "TLMersenneTwister.h"
 #import "LambdaSheet.h"
-#import "OpenInSafariActivity.h"
-#import "OpenInChromeActivity.h"
+#import "FCOpenInSafariActivity.h"
+#import "FCOpenInChromeActivity.h"
 #import "UIAlertView_TLCommon.h"
 #import "UIScrollView+Helper.h"
 
@@ -229,8 +229,8 @@
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  OpenInSafariActivity *safariActivity = [[OpenInSafariActivity alloc] init];
-  OpenInChromeActivity *chromeActivity = [[OpenInChromeActivity alloc] init];
+  FCOpenInSafariActivity *safariActivity = [[FCOpenInSafariActivity alloc] init];
+  FCOpenInChromeActivity *chromeActivity = [[FCOpenInChromeActivity alloc] init];
 
   NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
   NSURL *comicUrl = [NSURL URLWithString:self.comic.websiteURL];
