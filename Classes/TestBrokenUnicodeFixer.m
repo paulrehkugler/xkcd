@@ -2,18 +2,22 @@
 //  TestBrokenUnicodeFixer.m
 //
 
-#import "TestBrokenUnicodeFixer.h"
+@import XCTest;
 #import "NSData+BrokenUnicodeJSON.h"
 
 #define CDATASTR(s) [NSData dataWithBytes:s length:sizeof(s)]
+
+@interface TestBrokenUnicodeFixer : XCTestCase
+
+@end
 
 @implementation TestBrokenUnicodeFixer
 
 - (void)assertDictionaryEntriesAreFixedCorrectly:(NSDictionary *)testCases {
   for(NSData *inputData in testCases) {
     NSData *expectedOutput = testCases[inputData];
-    STAssertTrue([expectedOutput isKindOfClass:[NSData class]], @"Expected to get NSData object");
-    STAssertEqualObjects([inputData dataByFixingFuckedUpUnicodeInJSON], expectedOutput,
+    XCTAssertTrue([expectedOutput isKindOfClass:[NSData class]], @"Expected to get NSData object");
+    XCTAssertEqualObjects([inputData dataByFixingFuckedUpUnicodeInJSON], expectedOutput,
                          @"Input '%@' should result in output '%@'.",
                          [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding],
                          [[NSString alloc] initWithData:expectedOutput encoding:NSUTF8StringEncoding]);

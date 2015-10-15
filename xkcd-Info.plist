@@ -2,55 +2,68 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>xkcd</string>
-			</array>
-			<key>CFBundleURLName</key>
-			<string>xkcd</string>
-		</dict>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons</key>
+	<dict/>
+	<key>CFBundleIcons~ipad</key>
+	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>com.joshapp.xkcd</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>3.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>xkcd</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>xkcd</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>3.0.1</string>
-	<key>UIRequiresPersistentWiFi</key>
-	<true/>
+	<string>7</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlechrome-x-callback</string>
+		<string>googlechrome</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleBlackOpaque</string>
-	<key>CFBundleIcons</key>
+	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>CFBundlePrimaryIcon</key>
+		<key>NSExceptionDomains</key>
 		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>xkcd114.png</string>
-				<string>xkcd57.png</string>
-			</array>
-			<key>UIPrerenderedIcon</key>
-			<true/>
+			<key>xkcd.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
+	<key>NSMainNibFile</key>
+	<string>MainWindow</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchStoryboard</string>
+	<key>UIRequiresPersistentWiFi</key>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDefault</string>
 </dict>
 </plist>

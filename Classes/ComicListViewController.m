@@ -74,7 +74,7 @@ static UIImage *downloadImage = nil;
 + (void)initialize {
   if([self class] == [ComicListViewController class]) {
     if(!downloadImage) {
-      downloadImage = [UIImage imageNamed:@"glyphish_download.png"];
+      downloadImage = [[UIImage imageNamed:@"download"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
   }
 }
@@ -93,14 +93,12 @@ static UIImage *downloadImage = nil;
   searchBar.placeholder = NSLocalizedString(@"Search xkcd", @"Search bar placeholder text");
   searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
   searchBar.delegate = self;
-  searchBar.barStyle = UIBarStyleBlackOpaque;
-  self.tableView.tableHeaderView = searchBar;  
+  self.tableView.tableHeaderView = searchBar;
 }
 
 - (void)addRefreshControl {
   UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
   [refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
-  [refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Check for new comics"]];
   
   self.refreshControl = refreshControl;
 }
@@ -270,7 +268,6 @@ static UIImage *downloadImage = nil;
                       block:^ {
                         FAQViewController *faq = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
                         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faq];
-                        nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
                         [self presentViewController:nav animated:YES completion:^{}];
                       }];
   [sheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
@@ -450,7 +447,7 @@ static UIImage *downloadImage = nil;
 #endif
   
   Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
-  comicCell.textLabel.text = [NSString stringWithFormat:@"%i. %@", [comic.number integerValue], comic.name];
+  comicCell.textLabel.text = [NSString stringWithFormat:@"%li. %@", (long)[comic.number integerValue], comic.name];
   comicCell.textLabel.font = [UIFont systemFontOfSize:16];
   comicCell.textLabel.adjustsFontSizeToFitWidth = YES;
   
@@ -594,7 +591,7 @@ static UIImage *downloadImage = nil;
   emailViewController.mailComposeDelegate = self;
   emailViewController.subject = [NSString stringWithFormat:NSLocalizedString(@"Feedback on xkcd app (version %@)", @"Subject of feedback email"),
                                  [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"]];
-  emailViewController.toRecipients = @[@"xkcdapp@treelinelabs.com"];
+  emailViewController.toRecipients = @[@"feedback@xkcdapp.com"];
 
   [self presentViewController:emailViewController animated:YES completion:^{}];
 
@@ -666,6 +663,9 @@ static UIImage *downloadImage = nil;
       [tableViewToUpdate deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
+	  case NSFetchedResultsChangeMove:
+	  case NSFetchedResultsChangeUpdate:
+		  break;
   }
 }
 

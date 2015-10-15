@@ -4,9 +4,9 @@
 
 @interface LambdaSheet () <UIActionSheetDelegate>
 
-@property(strong) UIActionSheet *sheet;
-@property(strong) NSMutableArray *blocks;
-@property(strong) id keepInMemory;
+@property(nonatomic, strong) UIActionSheet *sheet;
+@property(nonatomic, strong) NSMutableArray *blocks;
+@property(nonatomic, strong) id keepInMemory;
 
 @end
 

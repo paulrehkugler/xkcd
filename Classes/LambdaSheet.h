@@ -20,6 +20,6 @@
 
 - (void)dismissAnimated:(BOOL)animated;
 
-@property(copy) dispatch_block_t dismissAction;
+@property(nonatomic, copy) dispatch_block_t dismissAction;
 
 @end

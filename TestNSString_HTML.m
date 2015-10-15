@@ -2,8 +2,14 @@
 //  TestNSString_HTML.m
 //
 
-#import "TestNSString_HTML.h"
+@import XCTest;
+@import UIKit;
+
 #import "NSString_HTML.h"
+
+@interface TestNSString_HTML : XCTestCase
+
+@end
 
 @implementation TestNSString_HTML
 
@@ -24,7 +30,7 @@
 
   for(NSString *snippet in htmlAndCleanedStrings) {
     NSString *cleaned = htmlAndCleanedStrings[snippet];
-    STAssertEqualObjects([NSString stringByCleaningHTML:snippet], cleaned, @"Snippet '%@' should result in clean string '%@'.", snippet, cleaned);
+    XCTAssertEqualObjects([NSString stringByCleaningHTML:snippet], cleaned, @"Snippet '%@' should result in clean string '%@'.", snippet, cleaned);
   }
 }
 

@@ -13,8 +13,8 @@
 #import "UIBarButtonItem_TLCommon.h"
 #import "TLMersenneTwister.h"
 #import "LambdaSheet.h"
-#import "OpenInSafariActivity.h"
-#import "OpenInChromeActivity.h"
+#import "FCOpenInSafariActivity.h"
+#import "FCOpenInChromeActivity.h"
 #import "UIAlertView_TLCommon.h"
 #import "UIScrollView+Helper.h"
 
@@ -41,6 +41,7 @@
 @property(nonatomic, strong, readwrite) UIScrollView *imageScroller;
 @property(nonatomic, strong, readwrite) UIActivityIndicatorView *loadingView;
 @property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
+@property (nonatomic) BOOL hidingToolbars;
 
 @end
 
@@ -51,9 +52,30 @@
 - (id)initWithComic:(Comic *)comicToView {
   if(self = [super initWithNibName:nil bundle:nil]) {
     _comic = comicToView;
-    self.title = [NSString stringWithFormat:@"%i. %@", _comic.number.integerValue, _comic.name];
+    self.title = [NSString stringWithFormat:@"%li. %@", (long)_comic.number.integerValue, _comic.name];
   }
   return self;
+}
+
+- (void)loadView {
+	// Scroll view
+	self.imageScroller = [[UIScrollView alloc] initWithFrame:CGRectZero];
+	self.imageScroller.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	self.imageScroller.backgroundColor = [UIColor whiteColor];
+	self.imageScroller.delaysContentTouches = NO;
+	self.imageScroller.alwaysBounceVertical = YES;
+	self.imageScroller.alwaysBounceHorizontal = YES;
+	self.imageScroller.delegate = self;
+	self.imageScroller.bouncesZoom = YES;
+	self.imageScroller.scrollEnabled = YES;
+	self.imageScroller.scrollsToTop = NO;
+	
+	self.view = self.imageScroller;
+}
+
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	[self calculateZoomScaleAndAnimate:NO];
 }
 
 - (void)viewDidLoad {
@@ -83,20 +105,20 @@
                                                                     target:self
                                                                     action:@selector(systemAction:)];
   
-  UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"down"]
+  UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"previous"]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(goToPreviousComic)];
   previousItem.accessibilityLabel = NSLocalizedString(@"Older comic", @"older_comic_accessibility_label");
   previousItem.enabled = (self.comic.number.unsignedIntegerValue != kMinComicNumber);
 
-  UIBarButtonItem *randomItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glyphish_shuffle"]
+  UIBarButtonItem *randomItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"random"]
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(goToRandomComic)];
   randomItem.accessibilityLabel = NSLocalizedString(@"Random comic", @"random_comic_accessibility_label");
 
-  UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"up"]
+  UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goToNextComic)];
@@ -132,22 +154,7 @@
       [self.comicImageViews addObject:comicImageView];
     }
   }
-  
-  // Scroll view
-  self.imageScroller = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-  self.imageScroller.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  self.imageScroller.backgroundColor = [UIColor whiteColor];
-  self.imageScroller.delaysContentTouches = NO;
-  self.imageScroller.alwaysBounceVertical = YES;
-  self.imageScroller.alwaysBounceHorizontal = YES;
-  self.imageScroller.delegate = self;
-  self.imageScroller.bouncesZoom = YES;
-  self.imageScroller.scrollEnabled = YES;
-  self.imageScroller.scrollsToTop = NO;
-  [self.view addSubview:self.imageScroller];
-  
-  [self calculateZoomScaleAndAnimate:NO];
-  
+
   for(UIView *tileView in self.comicImageViews) {
     [self.contentView addSubview:tileView];
   }
@@ -216,14 +223,20 @@
 }
 
 - (void)toggleToolbarsAnimated:(BOOL)animated {
-  BOOL toolbarIsHidden = self.navigationController.toolbarHidden;
-  [self.navigationController setToolbarHidden:!toolbarIsHidden animated:animated];
-  [self.navigationController setNavigationBarHidden:!toolbarIsHidden animated:animated];  
+  self.hidingToolbars = !self.navigationController.toolbarHidden;
+  [self.navigationController setToolbarHidden:self.hidingToolbars animated:animated];
+  [self.navigationController setNavigationBarHidden:self.hidingToolbars animated:animated];
+	[self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (BOOL)prefersStatusBarHidden {
+	return self.hidingToolbars
+		|| self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact;
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-  OpenInSafariActivity *safariActivity = [[OpenInSafariActivity alloc] init];
-  OpenInChromeActivity *chromeActivity = [[OpenInChromeActivity alloc] init];
+  FCOpenInSafariActivity *safariActivity = [[FCOpenInSafariActivity alloc] init];
+  FCOpenInChromeActivity *chromeActivity = [[FCOpenInChromeActivity alloc] init];
 
   NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
   NSURL *comicUrl = [NSURL URLWithString:self.comic.websiteURL];
@@ -270,15 +283,17 @@
 
 - (void)didDetectDoubleTap:(UITapGestureRecognizer *)recognizer {
   CGFloat newZoomScale = 1.0f;
-  if(self.imageScroller.zoomScale == self.imageScroller.minimumZoomScale) {
+  if (self.imageScroller.zoomScale == self.imageScroller.minimumZoomScale) {
     newZoomScale = (self.imageScroller.minimumZoomScale * 2) > self.imageScroller.maximumZoomScale ? self.imageScroller.maximumZoomScale : (self.imageScroller.minimumZoomScale * 2);
     // zoom towards the user's double tap
-    [self.imageScroller setZoomScale:newZoomScale animated:YES centerOnPoint:[recognizer locationInView:self.imageScroller]];
+	  CGPoint centerPoint = [recognizer locationInView:self.imageScroller];
+	  NSLog(@"scale = %f, point = %@", newZoomScale, NSStringFromCGPoint(centerPoint));
+    [self.imageScroller setZoomScale:newZoomScale animated:YES centerOnPoint:centerPoint];
   } else {
     newZoomScale = self.imageScroller.minimumZoomScale;
+	  NSLog(@"scale = %f", newZoomScale);
     [self.imageScroller setZoomScale:newZoomScale animated:YES];
   }
-  
 }
 
 - (void)didDetectSingleTap:(UITapGestureRecognizer *)recognizer {
