@@ -57,6 +57,27 @@
   return self;
 }
 
+- (void)loadView {
+	// Scroll view
+	self.imageScroller = [[UIScrollView alloc] initWithFrame:CGRectZero];
+	self.imageScroller.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	self.imageScroller.backgroundColor = [UIColor whiteColor];
+	self.imageScroller.delaysContentTouches = NO;
+	self.imageScroller.alwaysBounceVertical = YES;
+	self.imageScroller.alwaysBounceHorizontal = YES;
+	self.imageScroller.delegate = self;
+	self.imageScroller.bouncesZoom = YES;
+	self.imageScroller.scrollEnabled = YES;
+	self.imageScroller.scrollsToTop = NO;
+	
+	self.view = self.imageScroller;
+}
+
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	[self calculateZoomScaleAndAnimate:NO];
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -133,22 +154,7 @@
       [self.comicImageViews addObject:comicImageView];
     }
   }
-  
-  // Scroll view
-  self.imageScroller = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-  self.imageScroller.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  self.imageScroller.backgroundColor = [UIColor whiteColor];
-  self.imageScroller.delaysContentTouches = NO;
-  self.imageScroller.alwaysBounceVertical = YES;
-  self.imageScroller.alwaysBounceHorizontal = YES;
-  self.imageScroller.delegate = self;
-  self.imageScroller.bouncesZoom = YES;
-  self.imageScroller.scrollEnabled = YES;
-  self.imageScroller.scrollsToTop = NO;
-  [self.view addSubview:self.imageScroller];
-  
-  [self calculateZoomScaleAndAnimate:NO];
-  
+
   for(UIView *tileView in self.comicImageViews) {
     [self.contentView addSubview:tileView];
   }
@@ -277,15 +283,17 @@
 
 - (void)didDetectDoubleTap:(UITapGestureRecognizer *)recognizer {
   CGFloat newZoomScale = 1.0f;
-  if(self.imageScroller.zoomScale == self.imageScroller.minimumZoomScale) {
+  if (self.imageScroller.zoomScale == self.imageScroller.minimumZoomScale) {
     newZoomScale = (self.imageScroller.minimumZoomScale * 2) > self.imageScroller.maximumZoomScale ? self.imageScroller.maximumZoomScale : (self.imageScroller.minimumZoomScale * 2);
     // zoom towards the user's double tap
-    [self.imageScroller setZoomScale:newZoomScale animated:YES centerOnPoint:[recognizer locationInView:self.imageScroller]];
+	  CGPoint centerPoint = [recognizer locationInView:self.imageScroller];
+	  NSLog(@"scale = %f, point = %@", newZoomScale, NSStringFromCGPoint(centerPoint));
+    [self.imageScroller setZoomScale:newZoomScale animated:YES centerOnPoint:centerPoint];
   } else {
     newZoomScale = self.imageScroller.minimumZoomScale;
+	  NSLog(@"scale = %f", newZoomScale);
     [self.imageScroller setZoomScale:newZoomScale animated:YES];
   }
-  
 }
 
 - (void)didDetectSingleTap:(UITapGestureRecognizer *)recognizer {
