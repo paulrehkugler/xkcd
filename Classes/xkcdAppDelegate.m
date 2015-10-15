@@ -13,7 +13,6 @@
 #import "Comic.h"
 #import "TLNavigationController.h"
 
-#define kUserDefaultsRotateKey @"rotate"
 #define kUserDefaultsOpenZoomedOutKey @"zoomed_out"
 #define kUserDefaultsAutodownloadKey @"autodownload"
 #define kUserDefaultsOpenAfterDownloadKey @"autoopen"
@@ -88,14 +87,6 @@ static NSString *applicationDocumentsDirectory = nil;
 
 #pragma mark -
 #pragma mark UserDefaults access
-
-- (BOOL)rotate {
-  if(![self.userDefaults dictionaryRepresentation][kUserDefaultsRotateKey]) {
-    [self.userDefaults setBool:YES forKey:kUserDefaultsRotateKey];
-    [self.userDefaults synchronize];
-  }
-  return [self.userDefaults boolForKey:kUserDefaultsRotateKey];
-}
 
 - (BOOL)openZoomedOut {
   if(![self.userDefaults dictionaryRepresentation][kUserDefaultsOpenZoomedOutKey]) {

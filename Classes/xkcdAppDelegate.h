@@ -17,7 +17,6 @@
 
 - (void)save;
 
-- (BOOL)rotate;
 - (BOOL)downloadNewComics;
 - (BOOL)openZoomedOut;
 - (BOOL)openAfterDownload;
