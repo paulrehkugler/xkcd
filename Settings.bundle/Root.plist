@@ -16,16 +16,6 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Rotation enabled</string>
-			<key>Key</key>
-			<string>rotate</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
 			<string>Open zoomed out</string>
 			<key>Key</key>
 			<string>zoomed_out</string>
