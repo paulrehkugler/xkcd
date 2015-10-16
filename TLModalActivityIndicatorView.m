@@ -20,7 +20,7 @@
 
 @interface TLModalActivityIndicatorView ()
 
-@property(nonatomic, strong, readwrite) UIActivityIndicatorView *spinner;
+@property (nonatomic) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -29,57 +29,57 @@
 
 @implementation TLModalActivityIndicatorView
 
-- (id)initWithText:(NSString *)text {
-  if(self = [super initWithFrame:CGRectZero]) {
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    CGSize keyWindowSize = keyWindow.bounds.size;
-    CGPoint keyWindowCenter = CGPointMake(keyWindowSize.width / 2.0f, keyWindowSize.height / 2.0f);
-
-    self.frame = CGRectZeroWithSize(keyWindowSize);
-    self.backgroundColor = [UIColor clearColor];
-    
-    CALayer *backgroundLayer = [CALayer layer];
-    backgroundLayer.cornerRadius = kCornerRadius;
-    backgroundLayer.masksToBounds = YES;
-    backgroundLayer.bounds = CGRectMake(0.0f, 0.0f, kModalSize, kModalSize);
-    backgroundLayer.position = keyWindowCenter;
-    backgroundLayer.backgroundColor = kModalColor.CGColor;
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(keyWindowCenter.x - kModalSize / 2.0f,
-                                                                keyWindowCenter.y + kModalSize / 2.0f - kLabelHeight,
-                                                                kModalSize,
-                                                                kLabelHeight)];
-    label.text = text;
-    label.textColor = [UIColor whiteColor];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = kLabelFont;
-    label.textAlignment = NSTextAlignmentCenter;
-    _spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
-    _spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    [_spinner sizeToFit];
-    [_spinner startAnimating];
-    
-    _spinner.center = keyWindowCenter;
-    
-    [self.layer addSublayer:backgroundLayer];
-    [self addSubview:label];
-    [self addSubview:_spinner];
-
-    self.transform = CGAffineTransformMakeScale(kStartingScale, kStartingScale);
-  }
-  return self;
+- (instancetype)initWithText:(NSString *)text {
+	if (self = [super initWithFrame:CGRectZero]) {
+		UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+		CGSize keyWindowSize = keyWindow.bounds.size;
+		CGPoint keyWindowCenter = CGPointMake(keyWindowSize.width / 2.0f, keyWindowSize.height / 2.0f);
+		
+		self.frame = CGRectZeroWithSize(keyWindowSize);
+		self.backgroundColor = [UIColor clearColor];
+		
+		CALayer *backgroundLayer = [CALayer layer];
+		backgroundLayer.cornerRadius = kCornerRadius;
+		backgroundLayer.masksToBounds = YES;
+		backgroundLayer.bounds = CGRectMake(0.0f, 0.0f, kModalSize, kModalSize);
+		backgroundLayer.position = keyWindowCenter;
+		backgroundLayer.backgroundColor = kModalColor.CGColor;
+		
+		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(keyWindowCenter.x - kModalSize / 2.0f,
+																   keyWindowCenter.y + kModalSize / 2.0f - kLabelHeight,
+																   kModalSize,
+																   kLabelHeight)];
+		label.text = text;
+		label.textColor = [UIColor whiteColor];
+		label.backgroundColor = [UIColor clearColor];
+		label.font = kLabelFont;
+		label.textAlignment = NSTextAlignmentCenter;
+		_spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
+		_spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+		[_spinner sizeToFit];
+		[_spinner startAnimating];
+		
+		_spinner.center = keyWindowCenter;
+		
+		[self.layer addSublayer:backgroundLayer];
+		[self addSubview:label];
+		[self addSubview:_spinner];
+		
+		self.transform = CGAffineTransformMakeScale(kStartingScale, kStartingScale);
+	}
+	return self;
 }
 
 - (void)show {
-  [[UIApplication sharedApplication].keyWindow addSubview:self];
-  [UIView beginAnimations:@"modalSpinner" context:NULL];
-  self.transform = CGAffineTransformIdentity;
-  [UIView setAnimationDuration:kAnimationDuration];
-  [UIView commitAnimations];
+	[[UIApplication sharedApplication].keyWindow addSubview:self];
+	[UIView beginAnimations:@"modalSpinner" context:NULL];
+	self.transform = CGAffineTransformIdentity;
+	[UIView setAnimationDuration:kAnimationDuration];
+	[UIView commitAnimations];
 }
 
 - (void)dismiss {
-  [self removeFromSuperview];
+	[self removeFromSuperview];
 }
 
 

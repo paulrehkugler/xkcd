@@ -10,7 +10,7 @@
 
 @interface TLModalActivityIndicatorView : UIView
 
-- (id)initWithText:(NSString *)text;
+- (instancetype)initWithText:(NSString *)text;
 - (void)show;
 - (void)dismiss;
 

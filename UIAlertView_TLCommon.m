@@ -10,12 +10,12 @@
 @implementation UIAlertView (TLCommon)
 
 + (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
-  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                  message:message
-                                                 delegate:nil
-                                        cancelButtonTitle:nil
-                                        otherButtonTitles:NSLocalizedString(@"Ok", @"Button to acknowledge modal alert"), nil];
-  [alert show];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+													message:message
+												   delegate:nil
+										  cancelButtonTitle:nil
+										  otherButtonTitles:NSLocalizedString(@"Ok", @"Button to acknowledge modal alert"), nil];
+	[alert show];
 }
 
 @end

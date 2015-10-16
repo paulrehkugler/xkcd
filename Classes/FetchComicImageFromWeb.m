@@ -14,13 +14,13 @@
 
 @interface FetchComicImageFromWeb ()
 
-@property(nonatomic, assign, readwrite) NSInteger comicNumber;
-@property(nonatomic, strong, readwrite) NSURL *comicImageURL;
-@property(nonatomic, strong, readwrite) NSData *comicImageData;
-@property(nonatomic, weak, readwrite) id target;
-@property(nonatomic, assign, readwrite) SEL action;
-@property(nonatomic, strong, readwrite) NSError *error;
-@property(nonatomic, strong, readwrite) id context;
+@property (nonatomic) NSInteger comicNumber;
+@property (nonatomic) NSURL *comicImageURL;
+@property (nonatomic) NSData *comicImageData;
+@property (nonatomic, weak) id target;
+@property (nonatomic) SEL action;
+@property (nonatomic) NSError *error;
+@property (nonatomic) id context;
 
 @end
 
@@ -28,35 +28,38 @@
 
 @implementation FetchComicImageFromWeb
 
-- (id)initWithComicNumber:(NSInteger)number
-                 imageURL:(NSURL *)imageURL
-         completionTarget:(id)completionTarget
-                   action:(SEL)completionAction
-                  context:(id)aContext {
-  if(self = [super init]) {
-    _comicNumber = number;
-    _comicImageURL = imageURL;
-    _target = completionTarget;
-    _action = completionAction;
-    _context = aContext;
-  }
-  return self;
+- (instancetype)initWithComicNumber:(NSInteger)number
+						   imageURL:(NSURL *)imageURL
+				   completionTarget:(id)completionTarget
+							 action:(SEL)completionAction
+							context:(id)aContext {
+	if(self = [super init]) {
+		_comicNumber = number;
+		_comicImageURL = imageURL;
+		_target = completionTarget;
+		_action = completionAction;
+		_context = aContext;
+	}
+	return self;
 }
 
 - (void)main {
-  NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
-                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:180.0f];
-  [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
-  NSURLResponse *response = nil;
-  NSError *requestError = nil;
-  TLDebugLog(@"Fetching image at %@", self.comicImageURL);
-  self.comicImageData = [NSURLConnection sendSynchronousRequest:request
-                                              returningResponse:&response
-                                                          error:&requestError];
-  self.error = requestError;
-  TLDebugLog(@"Image fetch completed with error: %@", self.error);
-  if(![self isCancelled]) {
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
+																cachePolicy:NSURLRequestUseProtocolCachePolicy
+															timeoutInterval:180.0f];
+	[request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
+	NSURLResponse *response = nil;
+	NSError *requestError = nil;
+	TLDebugLog(@"Fetching image at %@", self.comicImageURL);
+	self.comicImageData = [NSURLConnection sendSynchronousRequest:request
+												returningResponse:&response
+															error:&requestError];
+	self.error = requestError;
+	if (self.error) {
+		TLDebugLog(@"Image fetch completed with error: %@", self.error);
+	}
+	
+	if(![self isCancelled]) {
     [self.target performSelectorOnMainThread:self.action
                                   withObject:self
                                waitUntilDone:NO];

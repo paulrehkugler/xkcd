@@ -11,12 +11,12 @@
 @implementation NSDictionary (TypeSafety)
 
 - (NSString *)stringForKey:(id)aKey {
-  return (NSString *)[self objectForKey:aKey ofKindOfClass:[NSString class]];
+	return (NSString *)[self objectForKey:aKey ofKindOfClass:[NSString class]];
 }
 
 - (id)objectForKey:(id)aKey ofKindOfClass:(Class)requiredClass {
-  id obj = self[aKey];
-  return [obj isKindOfClass:requiredClass] ? obj : nil;
+	id obj = self[aKey];
+	return [obj isKindOfClass:requiredClass] ? obj : nil;
 }
 
 @end

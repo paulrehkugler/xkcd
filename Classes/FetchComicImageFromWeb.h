@@ -10,15 +10,15 @@
 
 @interface FetchComicImageFromWeb : NSOperation
 
-- (id)initWithComicNumber:(NSInteger)number
-                 imageURL:(NSURL *)imageURL
-         completionTarget:(id)completionTarget
-                   action:(SEL)completionAction
-                  context:(id)context;
+- (instancetype)initWithComicNumber:(NSInteger)number
+						   imageURL:(NSURL *)imageURL
+				   completionTarget:(id)completionTarget
+							 action:(SEL)completionAction
+							context:(id)context;
 
-@property(nonatomic, strong, readonly) NSData *comicImageData;
-@property(nonatomic, assign, readonly) NSInteger comicNumber;
-@property(nonatomic, strong, readonly) NSError *error;
-@property(nonatomic, strong, readonly) id context;
+@property (nonatomic, readonly) NSData *comicImageData;
+@property (nonatomic, readonly) NSInteger comicNumber;
+@property (nonatomic, readonly) NSError *error;
+@property (nonatomic, readonly) id context;
 
 @end

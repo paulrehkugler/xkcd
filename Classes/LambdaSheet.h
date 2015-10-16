@@ -4,7 +4,7 @@
 
 @interface LambdaSheet : NSObject
 
-- (id)initWithTitle:(NSString *)title;
+- (instancetype)initWithTitle:(NSString *)title;
 
 - (void)addButtonWithTitle:(NSString *)title block:(dispatch_block_t)block;
 - (void)addDestructiveButtonWithTitle:(NSString *)title block:(dispatch_block_t)block;
@@ -20,6 +20,6 @@
 
 - (void)dismissAnimated:(BOOL)animated;
 
-@property(nonatomic, copy) dispatch_block_t dismissAction;
+@property (nonatomic, copy) dispatch_block_t dismissAction;
 
 @end

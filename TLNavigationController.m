@@ -13,7 +13,7 @@
 @implementation TLNavigationController
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAllButUpsideDown;
+	return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
 @end

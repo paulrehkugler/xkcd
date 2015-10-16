@@ -11,8 +11,8 @@
 
 @interface SingleComicViewController : UIViewController <UIScrollViewDelegate, SingleComicImageFetcherDelegate>
 
-- (id)initWithComic:(Comic *)comicToView;
+- (instancetype)initWithComic:(Comic *)comicToView;
 
-@property(nonatomic, strong, readonly) Comic *comic;
+@property (nonatomic, readonly) Comic *comic;
 
 @end

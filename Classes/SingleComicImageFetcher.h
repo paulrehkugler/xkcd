@@ -16,6 +16,6 @@
 - (BOOL)downloadingAll;
 - (void)cancelDownloadAll;
 
-@property(nonatomic, weak, readwrite) id<SingleComicImageFetcherDelegate> delegate;
+@property (nonatomic, weak) id<SingleComicImageFetcherDelegate> delegate;
 
 @end

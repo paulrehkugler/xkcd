@@ -12,26 +12,26 @@
 @implementation UIBarButtonItem (TLCommon)
 
 + (UIBarButtonItem *)spinnerBarButtonItem {
-  UIActivityIndicatorView *spinner = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleWhite];
-  
-  UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-  spinnerBarButtonItem.enabled = NO;
-  
-  return spinnerBarButtonItem;
+	UIActivityIndicatorView *spinner = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleWhite];
+	
+	UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+	spinnerBarButtonItem.enabled = NO;
+	
+	return spinnerBarButtonItem;
 }
 
 + (UIBarButtonItem *)flexibleSpaceBarButtonItem {
-  return [self barButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	return [self barButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 }
 
 + (UIBarButtonItem *)fixedSpaceBarButtonItemWithWidth:(CGFloat)spaceWidth {
-  UIBarButtonItem *fixedSpace = [self barButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-  fixedSpace.width = spaceWidth;
-  return fixedSpace;
+	UIBarButtonItem *fixedSpace = [self barButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+	fixedSpace.width = spaceWidth;
+	return fixedSpace;
 }
 
 + (UIBarButtonItem *)barButtonSystemItem:(UIBarButtonSystemItem)systemItem target:(id)target action:(SEL)action {
-  return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:systemItem target:target action:action];
+	return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:systemItem target:target action:action];
 }
 
 
