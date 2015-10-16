@@ -28,38 +28,38 @@
 
 @implementation FetchComicImageFromWeb
 
-- (id)initWithComicNumber:(NSInteger)number
-                 imageURL:(NSURL *)imageURL
-         completionTarget:(id)completionTarget
-                   action:(SEL)completionAction
-                  context:(id)aContext {
-  if(self = [super init]) {
-    _comicNumber = number;
-    _comicImageURL = imageURL;
-    _target = completionTarget;
-    _action = completionAction;
-    _context = aContext;
-  }
-  return self;
+- (instancetype)initWithComicNumber:(NSInteger)number
+						   imageURL:(NSURL *)imageURL
+				   completionTarget:(id)completionTarget
+							 action:(SEL)completionAction
+							context:(id)aContext {
+	if(self = [super init]) {
+		_comicNumber = number;
+		_comicImageURL = imageURL;
+		_target = completionTarget;
+		_action = completionAction;
+		_context = aContext;
+	}
+	return self;
 }
 
 - (void)main {
-  NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
-                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:180.0f];
-  [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
-  NSURLResponse *response = nil;
-  NSError *requestError = nil;
-  TLDebugLog(@"Fetching image at %@", self.comicImageURL);
-  self.comicImageData = [NSURLConnection sendSynchronousRequest:request
-                                              returningResponse:&response
-                                                          error:&requestError];
-  self.error = requestError;
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
+																cachePolicy:NSURLRequestUseProtocolCachePolicy
+															timeoutInterval:180.0f];
+	[request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
+	NSURLResponse *response = nil;
+	NSError *requestError = nil;
+	TLDebugLog(@"Fetching image at %@", self.comicImageURL);
+	self.comicImageData = [NSURLConnection sendSynchronousRequest:request
+												returningResponse:&response
+															error:&requestError];
+	self.error = requestError;
 	if (self.error) {
 		TLDebugLog(@"Image fetch completed with error: %@", self.error);
 	}
 	
-  if(![self isCancelled]) {
+	if(![self isCancelled]) {
     [self.target performSelectorOnMainThread:self.action
                                   withObject:self
                                waitUntilDone:NO];

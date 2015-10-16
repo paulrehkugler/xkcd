@@ -11,8 +11,6 @@
 
 @protocol SingleComicImageFetcherDelegate<NSObject>
 
-@required
-
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFetchImageForComic:(Comic *)comic context:(id)context;
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher didFailWithError:(NSError *)error onComic:(Comic *)comic;
 

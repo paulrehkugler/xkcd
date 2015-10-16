@@ -12,9 +12,9 @@
 
 @implementation FAQViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if(self) {
+	if (self) {
 		self.title = NSLocalizedString(@"FAQ", @"FAQ");
 	}
 	return self;
@@ -48,7 +48,7 @@
 								  NSParagraphStyleAttributeName: paragraphStyle
 								  };
 	
-	for(NSDictionary *faqEntry in faqArray) {
+	for (NSDictionary *faqEntry in faqArray) {
 		NSString *q = faqEntry[@"Q"];
 		NSString *a = faqEntry[@"A"];
 		

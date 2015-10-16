@@ -7,15 +7,15 @@
 
 // Original license (source squeezed by me into an Obj-C wrapper):
 
-/* 
+/*
  A C-program for MT19937, with initialization improved 2002/1/26.
  Coded by Takuji Nishimura and Makoto Matsumoto.
  
- Before using, initialize the state by using init_genrand(seed)  
+ Before using, initialize the state by using init_genrand(seed)
  or init_by_array(init_key, key_length).
  
  Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
- All rights reserved.                          
+ All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -28,8 +28,8 @@
  notice, this list of conditions and the following disclaimer in the
  documentation and/or other materials provided with the distribution.
  
- 3. The names of its contributors may not be used to endorse or promote 
- products derived from this software without specific prior written 
+ 3. The names of its contributors may not be used to endorse or promote
+ products derived from this software without specific prior written
  permission.
  
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -52,7 +52,7 @@
 
 #import "TLMersenneTwister.h"
 
-/* Period parameters */  
+/* Period parameters */
 #define N 624
 #define M 397
 #define MATRIX_A 0x9908b0dfUL   /* constant vector a */
@@ -65,82 +65,82 @@ static unsigned long mt[N]; /* the array for the state vector  */
 static int mti = N + 1; /* mti==N+1 means mt[N] is not initialized */
 
 + (void)initialize {
-  if(self == [TLMersenneTwister class]) {
-    [self setSeed:time(NULL)];
-  }
+	if (self == [TLMersenneTwister class]) {
+		[self setSeed:time(NULL)];
+	}
 }
 
 /* initializes mt[N] with a seed */
 + (void)setSeed:(unsigned long)s {
-  mt[0]= s & 0xffffffffUL;
-  for (mti=1; mti<N; mti++) {
-    mt[mti] = 
-    (1812433253UL * (mt[mti-1] ^ (mt[mti-1] >> 30)) + mti); 
-    /* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
-    /* In the previous versions, MSBs of the seed affect   */
-    /* only MSBs of the array mt[].                        */
-    /* 2002/01/09 modified by Makoto Matsumoto             */
-    mt[mti] &= 0xffffffffUL;
-    /* for >32 bit machines */
-  }  
+	mt[0]= s & 0xffffffffUL;
+	for (mti=1; mti<N; mti++) {
+		mt[mti] =
+		(1812433253UL * (mt[mti-1] ^ (mt[mti-1] >> 30)) + mti);
+		/* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
+		/* In the previous versions, MSBs of the seed affect   */
+		/* only MSBs of the array mt[].                        */
+		/* 2002/01/09 modified by Makoto Matsumoto             */
+		mt[mti] &= 0xffffffffUL;
+		/* for >32 bit machines */
+	}
 }
 
 + (unsigned long)randInt32 {
-  unsigned long y;
-  static unsigned long mag01[2]={0x0UL, MATRIX_A};
-  /* mag01[x] = x * MATRIX_A  for x=0,1 */
-  
-  if (mti >= N) { /* generate N words at one time */
-    int kk;
-    
-    for (kk=0;kk<N-M;kk++) {
-      y = (mt[kk]&UPPER_MASK)|(mt[kk+1]&LOWER_MASK);
-      mt[kk] = mt[kk+M] ^ (y >> 1) ^ mag01[y & 0x1UL];
-    }
-    for (;kk<N-1;kk++) {
-      y = (mt[kk]&UPPER_MASK)|(mt[kk+1]&LOWER_MASK);
-      mt[kk] = mt[kk+(M-N)] ^ (y >> 1) ^ mag01[y & 0x1UL];
-    }
-    y = (mt[N-1]&UPPER_MASK)|(mt[0]&LOWER_MASK);
-    mt[N-1] = mt[M-1] ^ (y >> 1) ^ mag01[y & 0x1UL];
-    
-    mti = 0;
-  }
-  
-  y = mt[mti++];
-  
-  /* Tempering */
-  y ^= (y >> 11);
-  y ^= (y << 7) & 0x9d2c5680UL;
-  y ^= (y << 15) & 0xefc60000UL;
-  y ^= (y >> 18);
-  
-  return y;
+	unsigned long y;
+	static unsigned long mag01[2]={0x0UL, MATRIX_A};
+	/* mag01[x] = x * MATRIX_A  for x=0,1 */
+	
+	if (mti >= N) { /* generate N words at one time */
+		int kk;
+		
+		for (kk=0;kk<N-M;kk++) {
+			y = (mt[kk]&UPPER_MASK)|(mt[kk+1]&LOWER_MASK);
+			mt[kk] = mt[kk+M] ^ (y >> 1) ^ mag01[y & 0x1UL];
+		}
+		for (;kk<N-1;kk++) {
+			y = (mt[kk]&UPPER_MASK)|(mt[kk+1]&LOWER_MASK);
+			mt[kk] = mt[kk+(M-N)] ^ (y >> 1) ^ mag01[y & 0x1UL];
+		}
+		y = (mt[N-1]&UPPER_MASK)|(mt[0]&LOWER_MASK);
+		mt[N-1] = mt[M-1] ^ (y >> 1) ^ mag01[y & 0x1UL];
+		
+		mti = 0;
+	}
+	
+	y = mt[mti++];
+	
+	/* Tempering */
+	y ^= (y >> 11);
+	y ^= (y << 7) & 0x9d2c5680UL;
+	y ^= (y << 15) & 0xefc60000UL;
+	y ^= (y >> 18);
+	
+	return y;
 }
 
 + (long)randInt31 {
-  return (long)([self randInt32] >> 1);
+	return (long)([self randInt32] >> 1);
 }
 
 + (double)randRealClosed {
-  return [self randInt32] * (1.0/4294967295.0); 
-  /* divided by 2^32-1 */ 
+	return [self randInt32] * (1.0/4294967295.0);
+	/* divided by 2^32-1 */
 }
 
 + (double)randRealClopen {
-  return [self randInt32] * (1.0/4294967296.0); 
-  /* divided by 2^32 */
+	return [self randInt32] * (1.0/4294967296.0);
+	/* divided by 2^32 */
 }
 
 + (double)randRealOpen {
-  return (((double)[self randInt32]) + 0.5)*(1.0/4294967296.0); 
-  /* divided by 2^32 */
+	return (((double)[self randInt32]) + 0.5)*(1.0/4294967296.0);
+	/* divided by 2^32 */
 }
 
 + (double)randRealClopen53 {
-  unsigned long a=[self randInt32]>>5, b=[self randInt32]>>6; 
-  return(a*67108864.0+b)*(1.0/9007199254740992.0); 
-} 
+	unsigned long a=[self randInt32]>>5, b=[self randInt32]>>6;
+	return(a*67108864.0+b)*(1.0/9007199254740992.0);
+}
 /* These real versions are due to Isaku Wada, 2002/01/09 added */
 
 @end

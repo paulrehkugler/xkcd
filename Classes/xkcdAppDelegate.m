@@ -41,27 +41,27 @@ static NSString *applicationDocumentsDirectory = nil;
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  ComicListViewController *listViewController = [[ComicListViewController alloc] initWithStyle:UITableViewStylePlain];
-
-  BOOL canLaunchApplication = YES;
-  if(launchOptions) {
-    NSURL *launchURL = launchOptions[UIApplicationLaunchOptionsURLKey];
-    if(![[launchURL scheme] isEqual: @"xkcd"]) {
-      canLaunchApplication = NO;
-    }
-    NSInteger launchedComic = [[launchURL host] integerValue];
-    if(launchedComic > 0) {
-      listViewController.requestedLaunchComic = launchedComic;
-    }
-  }
-  
-  TLNavigationController *navigationController = [[TLNavigationController alloc] initWithRootViewController:listViewController];
-    
-  self.window.rootViewController = navigationController;
-  [self.window addSubview:navigationController.view];
-  [self.window makeKeyAndVisible];
-  
-  return canLaunchApplication;
+	ComicListViewController *listViewController = [[ComicListViewController alloc] initWithStyle:UITableViewStylePlain];
+	
+	BOOL canLaunchApplication = YES;
+	if (launchOptions) {
+		NSURL *launchURL = launchOptions[UIApplicationLaunchOptionsURLKey];
+		if (![[launchURL scheme] isEqual: @"xkcd"]) {
+			canLaunchApplication = NO;
+		}
+		NSInteger launchedComic = [[launchURL host] integerValue];
+		if (launchedComic > 0) {
+			listViewController.requestedLaunchComic = launchedComic;
+		}
+	}
+	
+	TLNavigationController *navigationController = [[TLNavigationController alloc] initWithRootViewController:listViewController];
+	
+	self.window.rootViewController = navigationController;
+	[self.window addSubview:navigationController.view];
+	[self.window makeKeyAndVisible];
+	
+	return canLaunchApplication;
 }
 
 - (void) applicationWillResignActive:(UIApplication *)application
@@ -71,53 +71,53 @@ static NSString *applicationDocumentsDirectory = nil;
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
-  [[NSUserDefaults standardUserDefaults] synchronize];
-
-  NSError *error = nil;
-  if(self.managedObjectContext) {
-    if([self.managedObjectContext hasChanges] && ![self.managedObjectContext save:&error]) {
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	
+	NSError *error = nil;
+	if (self.managedObjectContext) {
+		if ([self.managedObjectContext hasChanges] && ![self.managedObjectContext save:&error]) {
 			exit(-1);  // Fail
-    } 
-  }
+		}
+	}
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-  [Comic synchronizeDownloadedImages];
+	[Comic synchronizeDownloadedImages];
 }
 
 #pragma mark -
 #pragma mark UserDefaults access
 
 - (BOOL)openZoomedOut {
-  if(![self.userDefaults dictionaryRepresentation][kUserDefaultsOpenZoomedOutKey]) {
-    [self.userDefaults setBool:NO forKey:kUserDefaultsOpenZoomedOutKey];
-    [self.userDefaults synchronize];
-  }
-  return [self.userDefaults boolForKey:kUserDefaultsOpenZoomedOutKey];
+	if (![self.userDefaults dictionaryRepresentation][kUserDefaultsOpenZoomedOutKey]) {
+		[self.userDefaults setBool:NO forKey:kUserDefaultsOpenZoomedOutKey];
+		[self.userDefaults synchronize];
+	}
+	return [self.userDefaults boolForKey:kUserDefaultsOpenZoomedOutKey];
 }
 
 - (BOOL)downloadNewComics {
-  if(![self.userDefaults dictionaryRepresentation][kUserDefaultsAutodownloadKey]) {
-    [self.userDefaults setBool:NO forKey:kUserDefaultsAutodownloadKey];
-    [self.userDefaults synchronize];
-  }
-  return [self.userDefaults boolForKey:kUserDefaultsAutodownloadKey];
+	if (![self.userDefaults dictionaryRepresentation][kUserDefaultsAutodownloadKey]) {
+		[self.userDefaults setBool:NO forKey:kUserDefaultsAutodownloadKey];
+		[self.userDefaults synchronize];
+	}
+	return [self.userDefaults boolForKey:kUserDefaultsAutodownloadKey];
 }
 
 - (BOOL)openAfterDownload {
-  if(![self.userDefaults dictionaryRepresentation][kUserDefaultsOpenAfterDownloadKey]) {
-    [self.userDefaults setBool:YES forKey:kUserDefaultsOpenAfterDownloadKey];
-    [self.userDefaults synchronize];
-  }
-  return [self.userDefaults boolForKey:kUserDefaultsOpenAfterDownloadKey];
+	if (![self.userDefaults dictionaryRepresentation][kUserDefaultsOpenAfterDownloadKey]) {
+		[self.userDefaults setBool:YES forKey:kUserDefaultsOpenAfterDownloadKey];
+		[self.userDefaults synchronize];
+	}
+	return [self.userDefaults boolForKey:kUserDefaultsOpenAfterDownloadKey];
 }
 
 - (NSUserDefaults *)userDefaults {
-  if(!_userDefaults) {
-    _userDefaults = [NSUserDefaults standardUserDefaults];
-    [_userDefaults synchronize];
-  }
-  return _userDefaults;
+	if (!_userDefaults) {
+		_userDefaults = [NSUserDefaults standardUserDefaults];
+		[_userDefaults synchronize];
+	}
+	return _userDefaults;
 }
 
 #pragma mark -
@@ -128,10 +128,10 @@ static NSString *applicationDocumentsDirectory = nil;
  message to the application's managed object context.
  */
 - (void)save {
-  NSError *error = nil;
-  if(![[self managedObjectContext] save:&error]) {
-    TLDebugLog(@"SAVE FAILED %@", error);
-  }
+	NSError *error = nil;
+	if (![[self managedObjectContext] save:&error]) {
+		TLDebugLog(@"SAVE FAILED %@", error);
+	}
 }
 
 
@@ -143,19 +143,19 @@ static NSString *applicationDocumentsDirectory = nil;
  If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
  */
 - (NSManagedObjectContext *) managedObjectContext {
-  if (_managedObjectContext != nil) {
-    return _managedObjectContext;
-  }
+	if (_managedObjectContext != nil) {
+		return _managedObjectContext;
+	}
 	
-  NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-  if(coordinator != nil) {
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator: coordinator];
-  }
-  
-  [_managedObjectContext setUndoManager:nil];
-  
-  return _managedObjectContext;
+	NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+	if (coordinator != nil) {
+		_managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+		[_managedObjectContext setPersistentStoreCoordinator: coordinator];
+	}
+	
+	[_managedObjectContext setUndoManager:nil];
+	
+	return _managedObjectContext;
 }
 
 
@@ -165,11 +165,11 @@ static NSString *applicationDocumentsDirectory = nil;
  */
 - (NSManagedObjectModel *)managedObjectModel {
 	
-  if (_managedObjectModel != nil) {
-    return _managedObjectModel;
-  }
-  _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-  return _managedObjectModel;
+	if (_managedObjectModel != nil) {
+		return _managedObjectModel;
+	}
+	_managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+	return _managedObjectModel;
 }
 
 
@@ -178,44 +178,44 @@ static NSString *applicationDocumentsDirectory = nil;
  If the coordinator doesn't already exist, it is created and the application's store added to it.
  */
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-  if (_persistentStoreCoordinator != nil) {
-    return _persistentStoreCoordinator;
-  }
-
-  NSFileManager *fileManager = [NSFileManager defaultManager];
-
-  // Clean up the old file from previous versions
-  NSString *oldStorePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"xkcd.sqlite"];
-  if([fileManager fileExistsAtPath:oldStorePath]) {
-    NSError *removalError = nil;
-    [fileManager removeItemAtPath:oldStorePath error:&removalError];
-    if(removalError) {
-      TLDebugLog(@"Error removing old sqlite file at %@", removalError);
-    }
-  }
-
-  NSString *storePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"comics.sqlite"];
-  TLDebugLog(@"Store path: %@", [storePath stringByReplacingOccurrencesOfString:@" " withString:@"\\ "]);
-  
-  if(![fileManager fileExistsAtPath:storePath]) {
-    NSString *bundledPath = [[NSBundle mainBundle] pathForResource:@"comics" ofType:@"sqlite"];
-    if([fileManager fileExistsAtPath:bundledPath]) {
-      [fileManager copyItemAtPath:bundledPath toPath:storePath error:NULL];
-    }
-  }
-  
-  NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
-	NSError *error = nil;
-  _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-  if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                               configuration:nil
-                                                         URL:storeUrl
-                                                     options:nil
-                                                       error:&error]) {
-    NSLog(@"Error opening store: %@", error);
-  }
+	if (_persistentStoreCoordinator != nil) {
+		return _persistentStoreCoordinator;
+	}
 	
-  return _persistentStoreCoordinator;
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	
+	// Clean up the old file from previous versions
+	NSString *oldStorePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"xkcd.sqlite"];
+	if ([fileManager fileExistsAtPath:oldStorePath]) {
+		NSError *removalError = nil;
+		[fileManager removeItemAtPath:oldStorePath error:&removalError];
+		if (removalError) {
+			TLDebugLog(@"Error removing old sqlite file at %@", removalError);
+		}
+	}
+	
+	NSString *storePath = [self.applicationDocumentsDirectory stringByAppendingPathComponent: @"comics.sqlite"];
+	TLDebugLog(@"Store path: %@", [storePath stringByReplacingOccurrencesOfString:@" " withString:@"\\ "]);
+	
+	if (![fileManager fileExistsAtPath:storePath]) {
+		NSString *bundledPath = [[NSBundle mainBundle] pathForResource:@"comics" ofType:@"sqlite"];
+		if ([fileManager fileExistsAtPath:bundledPath]) {
+			[fileManager copyItemAtPath:bundledPath toPath:storePath error:NULL];
+		}
+	}
+	
+	NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
+	NSError *error = nil;
+	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+	if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+												   configuration:nil
+															 URL:storeUrl
+														 options:nil
+														   error:&error]) {
+		NSLog(@"Error opening store: %@", error);
+	}
+	
+	return _persistentStoreCoordinator;
 }
 
 #pragma mark -
@@ -226,14 +226,14 @@ static NSString *applicationDocumentsDirectory = nil;
  Memo-ized to provide faster delete-all + download-all functionality.
  */
 - (NSString *)applicationDocumentsDirectory {
-  if(!applicationDocumentsDirectory) {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? paths[0] : nil;
-    if(basePath) {
-      applicationDocumentsDirectory = basePath;
-    }
-  }
-  return applicationDocumentsDirectory;
+	if (!applicationDocumentsDirectory) {
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *basePath = ([paths count] > 0) ? paths[0] : nil;
+		if (basePath) {
+			applicationDocumentsDirectory = basePath;
+		}
+	}
+	return applicationDocumentsDirectory;
 }
 
 @end

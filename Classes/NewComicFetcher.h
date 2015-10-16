@@ -10,7 +10,7 @@
 #import "NewComicFetcherDelegate.h"
 
 @interface NewComicFetcher : NSObject
-  
+
 - (void)fetch;
 
 @property (nonatomic, weak) id<NewComicFetcherDelegate> delegate;
