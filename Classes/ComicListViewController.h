@@ -24,7 +24,7 @@
   UIScrollViewDelegate
 >
 
-@property(nonatomic, assign, readwrite) NSInteger requestedLaunchComic;
+@property (nonatomic) NSInteger requestedLaunchComic;
 
 - (NSIndexPath *)indexPathForComicNumbered:(NSInteger)comicNumber;
 

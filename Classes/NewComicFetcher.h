@@ -13,6 +13,6 @@
   
 - (void)fetch;
 
-@property(nonatomic, weak, readwrite) id<NewComicFetcherDelegate> delegate;
+@property (nonatomic, weak) id<NewComicFetcherDelegate> delegate;
 
 @end

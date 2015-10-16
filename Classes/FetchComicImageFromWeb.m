@@ -14,13 +14,13 @@
 
 @interface FetchComicImageFromWeb ()
 
-@property(nonatomic, assign, readwrite) NSInteger comicNumber;
-@property(nonatomic, strong, readwrite) NSURL *comicImageURL;
-@property(nonatomic, strong, readwrite) NSData *comicImageData;
-@property(nonatomic, weak, readwrite) id target;
-@property(nonatomic, assign, readwrite) SEL action;
-@property(nonatomic, strong, readwrite) NSError *error;
-@property(nonatomic, strong, readwrite) id context;
+@property (nonatomic) NSInteger comicNumber;
+@property (nonatomic) NSURL *comicImageURL;
+@property (nonatomic) NSData *comicImageData;
+@property (nonatomic, weak) id target;
+@property (nonatomic) SEL action;
+@property (nonatomic) NSError *error;
+@property (nonatomic) id context;
 
 @end
 
@@ -55,7 +55,10 @@
                                               returningResponse:&response
                                                           error:&requestError];
   self.error = requestError;
-  TLDebugLog(@"Image fetch completed with error: %@", self.error);
+	if (self.error) {
+		TLDebugLog(@"Image fetch completed with error: %@", self.error);
+	}
+	
   if(![self isCancelled]) {
     [self.target performSelectorOnMainThread:self.action
                                   withObject:self

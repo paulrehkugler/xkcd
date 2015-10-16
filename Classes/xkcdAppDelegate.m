@@ -25,11 +25,11 @@ static NSString *applicationDocumentsDirectory = nil;
 
 @interface xkcdAppDelegate ()
 
-@property(nonatomic, strong, readwrite) NSUserDefaults *userDefaults;
+@property (nonatomic) NSUserDefaults *userDefaults;
 
-@property(nonatomic, strong, readwrite) NSManagedObjectModel *managedObjectModel;
-@property(nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
-@property(nonatomic, strong, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @end
 

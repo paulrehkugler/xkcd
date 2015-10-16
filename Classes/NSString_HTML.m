@@ -26,9 +26,9 @@ static NSArray *characterEntityArray = nil;
 - (id)initWithHTMLSnippet:(NSString *)HTMLSnippet;
 - (NSString *)cleanedString;
 
-@property(nonatomic, strong, readwrite) NSString *snippet;
-@property(nonatomic, strong, readwrite) NSMutableString *resultAccumulator;
-@property(nonatomic, assign, readwrite) BOOL parseErrorEncountered;
+@property (nonatomic) NSString *snippet;
+@property (nonatomic) NSMutableString *resultAccumulator;
+@property (nonatomic) BOOL parseErrorEncountered;
   
 @end
 

@@ -25,8 +25,8 @@
 
 - (void)fetchComic:(NSInteger)comicNumber;
 
-@property(nonatomic, strong, readwrite) NSOperationQueue *fetchQueue;
-@property(nonatomic, strong, readwrite) NSMutableArray *comicsToInsert;
+@property (nonatomic) NSOperationQueue *fetchQueue;
+@property (nonatomic) NSMutableArray *comicsToInsert;
 
 @end
 

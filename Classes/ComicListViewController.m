@@ -59,11 +59,11 @@ static UIImage *downloadImage = nil;
 // Action sheet actions
 - (void)emailDeveloper;
 
-@property(nonatomic, strong, readwrite) NewComicFetcher *fetcher;
-@property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
-@property(nonatomic, strong, readwrite) NSFetchedResultsController *fetchedResultsController;
-@property(nonatomic, strong, readwrite) NSFetchedResultsController *searchFetchedResultsController;
-@property(nonatomic, strong, readwrite) UISearchDisplayController *searchController;
+@property (nonatomic) NewComicFetcher *fetcher;
+@property (nonatomic) SingleComicImageFetcher *imageFetcher;
+@property (nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic) NSFetchedResultsController *searchFetchedResultsController;
+@property (nonatomic) UISearchDisplayController *searchController;
 
 @end
 
@@ -299,15 +299,17 @@ static UIImage *downloadImage = nil;
   self.navigationItem.rightBarButtonItem.action = @selector(doneEditing:);
   [self.navigationController setToolbarHidden:NO animated:YES];
   UIBarButtonItem *downloadAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Download all", @"Button")
-                                                                  style:UIBarButtonItemStyleBordered
+                                                                  style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(downloadAll:)];
   UIBarButtonItem *deleteAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Delete all", @"Button")
-                                                                style:UIBarButtonItemStyleBordered
+                                                                style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(deleteAll:)];
+	deleteAll.tintColor = [UIColor redColor];
+	
   UIBarButtonItem *cancelDownloadAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel download all", @"Button")
-                                                                style:UIBarButtonItemStyleBordered
+                                                                style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(cancelDownloadAll:)];
   NSArray *toolbarItems = nil;
@@ -501,7 +503,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (NSString *)tableView:(UITableView *)aTableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return NSLocalizedString(@"Delete image", @"Delete button title");
+  return NSLocalizedString(@"Delete", @"Delete button title");
 }
 
 - (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

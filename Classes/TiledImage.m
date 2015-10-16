@@ -10,19 +10,19 @@
 
 @interface TiledImage( )
 
-@property (nonatomic, assign, readwrite) NSUInteger widthCount;
-@property (nonatomic, assign, readwrite) NSUInteger heightCount;
-@property (nonatomic, assign, readwrite) NSUInteger tileWidth;
-@property (nonatomic, assign, readwrite) NSUInteger tileHeight;
-@property (nonatomic, assign, readwrite) UIImage *sourceImage;
-@property (nonatomic, strong, readwrite) NSMutableArray *tiles;
+@property (nonatomic) NSUInteger widthCount;
+@property (nonatomic) NSUInteger heightCount;
+@property (nonatomic) NSUInteger tileWidth;
+@property (nonatomic) NSUInteger tileHeight;
+@property (nonatomic) UIImage *sourceImage;
+@property (nonatomic) NSMutableArray *tiles;
 
 @end
 
 @implementation TiledImage
 
-- (id)initWithImage:(UIImage *)imageToTile tileWidth:(NSUInteger)width tileHeight:(NSUInteger)height {
-  if(self = [super init]) {
+- (instancetype)initWithImage:(UIImage *)imageToTile tileWidth:(NSUInteger)width tileHeight:(NSUInteger)height {
+  if (self = [super init]) {
     _tileWidth = width;
     _tileHeight = height;
     CGSize imageSize = imageToTile.exifAgnosticSize;

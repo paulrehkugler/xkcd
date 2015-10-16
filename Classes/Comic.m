@@ -28,8 +28,8 @@ static NSMutableSet *downloadedImages = nil;
 
 @interface Comic ()
 
-@property(nonatomic, strong, readonly) NSString *imagePath;
-@property(nonatomic, strong, readonly) NSString *imageFilename;
+@property (nonatomic, readonly) NSString *imagePath;
+@property (nonatomic, readonly) NSString *imageFilename;
 
 @end
 

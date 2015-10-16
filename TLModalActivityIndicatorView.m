@@ -20,7 +20,7 @@
 
 @interface TLModalActivityIndicatorView ()
 
-@property(nonatomic, strong, readwrite) UIActivityIndicatorView *spinner;
+@property (nonatomic) UIActivityIndicatorView *spinner;
 
 @end
 

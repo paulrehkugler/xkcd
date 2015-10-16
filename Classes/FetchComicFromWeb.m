@@ -13,15 +13,15 @@
 
 @interface FetchComicFromWeb ()
 
-@property(nonatomic, assign, readwrite) NSInteger comicNumber;
-@property(nonatomic, strong, readwrite) NSString *comicName;
-@property(nonatomic, strong, readwrite) NSString *comicTitleText;
-@property(nonatomic, strong, readwrite) NSString *comicImageURL;
-@property(nonatomic, strong, readwrite) NSString *comicTranscript;
-@property(nonatomic, weak, readwrite) id target;
-@property(nonatomic, assign, readwrite) SEL action;
-@property(nonatomic, strong, readwrite) NSError *error;
-@property(nonatomic, assign, readwrite) BOOL got404;
+@property (nonatomic) NSInteger comicNumber;
+@property (nonatomic) NSString *comicName;
+@property (nonatomic) NSString *comicTitleText;
+@property (nonatomic) NSString *comicImageURL;
+@property (nonatomic) NSString *comicTranscript;
+@property (nonatomic, weak) id target;
+@property (nonatomic) SEL action;
+@property (nonatomic) NSError *error;
+@property (nonatomic) BOOL got404;
 
 @end
 

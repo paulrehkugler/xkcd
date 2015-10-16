@@ -35,12 +35,12 @@
 - (void)goToComicNumbered:(NSUInteger)comicNumber;
 - (void)calculateZoomScaleAndAnimate:(BOOL)animate;
 
-@property(nonatomic, strong, readwrite) Comic *comic;
-@property(nonatomic, strong, readwrite) NSMutableArray *comicImageViews;
-@property(nonatomic, strong, readwrite) UIView *contentView;
-@property(nonatomic, strong, readwrite) UIScrollView *imageScroller;
-@property(nonatomic, strong, readwrite) UIActivityIndicatorView *loadingView;
-@property(nonatomic, strong, readwrite) SingleComicImageFetcher *imageFetcher;
+@property (nonatomic) Comic *comic;
+@property (nonatomic) NSMutableArray *comicImageViews;
+@property (nonatomic) UIView *contentView;
+@property (nonatomic) UIScrollView *imageScroller;
+@property (nonatomic) UIActivityIndicatorView *loadingView;
+@property (nonatomic) SingleComicImageFetcher *imageFetcher;
 @property (nonatomic) BOOL hidingToolbars;
 
 @end

@@ -6,7 +6,7 @@
 
 @interface FAQViewController ()
 
-@property (nonatomic, readwrite) IBOutlet UITextView *textView;
+@property (nonatomic) IBOutlet UITextView *textView;
 
 @end
 

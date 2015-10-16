@@ -22,9 +22,9 @@
 - (void)enqueueMoreDownloadAllComics;
 - (void)didFailWithError:(NSError *)error onComic:(Comic *)comic;
 
-@property(nonatomic, strong) id keepInMemory;
-@property(nonatomic, strong, readwrite) NSOperationQueue *fetchQueue;
-@property(nonatomic, strong, readwrite) NSMutableArray *comicsRemainingDuringDownloadAll;
+@property (nonatomic) id keepInMemory;
+@property (nonatomic) NSOperationQueue *fetchQueue;
+@property (nonatomic) NSMutableArray *comicsRemainingDuringDownloadAll;
 
 @end
 
