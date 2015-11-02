@@ -30,7 +30,7 @@
 		<key>Q</key>
 		<string>I found a bug. I want a new feature.</string>
 		<key>A</key>
-		<string>Are you a developer? File or +1 an issue (or, better, send a pull request) at https://github.com/josharian/xkcd. Not a developer? Send me a feedback email, but be sure to read the rest of the FAQ first.</string>
+		<string>Are you a developer? File or +1 an issue (or, better, send a pull request) at https://github.com/paulrehkugler/xkcd. Not a developer? Send me a feedback email, but be sure to read the rest of the FAQ first.</string>
 	</dict>
 	<dict>
 		<key>Q</key>
