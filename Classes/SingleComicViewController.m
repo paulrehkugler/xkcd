@@ -15,8 +15,8 @@
 #import "LambdaSheet.h"
 #import "FCOpenInSafariActivity.h"
 #import "FCOpenInChromeActivity.h"
-#import "UIAlertView_TLCommon.h"
 #import "UIScrollView+Helper.h"
+#import "XkcdErrorCodes.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -301,9 +301,15 @@
 }
 
 - (void)showTitleText:(UILongPressGestureRecognizer *)recognizer {
-  if (recognizer.state == UIGestureRecognizerStateBegan) {
-    [UIAlertView showAlertWithTitle:nil message:self.comic.titleText];
-  }
+	if (recognizer.state == UIGestureRecognizerStateBegan) {
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:self.comic.titleText preferredStyle:UIAlertControllerStyleAlert];
+		[alertController addAction:
+		 [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"Confirmation action title.")
+								  style:UIAlertActionStyleDefault
+								handler:^(UIAlertAction * _Nonnull action) {}]
+		];
+		[self presentViewController:alertController animated:YES completion:nil];
+	}
 }
 
 #pragma mark - SingleComicImageFetcherDelegate methods
@@ -319,7 +325,32 @@
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
                didFailWithError:(NSError *)error
                         onComic:(Comic *)comic {
-  [self.navigationController popViewControllerAnimated:YES];
+	// Tell the user
+	NSString *localizedFormatString;
+	
+	if ([error.domain isEqualToString:kXkcdErrorDomain]) {
+		// internal error
+		localizedFormatString = NSLocalizedString(@"Could not download xkcd %i.",
+												  @"Text of unknown error image download fail alert");
+	}
+	else {
+		localizedFormatString = NSLocalizedString(@"Could not download xkcd %i -- no internet connection.",
+												  @"Text of image download fail alert due to connectivity");
+	}
+	
+	NSString *failAlertMessage = [NSString stringWithFormat:localizedFormatString, comic.number.integerValue];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Whoops", @"Title of image download fail alert")
+																			 message:failAlertMessage
+																	  preferredStyle:UIAlertControllerStyleAlert];
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:@"Ok"
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								[self.navigationController popViewControllerAnimated:YES];
+							}]
+	 ];
+	
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate methods

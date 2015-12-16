@@ -31,7 +31,6 @@
 		03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702071464C0ED0091BF49 /* LambdaSheet.m */; };
 		03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */; };
 		03F702101464C3270091BF49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F7020F1464C3270091BF49 /* CoreGraphics.framework */; };
-		03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */; };
 		03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */; };
 		03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */; };
 		03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702341464C5550091BF49 /* UITableView_TLCommon.m */; };
@@ -44,15 +43,15 @@
 		28C3AD8A0F43EF2300507BA6 /* xkcd.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
-		516356E71BCBE12600BF7D91 /* FCOpenInChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */; settings = {ASSET_TAGS = (); }; };
-		516356E81BCBE12600BF7D91 /* FCOpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */; settings = {ASSET_TAGS = (); }; };
+		516356E71BCBE12600BF7D91 /* FCOpenInChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */; };
+		516356E81BCBE12600BF7D91 /* FCOpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */; };
 		517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D568D175A5199001EECAE /* UIScrollView+Helper.m */; };
-		5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */; settings = {ASSET_TAGS = (); }; };
-		51A205AC1BCD2E3D0029ABE2 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; settings = {ASSET_TAGS = (); }; };
-		51A205AD1BCD2E420029ABE2 /* TestBrokenUnicodeFixer.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */; settings = {ASSET_TAGS = (); }; };
-		51A205AE1BCD2F3B0029ABE2 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; settings = {ASSET_TAGS = (); }; };
-		51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; settings = {ASSET_TAGS = (); }; };
-		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
+		5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */; };
+		51A205AC1BCD2E3D0029ABE2 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
+		51A205AD1BCD2E420029ABE2 /* TestBrokenUnicodeFixer.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */; };
+		51A205AE1BCD2F3B0029ABE2 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
+		51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
+		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; };
 		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
 /* End PBXBuildFile section */
 
@@ -120,8 +119,6 @@
 		03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TLModalActivityIndicatorView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGGeometry_TLCommon.h; sourceTree = "<group>"; };
 		03F7020F1464C3270091BF49 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		03F702171464C3FA0091BF49 /* UIAlertView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlertView_TLCommon.h; sourceTree = "<group>"; };
-		03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertView_TLCommon.m; sourceTree = "<group>"; };
 		03F7021F1464C4450091BF49 /* UIActivityIndicatorView_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActivityIndicatorView_TLCommon.h; sourceTree = "<group>"; };
 		03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIActivityIndicatorView_TLCommon.m; sourceTree = "<group>"; };
 		03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBarButtonItem_TLCommon.h; sourceTree = "<group>"; };
@@ -311,8 +308,6 @@
 				03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */,
 				03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */,
 				03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */,
-				03F702171464C3FA0091BF49 /* UIAlertView_TLCommon.h */,
-				03F702181464C3FA0091BF49 /* UIAlertView_TLCommon.m */,
 				03F7021F1464C4450091BF49 /* UIActivityIndicatorView_TLCommon.h */,
 				03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */,
 				03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */,
@@ -532,7 +527,6 @@
 				516356E71BCBE12600BF7D91 /* FCOpenInChromeActivity.m in Sources */,
 				03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
-				03F702191464C3FA0091BF49 /* UIAlertView_TLCommon.m in Sources */,
 				03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
 				03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
 				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,

@@ -10,9 +10,6 @@
 #import "FetchComicImageFromWeb.h"
 #import "Comic.h"
 #import "XkcdErrorCodes.h"
-#import "UIAlertView_TLCommon.h"
-
-#define kImageDownloadFailAlertTitle NSLocalizedString(@"Whoops", @"Title of image download fail alert")
 
 #pragma mark -
 
@@ -108,26 +105,10 @@
 }
 
 - (void)didFailWithError:(NSError *)error onComic:(Comic *)comic {
-	// Tell the user
-	if ([[error domain] isEqualToString:kXkcdErrorDomain]) {
-		// internal error
-		NSString *failAlertMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not download xkcd %i.",
-																				  @"Text of unknown error image download fail alert"),
-									  [comic.number integerValue]];
-		[UIAlertView showAlertWithTitle:kImageDownloadFailAlertTitle
-								message:failAlertMessage];
-	} else {
-    NSString *failAlertMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not download xkcd %i -- no internet connection.",
-                                                                              @"Text of image download fail alert due to connectivity"),
-                                  [comic.number integerValue]];
-    [UIAlertView showAlertWithTitle:kImageDownloadFailAlertTitle
-                            message:failAlertMessage];
-  }
-  
-  // Tell the delegate
-  [self.delegate singleComicImageFetcher:self
-                        didFailWithError:error
-                                 onComic:comic];
+	// Tell the delegate
+	[self.delegate singleComicImageFetcher:self
+						  didFailWithError:error
+								   onComic:comic];
 }
 
 - (void)dealloc {
