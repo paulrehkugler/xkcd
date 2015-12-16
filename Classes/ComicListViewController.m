@@ -185,7 +185,7 @@ static UIImage *downloadImage = nil;
 							  atScrollPosition:UITableViewScrollPositionTop
 									  animated:NO];
 	} @catch (NSException *e) {
-		NSLog(@"Scroll error");
+		NSLog(@"Scroll error: %@", e);
 	}
 }
 
