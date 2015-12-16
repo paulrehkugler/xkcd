@@ -14,7 +14,6 @@
 #import "UIBarButtonItem_TLCommon.h"
 #import "UIActivityIndicatorView_TLCommon.h"
 #import "UITableView_TLCommon.h"
-#import "UIAlertView_TLCommon.h"
 #import "FAQViewController.h"
 #import "TLMacros.h"
 #import "UIImage+EXIFCompensation.h"

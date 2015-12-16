@@ -15,7 +15,6 @@
 #import "LambdaSheet.h"
 #import "FCOpenInSafariActivity.h"
 #import "FCOpenInChromeActivity.h"
-#import "UIAlertView_TLCommon.h"
 #import "UIScrollView+Helper.h"
 #import "XkcdErrorCodes.h"
 
