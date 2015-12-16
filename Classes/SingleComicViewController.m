@@ -241,7 +241,7 @@
 	NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:2];
 	NSURL *comicUrl = [NSURL URLWithString:self.comic.websiteURL];
 	[activityItems addObject:comicUrl];
-	if (self.comic.downloaded) {
+	if (self.comic.downloaded && self.comic.image) {
 		[activityItems addObject:self.comic.image];
 	}
 	
