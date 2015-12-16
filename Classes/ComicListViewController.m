@@ -424,6 +424,12 @@ static UIImage *downloadImage = nil;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Whoops", @"Title of image download fail alert")
 																			 message:failAlertMessage
 																	  preferredStyle:UIAlertControllerStyleAlert];
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"Confirmation action title.")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {}]
+	];
+
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 

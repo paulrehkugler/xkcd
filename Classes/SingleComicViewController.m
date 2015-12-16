@@ -303,6 +303,11 @@
 - (void)showTitleText:(UILongPressGestureRecognizer *)recognizer {
 	if (recognizer.state == UIGestureRecognizerStateRecognized) {
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:self.comic.titleText preferredStyle:UIAlertControllerStyleAlert];
+		[alertController addAction:
+		 [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"Confirmation action title.")
+								  style:UIAlertActionStyleDefault
+								handler:^(UIAlertAction * _Nonnull action) {}]
+		];
 		[self presentViewController:alertController animated:YES completion:nil];
 	}
 }
