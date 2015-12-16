@@ -56,9 +56,6 @@ static UIImage *downloadImage = nil;
 - (void)saveScrollPosition;
 - (void)restoreScrollPosition;
 
-// Action sheet actions
-- (void)emailDeveloper;
-
 @property (nonatomic) NewComicFetcher *fetcher;
 @property (nonatomic) SingleComicImageFetcher *imageFetcher;
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
@@ -595,16 +592,34 @@ static UIImage *downloadImage = nil;
 #pragma mark TLActionSheetController supporting methods
 
 - (void)emailDeveloper {
-	MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
-	emailViewController.mailComposeDelegate = self;
-	emailViewController.subject = [NSString stringWithFormat:NSLocalizedString(@"Feedback on xkcd app (version %@)", @"Subject of feedback email"),
-								   [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"]];
-	emailViewController.toRecipients = @[@"feedback@xkcdapp.com"];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Do me a favor?", @"Alert title")
+																			 message:NSLocalizedString(@"Take a look at the FAQ before emailing. Thanks!", @"Alert body")
+																	  preferredStyle:UIAlertControllerStyleAlert];
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"View the FAQ", @"Alert action that allows the user to view the FAQ.")
+							  style:UIAlertActionStyleCancel
+							handler:^(UIAlertAction * _Nonnull action) {
+								FAQViewController *faqViewController = [[FAQViewController alloc] init];
+								UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:faqViewController];
+								[self presentViewController:navigationController animated:YES completion:nil];
+							}]
+	 ];
 	
-	[self presentViewController:emailViewController animated:YES completion:^{}];
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"I’ve read it already.", @"Alert action that allows the user to email the developer.")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								MFMailComposeViewController *emailViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
+								emailViewController.mailComposeDelegate = self;
+								emailViewController.subject = [NSString stringWithFormat:NSLocalizedString(@"Feedback on xkcd app (version %@)", @"Subject of feedback email"),
+															   [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"]];
+								emailViewController.toRecipients = @[@"feedback@xkcdapp.com"];
+								
+								[self presentViewController:emailViewController animated:YES completion:nil];
+							}]
+	 ];
 	
-	[UIAlertView showAlertWithTitle:NSLocalizedString(@"Do me a favor?", @"Alert title")
-							message:NSLocalizedString(@"Take a look at the FAQ before emailing. Thanks!", @"Alert body")];
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)downloadAllComicImages {
