@@ -302,9 +302,10 @@
 }
 
 - (void)showTitleText:(UILongPressGestureRecognizer *)recognizer {
-  if (recognizer.state == UIGestureRecognizerStateBegan) {
-    [UIAlertView showAlertWithTitle:nil message:self.comic.titleText];
-  }
+	if (recognizer.state == UIGestureRecognizerStateRecognized) {
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:self.comic.titleText preferredStyle:UIAlertControllerStyleAlert];
+		[self presentViewController:alertController animated:YES completion:nil];
+	}
 }
 
 #pragma mark - SingleComicImageFetcherDelegate methods
