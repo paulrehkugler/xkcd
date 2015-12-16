@@ -408,7 +408,24 @@ static UIImage *downloadImage = nil;
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
 			   didFailWithError:(NSError *)error
 						onComic:(Comic *)comic {
-	// The image fetcher throws up an alert for us...not much to do here, really...
+	// Tell the user
+	NSString *localizedFormatString;
+	
+	if ([error.domain isEqualToString:kXkcdErrorDomain]) {
+		// internal error
+		localizedFormatString = NSLocalizedString(@"Could not download xkcd %i.",
+												  @"Text of unknown error image download fail alert");
+	}
+	else {
+		localizedFormatString = NSLocalizedString(@"Could not download xkcd %i -- no internet connection.",
+												  @"Text of image download fail alert due to connectivity");
+	}
+	
+	NSString *failAlertMessage = [NSString stringWithFormat:localizedFormatString, comic.number.integerValue];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Whoops", @"Title of image download fail alert")
+																			 message:failAlertMessage
+																	  preferredStyle:UIAlertControllerStyleAlert];
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 
