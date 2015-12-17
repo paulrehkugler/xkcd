@@ -253,34 +253,50 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-	LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	
 	if ([MFMailComposeViewController canSendMail]) {
-		[sheet addButtonWithTitle:NSLocalizedString(@"Email the app developer", @"Action sheet title")
-							block:^ {
-								[self emailDeveloper];
-							}];
+		[alertController addAction:
+		 [UIAlertAction actionWithTitle:NSLocalizedString(@"Email the app developer", @"Action sheet title")
+								  style:UIAlertActionStyleDefault
+								handler:^(UIAlertAction * _Nonnull action) {
+									[self emailDeveloper];
+								}]
+		 ];
 	}
-	[sheet addButtonWithTitle:NSLocalizedString(@"Read the FAQ", @"Action sheet title")
-						block:^ {
-							FAQViewController *faq = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
-							UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faq];
-							[self presentViewController:nav animated:YES completion:^{}];
-						}];
-	[sheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
-						block:^ {
-							NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
-							[[UIApplication sharedApplication] openURL:appStoreReviewURL];
-						}];
-	[sheet addButtonWithTitle:NSLocalizedString(@"Share link to this app", @"Action sheet title")
-						block:^ {
-							NSURL *appUrl = [NSURL URLWithString:@"http://bit.ly/xkcdapp"];
-							UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[appUrl]
-																												 applicationActivities:nil];
-							
-							[self presentViewController:activityViewController animated:YES completion:^{}];
-						}];
-	[sheet addCancelButton];
-	[sheet showInView:self.view];
+	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Read the FAQ", @"Action sheet title")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								FAQViewController *faqViewController = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
+								UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:faqViewController];
+								[self presentViewController:navigationController animated:YES completion:nil];
+							}]
+	 ];
+
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
+								[[UIApplication sharedApplication] openURL:appStoreReviewURL];
+							}]
+	 ];
+	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Share link to this app", @"Action sheet title")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								NSURL *appUrl = [NSURL URLWithString:@"http://bit.ly/xkcdapp"];
+								UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[appUrl]
+																													 applicationActivities:nil];
+								
+								[self presentViewController:activityViewController animated:YES completion:nil];
+							}]
+	 ];
+	
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)edit:(UIBarButtonItem *)sender {
