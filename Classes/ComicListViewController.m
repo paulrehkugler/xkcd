@@ -10,7 +10,6 @@
 #import "SingleComicViewController.h"
 #import "SingleComicImageFetcher.h"
 #import "CGGeometry_TLCommon.h"
-#import "LambdaSheet.h"
 #import "UIBarButtonItem_TLCommon.h"
 #import "UIActivityIndicatorView_TLCommon.h"
 #import "UITableView_TLCommon.h"
