@@ -370,13 +370,18 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)deleteAll:(UIBarButtonItem *)sender {
-	LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
-	[sheet addDestructiveButtonWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
-								   block:^ {
-									   [self deleteAllComicImages];
-								   }];
-	[sheet addCancelButton];
-	[sheet showFromToolbar:self.navigationController.toolbar];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Delete all", @"Delete all warning alert title.")
+																			 message:nil
+																	  preferredStyle:UIAlertControllerStyleActionSheet];
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
+							  style:UIAlertActionStyleDestructive
+							handler:^(UIAlertAction * _Nonnull action) {
+								[self deleteAllComicImages];
+							}]
+	 ];
+	
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (UITableView *)activeTableView {
