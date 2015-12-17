@@ -10,7 +10,6 @@
 #import "SingleComicViewController.h"
 #import "SingleComicImageFetcher.h"
 #import "CGGeometry_TLCommon.h"
-#import "LambdaSheet.h"
 #import "UIBarButtonItem_TLCommon.h"
 #import "UIActivityIndicatorView_TLCommon.h"
 #import "UITableView_TLCommon.h"
@@ -254,34 +253,56 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
-	LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	
 	if ([MFMailComposeViewController canSendMail]) {
-		[sheet addButtonWithTitle:NSLocalizedString(@"Email the app developer", @"Action sheet title")
-							block:^ {
-								[self emailDeveloper];
-							}];
+		[alertController addAction:
+		 [UIAlertAction actionWithTitle:NSLocalizedString(@"Email the app developer", @"Action sheet title")
+								  style:UIAlertActionStyleDefault
+								handler:^(UIAlertAction * _Nonnull action) {
+									[self emailDeveloper];
+								}]
+		 ];
 	}
-	[sheet addButtonWithTitle:NSLocalizedString(@"Read the FAQ", @"Action sheet title")
-						block:^ {
-							FAQViewController *faq = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
-							UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faq];
-							[self presentViewController:nav animated:YES completion:^{}];
-						}];
-	[sheet addButtonWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
-						block:^ {
-							NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
-							[[UIApplication sharedApplication] openURL:appStoreReviewURL];
-						}];
-	[sheet addButtonWithTitle:NSLocalizedString(@"Share link to this app", @"Action sheet title")
-						block:^ {
-							NSURL *appUrl = [NSURL URLWithString:@"http://bit.ly/xkcdapp"];
-							UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[appUrl]
-																												 applicationActivities:nil];
-							
-							[self presentViewController:activityViewController animated:YES completion:^{}];
-						}];
-	[sheet addCancelButton];
-	[sheet showInView:self.view];
+	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Read the FAQ", @"Action sheet title")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								FAQViewController *faqViewController = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
+								UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:faqViewController];
+								[self presentViewController:navigationController animated:YES completion:nil];
+							}]
+	 ];
+
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Write App Store review", @"Action sheet title")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
+								[[UIApplication sharedApplication] openURL:appStoreReviewURL];
+							}]
+	 ];
+	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Share link to this app", @"Action sheet title")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								NSURL *appUrl = [NSURL URLWithString:@"http://bit.ly/xkcdapp"];
+								UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[appUrl]
+																													 applicationActivities:nil];
+								
+								[self presentViewController:activityViewController animated:YES completion:nil];
+							}]
+	 ];
+	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel system action button")
+							  style:UIAlertActionStyleCancel
+							handler:nil]
+	 ];
+	
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)edit:(UIBarButtonItem *)sender {
@@ -334,14 +355,23 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)downloadAll:(UIBarButtonItem *)sender {
-	NSString *sheetTitle = NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning");
-	LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:sheetTitle];
-	[sheet addButtonWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
-						block:^ {
-							[self downloadAllComicImages];
-						}];
-	[sheet addCancelButton];
-	[sheet showFromToolbar:self.navigationController.toolbar];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Download all", @"Download all warning alert title.")
+																			 message:NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning")
+																	  preferredStyle:UIAlertControllerStyleActionSheet];
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								[self downloadAllComicImages];
+							}]
+	 ];
+	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel downloading all button")
+							  style:UIAlertActionStyleCancel
+							handler:nil]
+	 ];
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)cancelDownloadAll:(UIBarButtonItem *)sender {
@@ -351,13 +381,24 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)deleteAll:(UIBarButtonItem *)sender {
-	LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:nil];
-	[sheet addDestructiveButtonWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
-								   block:^ {
-									   [self deleteAllComicImages];
-								   }];
-	[sheet addCancelButton];
-	[sheet showFromToolbar:self.navigationController.toolbar];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Delete all", @"Delete all warning alert title.")
+																			 message:nil
+																	  preferredStyle:UIAlertControllerStyleActionSheet];
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Delete all images", @"Confirm delete all button")
+							  style:UIAlertActionStyleDestructive
+							handler:^(UIAlertAction * _Nonnull action) {
+								[self deleteAllComicImages];
+							}]
+	 ];
+	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel deleting all button")
+							  style:UIAlertActionStyleCancel
+							handler:nil]
+	 ];
+
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (UITableView *)activeTableView {

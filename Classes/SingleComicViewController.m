@@ -12,7 +12,6 @@
 #import "ComicListViewController.h"
 #import "UIBarButtonItem_TLCommon.h"
 #import "TLMersenneTwister.h"
-#import "LambdaSheet.h"
 #import "FCOpenInSafariActivity.h"
 #import "FCOpenInChromeActivity.h"
 #import "UIScrollView+Helper.h"

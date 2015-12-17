@@ -28,7 +28,6 @@
 		03F114A9104F2B2B0045AEFC /* TiledImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114A8104F2B2B0045AEFC /* TiledImage.m */; };
 		03F114EF104F2EF30045AEFC /* SingleComicImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114EE104F2EF30045AEFC /* SingleComicImageFetcher.m */; };
 		03F114F3104F30140045AEFC /* FetchComicImageFromWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F114F2104F30140045AEFC /* FetchComicImageFromWeb.m */; };
-		03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702071464C0ED0091BF49 /* LambdaSheet.m */; };
 		03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */; };
 		03F702101464C3270091BF49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F7020F1464C3270091BF49 /* CoreGraphics.framework */; };
 		03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */; };
@@ -113,8 +112,6 @@
 		03F114F2104F30140045AEFC /* FetchComicImageFromWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FetchComicImageFromWeb.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		03F40E43122AA58600A35F44 /* iTunesArtwork.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iTunesArtwork.jpg; sourceTree = "<group>"; };
 		03F701FD1464BEDF0091BF49 /* TLMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMacros.h; sourceTree = "<group>"; };
-		03F702061464C0ED0091BF49 /* LambdaSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LambdaSheet.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		03F702071464C0ED0091BF49 /* LambdaSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LambdaSheet.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TLModalActivityIndicatorView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TLModalActivityIndicatorView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGGeometry_TLCommon.h; sourceTree = "<group>"; };
@@ -286,8 +283,6 @@
 		03F112EA104EB50F0045AEFC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				03F702061464C0ED0091BF49 /* LambdaSheet.h */,
-				03F702071464C0ED0091BF49 /* LambdaSheet.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -525,7 +520,6 @@
 				03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */,
 				516356E81BCBE12600BF7D91 /* FCOpenInSafariActivity.m in Sources */,
 				516356E71BCBE12600BF7D91 /* FCOpenInChromeActivity.m in Sources */,
-				03F702081464C0ED0091BF49 /* LambdaSheet.m in Sources */,
 				03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
 				03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
 				03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
