@@ -296,6 +296,12 @@ static UIImage *downloadImage = nil;
 							}]
 	 ];
 	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel system action button")
+							  style:UIAlertActionStyleCancel
+							handler:nil]
+	 ];
+	
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -360,6 +366,11 @@ static UIImage *downloadImage = nil;
 							}]
 	 ];
 	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel downloading all button")
+							  style:UIAlertActionStyleCancel
+							handler:nil]
+	 ];
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -381,6 +392,12 @@ static UIImage *downloadImage = nil;
 							}]
 	 ];
 	
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel deleting all button")
+							  style:UIAlertActionStyleCancel
+							handler:nil]
+	 ];
+
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 
