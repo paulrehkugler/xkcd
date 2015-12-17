@@ -349,14 +349,18 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)downloadAll:(UIBarButtonItem *)sender {
-	NSString *sheetTitle = NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning");
-	LambdaSheet *sheet = [[LambdaSheet alloc] initWithTitle:sheetTitle];
-	[sheet addButtonWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
-						block:^ {
-							[self downloadAllComicImages];
-						}];
-	[sheet addCancelButton];
-	[sheet showFromToolbar:self.navigationController.toolbar];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Download all", @"Download warning alert title.")
+																			 message:NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning")
+																	  preferredStyle:UIAlertControllerStyleAlert];
+	[alertController addAction:
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
+							  style:UIAlertActionStyleDefault
+							handler:^(UIAlertAction * _Nonnull action) {
+								[self downloadAllComicImages];
+							}]
+	 ];
+	
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)cancelDownloadAll:(UIBarButtonItem *)sender {
