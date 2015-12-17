@@ -355,9 +355,9 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)downloadAll:(UIBarButtonItem *)sender {
-	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Download all", @"Download warning alert title.")
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Download all", @"Download all warning alert title.")
 																			 message:NSLocalizedString(@"Downloading all images may take up considerable space on your device.", @"Download all warning")
-																	  preferredStyle:UIAlertControllerStyleAlert];
+																	  preferredStyle:UIAlertControllerStyleActionSheet];
 	[alertController addAction:
 	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Download all images", @"Confirm download all button")
 							  style:UIAlertActionStyleDefault
