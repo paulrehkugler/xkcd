@@ -26,39 +26,13 @@ static UIImage *downloadImage = nil;
 
 #pragma mark -
 
-@interface ComicListViewController ()
-
-- (NSFetchedResultsController *)fetchedResultsControllerWithSearchString:(NSString *)searchString;
-- (void)setFetchedResultsController;
-- (void)setSearchFetchedResultsControllerWithSearchString:(NSString *)searchString;
-- (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView;
-- (void)viewComic:(Comic *)comic;
-- (void)reloadAllData;
-- (void)fetchImageForComic:(Comic *)comic;
-- (void)checkForNewComics;
-- (void)downloadAll:(UIBarButtonItem *)sender;
-- (void)deleteAll:(UIBarButtonItem *)sender;
-- (void)edit:(UIBarButtonItem *)sender;
-- (void)doneEditing:(UIBarButtonItem *)sender;
-- (void)addSearchBarTableHeader;
-- (void)addRefreshControl;
-- (void)addNavigationBarButtons;
-- (void)scrollToComicAtIndexPath:(NSIndexPath *)indexPath;
-- (void)deleteAllComicImages;
-- (void)downloadAllComicImages;
-- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView;
-- (void)didStartRefreshing;
-- (void)didFinishRefreshing;
-- (UITableView *)activeTableView;
-- (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller;
-- (void)saveScrollPosition;
-- (void)restoreScrollPosition;
+@interface ComicListViewController () <UISearchResultsUpdating>
 
 @property (nonatomic) NewComicFetcher *fetcher;
 @property (nonatomic) SingleComicImageFetcher *imageFetcher;
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic) NSFetchedResultsController *searchFetchedResultsController;
-@property (nonatomic) UISearchDisplayController *searchController;
+@property (nonatomic) UISearchController *searchController;
 
 @end
 
@@ -77,12 +51,14 @@ static UIImage *downloadImage = nil;
 - (instancetype)initWithStyle:(UITableViewStyle)style {
 	if (self = [super initWithStyle:style]) {
 		self.title = NSLocalizedString(@"xkcd", @"Title of main view");
+		self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+		self.searchController.searchResultsUpdater = self;
 	}
 	return self;
 }
 
 - (void)addSearchBarTableHeader {
-	UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+	UISearchBar *searchBar = self.searchController.searchBar;
 	searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[searchBar sizeToFit];
 	searchBar.placeholder = NSLocalizedString(@"Search xkcd", @"Search bar placeholder text");
@@ -159,24 +135,6 @@ static UIImage *downloadImage = nil;
 	[self.navigationController setToolbarHidden:YES animated:NO];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	
-	[self.searchController.searchResultsTableView deselectRowAtIndexPath:[self.searchController.searchResultsTableView indexPathForSelectedRow] animated:NO];
-	[self reloadAllData]; // TODO: Is this necessary?
-}
-
-- (void)dealloc {
-	_fetcher.delegate = nil;
-	
-	_imageFetcher.delegate = nil;
-	
-	_searchController.searchBar.delegate = nil;
-	_searchController.delegate = nil;
-	_searchController.searchResultsDataSource = nil;
-	_searchController.searchResultsDelegate = nil;
-}
-
 - (void)scrollToComicAtIndexPath:(NSIndexPath *)indexPath {
 	@try {
 		[self.tableView scrollToRowAtIndexPath:indexPath
@@ -249,7 +207,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)reloadAllData {
-	[self.activeTableView reloadData];
+	[self.tableView reloadData];
 }
 
 - (void)systemAction:(UIBarButtonItem *)sender {
@@ -401,15 +359,6 @@ static UIImage *downloadImage = nil;
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (UITableView *)activeTableView {
-	return self.searchController.active ? self.searchController.searchResultsTableView : self.tableView;
-}
-
-- (UITableView *)tableViewForFetchedResultsController:(NSFetchedResultsController *)controller {
-	return [controller isEqual:self.searchFetchedResultsController] ? self.searchController.searchResultsTableView : self.tableView;
-}
-
-
 #pragma mark -
 #pragma mark NewComicFetcherDelegate methods
 
@@ -487,13 +436,13 @@ static UIImage *downloadImage = nil;
 }
 
 - (Comic *)comicAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)aTableView {
-	Comic *comic = [[self fetchedResultsControllerForTableView:aTableView] objectAtIndexPath:indexPath];
+	Comic *comic = [[self activeFetchedResultsController] objectAtIndexPath:indexPath];
 	return comic;
 }
 
-- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)aTableView {
-	NSFetchedResultsController *fetchedResults = [self.tableView isEqual:aTableView] ? self.fetchedResultsController : self.searchFetchedResultsController;
-	return fetchedResults;
+- (NSFetchedResultsController *)activeFetchedResultsController {
+	NSFetchedResultsController *fetchedResultsController = self.searchController.searchBar.text.length > 0 ? self.searchFetchedResultsController : self.fetchedResultsController;
+	return fetchedResultsController;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -604,7 +553,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
-	NSFetchedResultsController *fetchedResults = [self fetchedResultsControllerForTableView:aTableView];
+	NSFetchedResultsController *fetchedResults = [self activeFetchedResultsController];
 	NSArray *sections = [fetchedResults sections];
 	NSUInteger numberOfRows = 0;
 	if ([sections count] > 0) {
@@ -615,40 +564,12 @@ static UIImage *downloadImage = nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
-	NSFetchedResultsController *fetchedResults = [self fetchedResultsControllerForTableView:aTableView];
+	NSFetchedResultsController *fetchedResults = [self activeFetchedResultsController];
 	NSUInteger numberOfSections = [[fetchedResults sections] count];
 	if (numberOfSections == 0) {
 		numberOfSections = 1;
 	}
 	return numberOfSections;
-}
-
-#pragma mark -
-#pragma mark UISearchBarDelegate methods
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-	if (!self.searchController) {
-		self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-		self.searchController.searchResultsDataSource = self;
-		self.searchController.searchResultsDelegate = self;
-		self.searchController.delegate = self;
-	}
-	[self.searchController setActive:YES animated:YES];
-}
-
-#pragma mark -
-#pragma mark UISearchDisplayDelegate methods
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-	[self setSearchFetchedResultsControllerWithSearchString:searchString];
-	[self.searchDisplayController.searchResultsTableView reloadData];
-	return YES;
-}
-
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
-	[self.searchDisplayController.searchResultsTableView reloadData];
-	[self.searchDisplayController.searchBar resignFirstResponder];
-	[self reloadAllData];
 }
 
 #pragma mark -
@@ -729,8 +650,7 @@ static UIImage *downloadImage = nil;
 #pragma mark NSFetchedResultsControllerDelegate methods
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-	UITableView *tableViewToUpdate = [self tableViewForFetchedResultsController:controller];
-	[tableViewToUpdate beginUpdates];
+	[self.tableView beginUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
@@ -738,16 +658,14 @@ static UIImage *downloadImage = nil;
 		   atIndex:(NSUInteger)sectionIndex
 	 forChangeType:(NSFetchedResultsChangeType)type {
 	
-	UITableView *tableViewToUpdate = [self tableViewForFetchedResultsController:controller];
-	
 	switch(type) {
 		case NSFetchedResultsChangeInsert:;
-			[tableViewToUpdate insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-							 withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+						  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
 		case NSFetchedResultsChangeDelete:;
-			[tableViewToUpdate deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-							 withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+						  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
 		case NSFetchedResultsChangeMove:
 		case NSFetchedResultsChangeUpdate:
@@ -761,37 +679,46 @@ static UIImage *downloadImage = nil;
 	 forChangeType:(NSFetchedResultsChangeType)type
 	  newIndexPath:(NSIndexPath *)newIndexPath {
 	
-	UITableView *tableViewToUpdate = [self tableViewForFetchedResultsController:controller];
-	
 	switch(type) {
 		case NSFetchedResultsChangeInsert:;
-			[tableViewToUpdate insertRowsAtIndexPaths:@[newIndexPath]
-									 withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableView insertRowsAtIndexPaths:@[newIndexPath]
+								  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
 			
 		case NSFetchedResultsChangeDelete:;
-			[tableViewToUpdate deleteRowsAtIndexPaths:@[indexPath]
+			[self.tableView deleteRowsAtIndexPaths:@[indexPath]
 									 withRowAnimation:UITableViewRowAnimationFade];
 			break;
 			
 		case NSFetchedResultsChangeUpdate:;
-			[tableViewToUpdate reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
 			break;
 			
 		case NSFetchedResultsChangeMove:;
-			[tableViewToUpdate deleteRowsAtIndexPaths:@[indexPath]
-									 withRowAnimation:UITableViewRowAnimationFade];
-			[tableViewToUpdate reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
-							 withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableView deleteRowsAtIndexPaths:@[indexPath]
+								  withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
+						  withRowAnimation:UITableViewRowAnimationFade];
 			break;
 	}
 	
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	UITableView *tableViewToUpdate = [self tableViewForFetchedResultsController:controller];
+	[self.tableView endUpdates];
+}
+
+#pragma mark - UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+	if (searchController.searchBar.text.length) {
+		[self setSearchFetchedResultsControllerWithSearchString:searchController.searchBar.text];
+	}
+	else {
+		[self setFetchedResultsController];
+	}
 	
-	[tableViewToUpdate endUpdates];
+	[self reloadAllData];
 }
 
 #pragma mark -
@@ -830,7 +757,7 @@ static UIImage *downloadImage = nil;
 #pragma mark UIScrollViewDelegate methods
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-	if ([self.activeTableView isEqual:self.tableView]) {
+	if ([self.tableView isEqual:self.tableView]) {
 		if (!decelerate) {
 			[self saveScrollPosition];
 		}
@@ -838,7 +765,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	if ([self.activeTableView isEqual:self.tableView]) {
+	if ([self.tableView isEqual:self.tableView]) {
 		[self saveScrollPosition];
 	}
 }
