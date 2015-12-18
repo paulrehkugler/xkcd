@@ -14,15 +14,8 @@
 @class NewComicFetcher;
 @class SingleComicImageFetcher;
 
-@interface ComicListViewController : UITableViewController <
-NewComicFetcherDelegate,
-NSFetchedResultsControllerDelegate,
-UISearchBarDelegate,
-UISearchDisplayDelegate,
-SingleComicImageFetcherDelegate,
-MFMailComposeViewControllerDelegate,
-UIScrollViewDelegate
->
+@interface ComicListViewController : UITableViewController <NewComicFetcherDelegate, NSFetchedResultsControllerDelegate,
+SingleComicImageFetcherDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) NSInteger requestedLaunchComic;
 
