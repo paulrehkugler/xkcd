@@ -63,7 +63,6 @@ static UIImage *downloadImage = nil;
 	[searchBar sizeToFit];
 	searchBar.placeholder = NSLocalizedString(@"Search xkcd", @"Search bar placeholder text");
 	searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	searchBar.delegate = self;
 	self.tableView.tableHeaderView = searchBar;
 }
 

@@ -10,7 +10,10 @@
 
 @interface FetchComicFromWeb : NSOperation
 
-- (instancetype)initWithComicNumber:(NSInteger)comicNumberToFetch completionTarget:(id)completionTarget action:(SEL)completionAction;
+- (instancetype)initWithComicNumber:(NSInteger)comicNumberToFetch
+						 URLSession:(NSURLSession *)URLSession
+				   completionTarget:(id)completionTarget
+							 action:(SEL)completionAction;
 
 @property (nonatomic, readonly) NSInteger comicNumber;
 @property (nonatomic, readonly) NSString *comicName;
