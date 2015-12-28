@@ -109,7 +109,7 @@ static UIImage *downloadImage = nil;
 	
 	// Set up image fetcher, for the future
 	if (!self.imageFetcher) {
-		self.imageFetcher = [[SingleComicImageFetcher alloc] init];
+		self.imageFetcher = [[SingleComicImageFetcher alloc] initWithURLSession:[NSURLSession sharedSession]];
 		self.imageFetcher.delegate = self;
 	}
 	

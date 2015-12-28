@@ -87,7 +87,7 @@
     [self displayComicImage];    
   } else {
 	  [self displayLoadingView];
-	  self.imageFetcher = [[SingleComicImageFetcher alloc] init];
+	  self.imageFetcher = [[SingleComicImageFetcher alloc] initWithURLSession:[NSURLSession sharedSession]];
 	  self.imageFetcher.delegate = self;
 	  [self.imageFetcher fetchImageForComic:self.comic context:nil];
   }

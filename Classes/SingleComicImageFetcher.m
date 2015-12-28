@@ -22,6 +22,7 @@
 @property (nonatomic) id keepInMemory;
 @property (nonatomic) NSOperationQueue *fetchQueue;
 @property (nonatomic) NSMutableArray *comicsRemainingDuringDownloadAll;
+@property (nonatomic) NSURLSession *URLSession;
 
 @end
 
@@ -29,9 +30,10 @@
 
 @implementation SingleComicImageFetcher
 
-- (instancetype)init {
+- (instancetype)initWithURLSession:(NSURLSession *)session {
   if (self = [super init]) {
-    _fetchQueue = [[NSOperationQueue alloc] init];
+      _fetchQueue = [[NSOperationQueue alloc] init];
+      _URLSession = session;
   }
   return self;
 }
@@ -41,6 +43,7 @@
     NSURL *comicImageURL = [NSURL URLWithString:comic.imageURL];
     FetchComicImageFromWeb *fetchOperation = [[FetchComicImageFromWeb alloc] initWithComicNumber:[comic.number integerValue]
                                                                                          imageURL:comicImageURL
+                                                                                      URLSession:self.URLSession
                                                                                  completionTarget:self
                                                                                            action:@selector(didCompleteFetchOperation:)
                                                                                           context:context];

@@ -12,9 +12,18 @@
 @interface SingleComicImageFetcher : NSObject
 
 /**
- *  Fetches an image for the supplied comic.
+ *  Initializes a @c SingleComicImageFetcher.
  *
- *  @param comic   The Comic to fetch an image for.
+ *  @param session The @c NSURLSession to use when downloading the image.
+ *
+ *  @return An initialized @c SingleComicImageFetcher.
+ */
+- (instancetype)initWithURLSession:(NSURLSession *)session;
+
+/**
+ *  Fetches an image for the supplied @c Comic.
+ *
+ *  @param comic   The @c Comic to fetch an image for.
  *  @param context An arbitrary @c id type.
  *
  *  @note @c context is currently used as a flag to open the comic after it is downloaded.
