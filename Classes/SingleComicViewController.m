@@ -72,11 +72,6 @@
 	self.view = self.imageScroller;
 }
 
-- (void)viewDidLayoutSubviews {
-	[super viewDidLayoutSubviews];
-	[self calculateZoomScaleAndAnimate:NO];
-}
-
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -91,6 +86,12 @@
 	  self.imageFetcher.delegate = self;
 	  [self.imageFetcher fetchImageForComic:self.comic context:nil];
   }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    [self calculateZoomScaleAndAnimate:animated];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
