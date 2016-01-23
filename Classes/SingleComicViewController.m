@@ -72,11 +72,6 @@
 	self.view = self.imageScroller;
 }
 
-- (void)viewDidLayoutSubviews {
-	[super viewDidLayoutSubviews];
-	[self calculateZoomScaleAndAnimate:NO];
-}
-
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -91,6 +86,12 @@
 	  self.imageFetcher.delegate = self;
 	  [self.imageFetcher fetchImageForComic:self.comic context:nil];
   }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    [self calculateZoomScaleAndAnimate:animated];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -194,7 +195,7 @@
 	self.imageScroller.maximumZoomScale = 2;
 	CGFloat xMinZoom = self.imageScroller.frame.size.width / contentSize.width;
 	CGFloat yMinZoom = (self.imageScroller.frame.size.height - (self.navigationController.navigationBar.frame.size.height + self.navigationController.toolbar.frame.size.height)) / contentSize.height;
-	self.imageScroller.minimumZoomScale = (xMinZoom < yMinZoom) ? xMinZoom : yMinZoom;
+    self.imageScroller.minimumZoomScale = MIN(MIN(xMinZoom, yMinZoom), 1);
 	if (self.imageScroller.zoomScale < self.imageScroller.minimumZoomScale) {
 		[self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:animate];
 	}
