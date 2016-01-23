@@ -195,7 +195,7 @@
 	self.imageScroller.maximumZoomScale = 2;
 	CGFloat xMinZoom = self.imageScroller.frame.size.width / contentSize.width;
 	CGFloat yMinZoom = (self.imageScroller.frame.size.height - (self.navigationController.navigationBar.frame.size.height + self.navigationController.toolbar.frame.size.height)) / contentSize.height;
-	self.imageScroller.minimumZoomScale = (xMinZoom < yMinZoom) ? xMinZoom : yMinZoom;
+    self.imageScroller.minimumZoomScale = MIN(MIN(xMinZoom, yMinZoom), 1);
 	if (self.imageScroller.zoomScale < self.imageScroller.minimumZoomScale) {
 		[self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:animate];
 	}
