@@ -12,6 +12,7 @@
 
 - (instancetype)initWithComicNumber:(NSInteger)number
 						   imageURL:(NSURL *)imageURL
+                         URLSession:(NSURLSession *)session
 				   completionTarget:(id)completionTarget
 							 action:(SEL)completionAction
 							context:(id)context;

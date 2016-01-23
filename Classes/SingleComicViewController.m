@@ -87,16 +87,18 @@
     [self displayComicImage];    
   } else {
 	  [self displayLoadingView];
-	  self.imageFetcher = [[SingleComicImageFetcher alloc] init];
+	  self.imageFetcher = [[SingleComicImageFetcher alloc] initWithURLSession:[NSURLSession sharedSession]];
 	  self.imageFetcher.delegate = self;
 	  [self.imageFetcher fetchImageForComic:self.comic context:nil];
   }
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-	[self calculateZoomScaleAndAnimate:YES];
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self calculateZoomScaleAndAnimate:YES];
+    } completion:nil];
 }
 
 - (void)setupToolbar {
@@ -301,10 +303,10 @@
 
 - (void)showTitleText:(UILongPressGestureRecognizer *)recognizer {
 	if (recognizer.state == UIGestureRecognizerStateBegan) {
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:self.comic.titleText preferredStyle:UIAlertControllerStyleAlert];
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:self.comic.name message:self.comic.titleText preferredStyle:UIAlertControllerStyleAlert];
 		[alertController addAction:
 		 [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"Confirmation action title.")
-								  style:UIAlertActionStyleDefault
+								  style:UIAlertActionStyleCancel
 								handler:^(UIAlertAction * _Nonnull action) {}]
 		];
 		[self presentViewController:alertController animated:YES completion:nil];

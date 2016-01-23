@@ -27,6 +27,7 @@
 
 @property (nonatomic) NSOperationQueue *fetchQueue;
 @property (nonatomic) NSMutableArray *comicsToInsert;
+@property (nonatomic) NSURLSession *URLSession;
 
 @end
 
@@ -38,12 +39,14 @@
 	if (self = [super init]) {
 		_fetchQueue = [[NSOperationQueue alloc] init];
 		_comicsToInsert = [NSMutableArray arrayWithCapacity:kInsertChunkSize];
+		_URLSession = [NSURLSession sharedSession];
 	}
 	return self;
 }
 
 - (void)fetchComic:(NSInteger)comicNumber {
 	FetchComicFromWeb *fetchOperation = [[FetchComicFromWeb alloc] initWithComicNumber:comicNumber
+																			URLSession:self.URLSession
 																	  completionTarget:self
 																				action:@selector(didCompleteFetchOperation:)];
 	[self.fetchQueue addOperation:fetchOperation];

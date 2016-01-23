@@ -21,6 +21,7 @@
 @property (nonatomic) SEL action;
 @property (nonatomic) NSError *error;
 @property (nonatomic) id context;
+@property (nonatomic) NSURLSession *URLSession;
 
 @end
 
@@ -29,41 +30,46 @@
 @implementation FetchComicImageFromWeb
 
 - (instancetype)initWithComicNumber:(NSInteger)number
-						   imageURL:(NSURL *)imageURL
-				   completionTarget:(id)completionTarget
-							 action:(SEL)completionAction
-							context:(id)aContext {
-	if(self = [super init]) {
-		_comicNumber = number;
-		_comicImageURL = imageURL;
-		_target = completionTarget;
-		_action = completionAction;
-		_context = aContext;
-	}
-	return self;
+                           imageURL:(NSURL *)imageURL
+                         URLSession:(NSURLSession *)session
+                   completionTarget:(id)completionTarget
+                             action:(SEL)completionAction
+                            context:(id)aContext {
+    if(self = [super init]) {
+        _comicNumber = number;
+        _comicImageURL = imageURL;
+        _target = completionTarget;
+        _action = completionAction;
+        _context = aContext;
+        _URLSession = session;
+    }
+    return self;
 }
 
 - (void)main {
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
-																cachePolicy:NSURLRequestUseProtocolCachePolicy
-															timeoutInterval:180.0f];
-	[request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
-	NSURLResponse *response = nil;
-	NSError *requestError = nil;
-	TLDebugLog(@"Fetching image at %@", self.comicImageURL);
-	self.comicImageData = [NSURLConnection sendSynchronousRequest:request
-												returningResponse:&response
-															error:&requestError];
-	self.error = requestError;
-	if (self.error) {
-		TLDebugLog(@"Image fetch completed with error: %@", self.error);
-	}
-	
-	if(![self isCancelled]) {
-    [self.target performSelectorOnMainThread:self.action
-                                  withObject:self
-                               waitUntilDone:NO];
-  }
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
+                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                            timeoutInterval:180.0f];
+    [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
+
+    TLDebugLog(@"Fetching image at %@", self.comicImageURL);
+
+    [[self.URLSession dataTaskWithRequest:request
+                       completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                           self.comicImageData = data;
+                           self.error = error;
+
+                           if (self.error) {
+                               TLDebugLog(@"Image fetch completed with error: %@", self.error);
+                           }
+
+                           if(![self isCancelled]) {
+                               [self.target performSelectorOnMainThread:self.action
+                                                             withObject:self
+                                                          waitUntilDone:NO];
+                           }
+                       }
+      ] resume];
 }
 
 @end
