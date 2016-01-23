@@ -521,14 +521,11 @@ static UIImage *downloadImage = nil;
 }
 
 - (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (![aTableView isEqual:self.tableView]) {
-		return NO;
-	}
-	return YES;
+	return !self.searchController.isActive;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (![aTableView isEqual:self.tableView]) {
+	if (self.searchController.isActive) {
 		return UITableViewCellEditingStyleNone;
 	}
 	Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
@@ -536,7 +533,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (BOOL)tableView:(UITableView *)aTableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (![aTableView isEqual:self.tableView]) {
+	if (self.searchController.isActive) {
 		return NO;
 	}
 	Comic *comic = [self comicAtIndexPath:indexPath inTableView:aTableView];
@@ -756,7 +753,7 @@ static UIImage *downloadImage = nil;
 #pragma mark UIScrollViewDelegate methods
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-	if ([self.tableView isEqual:self.tableView]) {
+	if (!self.searchController.isActive) {
 		if (!decelerate) {
 			[self saveScrollPosition];
 		}
@@ -764,7 +761,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	if ([self.tableView isEqual:self.tableView]) {
+	if (!self.searchController.isActive) {
 		[self saveScrollPosition];
 	}
 }
