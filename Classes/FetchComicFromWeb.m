@@ -51,6 +51,10 @@
 		self.comicTitleText = @"";
 		self.comicImageURL = @"http://imgs.xkcd.com/static/xkcdLogo.png"; // anything...
 		self.comicTranscript = @"";
+
+        if (![self isCancelled]) {
+            [self.target performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
+        }
 	}
 	else {
 		NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%li/info.0.json", (long)self.comicNumber]];
@@ -79,12 +83,13 @@
 					}
 				}
 			}
+
+            if (![self isCancelled]) {
+                [self.target performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
+            }
 		}];
 		
 		[self.dataTask resume];
-	}
-	if (![self isCancelled]) {
-		[self.target performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
 	}
 }
 

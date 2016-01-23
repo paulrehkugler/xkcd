@@ -54,7 +54,7 @@
 
     TLDebugLog(@"Fetching image at %@", self.comicImageURL);
 
-    [self.URLSession dataTaskWithRequest:request
+    [[self.URLSession dataTaskWithRequest:request
                        completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                            self.comicImageData = data;
                            self.error = error;
@@ -68,7 +68,8 @@
                                                              withObject:self
                                                           waitUntilDone:NO];
                            }
-                       }];
+                       }
+      ] resume];
 }
 
 @end
