@@ -34,11 +34,9 @@
 		03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */; };
 		03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702341464C5550091BF49 /* UITableView_TLCommon.m */; };
 		03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F702401464C5B10091BF49 /* TLMersenneTwister.m */; };
-		1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* xkcdAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* xkcd.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
@@ -52,6 +50,10 @@
 		51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; };
 		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
+		DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A41C558B0900436971 /* AppDelegate.swift */; };
+		DAC1B2A71C559A0000436971 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A61C559A0000436971 /* Constants.swift */; };
+		DAC1B2A91C559B2A00436971 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A81C559B2A00436971 /* Preferences.swift */; };
+		DAC1B2AB1C559EF700436971 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,11 +127,8 @@
 		03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLMersenneTwister.h; sourceTree = "<group>"; };
 		03F702401464C5B10091BF49 /* TLMersenneTwister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLMersenneTwister.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* xkcdAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = xkcdAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1D3623250D0F684500981E51 /* xkcdAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = xkcdAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1D6058910D05DD3D006BFB54 /* xkcd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xkcd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		28C3AD890F43EF2300507BA6 /* xkcd.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = xkcd.xcdatamodel; sourceTree = "<group>"; };
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -150,6 +149,11 @@
 		51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EXIFCompensation.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* xkcd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-Info.plist"; sourceTree = "<group>"; };
 		B5C55A76161E740400B0A2D9 /* iTunesArtwork@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iTunesArtwork@2x.jpg"; sourceTree = "<group>"; };
+		DAC1B2A31C558B0900436971 /* xkcd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xkcd-Bridging-Header.h"; sourceTree = "<group>"; };
+		DAC1B2A41C558B0900436971 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DAC1B2A61C559A0000436971 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DAC1B2A81C559B2A00436971 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +208,6 @@
 		03DA9D721097B497005A34B2 /* System */ = {
 			isa = PBXGroup;
 			children = (
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* xkcd-Info.plist */,
 				03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */,
 				0384E76210500E0F0096D4E7 /* Settings.bundle */,
@@ -320,14 +323,17 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DAC1B2A61C559A0000436971 /* Constants.swift */,
+				DAC1B2A81C559B2A00436971 /* Preferences.swift */,
+				DAC1B2A41C558B0900436971 /* AppDelegate.swift */,
+				DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */,
 				03941EDE159161BC00ADBED9 /* Categories */,
 				03F10F0A104D8F0A0045AEFC /* Protocols */,
 				03F10D34104D6DD20045AEFC /* Models */,
 				03F112EA104EB50F0045AEFC /* Views */,
 				03F10F03104D8ECB0045AEFC /* Controllers */,
-				1D3623240D0F684500981E51 /* xkcdAppDelegate.h */,
-				1D3623250D0F684500981E51 /* xkcdAppDelegate.m */,
 				03F11404104F21110045AEFC /* XkcdErrorCodes.h */,
+				DAC1B2A31C558B0900436971 /* xkcd-Bridging-Header.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -449,6 +455,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
@@ -481,7 +488,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */,
 				039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */,
 				51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */,
@@ -507,7 +513,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* xkcdAppDelegate.m in Sources */,
 				28C3AD8A0F43EF2300507BA6 /* xkcd.xcdatamodel in Sources */,
 				0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */,
 				03F10D37104D6DDE0045AEFC /* Comic.m in Sources */,
@@ -527,11 +532,15 @@
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
+				DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */,
 				032FA24D1592928D00C39198 /* FAQViewController.m in Sources */,
+				DAC1B2A91C559B2A00436971 /* Preferences.swift in Sources */,
 				031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
 				5136AE8C175463A100742406 /* TLNavigationController.m in Sources */,
 				51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */,
 				517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */,
+				DAC1B2A71C559A0000436971 /* Constants.swift in Sources */,
+				DAC1B2AB1C559EF700436971 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +613,7 @@
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
@@ -620,6 +630,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -629,6 +640,7 @@
 				PRODUCT_NAME = xkcd;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/xkcd-Bridging-Header.h";
 			};
 			name = Distribution;
 		};
@@ -679,6 +691,7 @@
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
@@ -695,11 +708,13 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshapp.xkcd;
 				PRODUCT_NAME = xkcd;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/xkcd-Bridging-Header.h";
 			};
 			name = "Ad hoc distribution";
 		};
@@ -711,6 +726,7 @@
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
@@ -729,10 +745,13 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshapp.xkcd;
 				PRODUCT_NAME = xkcd;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/xkcd-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -744,6 +763,7 @@
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
@@ -760,10 +780,12 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshapp.xkcd;
 				PRODUCT_NAME = xkcd;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/xkcd-Bridging-Header.h";
 			};
 			name = Release;
 		};

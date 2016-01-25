@@ -11,6 +11,8 @@
 
 #define kMinComicNumber 1
 
+@import CoreData;
+
 @interface Comic : NSManagedObject
 
 + (Comic *)comic; // use this, not init/etc.

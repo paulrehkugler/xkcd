@@ -6,7 +6,10 @@
 //  Copyright 2009 Treeline Labs. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import CoreData;
+@import MessageUI;
+@import UIKit;
+
 #import "NewComicFetcherDelegate.h"
 #import "SingleComicImageFetcherDelegate.h"
 #import "TLModalActivityIndicatorView.h"

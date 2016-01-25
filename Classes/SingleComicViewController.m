@@ -7,7 +7,6 @@
 #import "Comic.h"
 #import "TiledImage.h"
 #import "CGGeometry_TLCommon.h"
-#import "xkcdAppDelegate.h"
 #import "SingleComicImageFetcher.h"
 #import "ComicListViewController.h"
 #import "UIBarButtonItem_TLCommon.h"
@@ -16,6 +15,7 @@
 #import "FCOpenInChromeActivity.h"
 #import "UIScrollView+Helper.h"
 #import "XkcdErrorCodes.h"
+#import "xkcd-Swift.h"
 
 #define kTileWidth 1024.0f
 #define kTileHeight 1024.0f
@@ -162,7 +162,7 @@
 	}
 	[self.imageScroller addSubview:self.contentView];
 	
-	if ([AppDelegate openZoomedOut]) {
+	if ([[Preferences defaultPreferences] openZoomedOut]) {
 		[self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:NO];
 	}
 	
