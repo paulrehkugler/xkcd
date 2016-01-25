@@ -42,18 +42,18 @@
 		5136AE8C175463A100742406 /* TLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5136AE8B175463A100742406 /* TLNavigationController.m */; };
 		516356E71BCBE12600BF7D91 /* FCOpenInChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */; };
 		516356E81BCBE12600BF7D91 /* FCOpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */; };
-		517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 517D568D175A5199001EECAE /* UIScrollView+Helper.m */; };
 		5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */; };
 		51A205AC1BCD2E3D0029ABE2 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		51A205AD1BCD2E420029ABE2 /* TestBrokenUnicodeFixer.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */; };
 		51A205AE1BCD2F3B0029ABE2 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
 		51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; };
-		51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */; };
 		DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A41C558B0900436971 /* AppDelegate.swift */; };
 		DAC1B2A71C559A0000436971 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A61C559A0000436971 /* Constants.swift */; };
 		DAC1B2A91C559B2A00436971 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A81C559B2A00436971 /* Preferences.swift */; };
 		DAC1B2AB1C559EF700436971 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */; };
+		DAC1B2AF1C55AF6E00436971 /* UIImage+EXIFCompensation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2AE1C55AF6E00436971 /* UIImage+EXIFCompensation.swift */; };
+		DAC1B2B11C55B00300436971 /* UIScrollView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,14 +139,10 @@
 		516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FCOpenInChromeActivity.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		516356E51BCBE12600BF7D91 /* FCOpenInSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCOpenInSafariActivity.h; sourceTree = "<group>"; };
 		516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FCOpenInSafariActivity.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		517D568C175A5199001EECAE /* UIScrollView+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Helper.h"; sourceTree = "<group>"; };
-		517D568D175A5199001EECAE /* UIScrollView+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Helper.m"; sourceTree = "<group>"; };
 		5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
 		51A205A01BCD2E180029ABE2 /* xkcdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xkcdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A205A41BCD2E180029ABE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51AB8A261BCAD05100BB58A7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		51C575D01759610700C8B98D /* UIImage+EXIFCompensation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EXIFCompensation.h"; sourceTree = "<group>"; };
-		51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EXIFCompensation.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* xkcd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-Info.plist"; sourceTree = "<group>"; };
 		B5C55A76161E740400B0A2D9 /* iTunesArtwork@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iTunesArtwork@2x.jpg"; sourceTree = "<group>"; };
 		DAC1B2A31C558B0900436971 /* xkcd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xkcd-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -154,6 +150,8 @@
 		DAC1B2A61C559A0000436971 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DAC1B2A81C559B2A00436971 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		DAC1B2AE1C55AF6E00436971 /* UIImage+EXIFCompensation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+EXIFCompensation.swift"; sourceTree = "<group>"; };
+		DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Helper.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,10 +195,8 @@
 				03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */,
 				031FE8EF159536C3008E92DF /* NSDictionary+TypeSafety.h */,
 				031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */,
-				51C575D01759610700C8B98D /* UIImage+EXIFCompensation.h */,
-				51C575D11759610700C8B98D /* UIImage+EXIFCompensation.m */,
-				517D568C175A5199001EECAE /* UIScrollView+Helper.h */,
-				517D568D175A5199001EECAE /* UIScrollView+Helper.m */,
+				DAC1B2AE1C55AF6E00436971 /* UIImage+EXIFCompensation.swift */,
+				DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -517,6 +513,7 @@
 				0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */,
 				03F10D37104D6DDE0045AEFC /* Comic.m in Sources */,
 				03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */,
+				DAC1B2AF1C55AF6E00436971 /* UIImage+EXIFCompensation.swift in Sources */,
 				03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */,
 				03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */,
 				03F114A9104F2B2B0045AEFC /* TiledImage.m in Sources */,
@@ -530,6 +527,7 @@
 				03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
 				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
+				DAC1B2B11C55B00300436971 /* UIScrollView+Helper.swift in Sources */,
 				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
 				DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */,
@@ -537,8 +535,6 @@
 				DAC1B2A91C559B2A00436971 /* Preferences.swift in Sources */,
 				031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
 				5136AE8C175463A100742406 /* TLNavigationController.m in Sources */,
-				51C575D21759610700C8B98D /* UIImage+EXIFCompensation.m in Sources */,
-				517D568E175A5199001EECAE /* UIScrollView+Helper.m in Sources */,
 				DAC1B2A71C559A0000436971 /* Constants.swift in Sources */,
 				DAC1B2AB1C559EF700436971 /* CoreDataStack.swift in Sources */,
 			);
