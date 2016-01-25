@@ -194,7 +194,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)fetchImageForComic:(Comic *)comic {
-	BOOL openAfterDownloadPreferenceSet = [[Preferences defaultPreferences] openAfterDownload];
+	BOOL openAfterDownloadPreferenceSet = [Preferences defaultPreferences].openAfterDownload;
 	BOOL isLaunchComic = (self.requestedLaunchComic && ([comic.number integerValue] == self.requestedLaunchComic));
 	
 	if (isLaunchComic) {
@@ -363,7 +363,7 @@ static UIImage *downloadImage = nil;
 
 - (void)newComicFetcher:(NewComicFetcher *)fetcher didFetchComic:(Comic *)comic {
 	[[CoreDataStack sharedCoreDataStack] save]; // write new comic to disk so that CoreData can clear its memory as needed
-	if ([[Preferences defaultPreferences] downloadNewComics]) {
+	if ([Preferences defaultPreferences].downloadNewComics) {
 		[self fetchImageForComic:comic];
 	}
 }

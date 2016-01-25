@@ -8,17 +8,29 @@
 
 import CoreData
 
+/// A class that sets up the Core Data stack used in the application.
 final class CoreDataStack: NSObject {
 
+    /// The directory where the application stores its documents.
     var applicationsDocumentsDirectory: String
 
+    /// The context where all of the Core Data objects are managed in the application.
     var managedObjectContext: NSManagedObjectContext
 
     private var managedObjectModel: NSManagedObjectModel
     private var persistentStoreCoordinator: NSPersistentStoreCoordinator
 
+    /// Holds the singleton returned by `sharedCoreDataStack()`.
     private static var sharedCoreDataStackStorage: CoreDataStack?
 
+    /**
+     A singleton Core Data stack instance that is used across the application.
+
+     - note: Ideally we would use dependency injection instead of obfuscating the dependency graph like this.
+     On the other hand, shipping is better than perfect.
+
+     - returns: A fully initialized `CoreDataStack`.
+     */
     class func sharedCoreDataStack() -> CoreDataStack {
         if let coreDataStack = CoreDataStack.sharedCoreDataStackStorage {
             return coreDataStack
@@ -30,6 +42,11 @@ final class CoreDataStack: NSObject {
         }
     }
 
+    /**
+     Initializes a `CoreDataStack`.
+
+     - returns: A fully initialized `CoreDataStack`.
+     */
     override init() {
         let fileManager = NSFileManager.defaultManager()
         guard let applicationsDocumentsDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, [.UserDomainMask], true).first else {
@@ -87,6 +104,9 @@ final class CoreDataStack: NSObject {
 
     // MARK: - Saving
 
+    /**
+    Saves the managed object context.
+    */
     func save() {
         assert(NSThread.isMainThread(), "This Core Data stack only supports main thread concurrency.")
 
@@ -102,6 +122,11 @@ final class CoreDataStack: NSObject {
 
     // MARK: - Notifications
 
+    /**
+    Called when the application will terminate. Do not call this directly.
+
+    - parameter notification: The notification that triggered this method call.
+    */
     @objc func applicationWillTerminate(notification: NSNotification) {
         if managedObjectContext.hasChanges {
             do {

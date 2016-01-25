@@ -162,7 +162,7 @@
 	}
 	[self.imageScroller addSubview:self.contentView];
 	
-	if ([[Preferences defaultPreferences] openZoomedOut]) {
+	if ([Preferences defaultPreferences].openZoomedOut) {
 		[self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:NO];
 	}
 	

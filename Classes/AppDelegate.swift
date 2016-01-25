@@ -8,11 +8,12 @@
 
 import UIKit
 
+/// This class acts as the UIApplicationDelegate of the application.
 final class AppDelegate: NSObject, UIApplicationDelegate {
 
-    var window: UIWindow?
+    // MARK: - UIApplicationDelegate
 
-    // MARK: - Application Lifecycle
+    var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         let listViewController = ComicListViewController(style: .Plain)
