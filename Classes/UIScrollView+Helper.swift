@@ -19,7 +19,7 @@ extension UIScrollView {
      */
     func setZoomScale(scale: CGFloat, centerPoint: CGPoint, animated: Bool) {
         // convert scroll view point to content point
-        let contentView = delegate?.viewForZoomingInScrollView(self) ?? hitTest(centerPoint, withEvent: nil)
+        let contentView = delegate?.viewForZoomingInScrollView?(self) ?? hitTest(centerPoint, withEvent: nil)
         let contentCenter = convertPoint(centerPoint, toView:contentView)
 
         let visibleWidth = self.frame.width / scale

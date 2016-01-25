@@ -13,7 +13,6 @@
 #import "TLMersenneTwister.h"
 #import "FCOpenInSafariActivity.h"
 #import "FCOpenInChromeActivity.h"
-#import "UIScrollView+Helper.h"
 #import "XkcdErrorCodes.h"
 #import "xkcd-Swift.h"
 
@@ -145,7 +144,7 @@
 - (void)displayComicImage {
 	// Load up the comic image/view
 	UIImage *comicImage = self.comic.image;
-	CGSize contentSize = comicImage.exifAgnosticSize;
+	CGSize contentSize = comicImage.EXIFAgnosticSize;
 	TiledImage *tiles = [[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight];
 	self.contentView = [[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)];
 	self.comicImageViews = [NSMutableArray arrayWithCapacity:(tiles.widthCount * tiles.heightCount)];
@@ -190,7 +189,7 @@
 }
 
 - (void) calculateZoomScaleAndAnimate:(BOOL)animate {
-	CGSize contentSize = self.comic.image.exifAgnosticSize;
+	CGSize contentSize = self.comic.image.EXIFAgnosticSize;
 	self.imageScroller.contentSize = contentSize;
 	self.imageScroller.maximumZoomScale = 2;
 	CGFloat xMinZoom = self.imageScroller.frame.size.width / contentSize.width;
@@ -290,7 +289,7 @@
 		// zoom towards the user's double tap
 		CGPoint centerPoint = [recognizer locationInView:self.imageScroller];
 		NSLog(@"scale = %f, point = %@", newZoomScale, NSStringFromCGPoint(centerPoint));
-		[self.imageScroller setZoomScale:newZoomScale animated:YES centerOnPoint:centerPoint];
+		[self.imageScroller setZoomScale:newZoomScale centerPoint:centerPoint animated:YES];
 	} else {
     newZoomScale = self.imageScroller.minimumZoomScale;
 	  NSLog(@"scale = %f", newZoomScale);

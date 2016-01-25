@@ -14,7 +14,6 @@
 #import "UITableView_TLCommon.h"
 #import "FAQViewController.h"
 #import "TLMacros.h"
-#import "UIImage+EXIFCompensation.h"
 #import "xkcd-Swift.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
