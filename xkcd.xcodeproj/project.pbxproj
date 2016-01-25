@@ -279,13 +279,6 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
-		03F112EA104EB50F0045AEFC /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		03F40E3C122AA54000A35F44 /* Application icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,7 +319,6 @@
 				03941EDE159161BC00ADBED9 /* Categories */,
 				03F10F0A104D8F0A0045AEFC /* Protocols */,
 				03F10D34104D6DD20045AEFC /* Models */,
-				03F112EA104EB50F0045AEFC /* Views */,
 				03F10F03104D8ECB0045AEFC /* Controllers */,
 				03F11404104F21110045AEFC /* XkcdErrorCodes.h */,
 				DAC1B2A31C558B0900436971 /* xkcd-Bridging-Header.h */,
