@@ -7,9 +7,9 @@
 //
 
 #import "Comic.h"
-#import "xkcdAppDelegate.h"
 #import "NSArray+Filtering.h"
 #import "TLMacros.h"
+#import "xkcd-Swift.h"
 
 #pragma mark -
 
@@ -47,7 +47,7 @@ static NSMutableSet *downloadedImages = nil;
 + (void)initialize {
 	if ([self class] == [Comic class]) {
 		if (!comicEntityDescription) {
-			comicEntityDescription = [NSEntityDescription entityForName:@"Comic" inManagedObjectContext:AppDelegate.managedObjectContext];
+			comicEntityDescription = [NSEntityDescription entityForName:@"Comic" inManagedObjectContext:[CoreDataStack sharedCoreDataStack].managedObjectContext];
 		}
 	}
 }
@@ -56,7 +56,7 @@ static NSMutableSet *downloadedImages = nil;
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSError *error = nil;
 	TLDebugLog(@"Starting synchronization of downloaded images");
-	NSArray *allDocuments = [fileManager contentsOfDirectoryAtPath:AppDelegate.applicationDocumentsDirectory error:&error];
+	NSArray *allDocuments = [fileManager contentsOfDirectoryAtPath:[CoreDataStack sharedCoreDataStack].applicationsDocumentsDirectory error:&error];
 	if (!error) {
 		NSArray *imageDataPaths = [allDocuments objectsPassingTest:^BOOL (id obj) {
 			NSString *path = (NSString *)obj;
@@ -68,7 +68,7 @@ static NSMutableSet *downloadedImages = nil;
 }
 
 + (Comic *)comic {
-	Comic *comic = [[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:AppDelegate.managedObjectContext];
+	Comic *comic = [[Comic alloc] initWithEntity:comicEntityDescription insertIntoManagedObjectContext:[CoreDataStack sharedCoreDataStack].managedObjectContext];
 	return comic;
 }
 
@@ -79,7 +79,8 @@ static NSMutableSet *downloadedImages = nil;
 	request.fetchLimit = 1;
 	
 	NSError *error = nil;
-	NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+    CoreDataStack *coreDataStack = [CoreDataStack sharedCoreDataStack];
+	NSArray *array = [coreDataStack.managedObjectContext executeFetchRequest:request error:&error];
 	
 	Comic *lastKnownComic = nil;
 	if (error || !array || array.count == 0) {
@@ -99,7 +100,7 @@ static NSMutableSet *downloadedImages = nil;
 	request.fetchLimit = 1;
 	
 	NSError *error = nil;
-	NSArray *array = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+	NSArray *array = [[CoreDataStack sharedCoreDataStack].managedObjectContext executeFetchRequest:request error:&error];
 	
 	Comic *comic = nil;
 	if (error || array.count == 0) {
@@ -117,7 +118,7 @@ static NSMutableSet *downloadedImages = nil;
 	request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:NO]];
 	
 	NSError *error = nil;
-	NSArray *allComics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+	NSArray *allComics = [[CoreDataStack sharedCoreDataStack].managedObjectContext executeFetchRequest:request error:&error];
 	return allComics;
 }
 
@@ -136,7 +137,7 @@ static NSMutableSet *downloadedImages = nil;
 	request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kAttributeNumber ascending:YES]];
 	
 	NSError *error = nil;
-	NSArray *comics = [AppDelegate.managedObjectContext executeFetchRequest:request error:&error];
+	NSArray *comics = [[CoreDataStack sharedCoreDataStack].managedObjectContext executeFetchRequest:request error:&error];
 	return comics;
 }
 
@@ -147,9 +148,9 @@ static NSMutableSet *downloadedImages = nil;
 + (void)deleteAllComics {
 	// No need to be efficient, this is only done during development
 	for (Comic *comic in [self allComics]) {
-		[AppDelegate.managedObjectContext delete:comic];
+		[[CoreDataStack sharedCoreDataStack].managedObjectContext delete:comic];
 	}
-	[AppDelegate save];
+	[[CoreDataStack sharedCoreDataStack] save];
 }
 
 - (void)saveImageData:(NSData *)imageData {
@@ -195,7 +196,7 @@ static NSMutableSet *downloadedImages = nil;
 }
 
 + (NSString *)imagePathForImageFilename:(NSString *)imageFilename {
-	return [AppDelegate.applicationDocumentsDirectory stringByAppendingPathComponent:imageFilename];
+	return [[CoreDataStack sharedCoreDataStack].applicationsDocumentsDirectory stringByAppendingPathComponent:imageFilename];
 }
 
 #pragma mark -

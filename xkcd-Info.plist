@@ -57,8 +57,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchStoryboard</string>
 	<key>UIRequiresPersistentWiFi</key>

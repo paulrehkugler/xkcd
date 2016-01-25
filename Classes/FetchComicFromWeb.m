@@ -4,10 +4,10 @@
 
 #import "FetchComicFromWeb.h"
 #import "Comic.h"
-#import "xkcdAppDelegate.h"
 #import "NSString_HTML.h"
 #import "NSData+BrokenUnicodeJSON.h"
 #import "NSDictionary+TypeSafety.h"
+#import "xkcd-Swift.h"
 
 #pragma mark -
 
@@ -59,7 +59,7 @@
 	else {
 		NSURL *comicURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xkcd.com/%li/info.0.json", (long)self.comicNumber]];
 		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:comicURL];
-		[request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
+		[request setValue:[Constants userAgent] forHTTPHeaderField:@"User-Agent"];
 		
 		self.dataTask = [self.URLSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 			if ([response isKindOfClass:[NSHTTPURLResponse class]]) {

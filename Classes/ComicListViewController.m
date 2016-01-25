@@ -5,7 +5,6 @@
 #import "ComicListViewController.h"
 #import "Comic.h"
 #import "NewComicFetcher.h"
-#import "xkcdAppDelegate.h"
 #import "XkcdErrorCodes.h"
 #import "SingleComicViewController.h"
 #import "SingleComicImageFetcher.h"
@@ -15,7 +14,7 @@
 #import "UITableView_TLCommon.h"
 #import "FAQViewController.h"
 #import "TLMacros.h"
-#import "UIImage+EXIFCompensation.h"
+#import "xkcd-Swift.h"
 
 #define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
 #define kUserDefaultsSavedTopVisibleComicKey @"topVisibleComic"
@@ -155,7 +154,7 @@ static UIImage *downloadImage = nil;
 	fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO]];
 	
 	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-																								managedObjectContext:AppDelegate.managedObjectContext
+																								managedObjectContext:[CoreDataStack sharedCoreDataStack].managedObjectContext
 																								  sectionNameKeyPath:nil
 																										   cacheName:nil];
 	aFetchedResultsController.delegate = self;
@@ -194,7 +193,7 @@ static UIImage *downloadImage = nil;
 }
 
 - (void)fetchImageForComic:(Comic *)comic {
-	BOOL openAfterDownloadPreferenceSet = [AppDelegate openAfterDownload];
+	BOOL openAfterDownloadPreferenceSet = [Preferences defaultPreferences].openAfterDownload;
 	BOOL isLaunchComic = (self.requestedLaunchComic && ([comic.number integerValue] == self.requestedLaunchComic));
 	
 	if (isLaunchComic) {
@@ -362,8 +361,8 @@ static UIImage *downloadImage = nil;
 #pragma mark NewComicFetcherDelegate methods
 
 - (void)newComicFetcher:(NewComicFetcher *)fetcher didFetchComic:(Comic *)comic {
-	[AppDelegate save]; // write new comic to disk so that CoreData can clear its memory as needed
-	if ([AppDelegate downloadNewComics]) {
+	[[CoreDataStack sharedCoreDataStack] save]; // write new comic to disk so that CoreData can clear its memory as needed
+	if ([Preferences defaultPreferences].downloadNewComics) {
 		[self fetchImageForComic:comic];
 	}
 }

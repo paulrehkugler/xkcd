@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UIImage+EXIFCompensation.h"
 
 #define kMinComicNumber 1
+
+@import CoreData;
+@import UIKit;
 
 @interface Comic : NSManagedObject
 

@@ -7,8 +7,8 @@
 //
 
 #import "FetchComicImageFromWeb.h"
-#import "xkcdAppDelegate.h"
 #import "TLMacros.h"
+#import "xkcd-Swift.h"
 
 #pragma mark -
 
@@ -50,7 +50,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.comicImageURL
                                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                             timeoutInterval:180.0f];
-    [request setValue:kUseragent forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[Constants userAgent] forHTTPHeaderField:@"User-Agent"];
 
     TLDebugLog(@"Fetching image at %@", self.comicImageURL);
 
