@@ -19,16 +19,20 @@ extension UIScrollView {
      */
     func setZoomScale(scale: CGFloat, centerPoint: CGPoint, animated: Bool) {
         // convert scroll view point to content point
-        let contentView = delegate?.viewForZoomingInScrollView?(self) ?? hitTest(centerPoint, withEvent: nil)
-        let contentCenter = convertPoint(centerPoint, toView:contentView)
+        if let contentView = delegate?.viewForZoomingInScrollView?(self) {
+            let contentCenter = convertPoint(centerPoint, toView:contentView)
 
-        let visibleWidth = self.frame.width / scale
-        let visibleHeight = self.frame.height / scale
+            let visibleWidth = self.frame.width / scale
+            let visibleHeight = self.frame.height / scale
 
-        // make the target content point the center of the resulting view
-        let leftX = (contentCenter.x - (visibleWidth / 2))
-        let topY = (contentCenter.y - (visibleHeight / 2))
+            // make the target content point the center of the resulting view
+            let leftX = (contentCenter.x - (visibleWidth / 2))
+            let topY = (contentCenter.y - (visibleHeight / 2))
 
-        zoomToRect(CGRect(x: leftX, y: topY, width: visibleWidth, height: visibleHeight), animated: animated)
+            zoomToRect(CGRect(x: leftX, y: topY, width: visibleWidth, height: visibleHeight), animated: animated)
+        }
+        else {
+            fatalError("It is expected that UIScrollViews that are being zoomed have a delegate that responds to -viewForZoomingInScrollView:")
+        }
     }
 }
