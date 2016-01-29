@@ -10,12 +10,13 @@
 @import MessageUI;
 @import UIKit;
 
-#import "NewComicFetcherDelegate.h"
 #import "SingleComicImageFetcherDelegate.h"
 #import "TLModalActivityIndicatorView.h"
 
 @class NewComicFetcher;
 @class SingleComicImageFetcher;
+
+@protocol NewComicFetcherDelegate;
 
 @interface ComicListViewController : UITableViewController <NewComicFetcherDelegate, NSFetchedResultsControllerDelegate,
 SingleComicImageFetcherDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate>

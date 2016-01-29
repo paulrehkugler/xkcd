@@ -4,4 +4,5 @@
 
 #import "Comic.h"
 #import "ComicListViewController.h"
+#import "NewComicFetcher.h"
 #import "TLNavigationController.h"

@@ -18,6 +18,7 @@
 #import "Comic.h"
 #import "XkcdErrorCodes.h"
 #import "TLMacros.h"
+#import "xkcd-Swift.h"
 
 #pragma mark -
 
