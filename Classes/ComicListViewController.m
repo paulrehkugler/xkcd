@@ -16,7 +16,6 @@
 #import "TLMacros.h"
 #import "xkcd-Swift.h"
 
-#define kTableViewBackgroundColor [UIColor colorWithRed:0.69f green:0.737f blue:0.80f alpha:0.5f]
 #define kUserDefaultsSavedTopVisibleComicKey @"topVisibleComic"
 
 #pragma mark -
@@ -38,14 +37,6 @@ static UIImage *downloadImage = nil;
 #pragma mark -
 
 @implementation ComicListViewController
-
-+ (void)initialize {
-	if ([self class] == [ComicListViewController class]) {
-		if (!downloadImage) {
-			downloadImage = [[UIImage imageNamed:@"download"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-		}
-	}
-}
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
 	if (self = [super initWithStyle:style]) {

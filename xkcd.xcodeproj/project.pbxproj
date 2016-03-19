@@ -49,6 +49,7 @@
 		51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; };
 		DA18ABF61C5AFAD9000241E8 /* NewComicFetcherDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA18ABF51C5AFAD9000241E8 /* NewComicFetcherDelegate.swift */; };
+		DABD2EBF1C5AFF6700DD06A0 /* ComicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABD2EBE1C5AFF6700DD06A0 /* ComicListViewController.swift */; };
 		DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A41C558B0900436971 /* AppDelegate.swift */; };
 		DAC1B2A71C559A0000436971 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A61C559A0000436971 /* Constants.swift */; };
 		DAC1B2A91C559B2A00436971 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A81C559B2A00436971 /* Preferences.swift */; };
@@ -146,6 +147,7 @@
 		8D1107310486CEB800E47090 /* xkcd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-Info.plist"; sourceTree = "<group>"; };
 		B5C55A76161E740400B0A2D9 /* iTunesArtwork@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iTunesArtwork@2x.jpg"; sourceTree = "<group>"; };
 		DA18ABF51C5AFAD9000241E8 /* NewComicFetcherDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewComicFetcherDelegate.swift; sourceTree = "<group>"; };
+		DABD2EBE1C5AFF6700DD06A0 /* ComicListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComicListViewController.swift; sourceTree = "<group>"; };
 		DAC1B2A31C558B0900436971 /* xkcd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xkcd-Bridging-Header.h"; sourceTree = "<group>"; };
 		DAC1B2A41C558B0900436971 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAC1B2A61C559A0000436971 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				032FA24A1592928D00C39198 /* FAQViewController.h */,
 				032FA24B1592928D00C39198 /* FAQViewController.m */,
 				032FA24C1592928D00C39198 /* FAQViewController.xib */,
+				DABD2EBE1C5AFF6700DD06A0 /* ComicListViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				516356E71BCBE12600BF7D91 /* FCOpenInChromeActivity.m in Sources */,
 				03F7020C1464C2990091BF49 /* TLModalActivityIndicatorView.m in Sources */,
 				03F702211464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m in Sources */,
+				DABD2EBF1C5AFF6700DD06A0 /* ComicListViewController.swift in Sources */,
 				03F702291464C4A70091BF49 /* UIBarButtonItem_TLCommon.m in Sources */,
 				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
