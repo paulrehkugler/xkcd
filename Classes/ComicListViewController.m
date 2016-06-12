@@ -52,6 +52,7 @@ static UIImage *downloadImage = nil;
 		self.title = NSLocalizedString(@"xkcd", @"Title of main view");
 		self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 		self.searchController.searchResultsUpdater = self;
+		self.searchController.obscuresBackgroundDuringPresentation = NO;
 	}
 	return self;
 }
@@ -499,6 +500,10 @@ static UIImage *downloadImage = nil;
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	Comic *selectedComic = [self comicAtIndexPath:indexPath inTableView:aTableView];
+	if (self.searchController.isActive) {
+		self.searchController.active = NO;
+	}
+	
 	BOOL shouldDeselect = YES;
 	if ([selectedComic.number integerValue] != 404) {
 		if (selectedComic.downloaded) {
