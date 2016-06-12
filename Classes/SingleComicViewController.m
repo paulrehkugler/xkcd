@@ -321,6 +321,7 @@
   self.imageFetcher = nil;
   [self.loadingView removeFromSuperview];
   [self displayComicImage];
+  [self calculateZoomScaleAndAnimate:NO];
 }
 
 - (void)singleComicImageFetcher:(SingleComicImageFetcher *)fetcher
