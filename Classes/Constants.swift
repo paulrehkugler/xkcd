@@ -9,7 +9,7 @@
 import UIKit
 
 final class Constants: NSObject {
-    static func userAgent() -> String {
+    @objc static func userAgent() -> String {
         return "xkcd iPhone app (feedback@xkcdapp.com; http://bit.ly/xkcdapp). Thank you for the API!"
     }
 }

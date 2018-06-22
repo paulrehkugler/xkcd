@@ -144,7 +144,7 @@
 - (void)displayComicImage {
 	// Load up the comic image/view
 	UIImage *comicImage = self.comic.image;
-	CGSize contentSize = comicImage.EXIFAgnosticSize;
+	CGSize contentSize = comicImage.exifAgnosticSize;
 	TiledImage *tiles = [[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight];
 	self.contentView = [[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)];
 	self.comicImageViews = [NSMutableArray arrayWithCapacity:(tiles.widthCount * tiles.heightCount)];
@@ -189,7 +189,7 @@
 }
 
 - (void) calculateZoomScaleAndAnimate:(BOOL)animate {
-	CGSize contentSize = self.comic.image.EXIFAgnosticSize;
+	CGSize contentSize = self.comic.image.exifAgnosticSize;
 	self.imageScroller.contentSize = contentSize;
 	self.imageScroller.maximumZoomScale = 2;
 	CGFloat xMinZoom = self.imageScroller.frame.size.width / contentSize.width;
@@ -289,7 +289,7 @@
 		// zoom towards the user's double tap
 		CGPoint centerPoint = [recognizer locationInView:self.imageScroller];
 		NSLog(@"scale = %f, point = %@", newZoomScale, NSStringFromCGPoint(centerPoint));
-		[self.imageScroller setZoomScale:newZoomScale centerPoint:centerPoint animated:YES];
+		[self.imageScroller setZoomScaleWithScale:newZoomScale centerPoint:centerPoint animated:YES];
 	} else {
     newZoomScale = self.imageScroller.minimumZoomScale;
 	  NSLog(@"scale = %f", newZoomScale);

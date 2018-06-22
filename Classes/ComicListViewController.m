@@ -21,7 +21,7 @@
 
 #pragma mark -
 
-static UIImage *downloadImage = nil;
+static UIImage *__downloadImage = nil;
 
 #pragma mark -
 
@@ -39,12 +39,12 @@ static UIImage *downloadImage = nil;
 
 @implementation ComicListViewController
 
-+ (void)initialize {
-	if ([self class] == [ComicListViewController class]) {
-		if (!downloadImage) {
-			downloadImage = [[UIImage imageNamed:@"download"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-		}
++ (UIImage *)downloadImage {
+	if (!__downloadImage) {
+		__downloadImage = [[UIImage imageNamed:@"download"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	}
+	
+	return __downloadImage;
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
@@ -480,7 +480,7 @@ static UIImage *downloadImage = nil;
 			comicCell.accessibilityHint = NSLocalizedString(@"Waiting for download", @"downloading_comic_accessibility_hint");
 		}
 		else {
-			UIImageView *downloadImageView = [[UIImageView alloc] initWithImage:downloadImage];
+			UIImageView *downloadImageView = [[UIImageView alloc] initWithImage:[ComicListViewController downloadImage]];
 			downloadImageView.opaque = YES;
 			comicCell.accessoryView = downloadImageView;
 			comicCell.accessibilityHint = NSLocalizedString(@"Downloads the comic", @"undownloaded_comic_accessibility_hint");

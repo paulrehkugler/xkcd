@@ -26,7 +26,7 @@
 	if (self = [super init]) {
 		_tileWidth = width;
 		_tileHeight = height;
-		CGSize imageSize = imageToTile.EXIFAgnosticSize;
+		CGSize imageSize = imageToTile.exifAgnosticSize;
 		NSUInteger imageWidth = round(imageSize.width);
 		NSUInteger imageHeight = round(imageSize.height);
 		_widthCount = imageWidth / _tileWidth + (imageWidth % _tileWidth == 0 ? 0 : 1);
