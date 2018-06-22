@@ -148,7 +148,7 @@ static NSMutableSet *downloadedImages = nil;
 + (void)deleteAllComics {
 	// No need to be efficient, this is only done during development
 	for (Comic *comic in [self allComics]) {
-		[[CoreDataStack sharedCoreDataStack].managedObjectContext delete:comic];
+		[[CoreDataStack sharedCoreDataStack].managedObjectContext deleteObject:comic];
 	}
 	[[CoreDataStack sharedCoreDataStack] save];
 }

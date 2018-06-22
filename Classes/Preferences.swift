@@ -17,22 +17,22 @@ final class Preferences: NSObject {
     }
 
     /// Whether comics open at their minimum zoom scale, or at native resolution in the single comic viewer.
-    var openZoomedOut: Bool {
-        return boolValueOfAppPreference(.OpenZoomedOut)
+    @objc var openZoomedOut: Bool {
+		return boolValueOfAppPreference(appPreference: .OpenZoomedOut)
     }
 
     /// Whether new comics images should be automatically downloaded when the comic JSON is received.
-    var downloadNewComics: Bool {
-        return boolValueOfAppPreference(.AutoDownload)
+    @objc var downloadNewComics: Bool {
+		return boolValueOfAppPreference(appPreference: .AutoDownload)
     }
 
     /// Whether comics should be opened after their images are downloaded.
-    var openAfterDownload: Bool {
-        return boolValueOfAppPreference(.OpenAfterDownload, defaultValue: true)
+    @objc var openAfterDownload: Bool {
+		return boolValueOfAppPreference(appPreference: .OpenAfterDownload, defaultValue: true)
     }
 
     /// The instance of `NSUserDefaults` that this object reads and writes from.
-    private let userDefaults: NSUserDefaults
+	private let userDefaults: UserDefaults
 
     /// Holds the singleton returned by `defaultPreferences()`.
     private static var defaultPreferenceStorage: Preferences?
@@ -45,12 +45,12 @@ final class Preferences: NSObject {
 
      - returns: A fully initialized `Preferences`.
      */
-    class func defaultPreferences() -> Preferences {
+	@objc class var defaultPreferences: Preferences {
         if let preferences = Preferences.defaultPreferenceStorage {
             return preferences
         }
         else {
-            let preferences = Preferences(userDefaults: NSUserDefaults.standardUserDefaults())
+			let preferences = Preferences(userDefaults: UserDefaults.standard)
             Preferences.defaultPreferenceStorage = preferences
             return preferences
         }
@@ -63,12 +63,12 @@ final class Preferences: NSObject {
 
      - returns: A fully initialized `Preferences` object.
      */
-    init(userDefaults: NSUserDefaults) {
+	init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
 
         super.init()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillTerminate(_:)), name: UIApplicationWillTerminateNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillTerminate(_:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
     }
 
     // MARK: - Notifications
@@ -84,7 +84,7 @@ final class Preferences: NSObject {
             return value
         }
         else {
-            userDefaults.setBool(defaultValue, forKey: appPreference.rawValue)
+			userDefaults.set(defaultValue, forKey: appPreference.rawValue)
             return defaultValue
         }
     }

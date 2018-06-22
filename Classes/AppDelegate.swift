@@ -15,18 +15,20 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        let listViewController = ComicListViewController(style: .Plain)
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?) -> Bool {
+		Comic.synchronizeDownloadedImages()
 
-        if let launchURL = launchOptions?[UIApplicationLaunchOptionsURLKey] as? NSURL {
+		let listViewController = ComicListViewController(style: .plain)
+
+        if let launchURL = launchOptions?[.url] as? NSURL {
             guard launchURL.scheme == "xkcd" else {
                 return false
             }
 
             if
                 let host = launchURL.host,
-                let launchedComicNumber = Int(host)
-                where launchedComicNumber > 0
+                let launchedComicNumber = Int(host),
+                 launchedComicNumber > 0
             {
                 listViewController.requestedLaunchComic = launchedComicNumber
             }
@@ -34,15 +36,15 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
         let navigationController = TLNavigationController(rootViewController: listViewController)
 
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+		window = UIWindow(frame: UIScreen.main.bounds)
 
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 
         return true
     }
-
-    func applicationDidBecomeActive(application: UIApplication) {
+	
+	func applicationDidBecomeActive(_ application: UIApplication) {
         Comic.synchronizeDownloadedImages()
     }
 }
