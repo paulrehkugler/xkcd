@@ -12,8 +12,8 @@
 
 @implementation FAQViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+	self = [super initWithCoder:aDecoder];
 	if (self) {
 		self.title = NSLocalizedString(@"FAQ", @"FAQ");
 	}

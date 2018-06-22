@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = 031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */; };
 		032FA24D1592928D00C39198 /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032FA24B1592928D00C39198 /* FAQViewController.m */; };
-		032FA24E1592928D00C39198 /* FAQViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 032FA24C1592928D00C39198 /* FAQViewController.xib */; };
 		032FA250159294B900C39198 /* faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = 032FA24F159294B900C39198 /* faq.plist */; };
 		0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0372FF7C10447552004CD031 /* ComicListViewController.m */; };
 		037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
@@ -54,6 +53,7 @@
 		DAC1B2AB1C559EF700436971 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */; };
 		DAC1B2AF1C55AF6E00436971 /* UIImage+EXIFCompensation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2AE1C55AF6E00436971 /* UIImage+EXIFCompensation.swift */; };
 		DAC1B2B11C55B00300436971 /* UIScrollView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */; };
+		DAFD817020DD5D97006A39DC /* FAQViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAFD816F20DD5D97006A39DC /* FAQViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +71,6 @@
 		031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+TypeSafety.m"; sourceTree = "<group>"; };
 		032FA24A1592928D00C39198 /* FAQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAQViewController.h; sourceTree = "<group>"; };
 		032FA24B1592928D00C39198 /* FAQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FAQViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		032FA24C1592928D00C39198 /* FAQViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FAQViewController.xib; sourceTree = "<group>"; };
 		032FA24F159294B900C39198 /* faq.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = faq.plist; sourceTree = "<group>"; };
 		034E0E9A10A9ED8F0021D494 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		034E0E9E10A9EDA00021D494 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -152,6 +151,7 @@
 		DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		DAC1B2AE1C55AF6E00436971 /* UIImage+EXIFCompensation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+EXIFCompensation.swift"; sourceTree = "<group>"; };
 		DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Helper.swift"; sourceTree = "<group>"; };
+		DAFD816F20DD5D97006A39DC /* FAQViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FAQViewController.storyboard; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,7 +265,7 @@
 				03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */,
 				032FA24A1592928D00C39198 /* FAQViewController.h */,
 				032FA24B1592928D00C39198 /* FAQViewController.m */,
-				032FA24C1592928D00C39198 /* FAQViewController.xib */,
+				DAFD816F20DD5D97006A39DC /* FAQViewController.storyboard */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -476,10 +476,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAFD817020DD5D97006A39DC /* FAQViewController.storyboard in Resources */,
 				0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */,
 				039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */,
 				51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */,
-				032FA24E1592928D00C39198 /* FAQViewController.xib in Resources */,
 				032FA250159294B900C39198 /* faq.plist in Resources */,
 				5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */,
 				03870FCF1595525D00436B99 /* comics.sqlite in Resources */,

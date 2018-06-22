@@ -226,7 +226,8 @@ static UIImage *__downloadImage = nil;
 	 [UIAlertAction actionWithTitle:NSLocalizedString(@"Read the FAQ", @"Action sheet title")
 							  style:UIAlertActionStyleDefault
 							handler:^(UIAlertAction * _Nonnull action) {
-								FAQViewController *faqViewController = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
+								UIStoryboard *faqStoryBoard = [UIStoryboard storyboardWithName:@"FAQViewController" bundle:[NSBundle mainBundle]];
+								FAQViewController *faqViewController = [faqStoryBoard instantiateViewControllerWithIdentifier:@"FAQViewController"];
 								UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:faqViewController];
 								[self presentViewController:navigationController animated:YES completion:nil];
 							}]
