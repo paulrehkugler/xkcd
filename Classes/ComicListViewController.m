@@ -237,7 +237,7 @@ static UIImage *__downloadImage = nil;
 							  style:UIAlertActionStyleDefault
 							handler:^(UIAlertAction * _Nonnull action) {
 								NSURL *appStoreReviewURL = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=303688284&pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8"];
-								[[UIApplication sharedApplication] openURL:appStoreReviewURL];
+								[[UIApplication sharedApplication] openURL:appStoreReviewURL options:@{} completionHandler:nil];
 							}]
 	 ];
 	

@@ -117,12 +117,14 @@ NSString *const FCActivityTypeOpenInChrome = @"FCActivityTypeOpenInChrome";
 
 - (void)performActivity
 {
-	[self activityDidFinish:[UIApplication.sharedApplication openURL:[NSURL URLWithString:[NSString stringWithFormat:
-																						   @"googlechrome-x-callback://x-callback-url/open/?url=%@&x-success=%@&x-source=%@",
-																						   [self.class conservativelyPercentEscapeString:self.URL.absoluteString],
-																						   [self.class conservativelyPercentEscapeString:(self.successCallbackURL ? self.successCallbackURL.absoluteString : @"")],
-																						   [self.class conservativelyPercentEscapeString:(self.callbackSource ?: @"")]
-																						   ]]]];
+	[UIApplication.sharedApplication openURL:[NSURL URLWithString:[NSString stringWithFormat:
+																   @"googlechrome-x-callback://x-callback-url/open/?url=%@&x-success=%@&x-source=%@",
+																   [self.class conservativelyPercentEscapeString:self.URL.absoluteString],
+																   [self.class conservativelyPercentEscapeString:(self.successCallbackURL ? self.successCallbackURL.absoluteString : @"")],
+																   [self.class conservativelyPercentEscapeString:(self.callbackSource ?: @"")]
+																   ]] options:@{} completionHandler:^(BOOL success) {
+		[self activityDidFinish:success];
+	}];
 }
 
 @end
