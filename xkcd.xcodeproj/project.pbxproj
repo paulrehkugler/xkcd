@@ -11,7 +11,6 @@
 		032FA24D1592928D00C39198 /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 032FA24B1592928D00C39198 /* FAQViewController.m */; };
 		032FA250159294B900C39198 /* faq.plist in Resources */ = {isa = PBXBuildFile; fileRef = 032FA24F159294B900C39198 /* faq.plist */; };
 		0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0372FF7C10447552004CD031 /* ComicListViewController.m */; };
-		037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
 		037CC6DC122B183C002E4738 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DB122B183C002E4738 /* Security.framework */; };
 		037CC6E0122B1846002E4738 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
 		0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0384E76210500E0F0096D4E7 /* Settings.bundle */; };
@@ -43,8 +42,6 @@
 		516356E81BCBE12600BF7D91 /* FCOpenInSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */; };
 		5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */; };
 		51A205AC1BCD2E3D0029ABE2 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
-		51A205AD1BCD2E420029ABE2 /* TestBrokenUnicodeFixer.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */; };
-		51A205AE1BCD2F3B0029ABE2 /* NSData+BrokenUnicodeJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */; };
 		51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; };
 		DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A41C558B0900436971 /* AppDelegate.swift */; };
@@ -77,9 +74,6 @@
 		0372FF7B10447552004CD031 /* ComicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicListViewController.h; sourceTree = "<group>"; };
 		0372FF7C10447552004CD031 /* ComicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComicListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		03798E72146C9FD8006AD9B1 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		037C49E115895B7E0026DE43 /* NSData+BrokenUnicodeJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+BrokenUnicodeJSON.h"; sourceTree = "<group>"; };
-		037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSData+BrokenUnicodeJSON.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestBrokenUnicodeFixer.m; path = ../Classes/TestBrokenUnicodeFixer.m; sourceTree = "<group>"; };
 		037CC6DB122B183C002E4738 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		037CC6DD122B183C002E4738 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		037CC6DF122B1846002E4738 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -246,8 +240,6 @@
 				03F114A8104F2B2B0045AEFC /* TiledImage.m */,
 				03B6BC04112CB3A100C32C21 /* NSString_HTML.h */,
 				03B6BC05112CB3A200C32C21 /* NSString_HTML.m */,
-				037C49E115895B7E0026DE43 /* NSData+BrokenUnicodeJSON.h */,
-				037C49E215895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m */,
 				516356E31BCBE12600BF7D91 /* FCOpenInChromeActivity.h */,
 				516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */,
 				516356E51BCBE12600BF7D91 /* FCOpenInSafariActivity.h */,
@@ -394,7 +386,6 @@
 			children = (
 				51A205A41BCD2E180029ABE2 /* Info.plist */,
 				03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */,
-				037C49E71589648A0026DE43 /* TestBrokenUnicodeFixer.m */,
 			);
 			path = xkcdTests;
 			sourceTree = "<group>";
@@ -520,7 +511,6 @@
 				03F702351464C5550091BF49 /* UITableView_TLCommon.m in Sources */,
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				DAC1B2B11C55B00300436971 /* UIScrollView+Helper.swift in Sources */,
-				037C49E315895B7E0026DE43 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
 				DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */,
 				032FA24D1592928D00C39198 /* FAQViewController.m in Sources */,
@@ -536,8 +526,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51A205AD1BCD2E420029ABE2 /* TestBrokenUnicodeFixer.m in Sources */,
-				51A205AE1BCD2F3B0029ABE2 /* NSData+BrokenUnicodeJSON.m in Sources */,
 				51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */,
 				51A205AC1BCD2E3D0029ABE2 /* TestNSString_HTML.m in Sources */,
 			);

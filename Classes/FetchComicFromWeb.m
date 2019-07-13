@@ -5,7 +5,6 @@
 #import "FetchComicFromWeb.h"
 #import "Comic.h"
 #import "NSString_HTML.h"
-#import "NSData+BrokenUnicodeJSON.h"
 #import "NSDictionary+TypeSafety.h"
 #import "xkcd-Swift.h"
 
@@ -71,8 +70,7 @@
 				self.error = error;
 				if (!error) {
 					NSError *parseError = nil;
-					NSData *fixedData = [data dataByFixingFuckedUpUnicodeInJSON];
-					NSDictionary *comicDictionary = [NSJSONSerialization JSONObjectWithData:fixedData options:0 error:&parseError];
+					NSDictionary *comicDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
 					self.error = parseError;
 					if (!parseError && [comicDictionary isKindOfClass:[NSDictionary class]]) {
 						self.comicName = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"title"]];
