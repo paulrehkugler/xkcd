@@ -85,7 +85,7 @@
 	 Good ol' iOS 7+ scroll view behavior. Too hard to debug UIViewController, so here's a hack to make
 	 sure the content doesn't underlap the nav bar when the view first appears. Cool.
 	 */
-	self.textView.contentOffset = CGPointMake(0, -self.topLayoutGuide.length);
+	self.textView.contentOffset = CGPointMake(0, -self.view.safeAreaLayoutGuide.layoutFrame.origin.y);
 }
 
 - (void)done {

@@ -99,7 +99,7 @@ final class CoreDataStack: NSObject {
 
         super.init()
 
-		NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillTerminate(_:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillTerminate(_:)), name: UIApplication.willTerminateNotification, object: nil)
     }
 
     // MARK: - Saving
