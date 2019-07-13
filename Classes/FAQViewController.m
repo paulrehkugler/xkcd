@@ -6,22 +6,37 @@
 
 @interface FAQViewController ()
 
-@property (nonatomic) IBOutlet UITextView *textView;
+@property (nonatomic) UITextView *textView;
 
 @end
 
 @implementation FAQViewController
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-	self = [super initWithCoder:aDecoder];
+- (instancetype) init {
+	self = [super init];
 	if (self) {
 		self.title = NSLocalizedString(@"FAQ", @"FAQ");
+		self.textView = [[UITextView alloc] init];
+		self.textView.translatesAutoresizingMaskIntoConstraints = false;
 	}
+	
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	self.view.backgroundColor = UIColor.whiteColor;
+	[self.view addSubview:self.textView];
+	
+	NSArray<NSLayoutConstraint *> *constraints = @[
+	  [self.textView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+	  [self.textView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+	  [self.textView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+	  [self.textView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
+	];
+	
+	[NSLayoutConstraint activateConstraints:constraints];
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 																						   target:self
