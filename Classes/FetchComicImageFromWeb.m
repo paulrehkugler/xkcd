@@ -58,6 +58,8 @@
 - (void)main {
     if (self.potentialRetinaImageURL) {
         [self requestRetinaImage];
+    } else {
+        [self requestNonRetinaImage];
     }
 }
 
