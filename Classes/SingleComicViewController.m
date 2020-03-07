@@ -87,6 +87,16 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self calculateZoomScaleAndAnimate:NO];
+    
+    if ([Preferences defaultPreferences].openZoomedOut) {
+        [self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:NO];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
@@ -160,11 +170,7 @@
 		[self.contentView addSubview:tileView];
 	}
 	[self.imageScroller addSubview:self.contentView];
-	
-	if ([Preferences defaultPreferences].openZoomedOut) {
-		[self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:NO];
-	}
-	
+    	
 	UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTitleText:)];
 	longPress.minimumPressDuration = 0.5f;
 	[self.view addGestureRecognizer:longPress];
@@ -188,16 +194,19 @@
 	}
 }
 
-- (void) calculateZoomScaleAndAnimate:(BOOL)animate {
+- (void)calculateZoomScaleAndAnimate:(BOOL)animate {
 	CGSize contentSize = self.comic.image.exifAgnosticSize;
-	self.imageScroller.contentSize = contentSize;
+	
+    self.imageScroller.contentSize = contentSize;
 	self.imageScroller.maximumZoomScale = 2;
-	CGFloat xMinZoom = self.imageScroller.frame.size.width / contentSize.width;
+	
+    CGFloat xMinZoom = self.imageScroller.frame.size.width / contentSize.width;
 	CGFloat yMinZoom = (self.imageScroller.frame.size.height - (self.navigationController.navigationBar.frame.size.height + self.navigationController.toolbar.frame.size.height)) / contentSize.height;
     self.imageScroller.minimumZoomScale = MIN(MIN(xMinZoom, yMinZoom), 1);
+    
 	if (self.imageScroller.zoomScale < self.imageScroller.minimumZoomScale) {
 		[self.imageScroller setZoomScale:self.imageScroller.minimumZoomScale animated:animate];
-	}
+    }
 }
 
 - (void)displayLoadingView {
