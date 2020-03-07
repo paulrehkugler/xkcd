@@ -18,6 +18,7 @@
 							context:(id)context;
 
 @property (nonatomic, readonly) NSData *comicImageData;
+@property (nonatomic, readonly) BOOL isRetinaImage;
 @property (nonatomic, readonly) NSInteger comicNumber;
 @property (nonatomic, readonly) NSError *error;
 @property (nonatomic, readonly) id context;
