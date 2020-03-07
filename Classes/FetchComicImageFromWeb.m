@@ -112,7 +112,11 @@
 }
 
 - (BOOL)shouldAttemptToDownloadRetinaImage {
-    return _comicNumber >= 1053; // https://xkcd.com/1053/ is the first comic that shows up with a retina version
+    // https://xkcd.com/1053/ is the first comic that shows up with a retina version
+    return self.comicNumber >= 1053
+        // these comics don't work via the API at all, so don't bother trying to download the retina image
+        && self.comicNumber != 1663 // https://xkcd.com/1663/
+        && self.comicNumber != 1608; // https://xkcd.com/1608/
 }
 
 @end
