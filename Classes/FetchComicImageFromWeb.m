@@ -64,6 +64,9 @@
 - (void)requestRetinaImage {
     [self requestImage:self.potentialRetinaImageURL completion:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
+            TLDebugLog(@"Retina image fetch failed with error: %@", self.error);
+            TLDebugLog(@"Requesting non-retina image for comic %li", (long)self.comicNumber);
+
             [self requestNonRetinaImage];
         } else {
             self.isRetinaImage = YES;
