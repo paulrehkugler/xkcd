@@ -305,7 +305,7 @@
 	if (recognizer.state == UIGestureRecognizerStateBegan) {
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:self.comic.name message:self.comic.titleText preferredStyle:UIAlertControllerStyleAlert];
 		[alertController addAction:
-		 [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"Confirmation action title.")
+		 [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Confirmation action title.")
 								  style:UIAlertActionStyleCancel
 								handler:^(UIAlertAction * _Nonnull action) {}]
 		];
@@ -345,7 +345,7 @@
 																			 message:failAlertMessage
 																	  preferredStyle:UIAlertControllerStyleAlert];
 	[alertController addAction:
-	 [UIAlertAction actionWithTitle:@"Ok"
+	 [UIAlertAction actionWithTitle:@"OK"
 							  style:UIAlertActionStyleDefault
 							handler:^(UIAlertAction * _Nonnull action) {
 								[self.navigationController popViewControllerAnimated:YES];
