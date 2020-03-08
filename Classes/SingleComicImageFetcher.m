@@ -39,15 +39,13 @@
 }
 
 - (void)fetchImageForComic:(Comic *)comic context:(id)context {
-  if (comic.imageURL) {
-    NSURL *comicImageURL = [NSURL URLWithString:comic.imageURL];
+  if (comic.imageURLs) {
     FetchComicImageFromWeb *fetchOperation = [[FetchComicImageFromWeb alloc] initWithComicNumber:[comic.number integerValue]
-                                                                                         imageURL:comicImageURL
-                                                                        attemptLargeImageDownload:comic.link
+                                                                                       imageURLs:comic.imageURLs
                                                                                       URLSession:self.URLSession
-                                                                                 completionTarget:self
-                                                                                           action:@selector(didCompleteFetchOperation:)
-                                                                                          context:context];
+                                                                                completionTarget:self
+                                                                                          action:@selector(didCompleteFetchOperation:)
+                                                                                         context:context];
     comic.loading = @YES;
     self.keepInMemory = self;
     [self.fetchQueue addOperation:fetchOperation];
