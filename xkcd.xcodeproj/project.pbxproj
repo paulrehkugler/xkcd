@@ -179,20 +179,6 @@
 			name = Meta;
 			sourceTree = "<group>";
 		};
-		03941EDE159161BC00ADBED9 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */,
-				03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */,
-				031FE8EF159536C3008E92DF /* NSDictionary+TypeSafety.h */,
-				031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */,
-				DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */,
-				DABE7EFF241545B600155DE3 /* NSMutableArray+Safety.h */,
-				DABE7F00241545B600155DE3 /* NSMutableArray+Safety.m */,
-			);
-			name = Categories;
-			sourceTree = "<group>";
-		};
 		03DA9D721097B497005A34B2 /* System */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,7 +268,7 @@
 				DAC1B2A81C559B2A00436971 /* Preferences.swift */,
 				DAC1B2A41C558B0900436971 /* AppDelegate.swift */,
 				DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */,
-				03941EDE159161BC00ADBED9 /* Categories */,
+				DABE7F0424155EEB00155DE3 /* Categories */,
 				03F10F0A104D8F0A0045AEFC /* Protocols */,
 				03F10D34104D6DD20045AEFC /* Models */,
 				03F10F03104D8ECB0045AEFC /* Controllers */,
@@ -383,6 +369,20 @@
 				5136AE8B175463A100742406 /* TLNavigationController.m */,
 			);
 			path = TLCommon;
+			sourceTree = "<group>";
+		};
+		DABE7F0424155EEB00155DE3 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */,
+				03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */,
+				031FE8EF159536C3008E92DF /* NSDictionary+TypeSafety.h */,
+				031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */,
+				DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */,
+				DABE7EFF241545B600155DE3 /* NSMutableArray+Safety.h */,
+				DABE7F00241545B600155DE3 /* NSMutableArray+Safety.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
