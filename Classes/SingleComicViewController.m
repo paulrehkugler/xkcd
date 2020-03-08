@@ -85,6 +85,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    // For some reason, in iOS 13, I need to set this meaningless value. Without it, iOS applies some default insets to
+    // the scroll indicators, which look horrible. No, UIEdgeInsetsZero doesn't work.
+    self.imageScroller.horizontalScrollIndicatorInsets = UIEdgeInsetsMake(0, 1, 0, 1);
+    
     [self calculateZoomScaleAndAnimate:NO];
     
     if ([Preferences defaultPreferences].openZoomedOut) {
