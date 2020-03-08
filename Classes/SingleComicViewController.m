@@ -15,9 +15,6 @@
 #import "XkcdErrorCodes.h"
 #import "xkcd-Swift.h"
 
-#define kTileWidth 1024.0f
-#define kTileHeight 1024.0f
-
 #pragma mark -
 
 @interface SingleComicViewController ()
@@ -33,8 +30,7 @@
 - (void)calculateZoomScaleAndAnimate:(BOOL)animate;
 
 @property (nonatomic) Comic *comic;
-@property (nonatomic) NSMutableArray *comicImageViews;
-@property (nonatomic) UIView *contentView;
+@property (nonatomic) UIImageView *comicImageView;
 @property (nonatomic) UIScrollView *imageScroller;
 @property (nonatomic) UIActivityIndicatorView *loadingView;
 @property (nonatomic) SingleComicImageFetcher *imageFetcher;
@@ -153,16 +149,8 @@
 - (void)displayComicImage {
 	// Load up the comic image/view
 	UIImage *comicImage = self.comic.image;
-	CGSize contentSize = comicImage.exifAgnosticSize;
-	self.contentView = [[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)];
-    
-    self.comicImageViews = [@[[[UIImageView alloc] initWithImage:comicImage]] mutableCopy];
-    
-	for (UIView *tileView in self.comicImageViews) {
-		[self.contentView addSubview:tileView];
-	}
-    
-	[self.imageScroller addSubview:self.contentView];
+    self.comicImageView = [[UIImageView alloc] initWithImage:comicImage];
+	[self.imageScroller addSubview:self.comicImageView];
     	
 	UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTitleText:)];
 	longPress.minimumPressDuration = 0.5f;
@@ -360,10 +348,7 @@
 #pragma mark - UIScrollViewDelegate methods
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-  return self.contentView;
-}
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+  return self.comicImageView;
 }
 
 @end
