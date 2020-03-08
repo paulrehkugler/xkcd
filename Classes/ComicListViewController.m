@@ -184,6 +184,11 @@ static UIImage *__downloadImage = nil;
 
 - (void)viewComic:(Comic *)comic {
 	SingleComicViewController *singleComicViewController = [[SingleComicViewController alloc] initWithComic:comic];
+    
+    if (self.searchController.isActive) {
+        [self.searchController dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 	[self.navigationController pushViewController:singleComicViewController animated:YES];
 }
 
@@ -500,9 +505,6 @@ static UIImage *__downloadImage = nil;
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	Comic *selectedComic = [self comicAtIndexPath:indexPath inTableView:aTableView];
-	if (self.searchController.isActive) {
-		self.searchController.active = NO;
-	}
 	
 	BOOL shouldDeselect = YES;
 	if ([selectedComic.number integerValue] != 404) {
