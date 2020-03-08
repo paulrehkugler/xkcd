@@ -668,11 +668,11 @@ static UIImage *__downloadImage = nil;
     }
     
 	switch(type) {
-		case NSFetchedResultsChangeInsert:;
+		case NSFetchedResultsChangeInsert:
 			[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
 						  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
-		case NSFetchedResultsChangeDelete:;
+		case NSFetchedResultsChangeDelete:
 			[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
 						  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
@@ -693,21 +693,21 @@ static UIImage *__downloadImage = nil;
     }
     
 	switch(type) {
-		case NSFetchedResultsChangeInsert:;
+		case NSFetchedResultsChangeInsert:
 			[self.tableView insertRowsAtIndexPaths:@[newIndexPath]
 								  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
 			
-		case NSFetchedResultsChangeDelete:;
+		case NSFetchedResultsChangeDelete:
 			[self.tableView deleteRowsAtIndexPaths:@[indexPath]
 									 withRowAnimation:UITableViewRowAnimationFade];
 			break;
 			
-		case NSFetchedResultsChangeUpdate:;
+		case NSFetchedResultsChangeUpdate:
 			[self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
 			break;
 			
-		case NSFetchedResultsChangeMove:;
+		case NSFetchedResultsChangeMove:
 			[self.tableView deleteRowsAtIndexPaths:@[indexPath]
 								  withRowAnimation:UITableViewRowAnimationFade];
 			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
