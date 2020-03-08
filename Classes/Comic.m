@@ -8,6 +8,7 @@
 
 #import "Comic.h"
 #import "NSArray+Filtering.h"
+#import "NSMutableArray+Safety.h"
 #import "TLMacros.h"
 #import "xkcd-Swift.h"
 
@@ -200,7 +201,44 @@ static NSMutableSet *downloadedImages = nil;
 	return [[CoreDataStack sharedCoreDataStack].applicationsDocumentsDirectory stringByAppendingPathComponent:imageFilename];
 }
 
-+ (BOOL)hasLargeImage:(Comic *)comic {
++ (BOOL)hasLinkedToImage:(Comic *)comic {
+    // I have this hardcoded list here because these are the comics that are known to have image URLs in their link field.
+    // Because I'm doing the CoreData migration to support the link attribute long after these comics were published,
+    // checking the link attribute won't work. Most users will already have these images downloaded, but some may clear
+    // out their images and redownload all of them (because I added support for huge images, large images, and 2x images).
+    NSArray<NSNumber *> *comicsThatHaveLinkedToImages = @[@273, @256];
+    
+    if ([comicsThatHaveLinkedToImages containsObject:comic.number]) {
+        return YES;
+    } else if (comic.link) {
+        // All of the links for linked-to images seem to end with .png. If this comic has a link like that, we will use that URL
+        // to try to download it. (See: -imageURLs computed property below)
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b.+(\\.png)\\b" options:0 error:nil];
+        return [regex numberOfMatchesInString:comic.link options:0 range:NSMakeRange(0, comic.link.length)] > 0;
+    }
+    
+    return NO;
+}
+
++ (BOOL)potentiallyHasHugeImage:(Comic *)comic {
+    // I have this hardcoded list here because these are the comics that are known to have huge images.
+    // Because I'm doing the CoreData migration to support the link attribute long after these comics were published,
+    // checking the link attribute won't work. Most users will already have these images downloaded, but some may clear
+    // out their images and redownload all of them (because I added support for huge images, large images, and 2x images).
+    NSArray<NSNumber *> *comicsThatHaveHugeImages = @[@980];
+    if ([comicsThatHaveHugeImages containsObject:comic.number]) {
+        return YES;
+    } else if (comic.link) {
+        // All of the links for huge images seem to end with /huge. If this comic has a link like that, we will guess at a huge image
+        // url and try to download it. (See: -imageURLs computed property below)
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b.+(/huge/)\\b" options:0 error:nil];
+        return [regex numberOfMatchesInString:comic.link options:0 range:NSMakeRange(0, comic.link.length)] > 0;
+    }
+    
+    return NO;
+}
+
++ (BOOL)potentiallyHasLargeImage:(Comic *)comic {
     // I have this hardcoded list here because these are the comics that are known to have large images.
     // Because I'm doing the CoreData migration to support the link attribute long after these comics were published,
     // checking the link attribute won't work. Most users will already have these images downloaded, but some may clear
@@ -208,15 +246,24 @@ static NSMutableSet *downloadedImages = nil;
     NSArray<NSNumber *> *comicsThatHaveLargeImages = @[@1970, @1939, @1688, @1509, @1491, @1461, @1407, @1392, @1389, @1298, @1256, @1212,
                                                       @1196, @1127, @1080, @1079, @1071, @1040, @1000, @930, @850, @832, @802, @681, @657];
     if ([comicsThatHaveLargeImages containsObject:comic.number]) {
-        return true;
+        return YES;
     } else if (comic.link) {
         // All of the links for large images seem to end with _large or /large. If this comic has a link like that, we will guess at a large image
-        // url and try to download it. (See: FetchComicImageFromWeb)
+        // url and try to download it. (See: -imageURLs computed property below)
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b.+([_/]large/)\\b" options:0 error:nil];
         return [regex numberOfMatchesInString:comic.link options:0 range:NSMakeRange(0, comic.link.length)] > 0;
     }
     
     return NO;
+}
+
++ (BOOL)potentiallyHasRetinaImage:(Comic *)comic {
+    NSUInteger comicNumber = comic.number.unsignedIntegerValue;
+    // https://xkcd.com/1053/ is the first comic that shows up with a retina version
+    return comicNumber >= 1053
+        // these comics don't work via the API at all, so don't bother trying to download the retina image
+        && comicNumber != 1663 // https://xkcd.com/1663/
+        && comicNumber != 1608; // https://xkcd.com/1608/
 }
 
 #pragma mark -
@@ -237,6 +284,76 @@ static NSMutableSet *downloadedImages = nil;
 
 - (BOOL)downloaded {
 	return [downloadedImages containsObject:self.imageFilename];
+}
+
+- (NSURL *)linkedToImageURL {
+    if (self.link) {
+        return [[NSURL alloc] initWithString:self.link];
+    }
+    // These two cases are hardcoded for people that downloaded the comic before link was parsed into CoreData.
+    else if ([self.number isEqualToNumber:@273]) {
+        return [[NSURL alloc] initWithString:@"https://imgs.xkcd.com/comics/electromagnetic_spectrum.png"];
+    }
+    else if ([self.number isEqualToNumber:@256]) {
+        return [[NSURL alloc] initWithString:@"https://imgs.xkcd.com/comics/online_communities.png"];
+    }
+    
+    return nil;
+}
+
+- (NSURL *)potentialHugeImageURL {
+    NSString *originalImageURL = self.imageURL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b(.+)(\\.\\w+)\\b" options:0 error:nil];
+
+    // This takes URLs that look like https://imgs.xkcd.com/comics/money.png and converts them to https://imgs.xkcd.com/comics/money_huge.png
+    NSString *potentialLargeImageURLString = [regex stringByReplacingMatchesInString:originalImageURL options:0 range:NSMakeRange(0, originalImageURL.length) withTemplate:@"$1_huge$2"];
+    return [[NSURL alloc] initWithString:potentialLargeImageURLString];
+}
+
+- (NSURL *)potentialLargeImageURL {
+    NSString *originalImageURL = self.imageURL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b(.+)(\\.\\w+)\\b" options:0 error:nil];
+
+    // This takes URLs that look like https://imgs.xkcd.com/comics/movie_narrative_charts.png and converts them to https://imgs.xkcd.com/comics/movie_narrative_charts_large.png
+    NSString *potentialLargeImageURLString = [regex stringByReplacingMatchesInString:originalImageURL options:0 range:NSMakeRange(0, originalImageURL.length) withTemplate:@"$1_large$2"];
+    return [[NSURL alloc] initWithString:potentialLargeImageURLString];
+}
+
+- (NSURL *)potentialRetinaImageURL {
+    NSString *originalImageURL = self.imageURL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b(.+)(\\.\\w+)\\b" options:0 error:nil];
+    
+    // This takes URLs that look like https://imgs.xkcd.com/comics/business_greetings.png and converts them to https://imgs.xkcd.com/comics/business_greetings_2x.png
+    NSString *potentialRetinaImageURLString = [regex stringByReplacingMatchesInString:originalImageURL options:0 range:NSMakeRange(0, originalImageURL.length) withTemplate:@"$1_2x$2"];
+    return [[NSURL alloc] initWithString:potentialRetinaImageURLString];
+}
+
+- (NSArray<NSURL *> *)imageURLs {
+    if (!self.imageURL) {
+        return nil;
+    }
+    
+    NSMutableArray<NSURL *> *imageURLs = [[NSMutableArray alloc] init];
+    
+    if ([Comic hasLinkedToImage:self]) {
+        [imageURLs safelyAddObject:self.linkedToImageURL];
+    }
+    
+    if ([Comic potentiallyHasHugeImage:self]) {
+        [imageURLs safelyAddObject:[self potentialHugeImageURL]];
+    }
+    
+    if ([Comic potentiallyHasLargeImage:self]) {
+        [imageURLs safelyAddObject:[self potentialLargeImageURL]];
+    }
+    
+    if ([Comic potentiallyHasRetinaImage:self]) {
+        [imageURLs safelyAddObject:[self potentialRetinaImageURL]];
+    }
+    
+    [imageURLs addObject:[[NSURL alloc] initWithString:self.imageURL]];
+    
+    return [imageURLs copy];
 }
 
 @end
