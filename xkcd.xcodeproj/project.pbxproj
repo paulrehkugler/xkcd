@@ -42,6 +42,7 @@
 		51A205AC1BCD2E3D0029ABE2 /* TestNSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */; };
 		51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; };
+		DA6923E7241562AE009B73E0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A205A41BCD2E180029ABE2 /* Info.plist */; };
 		DA6EB773241484E100135165 /* xkcd.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA6EB770241484E100135165 /* xkcd.xcdatamodeld */; };
 		DABE7F01241545B600155DE3 /* NSMutableArray+Safety.m in Sources */ = {isa = PBXBuildFile; fileRef = DABE7F00241545B600155DE3 /* NSMutableArray+Safety.m */; };
 		DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A41C558B0900436971 /* AppDelegate.swift */; };
@@ -77,13 +78,12 @@
 		037CC6DF122B1846002E4738 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0384E76210500E0F0096D4E7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		0384E8C3105036D40096D4E7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		03870FCE1595525D00436B99 /* comics.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = comics.sqlite; sourceTree = "<group>"; };
+		03870FCE1595525D00436B99 /* comics.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = comics.sqlite; path = ../../comics.sqlite; sourceTree = "<group>"; };
 		039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ad-hoc-entitlements.plist"; sourceTree = "<group>"; };
 		03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Filtering.h"; sourceTree = "<group>"; };
 		03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Filtering.m"; sourceTree = "<group>"; };
 		03B6BC04112CB3A100C32C21 /* NSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_HTML.h; sourceTree = "<group>"; };
 		03B6BC05112CB3A200C32C21 /* NSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NSString_HTML.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSString_HTML.m; sourceTree = "<group>"; };
 		03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		03F10D35104D6DDE0045AEFC /* Comic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comic.h; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		516356E51BCBE12600BF7D91 /* FCOpenInSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCOpenInSafariActivity.h; sourceTree = "<group>"; };
 		516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FCOpenInSafariActivity.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
-		51A205A01BCD2E180029ABE2 /* xkcdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xkcdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		51A205A01BCD2E180029ABE2 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A205A41BCD2E180029ABE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51AB8A261BCAD05100BB58A7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* xkcd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-Info.plist"; sourceTree = "<group>"; };
@@ -184,22 +184,10 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* xkcd-Info.plist */,
-				03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */,
 				0384E76210500E0F0096D4E7 /* Settings.bundle */,
 				039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */,
 			);
-			name = System;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		03DA9D751097B4C1005A34B2 /* Core data */ = {
-			isa = PBXGroup;
-			children = (
-				DA6EB770241484E100135165 /* xkcd.xcdatamodeld */,
-				03870FCE1595525D00436B99 /* comics.sqlite */,
-			);
-			name = "Core data";
-			path = ..;
+			path = System;
 			sourceTree = "<group>";
 		};
 		03E9063310AA3C5F00D74902 /* Fetch related */ = {
@@ -249,7 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* xkcd.app */,
-				51A205A01BCD2E180029ABE2 /* xkcdTests.xctest */,
+				51A205A01BCD2E180029ABE2 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -283,6 +271,15 @@
 				037CC6DF122B1846002E4738 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA6923E6241561CF009B73E0 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				DA6EB770241484E100135165 /* xkcd.xcdatamodeld */,
+				03870FCE1595525D00436B99 /* comics.sqlite */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		DABE7F0224155EB000155DE3 /* TLCommon */ = {
@@ -370,11 +367,11 @@
 		DABE7F0924155FEA00155DE3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DA6923E6241561CF009B73E0 /* CoreData */,
 				51AB8A261BCAD05100BB58A7 /* Media.xcassets */,
 				03F40E3C122AA54000A35F44 /* Application icons */,
 				034E0E9910A9ED7C0021D494 /* Meta */,
 				03DA9D721097B497005A34B2 /* System */,
-				03DA9D751097B4C1005A34B2 /* Core data */,
 				032FA24F159294B900C39198 /* faq.plist */,
 				5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */,
 			);
@@ -410,9 +407,9 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* xkcd.app */;
 			productType = "com.apple.product-type.application";
 		};
-		51A2059F1BCD2E180029ABE2 /* xkcdTests */ = {
+		51A2059F1BCD2E180029ABE2 /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 51A205A71BCD2E180029ABE2 /* Build configuration list for PBXNativeTarget "xkcdTests" */;
+			buildConfigurationList = 51A205A71BCD2E180029ABE2 /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
 				51A2059C1BCD2E180029ABE2 /* Sources */,
 				51A2059D1BCD2E180029ABE2 /* Frameworks */,
@@ -423,9 +420,9 @@
 			dependencies = (
 				51A205A61BCD2E180029ABE2 /* PBXTargetDependency */,
 			);
-			name = xkcdTests;
+			name = Tests;
 			productName = xkcdTests;
-			productReference = 51A205A01BCD2E180029ABE2 /* xkcdTests.xctest */;
+			productReference = 51A205A01BCD2E180029ABE2 /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -443,6 +440,7 @@
 					};
 					51A2059F1BCD2E180029ABE2 = {
 						CreatedOnToolsVersion = 7.0.1;
+						TestTargetID = 1D6058900D05DD3D006BFB54;
 					};
 				};
 			};
@@ -459,7 +457,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* xkcd */,
-				51A2059F1BCD2E180029ABE2 /* xkcdTests */,
+				51A2059F1BCD2E180029ABE2 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -482,6 +480,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA6923E7241562AE009B73E0 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,7 +615,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/System/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -707,7 +706,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/System/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -745,7 +744,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/System/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -781,7 +780,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/xkcd-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/System/xkcd-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -796,6 +795,7 @@
 		51A205A81BCD2E180029ABE2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -814,19 +814,21 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = xkcdTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = paulrehkugler.xkcdTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/xkcd.app/xkcd";
 			};
 			name = Debug;
 		};
 		51A205A91BCD2E180029ABE2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -840,12 +842,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = xkcdTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = paulrehkugler.xkcdTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/xkcd.app/xkcd";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -853,6 +856,7 @@
 		51A205AA1BCD2E180029ABE2 /* Ad hoc distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -866,12 +870,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = xkcdTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = paulrehkugler.xkcdTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/xkcd.app/xkcd";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Ad hoc distribution";
@@ -879,6 +884,7 @@
 		51A205AB1BCD2E180029ABE2 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -892,12 +898,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = xkcdTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = paulrehkugler.xkcdTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/xkcd.app/xkcd";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Distribution;
@@ -1020,7 +1027,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		51A205A71BCD2E180029ABE2 /* Build configuration list for PBXNativeTarget "xkcdTests" */ = {
+		51A205A71BCD2E180029ABE2 /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				51A205A81BCD2E180029ABE2 /* Debug */,
@@ -1052,7 +1059,8 @@
 				DA6EB772241484E100135165 /* xkcd.xcdatamodel */,
 			);
 			currentVersion = DA6EB771241484E100135165 /* xkcd 2.xcdatamodel */;
-			path = xkcd.xcdatamodeld;
+			name = xkcd.xcdatamodeld;
+			path = ../../xkcd.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
