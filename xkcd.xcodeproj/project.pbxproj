@@ -15,7 +15,6 @@
 		037CC6E0122B1846002E4738 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC6DF122B1846002E4738 /* QuartzCore.framework */; };
 		0384E76310500E0F0096D4E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0384E76210500E0F0096D4E7 /* Settings.bundle */; };
 		0384E8C4105036D40096D4E7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0384E8C3105036D40096D4E7 /* MessageUI.framework */; };
-		03870FCF1595525D00436B99 /* comics.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 03870FCE1595525D00436B99 /* comics.sqlite */; };
 		039387FD10508DE8001EFE4E /* ad-hoc-entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */; };
 		03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = 03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */; };
 		03B6BC06112CB3A200C32C21 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
@@ -43,13 +42,14 @@
 		51A205AF1BCD2F560029ABE2 /* NSString_HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B6BC05112CB3A200C32C21 /* NSString_HTML.m */; };
 		51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AB8A261BCAD05100BB58A7 /* Media.xcassets */; };
 		DA6923E7241562AE009B73E0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A205A41BCD2E180029ABE2 /* Info.plist */; };
-		DA6EB773241484E100135165 /* xkcd.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA6EB770241484E100135165 /* xkcd.xcdatamodeld */; };
 		DABE7F01241545B600155DE3 /* NSMutableArray+Safety.m in Sources */ = {isa = PBXBuildFile; fileRef = DABE7F00241545B600155DE3 /* NSMutableArray+Safety.m */; };
 		DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A41C558B0900436971 /* AppDelegate.swift */; };
 		DAC1B2A71C559A0000436971 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A61C559A0000436971 /* Constants.swift */; };
 		DAC1B2A91C559B2A00436971 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A81C559B2A00436971 /* Preferences.swift */; };
 		DAC1B2AB1C559EF700436971 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */; };
 		DAC1B2B11C55B00300436971 /* UIScrollView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */; };
+		DAFB0959241564F900706B1D /* xkcd.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAFB0956241564F900706B1D /* xkcd.xcdatamodeld */; };
+		DAFB095B2415651100706B1D /* comics.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DAFB095A2415651100706B1D /* comics.sqlite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +78,6 @@
 		037CC6DF122B1846002E4738 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0384E76210500E0F0096D4E7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		0384E8C3105036D40096D4E7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		03870FCE1595525D00436B99 /* comics.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = comics.sqlite; path = ../../comics.sqlite; sourceTree = "<group>"; };
 		039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ad-hoc-entitlements.plist"; sourceTree = "<group>"; };
 		03941EDF159161DB00ADBED9 /* NSArray+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Filtering.h"; sourceTree = "<group>"; };
 		03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Filtering.m"; sourceTree = "<group>"; };
@@ -120,7 +119,6 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* xkcd_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkcd_Prefix.pch; sourceTree = "<group>"; };
 		5136AE8A175463A100742406 /* TLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLNavigationController.h; sourceTree = "<group>"; };
 		5136AE8B175463A100742406 /* TLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLNavigationController.m; sourceTree = "<group>"; };
 		516356E31BCBE12600BF7D91 /* FCOpenInChromeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCOpenInChromeActivity.h; sourceTree = "<group>"; };
@@ -133,8 +131,6 @@
 		51AB8A261BCAD05100BB58A7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* xkcd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xkcd-Info.plist"; sourceTree = "<group>"; };
 		B5C55A76161E740400B0A2D9 /* iTunesArtwork@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iTunesArtwork@2x.jpg"; sourceTree = "<group>"; };
-		DA6EB771241484E100135165 /* xkcd 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "xkcd 2.xcdatamodel"; sourceTree = "<group>"; };
-		DA6EB772241484E100135165 /* xkcd.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = xkcd.xcdatamodel; sourceTree = "<group>"; };
 		DABE7EFF241545B600155DE3 /* NSMutableArray+Safety.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Safety.h"; sourceTree = "<group>"; };
 		DABE7F00241545B600155DE3 /* NSMutableArray+Safety.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Safety.m"; sourceTree = "<group>"; };
 		DAC1B2A31C558B0900436971 /* xkcd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xkcd-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -143,6 +139,10 @@
 		DAC1B2A81C559B2A00436971 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Helper.swift"; sourceTree = "<group>"; };
+		DAFB0957241564F900706B1D /* xkcd 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "xkcd 2.xcdatamodel"; sourceTree = "<group>"; };
+		DAFB0958241564F900706B1D /* xkcd.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = xkcd.xcdatamodel; sourceTree = "<group>"; };
+		DAFB095A2415651100706B1D /* comics.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = comics.sqlite; sourceTree = "<group>"; };
+		DAFB095C2415654900706B1D /* xkcd_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xkcd_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,8 +276,8 @@
 		DA6923E6241561CF009B73E0 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				DA6EB770241484E100135165 /* xkcd.xcdatamodeld */,
-				03870FCE1595525D00436B99 /* comics.sqlite */,
+				DAFB0956241564F900706B1D /* xkcd.xcdatamodeld */,
+				DAFB095A2415651100706B1D /* comics.sqlite */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -358,7 +358,7 @@
 		DABE7F0824155FB800155DE3 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* xkcd_Prefix.pch */,
+				DAFB095C2415654900706B1D /* xkcd_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			path = "Other Sources";
@@ -472,7 +472,7 @@
 				51AB8A271BCAD05100BB58A7 /* Media.xcassets in Resources */,
 				032FA250159294B900C39198 /* faq.plist in Resources */,
 				5183AD091BCB123800F5AFAF /* LaunchStoryboard.storyboard in Resources */,
-				03870FCF1595525D00436B99 /* comics.sqlite in Resources */,
+				DAFB095B2415651100706B1D /* comics.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,11 +510,11 @@
 				03F702411464C5B10091BF49 /* TLMersenneTwister.m in Sources */,
 				DAC1B2B11C55B00300436971 /* UIScrollView+Helper.swift in Sources */,
 				03941EE1159161DB00ADBED9 /* NSArray+Filtering.m in Sources */,
-				DA6EB773241484E100135165 /* xkcd.xcdatamodeld in Sources */,
 				DAC1B2A51C558B0900436971 /* AppDelegate.swift in Sources */,
 				032FA24D1592928D00C39198 /* FAQViewController.m in Sources */,
 				DAC1B2A91C559B2A00436971 /* Preferences.swift in Sources */,
 				031FE8F1159536C3008E92DF /* NSDictionary+TypeSafety.m in Sources */,
+				DAFB0959241564F900706B1D /* xkcd.xcdatamodeld in Sources */,
 				5136AE8C175463A100742406 /* TLNavigationController.m in Sources */,
 				DAC1B2A71C559A0000436971 /* Constants.swift in Sources */,
 				DAC1B2AB1C559EF700436971 /* CoreDataStack.swift in Sources */,
@@ -611,7 +611,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
+				GCC_PREFIX_HEADER = "Other Sources/xkcd_Prefix.pch";
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
@@ -702,7 +702,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
+				GCC_PREFIX_HEADER = "Other Sources/xkcd_Prefix.pch";
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
@@ -740,7 +740,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
+				GCC_PREFIX_HEADER = "Other Sources/xkcd_Prefix.pch";
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
@@ -776,7 +776,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = xkcd_Prefix.pch;
+				GCC_PREFIX_HEADER = "Other Sources/xkcd_Prefix.pch";
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				HEADER_SEARCH_PATHS = "";
@@ -1052,15 +1052,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		DA6EB770241484E100135165 /* xkcd.xcdatamodeld */ = {
+		DAFB0956241564F900706B1D /* xkcd.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				DA6EB771241484E100135165 /* xkcd 2.xcdatamodel */,
-				DA6EB772241484E100135165 /* xkcd.xcdatamodel */,
+				DAFB0957241564F900706B1D /* xkcd 2.xcdatamodel */,
+				DAFB0958241564F900706B1D /* xkcd.xcdatamodel */,
 			);
-			currentVersion = DA6EB771241484E100135165 /* xkcd 2.xcdatamodel */;
-			name = xkcd.xcdatamodeld;
-			path = ../../xkcd.xcdatamodeld;
+			currentVersion = DAFB0957241564F900706B1D /* xkcd 2.xcdatamodel */;
+			path = xkcd.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
