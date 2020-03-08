@@ -84,7 +84,7 @@
 		03B6BC04112CB3A100C32C21 /* NSString_HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_HTML.h; sourceTree = "<group>"; };
 		03B6BC05112CB3A200C32C21 /* NSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NSString_HTML.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		03B6BC1B112D9D9B00C32C21 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSString_HTML.m; path = ../TestNSString_HTML.m; sourceTree = "<group>"; };
+		03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSString_HTML.m; sourceTree = "<group>"; };
 		03DA9CA91097A4DA005A34B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		03F10D35104D6DDE0045AEFC /* Comic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comic.h; sourceTree = "<group>"; };
 		03F10D36104D6DDE0045AEFC /* Comic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Comic.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -257,11 +257,11 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				DABE7F0C2415606A00155DE3 /* Tests */,
 				DABE7F0224155EB000155DE3 /* TLCommon */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				DABE7F0824155FB800155DE3 /* Other Sources */,
 				DABE7F0924155FEA00155DE3 /* Resources */,
-				51A205A11BCD2E180029ABE2 /* xkcdTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -283,15 +283,6 @@
 				037CC6DF122B1846002E4738 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		51A205A11BCD2E180029ABE2 /* xkcdTests */ = {
-			isa = PBXGroup;
-			children = (
-				51A205A41BCD2E180029ABE2 /* Info.plist */,
-				03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */,
-			);
-			path = xkcdTests;
 			sourceTree = "<group>";
 		};
 		DABE7F0224155EB000155DE3 /* TLCommon */ = {
@@ -388,6 +379,15 @@
 				5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		DABE7F0C2415606A00155DE3 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				51A205A41BCD2E180029ABE2 /* Info.plist */,
+				03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
