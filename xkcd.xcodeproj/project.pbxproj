@@ -255,22 +255,13 @@
 			children = (
 				DABE7F0224155EB000155DE3 /* TLCommon */,
 				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				DABE7F0824155FB800155DE3 /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				51A205A11BCD2E180029ABE2 /* xkcdTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = CustomTemplate;
-			sourceTree = "<group>";
-		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				32CA4F630368D1EE00C91783 /* xkcd_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-			);
-			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
@@ -384,6 +375,15 @@
 				032FA24B1592928D00C39198 /* FAQViewController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DABE7F0824155FB800155DE3 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* xkcd_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			path = "Other Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
