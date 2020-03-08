@@ -652,6 +652,10 @@ static UIImage *__downloadImage = nil;
 #pragma mark NSFetchedResultsControllerDelegate methods
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    if (controller != [self activeFetchedResultsController]) {
+        return;
+    }
+    
 	[self.tableView beginUpdates];
 }
 
@@ -659,7 +663,10 @@ static UIImage *__downloadImage = nil;
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
 		   atIndex:(NSUInteger)sectionIndex
 	 forChangeType:(NSFetchedResultsChangeType)type {
-	
+    if (controller != [self activeFetchedResultsController]) {
+        return;
+    }
+    
 	switch(type) {
 		case NSFetchedResultsChangeInsert:;
 			[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
@@ -679,8 +686,12 @@ static UIImage *__downloadImage = nil;
    didChangeObject:(id)anObject
 	   atIndexPath:(NSIndexPath *)indexPath
 	 forChangeType:(NSFetchedResultsChangeType)type
-	  newIndexPath:(NSIndexPath *)newIndexPath {
-	
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    if (controller != [self activeFetchedResultsController]) {
+        return;
+    }
+    
 	switch(type) {
 		case NSFetchedResultsChangeInsert:;
 			[self.tableView insertRowsAtIndexPaths:@[newIndexPath]
@@ -707,6 +718,10 @@ static UIImage *__downloadImage = nil;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    if (controller != [self activeFetchedResultsController]) {
+        return;
+    }
+    
 	[self.tableView endUpdates];
 }
 
