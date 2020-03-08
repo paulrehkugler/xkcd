@@ -24,6 +24,7 @@
 + (Comic *)lastKnownComic; // highest numbered comic that has been fetched
 
 + (Comic *)comicNumbered:(NSInteger)comicNumber;
++ (BOOL)potentiallyHasRetinaImage:(Comic *)comic;
 
 - (void)saveImageData:(NSData *)imageData;
 - (BOOL)downloaded;

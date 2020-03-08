@@ -48,7 +48,6 @@
 		DAC1B2A71C559A0000436971 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A61C559A0000436971 /* Constants.swift */; };
 		DAC1B2A91C559B2A00436971 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2A81C559B2A00436971 /* Preferences.swift */; };
 		DAC1B2AB1C559EF700436971 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */; };
-		DAC1B2AF1C55AF6E00436971 /* UIImage+EXIFCompensation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2AE1C55AF6E00436971 /* UIImage+EXIFCompensation.swift */; };
 		DAC1B2B11C55B00300436971 /* UIScrollView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */; };
 /* End PBXBuildFile section */
 
@@ -143,7 +142,6 @@
 		DAC1B2A61C559A0000436971 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DAC1B2A81C559B2A00436971 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		DAC1B2AE1C55AF6E00436971 /* UIImage+EXIFCompensation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+EXIFCompensation.swift"; sourceTree = "<group>"; };
 		DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Helper.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,7 +186,6 @@
 				03941EE0159161DB00ADBED9 /* NSArray+Filtering.m */,
 				031FE8EF159536C3008E92DF /* NSDictionary+TypeSafety.h */,
 				031FE8F0159536C3008E92DF /* NSDictionary+TypeSafety.m */,
-				DAC1B2AE1C55AF6E00436971 /* UIImage+EXIFCompensation.swift */,
 				DAC1B2B01C55B00300436971 /* UIScrollView+Helper.swift */,
 				DABE7EFF241545B600155DE3 /* NSMutableArray+Safety.h */,
 				DABE7F00241545B600155DE3 /* NSMutableArray+Safety.m */,
@@ -494,7 +491,6 @@
 				0372FF7D10447552004CD031 /* ComicListViewController.m in Sources */,
 				03F10D37104D6DDE0045AEFC /* Comic.m in Sources */,
 				03F10DB1104D77030045AEFC /* NewComicFetcher.m in Sources */,
-				DAC1B2AF1C55AF6E00436971 /* UIImage+EXIFCompensation.swift in Sources */,
 				03F10DBC104D78450045AEFC /* FetchComicFromWeb.m in Sources */,
 				03F1149D104F2A7C0045AEFC /* SingleComicViewController.m in Sources */,
 				03F114EF104F2EF30045AEFC /* SingleComicImageFetcher.m in Sources */,
