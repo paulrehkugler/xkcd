@@ -354,7 +354,7 @@
 																			 message:failAlertMessage
 																	  preferredStyle:UIAlertControllerStyleAlert];
 	[alertController addAction:
-	 [UIAlertAction actionWithTitle:@"OK"
+	 [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Title of a confirmation dialog")
 							  style:UIAlertActionStyleDefault
 							handler:^(UIAlertAction * _Nonnull action) {
 								[self.navigationController popViewControllerAnimated:YES];
