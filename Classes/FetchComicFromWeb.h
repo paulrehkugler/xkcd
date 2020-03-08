@@ -20,6 +20,7 @@
 @property (nonatomic, readonly) NSString *comicTitleText;
 @property (nonatomic, readonly) NSString *comicImageURL;
 @property (nonatomic, readonly) NSString *comicTranscript;
+@property (nonatomic, readonly) NSString *link;
 @property (nonatomic, readonly) NSError *error;
 @property (nonatomic, readonly) BOOL got404;
 

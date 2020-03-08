@@ -35,12 +35,15 @@
 + (void)deleteDownloadedImage:(NSString *)downloadedImage; // strings drawn from +downloadedImages
 + (NSString *)imagePathForImageFilename:(NSString *)imageFilename;
 
++ (BOOL)hasLargeImage:(Comic *)comic;
+
 @property (nonatomic, readonly) UIImage *image;
 @property (nonatomic) NSNumber *loading;
 @property (nonatomic) NSString *imageURL;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *titleText;
 @property (nonatomic) NSString *transcript;
+@property (nonatomic) NSString *link;
 @property (nonatomic) NSNumber *number;
 
 @end

@@ -43,6 +43,7 @@ static NSMutableSet *downloadedImages = nil;
 @dynamic imageURL;
 @dynamic number;
 @dynamic loading;
+@dynamic link;
 
 + (void)initialize {
 	if ([self class] == [Comic class]) {
@@ -197,6 +198,25 @@ static NSMutableSet *downloadedImages = nil;
 
 + (NSString *)imagePathForImageFilename:(NSString *)imageFilename {
 	return [[CoreDataStack sharedCoreDataStack].applicationsDocumentsDirectory stringByAppendingPathComponent:imageFilename];
+}
+
++ (BOOL)hasLargeImage:(Comic *)comic {
+    // I have this hardcoded list here because these are the comics that are known to have large images.
+    // Because I'm doing the CoreData migration to support the link attribute long after these comics were published,
+    // checking the link attribute won't work. Most users will already have these images downloaded, but some may clear
+    // out their images and redownload all of them (because I added support for large images and 2x images).
+    NSArray<NSNumber *> *comicsThatHaveLargeImages = @[@1970, @1939, @1688, @1509, @1491, @1461, @1407, @1392, @1389, @1298, @1256, @1212,
+                                                      @1196, @1127, @1080, @1079, @1071, @1040, @1000, @930, @850, @832, @802, @681, @657];
+    if ([comicsThatHaveLargeImages containsObject:comic.number]) {
+        return true;
+    } else if (comic.link) {
+        // All of the links for large images seem to end with _large or /large. If this comic has a link like that, we will guess at a large image
+        // url and try to download it. (See: FetchComicImageFromWeb)
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b.+([_/]large/)\\b" options:0 error:nil];
+        return [regex numberOfMatchesInString:comic.link options:0 range:NSMakeRange(0, comic.link.length)] > 0;
+    }
+    
+    return NO;
 }
 
 #pragma mark -

@@ -17,6 +17,7 @@
 @property (nonatomic) NSInteger comicNumber;
 @property (nonatomic) NSURL *comicImageURL;
 @property (nonatomic) NSURL *potentialRetinaImageURL;
+@property (nonatomic) NSURL *potentialLargeImageURL;
 @property (nonatomic) NSData *comicImageData;
 @property (nonatomic) BOOL isRetinaImage;
 @property (nonatomic, weak) id target;
@@ -33,6 +34,7 @@
 
 - (instancetype)initWithComicNumber:(NSInteger)number
                            imageURL:(NSURL *)imageURL
+          attemptLargeImageDownload:(BOOL)attemptLargeImageDownload
                          URLSession:(NSURLSession *)session
                    completionTarget:(id)completionTarget
                              action:(SEL)completionAction
@@ -45,22 +47,53 @@
         _context = aContext;
         _URLSession = session;
         
+        NSString *originalImageURL = self.comicImageURL.absoluteString;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b(.+)(\\.\\w+)\\b" options:0 error:nil];
+        
         if ([self shouldAttemptToDownloadRetinaImage]) {
-            NSString *originalImageURL = self.comicImageURL.absoluteString;
-            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\b(.+)(\\.\\w+)\\b" options:0 error:nil];
+            // This takes URLs that look like https://imgs.xkcd.com/comics/business_greetings.png and converts them to https://imgs.xkcd.com/comics/business_greetings_2x.png
             NSString *potentialRetinaImageURLString = [regex stringByReplacingMatchesInString:originalImageURL options:0 range:NSMakeRange(0, originalImageURL.length) withTemplate:@"$1_2x$2"];
             _potentialRetinaImageURL = [[NSURL alloc] initWithString:potentialRetinaImageURLString];
+        }
+        
+        if (attemptLargeImageDownload) {
+            // This takes URLs that look like https://imgs.xkcd.com/comics/movie_narrative_charts.png and converts them to https://imgs.xkcd.com/comics/movie_narrative_charts_large.png
+            NSString *potentialLargeImageURLString = [regex stringByReplacingMatchesInString:originalImageURL options:0 range:NSMakeRange(0, originalImageURL.length) withTemplate:@"$1_large$2"];
+            _potentialLargeImageURL = [[NSURL alloc] initWithString:potentialLargeImageURLString];
         }
     }
     return self;
 }
 
 - (void)main {
-    if (self.potentialRetinaImageURL) {
+    if (self.potentialLargeImageURL) {
+        [self requestLargeImage];
+    }
+    else if (self.potentialRetinaImageURL) {
         [self requestRetinaImage];
-    } else {
+    }
+    else {
         [self requestNonRetinaImage];
     }
+}
+
+- (void)requestLargeImage {
+    [self requestImage:self.potentialLargeImageURL completion:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSInteger statusCode = ((NSHTTPURLResponse *) response).statusCode;
+        
+        if (error || (statusCode < 200 || statusCode > 299)) {
+            if (self.potentialRetinaImageURL) {
+                [self requestRetinaImage];
+            }
+            else {
+                [self requestNonRetinaImage];
+            }
+        } else {
+            TLDebugLog(@"Large image download success for comic %li", self.comicNumber);
+            self.isRetinaImage = YES;
+            [self completeRequestWithComicImageData:data error:nil];
+        }
+    }];
 }
 
 - (void)requestRetinaImage {
