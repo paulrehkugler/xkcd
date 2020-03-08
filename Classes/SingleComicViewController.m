@@ -5,7 +5,6 @@
 
 #import "SingleComicViewController.h"
 #import "Comic.h"
-#import "TiledImage.h"
 #import "CGGeometry_TLCommon.h"
 #import "SingleComicImageFetcher.h"
 #import "ComicListViewController.h"
@@ -155,20 +154,14 @@
 	// Load up the comic image/view
 	UIImage *comicImage = self.comic.image;
 	CGSize contentSize = comicImage.exifAgnosticSize;
-	TiledImage *tiles = [[TiledImage alloc] initWithImage:comicImage tileWidth:kTileWidth tileHeight:kTileHeight];
 	self.contentView = [[UIView alloc] initWithFrame:CGRectZeroWithSize(contentSize)];
-	self.comicImageViews = [NSMutableArray arrayWithCapacity:(tiles.widthCount * tiles.heightCount)];
-	for (NSUInteger x = 0; x < tiles.widthCount; ++x) {
-		for (NSUInteger y = 0; y < tiles.heightCount; ++y) {
-			UIImageView *comicImageView = [[UIImageView alloc] initWithImage:[tiles imageAtXIndex:x YIndex:y]];
-			comicImageView.frame = CGRectWithXYAndSize(x * kTileWidth, y * kTileHeight, comicImageView.frame.size); // adjust origin appropriately
-			[self.comicImageViews addObject:comicImageView];
-		}
-	}
-	
+    
+    self.comicImageViews = [@[[[UIImageView alloc] initWithImage:comicImage]] mutableCopy];
+    
 	for (UIView *tileView in self.comicImageViews) {
 		[self.contentView addSubview:tileView];
 	}
+    
 	[self.imageScroller addSubview:self.contentView];
     	
 	UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTitleText:)];
