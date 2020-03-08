@@ -212,22 +212,7 @@
 				03F114F2104F30140045AEFC /* FetchComicImageFromWeb.m */,
 			);
 			name = "Fetch related";
-			sourceTree = "<group>";
-		};
-		03F10D34104D6DD20045AEFC /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				03E9063310AA3C5F00D74902 /* Fetch related */,
-				03F10D35104D6DDE0045AEFC /* Comic.h */,
-				03F10D36104D6DDE0045AEFC /* Comic.m */,
-				03B6BC04112CB3A100C32C21 /* NSString_HTML.h */,
-				03B6BC05112CB3A200C32C21 /* NSString_HTML.m */,
-				516356E31BCBE12600BF7D91 /* FCOpenInChromeActivity.h */,
-				516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */,
-				516356E51BCBE12600BF7D91 /* FCOpenInSafariActivity.h */,
-				516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */,
-			);
-			name = Models;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		03F10F03104D8ECB0045AEFC /* Controllers */ = {
@@ -261,7 +246,7 @@
 				DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */,
 				DABE7F0424155EEB00155DE3 /* Categories */,
 				DABE7F0524155F2400155DE3 /* Protocols */,
-				03F10D34104D6DD20045AEFC /* Models */,
+				DABE7F0624155F6100155DE3 /* Models */,
 				03F10F03104D8ECB0045AEFC /* Controllers */,
 				03F11404104F21110045AEFC /* XkcdErrorCodes.h */,
 				DAC1B2A31C558B0900436971 /* xkcd-Bridging-Header.h */,
@@ -383,6 +368,22 @@
 				03F114F0104F2F4A0045AEFC /* SingleComicImageFetcherDelegate.h */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		DABE7F0624155F6100155DE3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				03E9063310AA3C5F00D74902 /* Fetch related */,
+				03F10D35104D6DDE0045AEFC /* Comic.h */,
+				03F10D36104D6DDE0045AEFC /* Comic.m */,
+				03B6BC04112CB3A100C32C21 /* NSString_HTML.h */,
+				03B6BC05112CB3A200C32C21 /* NSString_HTML.m */,
+				516356E31BCBE12600BF7D91 /* FCOpenInChromeActivity.h */,
+				516356E41BCBE12600BF7D91 /* FCOpenInChromeActivity.m */,
+				516356E51BCBE12600BF7D91 /* FCOpenInSafariActivity.h */,
+				516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
