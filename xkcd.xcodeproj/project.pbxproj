@@ -177,6 +177,7 @@
 				034E0E9E10A9EDA00021D494 /* README.md */,
 			);
 			name = Meta;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		03DA9D721097B497005A34B2 /* System */ = {
@@ -188,6 +189,7 @@
 				039387FC10508DE8001EFE4E /* ad-hoc-entitlements.plist */,
 			);
 			name = System;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		03DA9D751097B4C1005A34B2 /* Core data */ = {
@@ -197,6 +199,7 @@
 				03870FCE1595525D00436B99 /* comics.sqlite */,
 			);
 			name = "Core data";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		03E9063310AA3C5F00D74902 /* Fetch related */ = {
@@ -222,6 +225,7 @@
 				B5C55A76161E740400B0A2D9 /* iTunesArtwork@2x.jpg */,
 			);
 			name = "Application icons";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
@@ -256,26 +260,12 @@
 				DABE7F0224155EB000155DE3 /* TLCommon */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				DABE7F0824155FB800155DE3 /* Other Sources */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
+				DABE7F0924155FEA00155DE3 /* Resources */,
 				51A205A11BCD2E180029ABE2 /* xkcdTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = CustomTemplate;
-			sourceTree = "<group>";
-		};
-		29B97317FDCFA39411CA2CEA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				51AB8A261BCAD05100BB58A7 /* Media.xcassets */,
-				03F40E3C122AA54000A35F44 /* Application icons */,
-				034E0E9910A9ED7C0021D494 /* Meta */,
-				03DA9D721097B497005A34B2 /* System */,
-				03DA9D751097B4C1005A34B2 /* Core data */,
-				032FA24F159294B900C39198 /* faq.plist */,
-				5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -384,6 +374,20 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			path = "Other Sources";
+			sourceTree = "<group>";
+		};
+		DABE7F0924155FEA00155DE3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				51AB8A261BCAD05100BB58A7 /* Media.xcassets */,
+				03F40E3C122AA54000A35F44 /* Application icons */,
+				034E0E9910A9ED7C0021D494 /* Meta */,
+				03DA9D721097B497005A34B2 /* System */,
+				03DA9D751097B4C1005A34B2 /* Core data */,
+				032FA24F159294B900C39198 /* faq.plist */,
+				5183AD081BCB123800F5AFAF /* LaunchStoryboard.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
