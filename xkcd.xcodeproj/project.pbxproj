@@ -275,27 +275,6 @@
 			name = "Application icons";
 			sourceTree = "<group>";
 		};
-		03F701FA1464BECC0091BF49 /* TLCommon */ = {
-			isa = PBXGroup;
-			children = (
-				03F701FD1464BEDF0091BF49 /* TLMacros.h */,
-				03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */,
-				03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */,
-				03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */,
-				03F7021F1464C4450091BF49 /* UIActivityIndicatorView_TLCommon.h */,
-				03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */,
-				03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */,
-				03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */,
-				03F702331464C5550091BF49 /* UITableView_TLCommon.h */,
-				03F702341464C5550091BF49 /* UITableView_TLCommon.m */,
-				03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */,
-				03F702401464C5B10091BF49 /* TLMersenneTwister.m */,
-				5136AE8A175463A100742406 /* TLNavigationController.h */,
-				5136AE8B175463A100742406 /* TLNavigationController.m */,
-			);
-			name = TLCommon;
-			sourceTree = "<group>";
-		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,7 +304,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				03F701FA1464BECC0091BF49 /* TLCommon */,
+				DABE7F0224155EB000155DE3 /* TLCommon */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -383,6 +362,27 @@
 				03B6BC6C112DA07D00C32C21 /* TestNSString_HTML.m */,
 			);
 			path = xkcdTests;
+			sourceTree = "<group>";
+		};
+		DABE7F0224155EB000155DE3 /* TLCommon */ = {
+			isa = PBXGroup;
+			children = (
+				03F701FD1464BEDF0091BF49 /* TLMacros.h */,
+				03F7020A1464C2990091BF49 /* TLModalActivityIndicatorView.h */,
+				03F7020B1464C2990091BF49 /* TLModalActivityIndicatorView.m */,
+				03F7020E1464C2AA0091BF49 /* CGGeometry_TLCommon.h */,
+				03F7021F1464C4450091BF49 /* UIActivityIndicatorView_TLCommon.h */,
+				03F702201464C4450091BF49 /* UIActivityIndicatorView_TLCommon.m */,
+				03F702271464C4A70091BF49 /* UIBarButtonItem_TLCommon.h */,
+				03F702281464C4A70091BF49 /* UIBarButtonItem_TLCommon.m */,
+				03F702331464C5550091BF49 /* UITableView_TLCommon.h */,
+				03F702341464C5550091BF49 /* UITableView_TLCommon.m */,
+				03F7023F1464C5B10091BF49 /* TLMersenneTwister.h */,
+				03F702401464C5B10091BF49 /* TLMersenneTwister.m */,
+				5136AE8A175463A100742406 /* TLNavigationController.h */,
+				5136AE8B175463A100742406 /* TLNavigationController.m */,
+			);
+			path = TLCommon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
