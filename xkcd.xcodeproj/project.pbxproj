@@ -215,19 +215,6 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		03F10F03104D8ECB0045AEFC /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				0372FF7B10447552004CD031 /* ComicListViewController.h */,
-				0372FF7C10447552004CD031 /* ComicListViewController.m */,
-				03F1149B104F2A7C0045AEFC /* SingleComicViewController.h */,
-				03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */,
-				032FA24A1592928D00C39198 /* FAQViewController.h */,
-				032FA24B1592928D00C39198 /* FAQViewController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
 		03F40E3C122AA54000A35F44 /* Application icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,7 +234,7 @@
 				DABE7F0424155EEB00155DE3 /* Categories */,
 				DABE7F0524155F2400155DE3 /* Protocols */,
 				DABE7F0624155F6100155DE3 /* Models */,
-				03F10F03104D8ECB0045AEFC /* Controllers */,
+				DABE7F0724155F9300155DE3 /* Controllers */,
 				03F11404104F21110045AEFC /* XkcdErrorCodes.h */,
 				DAC1B2A31C558B0900436971 /* xkcd-Bridging-Header.h */,
 			);
@@ -384,6 +371,19 @@
 				516356E61BCBE12600BF7D91 /* FCOpenInSafariActivity.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		DABE7F0724155F9300155DE3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0372FF7B10447552004CD031 /* ComicListViewController.h */,
+				0372FF7C10447552004CD031 /* ComicListViewController.m */,
+				03F1149B104F2A7C0045AEFC /* SingleComicViewController.h */,
+				03F1149C104F2A7C0045AEFC /* SingleComicViewController.m */,
+				032FA24A1592928D00C39198 /* FAQViewController.h */,
+				032FA24B1592928D00C39198 /* FAQViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
