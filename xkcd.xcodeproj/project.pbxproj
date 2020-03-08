@@ -243,15 +243,6 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		03F10F0A104D8F0A0045AEFC /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				03F10F0B104D8F1C0045AEFC /* NewComicFetcherDelegate.h */,
-				03F114F0104F2F4A0045AEFC /* SingleComicImageFetcherDelegate.h */,
-			);
-			name = Protocols;
-			sourceTree = "<group>";
-		};
 		03F40E3C122AA54000A35F44 /* Application icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,7 +260,7 @@
 				DAC1B2A41C558B0900436971 /* AppDelegate.swift */,
 				DAC1B2AA1C559EF700436971 /* CoreDataStack.swift */,
 				DABE7F0424155EEB00155DE3 /* Categories */,
-				03F10F0A104D8F0A0045AEFC /* Protocols */,
+				DABE7F0524155F2400155DE3 /* Protocols */,
 				03F10D34104D6DD20045AEFC /* Models */,
 				03F10F03104D8ECB0045AEFC /* Controllers */,
 				03F11404104F21110045AEFC /* XkcdErrorCodes.h */,
@@ -383,6 +374,15 @@
 				DABE7F00241545B600155DE3 /* NSMutableArray+Safety.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		DABE7F0524155F2400155DE3 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				03F10F0B104D8F1C0045AEFC /* NewComicFetcherDelegate.h */,
+				03F114F0104F2F4A0045AEFC /* SingleComicImageFetcherDelegate.h */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
