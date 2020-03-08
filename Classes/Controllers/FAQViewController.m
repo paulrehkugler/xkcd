@@ -25,9 +25,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	self.view.backgroundColor = UIColor.whiteColor;
-	[self.view addSubview:self.textView];
+    [self.view addSubview:self.textView];
 	
 	NSArray<NSLayoutConstraint *> *constraints = @[
 	  [self.textView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
@@ -52,21 +50,28 @@
 	NSMutableAttributedString *display = [[NSMutableAttributedString alloc] init];
 	
 	UIFont *boldFont = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-	NSDictionary *qAttributes = @{
+	NSMutableDictionary *qAttributes = [@{
 								  NSFontAttributeName: boldFont,
 								  NSParagraphStyleAttributeName: paragraphStyle
-								  };
+								  } mutableCopy];
 	
+    
+    
 	UIFont *regularFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-	NSDictionary *aAttributes = @{
+	NSMutableDictionary *aAttributes = [@{
 								  NSFontAttributeName: regularFont,
 								  NSParagraphStyleAttributeName: paragraphStyle
-								  };
+								  } mutableCopy];
 	
+    if (@available(iOS 13.0, *)) {
+        [qAttributes addEntriesFromDictionary:@{ NSForegroundColorAttributeName: [UIColor labelColor] }];
+        [aAttributes addEntriesFromDictionary:@{ NSForegroundColorAttributeName: [UIColor labelColor] }];
+    }
+    
 	for (NSDictionary *faqEntry in faqArray) {
 		NSString *q = faqEntry[@"Q"];
 		NSString *a = faqEntry[@"A"];
-		
+        
 		NSAttributedString *attributedQ = [[NSAttributedString alloc] initWithString:q attributes:qAttributes];
 		[display appendAttributedString:attributedQ];
 		

@@ -68,9 +68,16 @@ static UIImage *__downloadImage = nil;
 
 - (void)addRefreshControl {
 	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    
 	[refreshControl addTarget:self action:@selector(checkForNewComics) forControlEvents:UIControlEventValueChanged];
 	
 	self.refreshControl = refreshControl;
+    
+    if (@available(iOS 13.0, *)) {
+        refreshControl.tintColor = [UIColor systemFillColor];
+        refreshControl.backgroundColor = [UIColor systemBackgroundColor];
+    }
+
 }
 
 - (void)addNavigationBarButtons {
@@ -481,7 +488,12 @@ static UIImage *__downloadImage = nil;
 			comicCell.accessibilityHint = NSLocalizedString(@"Opens the comic", @"downloaded_comic_accessibility_hint");
 		}
 		else if ([comic.loading boolValue] || [self.imageFetcher downloadingAll]) {
-			comicCell.accessoryView = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:UIActivityIndicatorViewStyleGray];
+            UIActivityIndicatorViewStyle activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+            if (@available(iOS 13.0, *)) {
+                activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+            }
+			
+            comicCell.accessoryView = [UIActivityIndicatorView animatingActivityIndicatorViewWithStyle:activityIndicatorViewStyle];
 			comicCell.accessibilityHint = NSLocalizedString(@"Waiting for download", @"downloading_comic_accessibility_hint");
 		}
 		else {
@@ -496,11 +508,6 @@ static UIImage *__downloadImage = nil;
 	
 	cell = comicCell;
 	return cell;
-}
-
-- (void)tableView:(UITableView *)aTableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	cell.backgroundColor = [UIColor whiteColor];
-	cell.accessoryView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
