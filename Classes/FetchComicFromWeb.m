@@ -17,6 +17,7 @@
 @property (nonatomic) NSString *comicTitleText;
 @property (nonatomic) NSString *comicImageURL;
 @property (nonatomic) NSString *comicTranscript;
+@property (nonatomic) NSString *link;
 @property (nonatomic, weak) id target;
 @property (nonatomic) SEL action;
 @property (nonatomic) NSError *error;
@@ -77,7 +78,7 @@
 						self.comicTitleText = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"alt"]];
 						self.comicImageURL = [NSString stringByCleaningHTML:[comicDictionary stringForKey:@"img"]];
 						self.comicTranscript = [comicDictionary stringForKey:@"transcript"];
-						// TODO: use link/news to detect "large version" image urls
+                        self.link = [comicDictionary stringForKey:@"link"];
 					}
 				}
 			}

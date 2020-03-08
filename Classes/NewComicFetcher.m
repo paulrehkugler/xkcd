@@ -80,6 +80,7 @@
 		newComic.titleText = fetchOperation.comicTitleText;
 		newComic.imageURL = fetchOperation.comicImageURL;
 		newComic.transcript = fetchOperation.comicTranscript;
+        newComic.link = fetchOperation.link;
 		[self.delegate newComicFetcher:self didFetchComic:newComic];
 	}
 	[self.comicsToInsert removeAllObjects];

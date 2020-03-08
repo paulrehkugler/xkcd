@@ -43,6 +43,7 @@
     NSURL *comicImageURL = [NSURL URLWithString:comic.imageURL];
     FetchComicImageFromWeb *fetchOperation = [[FetchComicImageFromWeb alloc] initWithComicNumber:[comic.number integerValue]
                                                                                          imageURL:comicImageURL
+                                                                        attemptLargeImageDownload:comic.link
                                                                                       URLSession:self.URLSession
                                                                                  completionTarget:self
                                                                                            action:@selector(didCompleteFetchOperation:)
