@@ -184,6 +184,11 @@ static UIImage *__downloadImage = nil;
 
 - (void)viewComic:(Comic *)comic {
 	SingleComicViewController *singleComicViewController = [[SingleComicViewController alloc] initWithComic:comic];
+    
+    if (self.searchController.isActive) {
+        [self.searchController dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 	[self.navigationController pushViewController:singleComicViewController animated:YES];
 }
 
@@ -500,9 +505,6 @@ static UIImage *__downloadImage = nil;
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	Comic *selectedComic = [self comicAtIndexPath:indexPath inTableView:aTableView];
-	if (self.searchController.isActive) {
-		self.searchController.active = NO;
-	}
 	
 	BOOL shouldDeselect = YES;
 	if ([selectedComic.number integerValue] != 404) {
@@ -650,6 +652,10 @@ static UIImage *__downloadImage = nil;
 #pragma mark NSFetchedResultsControllerDelegate methods
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    if (controller != [self activeFetchedResultsController]) {
+        return;
+    }
+    
 	[self.tableView beginUpdates];
 }
 
@@ -657,13 +663,16 @@ static UIImage *__downloadImage = nil;
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
 		   atIndex:(NSUInteger)sectionIndex
 	 forChangeType:(NSFetchedResultsChangeType)type {
-	
+    if (controller != [self activeFetchedResultsController]) {
+        return;
+    }
+    
 	switch(type) {
-		case NSFetchedResultsChangeInsert:;
+		case NSFetchedResultsChangeInsert:
 			[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
 						  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
-		case NSFetchedResultsChangeDelete:;
+		case NSFetchedResultsChangeDelete:
 			[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
 						  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
@@ -677,24 +686,28 @@ static UIImage *__downloadImage = nil;
    didChangeObject:(id)anObject
 	   atIndexPath:(NSIndexPath *)indexPath
 	 forChangeType:(NSFetchedResultsChangeType)type
-	  newIndexPath:(NSIndexPath *)newIndexPath {
-	
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    if (controller != [self activeFetchedResultsController]) {
+        return;
+    }
+    
 	switch(type) {
-		case NSFetchedResultsChangeInsert:;
+		case NSFetchedResultsChangeInsert:
 			[self.tableView insertRowsAtIndexPaths:@[newIndexPath]
 								  withRowAnimation:UITableViewRowAnimationAutomatic];
 			break;
 			
-		case NSFetchedResultsChangeDelete:;
+		case NSFetchedResultsChangeDelete:
 			[self.tableView deleteRowsAtIndexPaths:@[indexPath]
 									 withRowAnimation:UITableViewRowAnimationFade];
 			break;
 			
-		case NSFetchedResultsChangeUpdate:;
+		case NSFetchedResultsChangeUpdate:
 			[self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
 			break;
 			
-		case NSFetchedResultsChangeMove:;
+		case NSFetchedResultsChangeMove:
 			[self.tableView deleteRowsAtIndexPaths:@[indexPath]
 								  withRowAnimation:UITableViewRowAnimationFade];
 			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
@@ -705,6 +718,10 @@ static UIImage *__downloadImage = nil;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    if (controller != [self activeFetchedResultsController]) {
+        return;
+    }
+    
 	[self.tableView endUpdates];
 }
 
