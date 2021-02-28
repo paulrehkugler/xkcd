@@ -275,9 +275,14 @@
 	[self.navigationController setViewControllers:viewControllerStack animated:NO];
 	
 	ComicListViewController *comicList = viewControllerStack[0];
-	[comicList.tableView selectRowAtIndexPath:[comicList indexPathForComicNumbered:[newComic.number integerValue]]
-									 animated:NO
-							   scrollPosition:UITableViewScrollPositionMiddle];
+    
+    NSIndexPath* indexPath = [[comicList activeFetchedResultsController]
+                              indexPathForObject:newComic];
+    if (indexPath) {
+        [comicList.tableView selectRowAtIndexPath:indexPath
+                                         animated:NO
+                                   scrollPosition:UITableViewScrollPositionMiddle];
+    }
 }
 
 #pragma mark - Gesture recognizer callbacks

@@ -23,5 +23,6 @@ SingleComicImageFetcherDelegate, MFMailComposeViewControllerDelegate, UIScrollVi
 @property (nonatomic) NSInteger requestedLaunchComic;
 
 - (NSIndexPath *)indexPathForComicNumbered:(NSInteger)comicNumber;
+- (NSFetchedResultsController *)activeFetchedResultsController;
 
 @end
